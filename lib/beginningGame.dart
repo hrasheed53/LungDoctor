@@ -10,7 +10,10 @@ class _InstructionsState extends State<Instructions> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: navBar(),
+      body: Text(
+        'hello testing',
+      ),
+      bottomNavigationBar: navBar(),
     );
   }
 }
