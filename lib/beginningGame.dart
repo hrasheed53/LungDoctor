@@ -18,7 +18,7 @@ class _InstructionsState extends State<Instructions> {
                 image: AssetImage("assets/images/beginningGameBG.jpg"),
                 fit: BoxFit.cover,
                 colorFilter: new ColorFilter.mode(
-                    Colors.black.withOpacity(0.3), BlendMode.darken),
+                    Colors.black.withOpacity(0.2), BlendMode.darken),
               ),
             ),
           ),
@@ -38,6 +38,30 @@ class _InstructionsState extends State<Instructions> {
               iconSize: 50,
               onPressed: () {},
             ),
+          ),
+          Material(
+            elevation: 5.0,
+            borderRadius: BorderRadius.circular(30.0),
+            color: Color(0xffe34646),
+            child: MaterialButton(
+                minWidth: MediaQuery.of(context).size.width,
+                padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => Instructions(),
+                      ));
+                },
+                child: Text(
+                  "Sign Out",
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                      fontFamily: 'Montserrat',
+                      fontSize: 20.0,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold),
+                )),
           )
         ]),
       ),

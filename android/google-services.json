@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "710337551246",
+    "firebase_url": "https://the-lung-doctor.firebaseio.com",
+    "project_id": "the-lung-doctor",
+    "storage_bucket": "the-lung-doctor.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710337551246:android:f483bac498cbd8242a22df",
+        "android_client_info": {
+          "package_name": "com.example.Resp2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710337551246-cq4bkqj7dttigs5vc39umg2viiabavkg.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.Resp2",
+            "certificate_hash": "db79abab56923e29b7aaa93b1c7f99579b6d1c3b"
+          }
+        },
+        {
+          "client_id": "710337551246-ueffovdhoo4mtbsr39do0flq7tjlsglr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1NYKuXCNd_6zq8YbctrA-uiHbNYwjrM4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710337551246-ueffovdhoo4mtbsr39do0flq7tjlsglr.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "710337551246-e4a8e0o65eod2r52plv8t0khir8mdktn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.Resp2"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
