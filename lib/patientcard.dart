@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:io';
 import 'package:path/path.dart';
-// import 'package:excel/excel.dart';
+import 'testResults.dart';
+
 // Uncomment lines 7 and 10 to view the visual layout at runtime.
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
@@ -73,7 +73,7 @@ class PatientCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '21',
+                            '67',
                           ),
                           Text(
                             'F',
@@ -151,19 +151,19 @@ class PatientCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'd',
+                            '38.4 C',
                           ),
                           Text(
-                            'F',
+                            '121 bpm',
                           ),
                           Text(
-                            'White',
+                            '104/53',
                           ),
                           Text(
-                            'White',
+                            '91%',
                           ),
                           Text(
-                            'White',
+                            '4 L/min',
                           ),
                         ],
                       ),
@@ -186,41 +186,121 @@ class PatientCard extends StatelessWidget {
         border: Border.all(color: Colors.black38, width: 1),
         borderRadius: BorderRadius.circular(12),
       ),
-      padding: const EdgeInsets.all(12),
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            /*1*/
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          Container(
+            padding:
+                const EdgeInsets.only(bottom: 8, top: 8, left: 8, right: 2),
+            child: Row(
               children: [
-                /*2*/
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'Age: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Text(
+                      'Past History 1:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
-                  ),
+                    Text(
+                      'Past History 2:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Past History 3:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Tobacco Use:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Onset of Symptoms:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Duration of Symptoms:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Provocating Factors:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Description of Symptoms:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Severity of Symptoms:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(
+                      'Relieving Factors:',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
                 ),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'Gender: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+              ],
+            ),
+          ),
+          Container(
+            padding:
+                const EdgeInsets.only(bottom: 8, top: 8, left: 2, right: 8),
+            child: Row(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'heart failure',
                     ),
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 8),
-                  child: Text(
-                    'Race: ',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
+                    Text(
+                      'coronary artery disease',
                     ),
-                  ),
+                    Text(
+                      'COPD',
+                    ),
+                    Text(
+                      'current',
+                    ),
+                    Text(
+                      '3 days',
+                    ),
+                    Text(
+                      'constant',
+                    ),
+                    Text(
+                      'exertion',
+                    ),
+                    Text(
+                      'chest heaviness',
+                    ),
+                    Text(
+                      'severe',
+                    ),
+                    Text(
+                      'none',
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -229,15 +309,65 @@ class PatientCard extends StatelessWidget {
       ),
     );
 
+//---------------------------------------------------------------------------------
+//-----------------------X-RAYS AND TESTS BUTTONS----------------------------------
     Widget buttonSection = Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
-          _buildButtonColumn(color, Icons.wb_sunny, 'ORDER X-RAYS'),
-          _buildButtonColumn(color, Icons.folder_shared, 'ORDER TESTS')
+//-----------------------X-RAYS BUTTON----------------------------------
+          Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  final snackBar = SnackBar(content: Text("Tap"));
+
+                  Scaffold.of(context).showSnackBar(snackBar);
+                },
+                child:
+                    _buildButtonColumn(color, Icons.wb_sunny, 'ORDER X-RAYS'),
+              ),
+            ],
+          ),
+//-----------------------END X-RAYS BUTTON----------------------------------
+//-----------------------ORDER TESTS BUTTON----------------------------------
+          Column(
+            children: [
+              GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => TestResults()),
+                    );
+                  },
+                  child: _buildButtonColumn(
+                      color, Icons.folder_shared, 'ORDER TESTS')),
+            ],
+          )
+        ],
+      ),
+//-----------------------END ORDER TESTS BUTTON----------------------------------
+    );
+
+//-----------------------BUTTON FOR DIAGNOSING----------------------------------
+    Widget diagnoseButton = Container(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          GestureDetector(
+            onTap: () {
+              //THIS IS PLACEHOLDER ONTAP
+              final snackBar = SnackBar(content: Text("Tap"));
+
+              Scaffold.of(context).showSnackBar(snackBar);
+            },
+            child: _buildDiagnoseButtonColumn(
+                const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
+          ),
         ],
       ),
     );
+//-----------------------END BUTTON FOR DIAGNOSING----------------------------------
 
     return MaterialApp(
       title: 'Patient Chart',
@@ -255,6 +385,8 @@ class PatientCard extends StatelessWidget {
             patientHistory,
             Padding(padding: EdgeInsets.only(top: 16.0)),
             buttonSection,
+            Padding(padding: EdgeInsets.only(top: 16.0)),
+            diagnoseButton
           ],
         ),
       ),
@@ -263,22 +395,100 @@ class PatientCard extends StatelessWidget {
 
   Column _buildButtonColumn(Color color, IconData icon, String label) {
     return Column(
-      mainAxisSize: MainAxisSize.min,
-      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Icon(icon, color: color),
         Container(
-          margin: const EdgeInsets.only(top: 8),
-          child: Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-              color: color,
-            ),
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.blueGrey, width: 2),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[300].withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: color, size: 24),
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: color,
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ],
+    );
+  }
+
+  Column _buildDiagnoseButtonColumn(Color color, IconData icon, String label) {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black38, width: 1),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[300].withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: color, size: 48),
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                    color: color,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class TestResults extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Test Results'),
+      ),
+      body: Center(
+        child: FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text('Go back!'),
+        ),
+      ),
     );
   }
 }
