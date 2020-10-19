@@ -38,6 +38,11 @@ class _LeaderBoardState extends State<LeaderBoard> {
               leading: Text('5'),
               title: Text("User 5"),
               subtitle: Text("55555")),
+          ListTile(
+              leading: Text('6'),
+              title: Text("User 6"),
+              subtitle: Text("44434")),
           navBar()
         ]));
   }
+}
