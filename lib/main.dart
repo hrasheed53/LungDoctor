@@ -12,7 +12,7 @@ class LoginPage extends StatelessWidget {
     return MaterialApp(
       title: 'Login Page',
       theme: ThemeData(
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: LoginFields(title: 'Login Page'),
@@ -56,7 +56,7 @@ TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
         final loginButon = Material(
           elevation: 5.0,
           borderRadius: BorderRadius.circular(30.0),
-          color: Color(0xffe34646),
+          color: Colors.blue[600],
           child: MaterialButton(
             minWidth: MediaQuery.of(context).size.width,
             padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -79,7 +79,7 @@ TextStyle style = TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
               gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Colors.white, Colors.deepOrange[200]])),
+              colors: [Colors.white, Colors.lightBlue[100]])),
               child: Padding(
                 padding: const EdgeInsets.all(36.0),
                 child: Column(

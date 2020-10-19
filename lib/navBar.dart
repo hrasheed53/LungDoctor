@@ -51,23 +51,22 @@ class _navBarState extends State<navBar> {
     return BottomNavigationBar(
       selectedItemColor: Colors.blue,
       selectedIconTheme: IconThemeData(color: Colors.blue),
-      unselectedIconTheme: IconThemeData(color: Colors.red),
       unselectedItemColor: Colors.red,
       items: <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          icon: Icon(Icons.games, color: Colors.red),
+          icon: Icon(Icons.games, color: Colors.blue),
           label: 'Play',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.arrow_upward, color: Colors.red),
+          icon: Icon(Icons.arrow_upward, color: Colors.blue),
           label: 'Leader Board',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.settings, color: Colors.red),
+          icon: Icon(Icons.settings, color: Colors.blue),
           label: 'Settings',
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.shopping_bag, color: Colors.red),
+          icon: Icon(Icons.shopping_bag, color: Colors.blue),
           label: 'Store',
         ),
       ],

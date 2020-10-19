@@ -18,23 +18,26 @@ class _GameState extends State<Game> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Game'),
+      appBar: AppBar(
+        title: const Text('Game'),
+      ),
+      body: Container(
+        decoration: BoxDecoration(
+            gradient: LinearGradient(
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+                colors: [Colors.white, Colors.deepOrange[200]])),
+        child: ListTile(
+          title: Text(
+            "How many patients would you like to see in this session?",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
+            textAlign: TextAlign.left,
+          ),
+          subtitle: entirePage(),
         ),
-        body: Container(
-            decoration: BoxDecoration(
-                gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [Colors.white, Colors.deepOrange[200]])),
-            child: ListTile(
-              title: Text(
-                "How many patients would you like to see in this session?",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-                textAlign: TextAlign.left,
-              ),
-              subtitle: entirePage(),
-            )));
+      ),
+      bottomNavigationBar: navBar(),
+    );
   }
 
   Widget entirePage() {

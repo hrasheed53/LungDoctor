@@ -34,7 +34,7 @@ class _InstructionsState extends State<Instructions> {
           Align(
             alignment: Alignment.bottomRight,
             child: IconButton(
-              icon: Icon(Icons.help, color: Colors.redAccent),
+              icon: Icon(Icons.help, color: Colors.blue[600]),
               iconSize: 50,
               onPressed: () {},
             ),
@@ -42,7 +42,7 @@ class _InstructionsState extends State<Instructions> {
           Material(
             elevation: 5.0,
             borderRadius: BorderRadius.circular(30.0),
-            color: Color(0xffe34646),
+            color: Colors.blue[600],
             child: MaterialButton(
                 minWidth: MediaQuery.of(context).size.width,
                 padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
