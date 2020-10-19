@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'navBar.dart';
+import 'sabatogeInstructions.dart';
 
 
 class Settings extends StatefulWidget {
@@ -95,11 +96,24 @@ class _SettingsState extends State<Settings> {
               onChanged: (val){},
 
             ),
-            SizedBox(height: 35),
-            navBar(),
+            Align(
+            alignment: Alignment.bottomCenter,
+            child: IconButton(
+              icon: Icon(Icons.help, color: Colors.blue[600]),
+              iconSize: 50,
+              onPressed: () {
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => QA(),
+          ));
+              },
+            ),
+          ),
           ],
         ),
-      )
+      ),
+      bottomNavigationBar: navBar(),
     );
   }
   Container line() {

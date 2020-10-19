@@ -26,7 +26,7 @@ class _GameState extends State<Game> {
               gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
-              colors: [Colors.white, Colors.deepOrange[200]])),
+              colors: [Colors.white, Colors.lightBlue[100]])),
         child: ListTile(
               title: Text(
                 "How many patients would you like to see in this session?",
@@ -34,7 +34,9 @@ class _GameState extends State<Game> {
                 textAlign: TextAlign.left,
               ),
               subtitle: entirePage(),
-            )));
+            ),),
+            bottomNavigationBar: navBar(),
+            );
   }
   Widget entirePage(){
     return Container(
@@ -58,7 +60,7 @@ class _GameState extends State<Game> {
                   children: <Widget>[
                     Text("1",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.deepOrange)),
+                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[600])),
                   ],
                 ),
               ),
@@ -80,7 +82,7 @@ class _GameState extends State<Game> {
                   children: <Widget>[
                     Text("3",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.deepOrange)),
+                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[600])),
                   ],
                 ),
               ),
@@ -102,7 +104,7 @@ class _GameState extends State<Game> {
                   children: <Widget>[
                     Text("5",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.deepOrange)),
+                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[600])),
                   ],
                 ),
               ),
@@ -124,7 +126,7 @@ class _GameState extends State<Game> {
                   children: <Widget>[
                     Text("7",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.deepOrange)),
+                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[600])),
                   ],
                 ),
               ),
@@ -146,7 +148,7 @@ class _GameState extends State<Game> {
                   children: <Widget>[
                     Text("10",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.deepOrange)),
+                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[600])),
                   ],
                 ),
               ),
@@ -168,7 +170,7 @@ class _GameState extends State<Game> {
                   children: <Widget>[
                     Text("15",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.deepOrange)),
+                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[600])),
                   ],
                 ),
               ),
@@ -192,7 +194,7 @@ class _GameState extends State<Game> {
                   children: <Widget>[
                     Text("Instructions",
                         style: TextStyle(
-                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.deepOrange)),
+                            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.blue[600])),
                   ],
                 ),
               ),
@@ -202,6 +204,7 @@ class _GameState extends State<Game> {
         ],
           ),
     );
+
   }
   Future navigateToInstructions(context) async {
     Navigator.push(

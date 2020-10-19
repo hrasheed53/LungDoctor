@@ -38,6 +38,8 @@ class _LeaderBoardState extends State<LeaderBoard> {
               leading: Text('5'),
               title: Text("User 5"),
               subtitle: Text("55555")),
-          navBar()
-        ]));
+        ]),
+      bottomNavigationBar: navBar(),
+    );
   }
+}
