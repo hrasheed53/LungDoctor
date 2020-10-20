@@ -231,6 +231,6 @@ class _GameState extends State<Game> {
 
   Future navigateToGame(context) async {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Patient()));
+        context, MaterialPageRoute(builder: (context) => PatientCard()));
   }
 }

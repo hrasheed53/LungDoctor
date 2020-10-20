@@ -1,3 +1,4 @@
+import 'package:RESP2/testResults.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
@@ -320,11 +321,11 @@ class PatientCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                    //Navigator.push(
-                      //context,
-                      //MaterialPageRoute(builder: (context) => XrayResults()),
-                    //);
-                  
+                  //Navigator.push(
+                  //context,
+                  //MaterialPageRoute(builder: (context) => XrayResults()),
+                  //);
+
                   //THIS IS PLACEHOLDER ONTAP
                   final snackBar = SnackBar(content: Text("Tap"));
 
