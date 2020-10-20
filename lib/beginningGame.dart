@@ -1,4 +1,8 @@
+import 'package:RESP2/main.dart';
 import 'package:flutter/material.dart';
+import 'instructions.dart';
+import 'signIn.dart';
+import 'main.dart';
 import 'navBar.dart';
 
 class Instructions extends StatefulWidget {
@@ -36,33 +40,36 @@ class _InstructionsState extends State<Instructions> {
             child: IconButton(
               icon: Icon(Icons.help, color: Colors.blue[600]),
               iconSize: 50,
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => Inst(),
+                    ));
+              },
             ),
           ),
-          Material(
-            elevation: 5.0,
-            borderRadius: BorderRadius.circular(30.0),
-            color: Colors.blue[600],
-            child: MaterialButton(
-                minWidth: MediaQuery.of(context).size.width,
-                padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => Instructions(),
-                      ));
-                },
-                child: Text(
-                  "Sign Out",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      fontFamily: 'Montserrat',
-                      fontSize: 20.0,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
-                )),
-          )
+          MaterialButton(
+              elevation: 5.0,
+              minWidth: MediaQuery.of(context).size.width,
+              padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+              color: Colors.blue[600],
+              onPressed: () {
+                signOutGoogle();
+                Navigator.of(context).pushAndRemoveUntil(
+                    MaterialPageRoute(builder: (context) {
+                  return LoginPage();
+                }), ModalRoute.withName('/'));
+              },
+              child: Text(
+                "Sign Out",
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 20.0,
+                    color: Colors.white,
+                    fontWeight: FontWeight.bold),
+              )),
         ]),
       ),
       bottomNavigationBar: navBar(),
