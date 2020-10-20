@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
 //import 'package:excel/excel.dart';
 // Uncomment lines 7 and 10 to view the visual layout at runtime.
@@ -319,9 +320,10 @@ class PatientCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  final snackBar = SnackBar(content: Text("Tap"));
-
-                  Scaffold.of(context).showSnackBar(snackBar);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => XrayResults()),
+                  );
                 },
                 child:
                     _buildButtonColumn(color, Icons.wb_sunny, 'ORDER X-RAYS'),
@@ -486,6 +488,26 @@ class TestResults extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Text('Go back!'),
+        ),
+      ),
+    );
+  }
+}
+
+class XrayResults extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Xray Results'),
+      ),
+      body: Center(
+        child: FlatButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Image.network(
+              'https://xrayimagesresp2.s3.amazonaws.com/xray_example.png'),
         ),
       ),
     );
