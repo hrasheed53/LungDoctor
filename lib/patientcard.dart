@@ -325,6 +325,11 @@ class _PatientCardState extends State<Patient> {
             children: [
               GestureDetector(
                 onTap: () {
+                    //Navigator.push(
+                      //context,
+                      //MaterialPageRoute(builder: (context) => XrayResults()),
+                    //);
+                  
                   //THIS IS PLACEHOLDER ONTAP
                   final snackBar = SnackBar(content: Text("Tap"));
 
