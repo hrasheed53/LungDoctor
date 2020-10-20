@@ -1,18 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
+import 'package:flutter/rendering.dart'
 import 'package:path/path.dart';
-//import 'package:excel/excel.dart';
+import 'testResults.dart';
+import 'gamePlay.dart';
+import 'navBar.dart';
+
 // Uncomment lines 7 and 10 to view the visual layout at runtime.
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
 
-void main() {
-  // debugPaintSizeEnabled = true;
-  //get variables
+class Patient extends StatefulWidget {
+  Patient({Key key, this.title}) : super(key: key);
 
-  runApp(PatientCard());
+  final String title;
+
+  @override
+  _PatientCardState createState() => _PatientCardState();
 }
 
-class PatientCard extends StatelessWidget {
+class _PatientCardState extends State<Patient> {
   @override
   Widget build(BuildContext context) {
     Widget demographics = Container(
@@ -370,26 +375,23 @@ class PatientCard extends StatelessWidget {
     );
 //-----------------------END BUTTON FOR DIAGNOSING----------------------------------
 
-    return MaterialApp(
-      title: 'Patient Chart',
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Color(0xffe34646),
-          title: Text('Patient Chart'),
-        ),
-        body: ListView(
-          children: [
-            Padding(padding: EdgeInsets.only(top: 16.0)),
-            demographics,
-            Padding(padding: EdgeInsets.only(top: 16.0)),
-            patientHistory,
-            Padding(padding: EdgeInsets.only(top: 16.0)),
-            buttonSection,
-            Padding(padding: EdgeInsets.only(top: 16.0)),
-            diagnoseButton
-          ],
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: Color(0xffe34646),
+        title: Text('Patient Chart'),
+      ),
+      body: ListView(
+        children: [
+          Padding(padding: EdgeInsets.only(top: 16.0)),
+          demographics,
+          Padding(padding: EdgeInsets.only(top: 16.0)),
+          patientHistory,
+          Padding(padding: EdgeInsets.only(top: 16.0)),
+          buttonSection,
+          Padding(padding: EdgeInsets.only(top: 16.0)),
+          diagnoseButton
+        ],
       ),
     );
   }
@@ -488,26 +490,6 @@ class TestResults extends StatelessWidget {
             Navigator.pop(context);
           },
           child: Text('Go back!'),
-        ),
-      ),
-    );
-  }
-}
-
-class XrayResults extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Xray Results'),
-      ),
-      body: Center(
-        child: FlatButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Image.network(
-              'https://xrayimagesresp2.s3.amazonaws.com/xray_example.png'),
         ),
       ),
     );
