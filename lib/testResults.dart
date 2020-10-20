@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
 
-class TestResults extends StatelessWidget {
+class Tests extends StatefulWidget {
+  Tests({Key key, this.title}) : super(key: key);
+
+  final String title;
+
+  @override
+  _TestsState createState() => _TestsState();
+}
+
+class _TestsState extends State<Tests> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -27,6 +36,46 @@ class TestResults extends StatelessWidget {
               subtitle: Text("247")),
           ListTile(
               leading: Text('5'), title: Text("Sodium"), subtitle: Text("137")),
+          ListTile(
+              leading: Text('6'),
+              title: Text("Potassium"),
+              subtitle: Text("4.2")),
+          ListTile(
+              leading: Text('7'),
+              title: Text("Chloride"),
+              subtitle: Text("104")),
+          ListTile(
+              leading: Text('8'),
+              title: Text("Bicarbonate"),
+              subtitle: Text("21")),
+          ListTile(
+              leading: Text('9'), title: Text("BUN"), subtitle: Text("24")),
+          ListTile(
+              leading: Text('10'),
+              title: Text("Creatinine"),
+              subtitle: Text("1.6")),
+          ListTile(
+              leading: Text('11'),
+              title: Text("Glucose"),
+              subtitle: Text("137")),
+          ListTile(
+              leading: Text('12'), title: Text("BNP"), subtitle: Text("37")),
+          ListTile(
+              leading: Text('13'),
+              title: Text("ABG - pH"),
+              subtitle: Text("7.35")),
+          ListTile(
+              leading: Text('14'),
+              title: Text("ABG - pCO\u2082"),
+              subtitle: Text("39")),
+          ListTile(
+              leading: Text('15'),
+              title: Text("ABG - pO\u2082"),
+              subtitle: Text("71")),
+          ListTile(
+              leading: Text('16'),
+              title: Text("Lactate"),
+              subtitle: Text("2.4")),
           FlatButton(
             onPressed: () {
               Navigator.pop(context);

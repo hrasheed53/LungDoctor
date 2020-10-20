@@ -78,10 +78,10 @@ class _PatientCardState extends State<Patient> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '67',
+                            '74',
                           ),
                           Text(
-                            'F',
+                            'Male',
                           ),
                           Text(
                             'White',
@@ -325,10 +325,10 @@ class _PatientCardState extends State<Patient> {
             children: [
               GestureDetector(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => XrayResults()),
-                  );
+                  //THIS IS PLACEHOLDER ONTAP
+                  final snackBar = SnackBar(content: Text("Tap"));
+
+                  Scaffold.of(context).showSnackBar(snackBar);
                 },
                 child:
                     _buildButtonColumn(color, Icons.wb_sunny, 'ORDER X-RAYS'),
@@ -341,10 +341,7 @@ class _PatientCardState extends State<Patient> {
             children: [
               GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => TestResults()),
-                    );
+                    viewTestResults(context);
                   },
                   child: _buildButtonColumn(
                       color, Icons.folder_shared, 'ORDER TESTS')),
@@ -475,23 +472,8 @@ class _PatientCardState extends State<Patient> {
       ],
     );
   }
-}
 
-class TestResults extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Test Results'),
-      ),
-      body: Center(
-        child: FlatButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Text('Go back!'),
-        ),
-      ),
-    );
+  Future viewTestResults(context) async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Tests()));
   }
 }
