@@ -2,6 +2,7 @@ import 'package:RESP2/testResults.dart';
 import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'diagnoseButton.dart';
 import 'package:path/path.dart';
 //import 'package:excel/excel.dart';
 // Uncomment lines 7 and 10 to view the visual layout at runtime.
@@ -353,10 +354,7 @@ class PatientCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              //THIS IS PLACEHOLDER ONTAP
-              final snackBar = SnackBar(content: Text("Tap"));
-
-              Scaffold.of(context).showSnackBar(snackBar);
+              diagnoseBttn(context);
             },
             child: _buildDiagnoseButtonColumn(
                 const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
@@ -378,9 +376,9 @@ class PatientCard extends StatelessWidget {
           children: [
             Padding(padding: EdgeInsets.only(top: 16.0)),
             demographics,
-            Padding(padding: EdgeInsets.only(top: 16.0)),
+            Padding(padding: EdgeInsets.only(top: 12.0)),
             patientHistory,
-            Padding(padding: EdgeInsets.only(top: 16.0)),
+            Padding(padding: EdgeInsets.only(top: 20.0)),
             buttonSection,
             Padding(padding: EdgeInsets.only(top: 16.0)),
             diagnoseButton
@@ -476,5 +474,10 @@ class PatientCard extends StatelessWidget {
 
   Future viewXrays(context) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Xrays()));
+  }
+
+  Future diagnoseBttn(context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Diagnose()));
   }
 }
