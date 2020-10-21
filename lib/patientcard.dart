@@ -1,4 +1,5 @@
 import 'package:RESP2/testResults.dart';
+import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
@@ -321,15 +322,7 @@ class PatientCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  //Navigator.push(
-                  //context,
-                  //MaterialPageRoute(builder: (context) => XrayResults()),
-                  //);
-
-                  //THIS IS PLACEHOLDER ONTAP
-                  final snackBar = SnackBar(content: Text("Tap"));
-
-                  Scaffold.of(context).showSnackBar(snackBar);
+                  viewXrays(context);
                 },
                 child:
                     _buildButtonColumn(color, Icons.wb_sunny, 'ORDER X-RAYS'),
@@ -378,7 +371,7 @@ class PatientCard extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xffe34646),
+          backgroundColor: Colors.blue[600],
           title: Text('Patient Chart'),
         ),
         body: ListView(
@@ -480,24 +473,8 @@ class PatientCard extends StatelessWidget {
   Future viewTestResults(context) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Tests()));
   }
-}
 
-class XrayResults extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Xray Results'),
-      ),
-      body: Center(
-        child: FlatButton(
-          onPressed: () {
-            Navigator.pop(context);
-          },
-          child: Image.network(
-              'https://xrayimagesresp2.s3.amazonaws.com/xray_example.png'),
-        ),
-      ),
-    );
+  Future viewXrays(context) async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Xrays()));
   }
 }
