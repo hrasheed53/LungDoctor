@@ -76,12 +76,6 @@ class _TestsState extends State<Tests> {
               leading: Text('16'),
               title: Text("Lactate"),
               subtitle: Text("2.4")),
-          FlatButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Go back!'),
-          ),
         ],
       ),
     );

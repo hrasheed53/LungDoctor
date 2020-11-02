@@ -1,9 +1,6 @@
-import 'package:RESP2/beginningGame.dart';
 import 'package:RESP2/patientcard.dart';
 import 'package:RESP2/instructions.dart';
 import 'package:flutter/material.dart';
-import 'navBar.dart';
-import 'package:flutter/src/rendering/box.dart';
 
 class Game extends StatefulWidget {
   Game({Key key, this.title}) : super(key: key);
@@ -36,7 +33,7 @@ class _GameState extends State<Game> {
           subtitle: entirePage(),
         ),
       ),
-      bottomNavigationBar: navBar(),
+      // bottomNavigationBar: navBar(),
     );
   }
 

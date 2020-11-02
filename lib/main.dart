@@ -67,7 +67,7 @@ class _LoginFieldsState extends State<LoginFields> {
             Navigator.of(context).push(
               MaterialPageRoute(
                 builder: (context) {
-                  return Instructions();
+                  return Instr();
                 },
               ),
             );

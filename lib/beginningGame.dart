@@ -1,78 +1,87 @@
-import 'package:RESP2/main.dart';
 import 'package:flutter/material.dart';
-import 'instructions.dart';
-import 'signIn.dart';
-import 'main.dart';
-import 'navBar.dart';
+import 'package:flutter/rendering.dart';
+import 'settings.dart';
+import 'leaderboard.dart';
+import 'newFrontPage.dart';
+import 'statsPage.dart';
+import 'store.dart';
 
-class Instructions extends StatefulWidget {
+class Instr extends StatefulWidget {
+  Instr({Key key}) : super(key: key);
+
   @override
-  _InstructionsState createState() => _InstructionsState();
+  _InstrState createState() => _InstrState();
 }
 
-class _InstructionsState extends State<Instructions> {
+class _InstrState extends State<Instr> {
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle = TextStyle(
+      fontFamily: 'Montserrat',
+      fontWeight: FontWeight.bold,
+      fontSize: 40,
+      color: Colors.white);
+  final _widgetOptions = [
+    //THIS IS WHERE THE PAGES GO
+
+    new FrontPage(),
+    new LeaderBoard(),
+    new Settings(),
+    new Store(),
+    new StatsPage()
+  ];
+  final _appbarWords = [
+    //HEADERS FOR THE PAGES IN NAVBAR
+    Text('Welcome!'),
+    Text('Leaderboard'),
+    Text('Settings'),
+    Text('Store'),
+    Text('Statistics')
+  ];
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+          title: _appbarWords.elementAt(_selectedIndex),
+          leading: Container(),
+          centerTitle: true),
       body: Center(
-        child: Stack(children: <Widget>[
-          Container(
-            decoration: BoxDecoration(
-              image: DecorationImage(
-                image: AssetImage("assets/images/beginningGameBG.jpg"),
-                fit: BoxFit.cover,
-                colorFilter: new ColorFilter.mode(
-                    Colors.black.withOpacity(0.2), BlendMode.darken),
-              ),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: Text('Welcome!',
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40,
-                    color: Colors.white)),
-          ),
-          Align(
-            alignment: Alignment.bottomRight,
-            child: IconButton(
-              icon: Icon(Icons.help, color: Colors.blue[600]),
-              iconSize: 50,
-              onPressed: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => Inst(),
-                    ));
-              },
-            ),
-          ),
-          MaterialButton(
-              elevation: 5.0,
-              minWidth: MediaQuery.of(context).size.width,
-              padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-              color: Colors.blue[600],
-              onPressed: () {
-                signOutGoogle();
-                Navigator.of(context).pushAndRemoveUntil(
-                    MaterialPageRoute(builder: (context) {
-                  return LoginPage();
-                }), ModalRoute.withName('/'));
-              },
-              child: Text(
-                "Sign Out",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                    fontFamily: 'Montserrat',
-                    fontSize: 20.0,
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              )),
-        ]),
+        child: _widgetOptions.elementAt(_selectedIndex),
       ),
-      bottomNavigationBar: navBar(),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blue,
+        selectedIconTheme: IconThemeData(color: Colors.blue),
+        unselectedItemColor: Colors.red,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.games, color: Colors.blue),
+            label: 'Play',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.arrow_upward, color: Colors.blue),
+            label: 'Leaderboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings, color: Colors.blue),
+            label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag, color: Colors.blue),
+            label: 'Store',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.poll, color: Colors.blue),
+            label: 'Stats',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
     );
   }
 }
