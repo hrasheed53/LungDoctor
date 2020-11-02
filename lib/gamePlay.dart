@@ -23,7 +23,7 @@ class _GameState extends State<Game> {
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [Colors.white, Colors.deepOrange[200]])),
+                colors: [Colors.white, Colors.blue[100]])),
         child: ListTile(
           title: Text(
             "How many patients would you like to see in this session?",
@@ -54,7 +54,7 @@ class _GameState extends State<Game> {
                     onTap: () {
                       navigateToGame(context);
                     },
-                    splashColor: Colors.amber,
+                    splashColor: Colors.blue[600],
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -63,7 +63,7 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.deepOrange)),
+                                  color: Colors.blue[600])),
                         ],
                       ),
                     ),
@@ -78,7 +78,7 @@ class _GameState extends State<Game> {
                     onTap: () {
                       navigateToGame(context);
                     },
-                    splashColor: Colors.amber,
+                    splashColor: Colors.blue[600],
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -87,7 +87,7 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.deepOrange)),
+                                  color: Colors.blue[600])),
                         ],
                       ),
                     ),
@@ -102,7 +102,7 @@ class _GameState extends State<Game> {
                     onTap: () {
                       navigateToGame(context);
                     },
-                    splashColor: Colors.amber,
+                    splashColor: Colors.blue[600],
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -111,7 +111,7 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.deepOrange)),
+                                  color: Colors.blue[600])),
                         ],
                       ),
                     ),
@@ -126,7 +126,7 @@ class _GameState extends State<Game> {
                     onTap: () {
                       navigateToGame(context);
                     },
-                    splashColor: Colors.amber,
+                    splashColor: Colors.blue[600],
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -135,7 +135,7 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.deepOrange)),
+                                  color: Colors.blue[600])),
                         ],
                       ),
                     ),
@@ -150,7 +150,7 @@ class _GameState extends State<Game> {
                     onTap: () {
                       navigateToGame(context);
                     },
-                    splashColor: Colors.amber,
+                    splashColor: Colors.blue[600],
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -159,7 +159,7 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.deepOrange)),
+                                  color: Colors.blue[600])),
                         ],
                       ),
                     ),
@@ -174,7 +174,7 @@ class _GameState extends State<Game> {
                     onTap: () {
                       navigateToGame(context);
                     },
-                    splashColor: Colors.amber,
+                    splashColor: Colors.blue[600],
                     child: Center(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -183,7 +183,7 @@ class _GameState extends State<Game> {
                               style: TextStyle(
                                   fontSize: 30,
                                   fontWeight: FontWeight.bold,
-                                  color: Colors.deepOrange)),
+                                  color: Colors.blue[600])),
                         ],
                       ),
                     ),
@@ -201,7 +201,7 @@ class _GameState extends State<Game> {
                 onTap: () {
                   navigateToInstructions(context);
                 },
-                splashColor: Colors.amber,
+                splashColor: Colors.blue[600],
                 child: Center(
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
@@ -210,7 +210,7 @@ class _GameState extends State<Game> {
                           style: TextStyle(
                               fontSize: 30,
                               fontWeight: FontWeight.bold,
-                              color: Colors.deepOrange)),
+                              color: Colors.blue[600])),
                     ],
                   ),
                 ),

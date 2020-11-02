@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'sabatogeInstructions.dart';
+import 'sabotageInstructions.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key key, this.title}) : super(key: key);
@@ -82,7 +82,7 @@ class _SettingsState extends State<Settings> {
               activeColor: Colors.blue[300],
               contentPadding: const EdgeInsets.all(5.0),
               value: true,
-              title: Text('Sabatoge Man'),
+              title: Text('Sabotage Man'),
               onChanged: (val) {},
             ),
             SwitchListTile(

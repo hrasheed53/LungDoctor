@@ -1,6 +1,8 @@
 import 'package:RESP2/testResults.dart';
+import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'diagnoseButton.dart';
 import 'package:path/path.dart';
 import 'xrayResults.dart';
 //import 'package:excel/excel.dart';
@@ -322,7 +324,7 @@ class PatientCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  viewXrayResults(context);
+                  viewXrays(context);
                 },
                 child:
                     _buildButtonColumn(color, Icons.wb_sunny, 'ORDER X-RAYS'),
@@ -353,10 +355,7 @@ class PatientCard extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () {
-              //THIS IS PLACEHOLDER ONTAP
-              final snackBar = SnackBar(content: Text("Tap"));
-
-              Scaffold.of(context).showSnackBar(snackBar);
+              diagnoseBttn(context);
             },
             child: _buildDiagnoseButtonColumn(
                 const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
@@ -371,16 +370,16 @@ class PatientCard extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          backgroundColor: Color(0xffe34646),
+          backgroundColor: Colors.blue[600],
           title: Text('Patient Chart'),
         ),
         body: ListView(
           children: [
             Padding(padding: EdgeInsets.only(top: 16.0)),
             demographics,
-            Padding(padding: EdgeInsets.only(top: 16.0)),
+            Padding(padding: EdgeInsets.only(top: 12.0)),
             patientHistory,
-            Padding(padding: EdgeInsets.only(top: 16.0)),
+            Padding(padding: EdgeInsets.only(top: 20.0)),
             buttonSection,
             Padding(padding: EdgeInsets.only(top: 16.0)),
             diagnoseButton
@@ -473,8 +472,13 @@ class PatientCard extends StatelessWidget {
   Future viewTestResults(context) async {
     Navigator.push(context, MaterialPageRoute(builder: (context) => Tests()));
   }
-}
 
-Future viewXrayResults(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => Xray()));
+  Future viewXrays(context) async {
+    Navigator.push(context, MaterialPageRoute(builder: (context) => Xrays()));
+  }
+
+  Future diagnoseBttn(context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Diagnose()));
+  }
 }

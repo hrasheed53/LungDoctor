@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:path/path.dart';
 
-class Xray extends StatefulWidget {
-  Xray({Key key, this.title}) : super(key: key);
+class Xrays extends StatefulWidget {
+  Xrays({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _XrayState createState() => _XrayState();
+  _XraysState createState() => _XraysState();
 }
 
-class _XrayState extends State<Xray> {
+class _XraysState extends State<Xrays> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
