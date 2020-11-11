@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:RESP2/testResults.dart';
 import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'diagnoseButton.dart';
 import 'package:path/path.dart';
 import 'xrayResults.dart';
+import 'package:condition/condition.dart';
 //import 'package:excel/excel.dart';
 // Uncomment lines 7 and 10 to view the visual layout at runtime.
 // import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
@@ -16,302 +19,381 @@ void main() {
   runApp(PatientCard());
 }
 
+//REPLACE BOOLS BELOW WITH LOGIC
+bool tobaccoUser = true;
+//some patients have no provocating factors listed:
+bool provocatingFactors = true;
+//some patients only have one or two histories listed:
+bool history2 = true;
+bool history3 = true;
+
+int caseIDint = 200;
+String caseID = caseIDint.toString();
+String demographics = "female, 25";
+String chartTitle = "Patient " + caseID;
+
 class PatientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    Widget demographics = Container(
-      margin: const EdgeInsets.only(left: 12.0, right: 12.0),
-      padding: const EdgeInsets.all(12),
-      //demographics and vital columns:
+    //---------------ONSET OF SYMPTOMS-----------------------------------
+    Widget onset = Container(
+      padding: const EdgeInsets.only(bottom: 6, top: 6),
+      decoration: BoxDecoration(
+        color: const Color(0x99f5e6bc),
+        border: Border.all(color: Colors.black38, width: 1),
+        //borderRadius: BorderRadius.circular(12),
+      ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            decoration: BoxDecoration(
-              color: const Color(0x99f5e6bc),
-              border: Border.all(color: Colors.black38, width: 1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            //demographics column
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(
-                      bottom: 8, top: 8, left: 8, right: 2),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'Age:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Gender:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Race:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                      bottom: 8, top: 8, left: 2, right: 8),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '74',
-                          ),
-                          Text(
-                            'Male',
-                          ),
-                          Text(
-                            'White',
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
+          Text(
+            "Onset of Symptoms: ",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          Container(
-            decoration: BoxDecoration(
-              color: const Color(0x99f5e6bc),
-              border: Border.all(color: Colors.black38, width: 1),
-              borderRadius: BorderRadius.circular(12),
-            ),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  padding: const EdgeInsets.only(
-                      bottom: 8, top: 8, left: 8, right: 2),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text(
-                            'Temperature:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Respiratory Rate:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'Blood Pressure:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'O\u2082 Saturation:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            'O\u2082 Received:',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  padding: const EdgeInsets.only(
-                      bottom: 8, top: 8, left: 2, right: 8),
-                  child: Row(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            '38.4 C',
-                          ),
-                          Text(
-                            '121 bpm',
-                          ),
-                          Text(
-                            '104/53',
-                          ),
-                          Text(
-                            '91%',
-                          ),
-                          Text(
-                            '4 L/min',
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
+          Text("[x] days"),
         ],
       ),
+    ); //onset of symptoms
+
+    //---------------PATIENT'S SYMPTOMS-----------------------------------------
+    Widget symptoms = Text(
+      "symptoms list",
     );
 
-    Color color = Theme.of(context).primaryColor;
-
-    Widget patientHistory = Container(
-      margin: const EdgeInsets.only(left: 12.0, right: 12.0),
+    //--------------SYMPTOMS LIST BOX-----------------------------------------
+    Widget symptomsList = Container(
+      padding: const EdgeInsets.only(bottom: 6, top: 6),
       decoration: BoxDecoration(
         color: const Color(0x99f5e6bc),
         border: Border.all(color: Colors.black38, width: 1),
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Container(
-            padding:
-                const EdgeInsets.only(bottom: 8, top: 8, left: 8, right: 2),
-            child: Row(
+          Text(
+            "Symptoms",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          symptoms,
+        ],
+      ),
+    ); //symptoms list
+
+    //------------PATIENT'S HISTORY-----------------------------------------
+    Widget history = Text(
+      "history list",
+    );
+
+    //------------HISTORY LIST BOX-----------------------------------------
+    Widget historyList = Container(
+      padding: const EdgeInsets.only(bottom: 6, top: 6),
+      decoration: BoxDecoration(
+        color: const Color(0x99f5e6bc),
+        border: Border.all(color: Colors.black38, width: 1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "History",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          history,
+        ],
+      ),
+    );
+
+    //------------TOBACCO USE -- CHECK BOXES-----------------------------------------
+    Widget _tobaccoBoxes() {
+      return Container(
+          child: Conditioned(
+        cases: [
+          Case(
+            //IF SMOKER
+            tobaccoUser = true,
+            builder: () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.end,
+                Row(
                   children: [
-                    Text(
-                      'Past History 1:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Past History 2:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Past History 3:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Tobacco Use:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Onset of Symptoms:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Duration of Symptoms:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Provocating Factors:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Description of Symptoms:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Severity of Symptoms:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Relieving Factors:',
-                      style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
+                    Icon(Icons.check_box),
+                    Text("Yes"),
+                  ],
+                ),
+                Padding(padding: EdgeInsets.only(right: 12.0)),
+                Row(
+                  children: [
+                    Icon(Icons.check_box_outline_blank),
+                    Text("No"),
                   ],
                 ),
               ],
             ),
           ),
-          Container(
-            padding:
-                const EdgeInsets.only(bottom: 8, top: 8, left: 2, right: 8),
-            child: Row(
+          Case(
+            //IF NON-SMOKER
+            tobaccoUser = false,
+            builder: () => Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                Row(
                   children: [
-                    Text(
-                      'heart failure',
-                    ),
-                    Text(
-                      'coronary artery disease',
-                    ),
-                    Text(
-                      'COPD',
-                    ),
-                    Text(
-                      'current',
-                    ),
-                    Text(
-                      '3 days',
-                    ),
-                    Text(
-                      'constant',
-                    ),
-                    Text(
-                      'exertion',
-                    ),
-                    Text(
-                      'chest heaviness',
-                    ),
-                    Text(
-                      'severe',
-                    ),
-                    Text(
-                      'none',
-                    ),
+                    Icon(Icons.check_box_outline_blank),
+                    Text("Yes"),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Icon(Icons.check_box),
+                    Text("No"),
                   ],
                 ),
               ],
             ),
           ),
         ],
+        defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
+      ));
+    }
+
+    //------------TOBACCO USE-----------------------------------------
+    Widget tobaccoUse = Container(
+      padding: const EdgeInsets.all(6.0),
+      decoration: BoxDecoration(
+        color: const Color(0x99f5e6bc),
+        border: Border.all(color: Colors.black38, width: 1),
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "Tobacco use?",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+          ),
+          _tobaccoBoxes(),
+        ],
       ),
     );
+
+    //-----------TAB FOR SYMPTOMS, HISTORY, AND TOBACCO-----------------------------------------
+    Widget symptomsHistoryTab = Container(
+      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        //WHOLE COLUMN FOR TAB
+        mainAxisAlignment: MainAxisAlignment.start, //space between??
+        children: [
+          Row(
+            children: [Expanded(child: onset)],
+          ),
+          //onset,
+          Padding(padding: EdgeInsets.only(top: 12.0)),
+          Row(
+            children: [Expanded(child: symptomsList)],
+          ),
+          Padding(padding: EdgeInsets.only(top: 12.0)),
+          Row(
+            children: [Expanded(child: historyList)],
+          ),
+          Padding(padding: EdgeInsets.only(top: 12.0)),
+          Row(
+            children: [Expanded(child: tobaccoUse)],
+          ),
+        ], //BOXES OF TAB
+      ),
+    );
+
+    //---------VITALS--------------------------------------
+    Widget vitals = Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Container(
+          padding: const EdgeInsets.only(bottom: 8, top: 8, left: 8, right: 2),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  Text(
+                    'Temperature (C):',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Respiratory Rate (breaths/min):',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Heart Rate (beats/min):',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'Blood Pressure (mm Hg):',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'O\u2082 Saturation:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    'O\u2082 Received:',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+        Container(
+          padding: const EdgeInsets.only(bottom: 8, top: 8, left: 2, right: 8),
+          child: Row(
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'temp',
+                  ),
+                  Text(
+                    'resp rate',
+                  ),
+                  Text(
+                    'heart rate',
+                  ),
+                  Text(
+                    'blood pressure',
+                  ),
+                  Text(
+                    'oxygen sat',
+                  ),
+                  Text(
+                    'oxygen received',
+                  ),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+    //---------VITALS LIST--------------------------------------
+    Widget vitalsList = Container(
+      padding: const EdgeInsets.only(bottom: 6, top: 6),
+      decoration: BoxDecoration(
+        color: const Color(0x99f5e6bc),
+        border: Border.all(color: Colors.black38, width: 1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Vitals",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          vitals,
+        ],
+      ),
+    );
+    //---------PHYSICAL RESULTS--------------------------------------
+    Widget physical = Text(
+      "phys exam",
+    );
+    //---------PHYSICAL EXAM--------------------------------------
+    Widget physicalExam = Container(
+      padding: const EdgeInsets.only(bottom: 6, top: 6),
+      decoration: BoxDecoration(
+        color: const Color(0x99f5e6bc),
+        border: Border.all(color: Colors.black38, width: 1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Physical Exam",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          physical,
+        ],
+      ),
+    );
+    //---------VITALS AND PHYSICAL EXAM TAB--------------------------------------
+    Widget vitalsPhysicalTab = Container(
+      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        //WHOLE COLUMN FOR TAB
+        mainAxisAlignment: MainAxisAlignment.start, //space between??
+        children: [
+          Row(
+            children: [Expanded(child: vitalsList)],
+          ),
+          //onset,
+          Padding(padding: EdgeInsets.only(top: 12.0)),
+          Row(
+            children: [Expanded(child: physicalExam)],
+          ),
+        ], //BOXES OF TAB
+      ),
+    );
+
+    //---------NARRATIVE TEXT--------------------------------------
+    Widget narrative = Text("narrative text");
+    //---------NARRATIVE BOX--------------------------------------
+    Widget narrativeBox = Container(
+      padding: const EdgeInsets.only(bottom: 6, top: 6),
+      decoration: BoxDecoration(
+        color: const Color(0x99f5e6bc),
+        border: Border.all(color: Colors.black38, width: 1),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "Patient Narrative",
+            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            textAlign: TextAlign.center,
+          ),
+          narrative,
+        ],
+      ),
+    );
+    //---------PATIENT NARRATIVE TAB--------------------------------------
+    Widget narrativeTab = Container(
+      margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+      padding: const EdgeInsets.all(12),
+      child: Column(
+        //WHOLE COLUMN FOR TAB
+        mainAxisAlignment: MainAxisAlignment.start, //space between??
+        children: [
+          Row(
+            children: [Expanded(child: narrativeBox)],
+          ),
+        ], //BOXES OF TAB
+      ),
+    );
+
+    Color color = Theme.of(context).primaryColor;
 
 //---------------------------------------------------------------------------------
 //-----------------------X-RAYS AND TESTS BUTTONS----------------------------------
@@ -347,7 +429,6 @@ class PatientCard extends StatelessWidget {
       ),
 //-----------------------END ORDER TESTS BUTTON----------------------------------
     );
-
 //-----------------------BUTTON FOR DIAGNOSING----------------------------------
     Widget diagnoseButton = Container(
       child: Row(
@@ -365,30 +446,60 @@ class PatientCard extends StatelessWidget {
     );
 //-----------------------END BUTTON FOR DIAGNOSING----------------------------------
 
+    //-----------------------PATIENT CARD FINAL SETUP------------------------
     return MaterialApp(
-      title: 'Patient Chart',
-      home: Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          backgroundColor: Colors.blue[600],
-          title: Text('Patient Chart'),
-        ),
-        body: ListView(
-          children: [
-            Padding(padding: EdgeInsets.only(top: 16.0)),
-            demographics,
-            Padding(padding: EdgeInsets.only(top: 12.0)),
-            patientHistory,
-            Padding(padding: EdgeInsets.only(top: 20.0)),
-            buttonSection,
-            Padding(padding: EdgeInsets.only(top: 16.0)),
-            diagnoseButton
-          ],
+      title: chartTitle,
+      home: DefaultTabController(
+        length: 3,
+        child: Scaffold(
+          appBar: AppBar(
+            bottom: TabBar(
+              tabs: [
+                Tab(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Vitals and Physical",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Symptoms and History",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                Tab(
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "Patient Narrative",
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            title: Text(chartTitle),
+            centerTitle: true,
+          ),
+          body: TabBarView(
+            children: [
+              vitalsPhysicalTab,
+              symptomsHistoryTab,
+              narrativeTab,
+            ],
+          ),
         ),
       ),
     );
   }
 
+  //-------------------------HELPER FUNCTIONS------------------------------------
   Column _buildButtonColumn(Color color, IconData icon, String label) {
     return Column(
       children: [
