@@ -44,6 +44,8 @@ flutter:
         - assets/images/doctorthing.png
         - assets/images/beginningGameBG.jpg
         - assets/images/google_logo.png
+        - assets/images/alien.png
+        - assets/images/alien_labcoat_pink.png
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

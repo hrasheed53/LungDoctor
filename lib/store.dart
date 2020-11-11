@@ -1,3 +1,4 @@
+import 'labCoat.dart';
 import 'package:flutter/material.dart';
 
 int points = 150;
@@ -69,10 +70,14 @@ class _StoreState extends State<Store> {
           thickline(),
           ListTile(
             onTap: () {
-              //if we want to add edit profile functionality
+                        Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => LabCoat(),
+              ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Avatar Color'),
+            title: Text('Labcoat Color'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
