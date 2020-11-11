@@ -70,7 +70,7 @@ class _StoreState extends State<Store> {
           thickline(),
           ListTile(
             onTap: () {
-                        Navigator.push(
+              Navigator.push(
               context,
               MaterialPageRoute(
                 builder: (context) => LabCoat(),
