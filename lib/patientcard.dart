@@ -30,8 +30,8 @@ bool history3 = true;
 
 int caseIDint = 200;
 String caseID = caseIDint.toString();
-String demographics = "female, 25";
-String chartTitle = "Patient " + caseID;
+String demographics = ": female, 25";
+String chartTitle = "Patient " + caseID + demographics;
 
 class PatientCard extends StatelessWidget {
   @override
@@ -431,9 +431,9 @@ class PatientCard extends StatelessWidget {
 //=============================================================================
     Color color = Theme.of(context).primaryColor;
 
-//---------------------------------------------------------------------------------
-//-----------------------X-RAYS AND TESTS BUTTONS----------------------------------
-    Widget xraysAndTests = Container(
+//                    THREE MAIN BUTTONS SECTION
+//------------------------------------------------------------------------------
+    Widget bottomButtons = Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -450,6 +450,19 @@ class PatientCard extends StatelessWidget {
             ],
           ),
 //-----------------------END X-RAYS BUTTON----------------------------------
+//-----------------------DIAGNOSE BUTTON----------------------------------
+          Column(
+            children: [
+              GestureDetector(
+                onTap: () {
+                  diagnoseBttn(context);
+                },
+                child: _buildDiagnoseButtonColumn(
+                    const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
+              ),
+            ],
+          ),
+//-----------------------END DIAGNOSE BUTTON----------------------------------
 //-----------------------ORDER TESTS BUTTON----------------------------------
           Column(
             children: [
@@ -466,33 +479,8 @@ class PatientCard extends StatelessWidget {
 //-----------------------END ORDER TESTS BUTTON----------------------------------
     );
 //-----------------------BUTTON FOR DIAGNOSING----------------------------------
-    Widget diagnoseButton = Container(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          GestureDetector(
-            onTap: () {
-              diagnoseBttn(context);
-            },
-            child: _buildDiagnoseButtonColumn(
-                const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
-          ),
-        ],
-      ),
-    );
-//-----------------------END BUTTON FOR DIAGNOSING----------------------------------
 
-//                    THREE MAIN BUTTONS SECTION
-//------------------------------------------------------------------------------
-    Widget bottomButtons = Container(
-      child: Column(
-        children: [
-          xraysAndTests,
-          Padding(padding: EdgeInsets.only(top: 12.0)),
-          diagnoseButton,
-        ],
-      ),
-    );
+//-----------------------END BUTTON FOR DIAGNOSING----------------------------------
 
     //-----------------------PATIENT CARD FINAL SETUP------------------------
     return MaterialApp(
@@ -543,9 +531,9 @@ class PatientCard extends StatelessWidget {
             ],
           ),
           bottomNavigationBar: new Container(
-              height: 250.0,
+              height: 100.0,
               color: Colors.white,
-              padding: new EdgeInsets.only(top: 20.0),
+              padding: new EdgeInsets.only(top: 7.0),
               child: bottomButtons),
         ),
       ),
@@ -559,9 +547,55 @@ class PatientCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(12),
+          width: 62,
+          padding: EdgeInsets.only(top: 8, left: 4, right: 4, bottom: 8),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.blueGrey, width: 2),
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[300].withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: color, size: 18),
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: color,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column _buildDiagnoseButtonColumn(Color color, IconData icon, String label) {
+    return Column(
+      children: [
+        Container(
+          width: 100,
+          padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black38, width: 1.5),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
@@ -583,46 +617,6 @@ class PatientCard extends StatelessWidget {
                   label,
                   style: TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: color,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
-
-  Column _buildDiagnoseButtonColumn(Color color, IconData icon, String label) {
-    return Column(
-      children: [
-        Container(
-          padding: EdgeInsets.all(12),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black38, width: 1),
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey[300].withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: color, size: 48),
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 24,
                     fontWeight: FontWeight.w400,
                     color: color,
                   ),
