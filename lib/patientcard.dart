@@ -4,6 +4,7 @@ import 'package:RESP2/testResults.dart';
 import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'diagnoseButton.dart';
 import 'package:path/path.dart';
 import 'xrayResults.dart';
@@ -35,6 +36,8 @@ String chartTitle = "Patient " + caseID;
 class PatientCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+//                    Symptoms, History, and Tobacco Use tab
+//=============================================================================
     //---------------ONSET OF SYMPTOMS-----------------------------------
     Widget onset = Container(
       padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -183,9 +186,9 @@ class PatientCard extends StatelessWidget {
     Widget symptomsHistoryTab = Container(
       margin: const EdgeInsets.only(left: 20.0, right: 20.0),
       padding: const EdgeInsets.all(12),
-      child: Column(
+      child: ListView(
         //WHOLE COLUMN FOR TAB
-        mainAxisAlignment: MainAxisAlignment.start, //space between??
+        //mainAxisAlignment: MainAxisAlignment.start, //space between??
         children: [
           Row(
             children: [Expanded(child: onset)],
@@ -206,8 +209,12 @@ class PatientCard extends StatelessWidget {
         ], //BOXES OF TAB
       ),
     );
+//=============================================================================
 
-    //---------VITALS--------------------------------------
+//                    Vitals and Physical Exam tab
+//=============================================================================
+    //               list of vitals
+    //---------------------------------------------------------
     Widget vitals = Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisAlignment: MainAxisAlignment.center,
@@ -217,70 +224,63 @@ class PatientCard extends StatelessWidget {
           child: Row(
             children: [
               Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Text(
-                    'Temperature (C):',
+                    'Temperature (\u2103)',
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'Respiratory Rate (breaths/min):',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Heart Rate (beats/min):',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'Blood Pressure (mm Hg):',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'O\u2082 Saturation:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    'O\u2082 Received:',
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(bottom: 8, top: 8, left: 2, right: 8),
-          child: Row(
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
                   Text(
                     'temp',
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Text(
+                    'Respiratory Rate (breaths/min)',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Text(
                     'resp rate',
                   ),
+                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Text(
+                    'Heart Rate (beats/min)',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   Text(
                     'heart rate',
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Text(
+                    'Blood Pressure (mm Hg)',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Text(
                     'blood pressure',
                   ),
+                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Text(
+                    'O\u2082 Saturation',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                   Text(
                     'oxygen sat',
+                  ),
+                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Text(
+                    'O\u2082 Received',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   Text(
                     'oxygen received',
@@ -292,7 +292,9 @@ class PatientCard extends StatelessWidget {
         ),
       ],
     );
-    //---------VITALS LIST--------------------------------------
+
+    //             title and vitals widgets
+    //-------------------------------------------------------
     Widget vitalsList = Container(
       padding: const EdgeInsets.only(bottom: 6, top: 6),
       decoration: BoxDecoration(
@@ -312,11 +314,28 @@ class PatientCard extends StatelessWidget {
         ],
       ),
     );
-    //---------PHYSICAL RESULTS--------------------------------------
+
+    //         general results from the physical
+    //--------------------------------------------------------------
     Widget physical = Text(
-      "phys exam",
+      "\'General\' physical results",
     );
-    //---------PHYSICAL EXAM--------------------------------------
+
+    //        button to "conduct" physical exam
+    //------------------------------------------------------
+    Widget conductPhysical = Container(
+      child: Column(children: [
+        GestureDetector(
+            onTap: () {
+              viewXrays(context);
+            },
+            child: _buildPhysicalExamButton(
+                Theme.of(context).primaryColor, Icons.person, 'Conduct Exam')),
+      ]),
+    );
+
+    //               box with physical exam button
+    //-----------------------------------------------------------
     Widget physicalExam = Container(
       padding: const EdgeInsets.only(bottom: 6, top: 6),
       decoration: BoxDecoration(
@@ -333,16 +352,19 @@ class PatientCard extends StatelessWidget {
             textAlign: TextAlign.center,
           ),
           physical,
+          conductPhysical,
         ],
       ),
     );
-    //---------VITALS AND PHYSICAL EXAM TAB--------------------------------------
+
+    //            vitals and physical exam TAB
+    //-----------------------------------------------------------
     Widget vitalsPhysicalTab = Container(
       margin: const EdgeInsets.only(left: 5.0, right: 5.0),
       padding: const EdgeInsets.all(12),
-      child: Column(
+      child: ListView(
         //WHOLE COLUMN FOR TAB
-        mainAxisAlignment: MainAxisAlignment.start, //space between??
+        //mainAxisAlignment: MainAxisAlignment.start, //space between??
         children: [
           Row(
             children: [Expanded(child: vitalsList)],
@@ -352,12 +374,26 @@ class PatientCard extends StatelessWidget {
           Row(
             children: [Expanded(child: physicalExam)],
           ),
+          Row(
+            children: [Expanded(child: physicalExam)],
+          ),
+          Row(
+            children: [Expanded(child: physicalExam)],
+          ),
+          Row(
+            children: [Expanded(child: physicalExam)],
+          ),
         ], //BOXES OF TAB
       ),
     );
+//=============================================================================
 
+//                       Narrative tab
+//=============================================================================
     //---------NARRATIVE TEXT--------------------------------------
-    Widget narrative = Text("narrative text");
+    //REPLACE REPLACE REPLACE
+    Widget narrative = Text(
+        "Case ID 208 is a 62-year-old male presenting with fever, rigors and fatigue x5 days. He has a history of smoking, non-Hodgkins Lymphoma s/p unrelated bone marrow transplant, heart failure with preserved ejection fraction, and pulmonary embolism on lifelong anticoagulation. He was well until five days prior when he had more fatigue. Two days later, he began having fevers to 102 and rigors. He was too weak to drive so he called an ambulance. He denies chest pain or palpitations. His examination reveals a chronically-ill appearing male lying in bed in no acute distress. His heart exam shows regular rate and rhythm with no murmurs. Lungs have diminished breath sounds in bases with fine crackles, no rhonchi or wheeze with normal work of breathing at rest. Abdomen is soft, nontender, nondistended. He has no edema in the extremities, and his skin is warm and dry.");
     //---------NARRATIVE BOX--------------------------------------
     Widget narrativeBox = Container(
       padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -382,9 +418,9 @@ class PatientCard extends StatelessWidget {
     Widget narrativeTab = Container(
       margin: const EdgeInsets.only(left: 20.0, right: 20.0),
       padding: const EdgeInsets.all(12),
-      child: Column(
+      child: ListView(
         //WHOLE COLUMN FOR TAB
-        mainAxisAlignment: MainAxisAlignment.start, //space between??
+        //mainAxisAlignment: MainAxisAlignment.start, //space between??
         children: [
           Row(
             children: [Expanded(child: narrativeBox)],
@@ -392,12 +428,12 @@ class PatientCard extends StatelessWidget {
         ], //BOXES OF TAB
       ),
     );
-
+//=============================================================================
     Color color = Theme.of(context).primaryColor;
 
 //---------------------------------------------------------------------------------
 //-----------------------X-RAYS AND TESTS BUTTONS----------------------------------
-    Widget buttonSection = Container(
+    Widget xraysAndTests = Container(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
@@ -445,6 +481,18 @@ class PatientCard extends StatelessWidget {
       ),
     );
 //-----------------------END BUTTON FOR DIAGNOSING----------------------------------
+
+//                    THREE MAIN BUTTONS SECTION
+//------------------------------------------------------------------------------
+    Widget bottomButtons = Container(
+      child: Column(
+        children: [
+          xraysAndTests,
+          Padding(padding: EdgeInsets.only(top: 12.0)),
+          diagnoseButton,
+        ],
+      ),
+    );
 
     //-----------------------PATIENT CARD FINAL SETUP------------------------
     return MaterialApp(
@@ -494,12 +542,19 @@ class PatientCard extends StatelessWidget {
               narrativeTab,
             ],
           ),
+          bottomNavigationBar: new Container(
+              height: 250.0,
+              color: Colors.white,
+              padding: new EdgeInsets.only(top: 20.0),
+              child: bottomButtons),
         ),
       ),
     );
   }
 
-  //-------------------------HELPER FUNCTIONS------------------------------------
+//----------------------------------------------------------------------
+//                      HELPER FUNCTIONS
+//----------------------------------------------------------------------
   Column _buildButtonColumn(Color color, IconData icon, String label) {
     return Column(
       children: [
@@ -545,6 +600,46 @@ class PatientCard extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.all(12),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.black38, width: 1),
+            borderRadius: BorderRadius.circular(12),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey[300].withOpacity(0.5),
+                spreadRadius: 5,
+                blurRadius: 7,
+                offset: Offset(0, 3), // changes position of shadow
+              ),
+            ],
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: color, size: 48),
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.w400,
+                    color: color,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  Column _buildPhysicalExamButton(Color color, IconData icon, String label) {
+    return Column(
+      children: [
+        Container(
+          padding: EdgeInsets.only(left: 20, right: 20, top: 6, bottom: 6),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black38, width: 1),
             borderRadius: BorderRadius.circular(12),
