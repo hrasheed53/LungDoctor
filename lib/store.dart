@@ -1,4 +1,7 @@
+import 'package:RESP2/hataccessories.dart';
+
 import 'labCoat.dart';
+import 'hataccessories.dart';
 import 'package:flutter/material.dart';
 
 int points = 150;
@@ -92,7 +95,11 @@ class _StoreState extends State<Store> {
           line(),
           ListTile(
             onTap: () {
-              //if we want to add edit profile functionality
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => simpAccessories(),
+              ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Simple accessories'),
