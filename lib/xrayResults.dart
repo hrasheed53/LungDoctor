@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
+import 'package:photo_view/photo_view.dart';
 
 class Xrays extends StatefulWidget {
   Xrays({Key key, this.title}) : super(key: key);
@@ -23,8 +24,10 @@ class _XraysState extends State<Xrays> {
           onPressed: () {
             Navigator.pop(context);
           },
-          child: Image.network(
-              'https://xrayimagesresp2.s3.amazonaws.com/xray_example.png'),
+          child: PhotoView(
+            imageProvider: NetworkImage(
+                'https://xrayimagesresp2.s3.amazonaws.com/xray_example.png'),
+          ),
         ),
       ),
     );
