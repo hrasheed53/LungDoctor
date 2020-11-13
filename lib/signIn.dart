@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:RESP2/userData.dart';
 
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
@@ -33,6 +34,8 @@ Future<String> signInWithGoogle() async {
   if (name.contains(" ")) {
     name = name.substring(0, name.indexOf(" "));
   }
+
+  createUser(name);
 
   final User currentUser = _auth.currentUser;
   assert(user.uid == currentUser.uid);
