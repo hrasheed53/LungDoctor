@@ -450,12 +450,43 @@ class PatientCard extends StatelessWidget {
             ],
           ),
 //-----------------------END X-RAYS BUTTON----------------------------------
-//-----------------------DIAGNOSE BUTTON----------------------------------
+//-----------------------DIAGNOSE BUTTON -- ALERT DIALOG----------------------------------
           Column(
             children: [
               GestureDetector(
                 onTap: () {
-                  diagnoseBttn(context);
+                  showDialog(
+                    context: context,
+                    barrierDismissible: false,
+                    builder: (BuildContext context) {
+                      return AlertDialog(
+                        //title: Text('Ready?'),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              Text(
+                                  'Are you prepared to diagnose your patient?'),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('No, back to chart'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                          TextButton(
+                            child: Text('Let\'s diagnose!'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                              diagnoseBttn(context);
+                            },
+                          ),
+                        ],
+                      );
+                    },
+                  );
                 },
                 child: _buildDiagnoseButtonColumn(
                     const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
@@ -532,7 +563,7 @@ class PatientCard extends StatelessWidget {
           ),
           bottomNavigationBar: new Container(
               height: 100.0,
-              color: Colors.white,
+              color: color.withOpacity(0.2),
               padding: new EdgeInsets.only(top: 7.0),
               child: bottomButtons),
         ),
@@ -595,7 +626,7 @@ class PatientCard extends StatelessWidget {
           width: 100,
           padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.black38, width: 1.5),
+            border: Border.all(color: Colors.black54, width: 2),
             borderRadius: BorderRadius.circular(12),
             boxShadow: [
               BoxShadow(
