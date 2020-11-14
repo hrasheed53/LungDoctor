@@ -31,23 +31,26 @@ class DatabaseHelper {
 
   // Opens database.
   _initDatabase() async {
-    openDatabase(join(await getDatabasesPath(), 'user_data.db'),
-        onCreate: (db, version) {
+    var databasePath = await getDatabasesPath();
+    String path = join(databasePath, 'user_data.db');
+    Database db = await openDatabase(path, version: 1,
+        onCreate: (Database myDB, int version) async {
       // Using + to make sqlite command more readable.
-      return db.execute(
-        "CREATE TABLE user_data(userName TEXT, numCorrect INTEGER, " +
-            "numAttempted INTEGER, numCHFMissed INTEGER, " +
-            "numCOPDMissed INTEGER, numPneumMissedINTEGER, " +
-            "numCHFCorrect INTEGER, numCOPDCorrect INTEGER, " +
-            "numPneumCorrect INTEGER, longestStreak INTEGER, " +
-            "currentStreak INTEGER, score INTEGER)",
-      );
-    }, version: 1);
+      //numPneumMissed INTEGER DEFAULT 0,
+      await myDB.execute(
+          'CREATE TABLE user_data(userName TEXT, numCorrect INTEGER DEFAULT 0, ' +
+              'numAttempted INTEGER DEFAULT 0, numCHFMissed INTEGER DEFAULT 0, ' +
+              'numCOPDMissed INTEGER DEFAULT 0, numPneumMissed INTEGER DEFAULT 0, ' +
+              'numCHFCorrect INTEGER DEFAULT 0, numCOPDCorrect INTEGER DEFAULT 0, ' +
+              'numPneumCorrect INTEGER DEFAULT 0, longestStreak INTEGER DEFAULT 0, ' +
+              'currentStreak INTEGER DEFAULT 0, score INTEGER DEFAULT 0)');
+    });
+    return db;
   }
 
   /* raw version allow direct usage of SQLite syntax vs. using a map.
   Future<void> updateName(String oldName, String newName) async {
-    await _database.rawUpdate();
+    await _database.rawUpdate(); 
   }*/
 
   Future<void> createUser(String name) async {
@@ -69,6 +72,8 @@ class DatabaseHelper {
     if (id == -1) {
       print("ERROR IN INSERT INTO DB!");
     }
+    List<Map> list = await db.rawQuery('SELECT * from user_data');
+    print(list);
   }
 
   Future<int> get correct async {
@@ -118,7 +123,7 @@ class DatabaseHelper {
     List<int> missed = [
       missedVals.first["numCHFMissed"],
       missedVals.first["numCOPDMissed"],
-      missedVals.first["numCOPDMissed"],
+      missedVals.first["numPneumMissed"],
     ];
     // Get highest miss count value.
     return missed.reduce(max);
