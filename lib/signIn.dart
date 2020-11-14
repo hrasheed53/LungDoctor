@@ -7,6 +7,9 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 String name;
 String email;
 String imageUrl;
+//defines base url to which case no. can be appended:
+String baseCaseUrl =
+    'https://diagnostic-gamification-api.herokuapp.com/v1/cases/';
 
 Future<String> signInWithGoogle() async {
   final GoogleSignInAccount googleSignInAccount = await googleSignIn.signIn();
