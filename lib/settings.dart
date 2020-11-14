@@ -12,6 +12,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  String name ='';
   bool isSwitched = false;
   bool isSwitched2 = false;
   bool isSwitched3 = false;
@@ -34,7 +35,7 @@ class _SettingsState extends State<Settings> {
                   onTap: () {
                     //if we want to add edit profile functionality
                   },
-                  title: Text('Name goes here'),
+                  title: Text(name),
                   leading: CircleAvatar(
                     backgroundColor: Colors.blue,
                   ),
