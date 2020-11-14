@@ -111,7 +111,7 @@ class _LabCoatState extends State<LabCoat> {
               currentImage = 'assets/images/' + imageFileName;
             });
           },
-          splashColor: Colors.pink[300],
+          splashColor: colorValue,
           child: Center(
             child: Column(
               mainAxisSize: MainAxisSize.min,
