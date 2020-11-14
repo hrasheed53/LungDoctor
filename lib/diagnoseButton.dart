@@ -18,11 +18,6 @@ class _DiagnoseState extends State<Diagnose> {
   //List rejectedData;
   bool lastPatient = true;
 
-  numPatients = 0;
-  if(numPatients > 0){
-    lastPatient = false;
-  }
-
   @override
   Widget build(BuildContext context) {
     //==============================================================================
