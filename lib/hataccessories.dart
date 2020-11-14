@@ -57,15 +57,52 @@ class _simpAccessoriesState extends State<simpAccessories> {
               ],
             ),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 buttonHelper("Hat 1", "alien_hat1.png"),
                 buttonHelper("Hat 2", "alien_hat2.png"),
               ],
             ),
-            Row(children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
               buttonHelper("Flowers", "alien_flowercrown.png"),
               buttonHelper("Flowers 2", "alien_flowers.png"),
             ]),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Container(
+                  height: 50,
+                  width: 350,
+                  child: Card(
+                    elevation: 8,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(32)),
+                    margin: EdgeInsets.all(8.0),
+                    color: Colors.blue[600],
+                    child: InkWell(
+                      onTap: () {
+
+                      },
+                      splashColor: Colors.grey[600],
+                      child: Center(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            Text("Save",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white)),
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
