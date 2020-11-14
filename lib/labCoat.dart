@@ -29,6 +29,7 @@ class _LabCoatState extends State<LabCoat> {
               scale: 4.5,
             )),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 colorButton(
                     context, Colors.red[600], "Red", "alien_labcoat_red.png"),
@@ -38,7 +39,9 @@ class _LabCoatState extends State<LabCoat> {
                     "alien_labcoat_orange.png"),
               ],
             ),
-            Row(children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
               colorButton(context, Colors.yellow[600], "Yellow",
                   "alien_labcoat_yellow.png"),
               colorButton(context, Colors.green[400], "Green",
@@ -46,7 +49,9 @@ class _LabCoatState extends State<LabCoat> {
               colorButton(
                   context, Colors.blue[300], "Blue", "alien_labcoat_blue.png"),
             ]),
-            Row(children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
               colorButton(context, Colors.purple[600], "Purple",
                   "alien_labcoat_purple.png"),
               colorButton(
@@ -54,6 +59,7 @@ class _LabCoatState extends State<LabCoat> {
               colorButton(context, Colors.grey[600], "White", "alien.png"),
             ]),
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 Container(
                   height: 50,
