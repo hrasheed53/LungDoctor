@@ -26,6 +26,7 @@ dependencies:
   sqflite:
   path:
   photo_view: ^0.10.2
+  http: ^0.12.2
   
   firebase_auth: ^0.18.3
   firebase_core: "^0.5.2"
