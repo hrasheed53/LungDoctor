@@ -12,7 +12,10 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
+  String name ='';
   bool isSwitched = false;
+  bool isSwitched2 = false;
+  bool isSwitched3 = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -32,7 +35,7 @@ class _SettingsState extends State<Settings> {
                   onTap: () {
                     //if we want to add edit profile functionality
                   },
-                  title: Text('Name goes here'),
+                  title: Text(name),
                   leading: CircleAvatar(
                     backgroundColor: Colors.blue,
                   ),
@@ -81,23 +84,35 @@ class _SettingsState extends State<Settings> {
             SwitchListTile(
               activeColor: Colors.blue[300],
               contentPadding: const EdgeInsets.all(5.0),
-              value: true,
+              value: isSwitched,
               title: Text('Sabotage Man'),
-              onChanged: (val) {},
+              onChanged: (value) {
+                setState(() {
+                  isSwitched = !isSwitched;
+                });
+              },
             ),
             SwitchListTile(
               activeColor: Colors.blue[300],
               contentPadding: const EdgeInsets.all(5.0),
-              value: true,
+              value: isSwitched2,
               title: Text('Sound effects'),
-              onChanged: (val) {},
+              onChanged: (value) {
+                setState(() {
+                  isSwitched2 = !isSwitched2;
+                });
+              },
             ),
             SwitchListTile(
               activeColor: Colors.blue[300],
               contentPadding: const EdgeInsets.all(5.0),
-              value: true,
+              value: isSwitched3,
               title: Text('Reminders to play'),
-              onChanged: (val) {},
+              onChanged: (value) {
+                setState(() {
+                  isSwitched3 = !isSwitched3;
+                });
+              },
             ),
             Align(
               alignment: Alignment.bottomCenter,
