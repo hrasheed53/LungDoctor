@@ -1,4 +1,5 @@
 import 'package:RESP2/hataccessories.dart';
+import 'package:RESP2/incorrect_answer.dart';
 
 import 'labCoat.dart';
 import 'hataccessories.dart';
@@ -86,7 +87,11 @@ class _StoreState extends State<Store> {
           line(),
           ListTile(
             onTap: () {
-              //if we want to add edit profile functionality
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => simpAccessories(),
+              ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Hair Style'),
