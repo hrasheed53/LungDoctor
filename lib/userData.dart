@@ -8,14 +8,15 @@ import 'package:RESP2/databaseHelper.dart';
   db.updateName(userName, newName);
 } */
 
-void createUser(String name) {
+void createUser(String name) async {
   final db = DatabaseHelper();
-  db.createUser(name).then((_val) => {});
+  //db.createUser(name).then((_val) => {});
+  await db.createUser(name);
 }
 
-Map<String, int> getStatistics() {
+Map<String, Future<int>> getStatistics() {
   final db = DatabaseHelper();
-  int correct;
+  /*int correct;
   db.correct.then((value) => correct = value);
   int attempted;
   db.attempted.then((value) => attempted = value);
@@ -28,7 +29,14 @@ Map<String, int> getStatistics() {
   int currentStreak;
   db.currentStreak.then((value) => currentStreak = value);
   int score;
-  db.score.then((value) => score = value);
+  db.score.then((value) => score = value);*/
+  Future<int> correct = db.correct;
+  Future<int> attempted = db.attempted;
+  Future<int> mostMisdiagnosed = db.misdiagnosed;
+  Future<int> mostCorrectlyDiagnosed = db.correctDiagnosed;
+  Future<int> longestStreak = db.longestStreak;
+  Future<int> currentStreak = db.currentStreak;
+  Future<int> score = db.score;
 
   return {
     'numCorrect': correct,
@@ -82,6 +90,7 @@ class UserData {
       'numPneumCorrect': numPneumCorrect,
       'longestStreak': longestStreak,
       'currentStreak': currentStreak,
+      'score': score,
     };
   }
 }

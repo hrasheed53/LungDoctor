@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:RESP2/gamePlay.dart';
 
 class Diagnose extends StatefulWidget {
   Diagnose({Key key, this.title}) : super(key: key);
@@ -15,6 +16,7 @@ class _DiagnoseState extends State<Diagnose> {
   bool correct = false;
   //List<String> illnesses = ["CHF", "COPD", "PNEUMONIA"];
   //List rejectedData;
+  bool lastPatient = true;
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +79,7 @@ class _DiagnoseState extends State<Diagnose> {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: Text('No, back to chart'),
+                        child: Text('back'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
@@ -103,7 +105,7 @@ class _DiagnoseState extends State<Diagnose> {
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: Text('No, back to chart'),
+                        child: Text('back'),
                         onPressed: () {
                           Navigator.of(context).pop();
                         },

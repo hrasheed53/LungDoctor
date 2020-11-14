@@ -5,64 +5,55 @@ import 'package:http/http.dart' as http;
 //DEF:
 //puts all the patient data from the api into a json file then a map
 
-Future<PatientChart> getPatientChart(String url) async {
-  final response = await http.get(url);
-  if (response.statusCode == 200) {
-    return PatientChart.fromJson(jsonDecode(response.body));
-  } else {
-    throw Exception('Failed to load patient data');
-  }
-}
-
 class PatientChart {
-  final String id;
-  final int age;
-  final String gender;
-  final String diagnosis;
-  final String narratives;
-  final String pastMedHistory1;
-  final int caseID;
-  final String pastMedHistory2;
-  final int bloodABGpco2;
-  final int bloodABGph;
-  final int bloodABGpo2;
-  final int bloodBNP;
-  final int bloodBUN;
-  final int bloodBicarbonate;
-  final int bloodChloride;
-  final int bloodCreatinine;
-  final int bloodGlucose;
-  final int bloodHemacrotit;
-  final int bloodHemoglobin;
-  final int bloodLactate;
-  final int bloodPlatelets;
-  final int bloodPotassium;
-  final String bloodPressure;
-  final int bloodSodium;
-  final int bloodWBC;
-  final String cxrLink;
-  final String cxrThoughts;
-  final String difficulty;
-  final String examAbdomen;
-  final String examExtremeties;
-  final String examGeneral;
-  final String examHead;
-  final String examHeart;
-  final String examLungs;
-  final String examNeck;
-  final String examSkin;
-  final String expertComments;
-  final int heartRate;
-  final String oxygenAmount;
-  final String oxygenSat;
-  final String pastMedHistory3;
-  final String provocatingFactors;
-  final String redHerrings;
-  final int respiratoryRate;
-  final String symptomDescription;
-  final String symptomOnset;
-  final int temperature;
-  final String tobaccoUse;
+  var id;
+  var age;
+  var gender;
+  var diagnosis;
+  var narratives;
+  var pastMedHistory1;
+  var caseID;
+  var pastMedHistory2;
+  var bloodABGpco2;
+  var bloodABGph;
+  var bloodABGpo2;
+  var bloodBNP;
+  var bloodBUN;
+  var bloodBicarbonate;
+  var bloodChloride;
+  var bloodCreatinine;
+  var bloodGlucose;
+  var bloodHemacrotit;
+  var bloodHemoglobin;
+  var bloodLactate;
+  var bloodPlatelets;
+  var bloodPotassium;
+  var bloodPressure;
+  var bloodSodium;
+  var bloodWBC;
+  var cxrLink;
+  var cxrThoughts;
+  var difficulty;
+  var examAbdomen;
+  var examExtremeties;
+  var examGeneral;
+  var examHead;
+  var examHeart;
+  var examLungs;
+  var examNeck;
+  var examSkin;
+  var expertComments;
+  var heartRate;
+  var oxygenAmount;
+  var oxygenSat;
+  var pastMedHistory3;
+  var provocatingFactors;
+  var redHerrings;
+  var respiratoryRate;
+  var symptomDescription;
+  var symptomOnset;
+  var temperature;
+  var tobaccoUse;
 
   PatientChart(
       {this.id,
@@ -116,54 +107,66 @@ class PatientChart {
 
   factory PatientChart.fromJson(Map<String, dynamic> json) {
     return PatientChart(
-      id: json['_id'] as String,
-      age: json['Age'] as int,
-      gender: json['Gender'] as String,
-      diagnosis: json['Diagnosis'] as String,
-      narratives: json['Narratives'] as String,
-      pastMedHistory1: json['PastMedHistory1'] as String,
-      caseID: json['CaseID'] as int,
-      pastMedHistory2: json['PastMedHistory2'] as String,
-      bloodABGpco2: json['BloodABG_pco2'] as int,
-      bloodABGph: json['BloodABG_ph'] as int,
-      bloodABGpo2: json['BloodABG_po2'] as int,
-      bloodBNP: json['BloodBNP'] as int,
-      bloodBUN: json['BloodBUN'] as int,
-      bloodBicarbonate: ['BloodBicarbonate'] as int,
-      bloodChloride: ['BloodChloride'] as int,
-      bloodCreatinine: ['BloodCreatinine'] as int,
-      bloodGlucose: ['BloodGlucose'] as int,
-      bloodHemacrotit: ['BloodHemacrotit'] as int,
-      bloodHemoglobin: ['BloodHemoglobin'] as int,
-      bloodLactate: ['BloodLactate'] as int,
-      bloodPlatelets: ['BloodPlatelets'] as int,
-      bloodPotassium: ['BloodPotassium'] as int,
-      bloodPressure: ['BloodPressure'] as String,
-      bloodSodium: ['BloodSodium'] as int,
-      bloodWBC: ['BloodWBC'] as int,
-      cxrLink: ['CXRLink'] as String,
-      cxrThoughts: ['CSRThoughts'] as String,
-      difficulty: ['Difficulty'] as String,
-      examAbdomen: ['ExamAbdomen'] as String,
-      examExtremeties: ['ExamExtremities'] as String,
-      examGeneral: ['ExamGeneral'] as String,
-      examHead: ['ExamHead'] as String,
-      examHeart: ['ExamHeart'] as String,
-      examLungs: ['ExamLungs'] as String,
-      examNeck: ['ExamNeck'] as String,
-      examSkin: ['ExamSkin'] as String,
-      expertComments: ['ExpertComments'] as String,
-      heartRate: ['HeartRate'] as int,
-      oxygenAmount: ['OxygenAmount'] as String,
-      oxygenSat: ['OxygenSat'] as String,
-      pastMedHistory3: ['PastMedHistory3'] as String,
-      provocatingFactors: ['ProvocatingFactors'] as String,
-      redHerrings: ['RedHerrings'] as String,
-      respiratoryRate: ['RespiratoryRate'] as int,
-      symptomDescription: ['SymptomDescription'] as String,
-      symptomOnset: ['SymptomOnset'] as String,
-      temperature: ['Temperature'] as int,
-      tobaccoUse: ['TobaccoUse'] as String,
+      id: json['_id'],
+      age: json['Age'],
+      gender: json['Gender'],
+      diagnosis: json['Diagnosis'],
+      narratives: json['Narratives'],
+      pastMedHistory1: json['PastMedHistory1'],
+      caseID: json['CaseID'],
+      pastMedHistory2: json['PastMedHistory2'],
+      bloodABGpco2: json['BloodABG_pco2'],
+      bloodABGph: json['BloodABG_ph'],
+      bloodABGpo2: json['BloodABG_po2'],
+      bloodBNP: json['BloodBNP'],
+      bloodBUN: json['BloodBUN'],
+      bloodBicarbonate: json['BloodBicarbonate'],
+      bloodChloride: json['BloodChloride'],
+      bloodCreatinine: json['BloodCreatinine'],
+      bloodGlucose: json['BloodGlucose'],
+      bloodHemacrotit: json['BloodHemacrotit'],
+      bloodHemoglobin: json['BloodHemoglobin'],
+      bloodLactate: json['BloodLactate'],
+      bloodPlatelets: json['BloodPlatelets'],
+      bloodPotassium: json['BloodPotassium'],
+      bloodPressure: json['BloodPressure'],
+      bloodSodium: json['BloodSodium'],
+      bloodWBC: json['BloodWBC'],
+      cxrLink: json['CXRLink'],
+      cxrThoughts: json['CSRThoughts'],
+      difficulty: json['Difficulty'],
+      examAbdomen: json['ExamAbdomen'],
+      examExtremeties: json['ExamExtremities'],
+      examGeneral: json['ExamGeneral'],
+      examHead: json['ExamHead'],
+      examHeart: json['ExamHeart'],
+      examLungs: json['ExamLungs'],
+      examNeck: json['ExamNeck'],
+      examSkin: json['ExamSkin'],
+      expertComments: json['ExpertComments'],
+      heartRate: json['HeartRate'],
+      oxygenAmount: json['OxygenAmount'],
+      oxygenSat: json['OxygenSat'],
+      pastMedHistory3: json['PastMedHistory3'],
+      provocatingFactors: json['ProvocatingFactors'],
+      redHerrings: json['RedHerrings'],
+      respiratoryRate: json['RespiratoryRate'],
+      symptomDescription: json['SymptomDescription'],
+      symptomOnset: json['SymptomOnset'],
+      temperature: json['Temperature'],
+      tobaccoUse: json['TobaccoUse'],
     );
+  }
+}
+
+Future<PatientChart> getPatientChart(url) async {
+  final response = await http.get(url);
+  print("HELLO!");
+  if (response.statusCode == 200) {
+    print("HELLO");
+    print(PatientChart.fromJson(jsonDecode(response.body)).age);
+    return PatientChart.fromJson(jsonDecode(response.body));
+  } else {
+    throw Exception('Failed to load patient data');
   }
 }
