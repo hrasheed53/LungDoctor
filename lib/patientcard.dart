@@ -1,5 +1,5 @@
 import 'dart:ui';
-
+import 'parsePatientData.dart';
 import 'package:RESP2/testResults.dart';
 import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
@@ -9,16 +9,20 @@ import 'diagnoseButton.dart';
 import 'package:path/path.dart';
 import 'xrayResults.dart';
 import 'package:condition/condition.dart';
-//import 'package:excel/excel.dart';
-// Uncomment lines 7 and 10 to view the visual layout at runtime.
-// import 'package:flutter/rendering.dart' show debugPaintSizeEnabled;
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 
-void main() {
-  // debugPaintSizeEnabled = true;
-  //get variables
-
-  runApp(PatientCard());
+class PatientCard extends StatefulWidget {
+  PatientCard({Key key, this.title}) : super(key: key);
+  final String title;
+  @override
+  _PatientCardState createState() => _PatientCardState();
 }
+
+//Contains all the logic for the patient card user interface. Now with comment
+//headers for easier understanding.
+
+String url = 'https://diagnostic-gamification-api.herokuapp.com/v1/cases/208';
 
 //REPLACE BOOLS BELOW WITH LOGIC
 bool tobaccoUser = true;
@@ -33,7 +37,18 @@ String caseID = caseIDint.toString();
 String demographics = ": female, 25";
 String chartTitle = "Patient " + caseID + demographics;
 
-class PatientCard extends StatelessWidget {
+//PatientChart chart;
+
+class _PatientCardState extends State<PatientCard> {
+  Future<PatientChart> futureChart;
+
+  @override
+  void initState() {
+    print("HERE");
+    super.initState();
+    futureChart = getPatientChart(url);
+  }
+
   @override
   Widget build(BuildContext context) {
 //                    Symptoms, History, and Tobacco Use tab
@@ -53,7 +68,22 @@ class PatientCard extends StatelessWidget {
             "Onset of Symptoms: ",
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
           ),
-          Text("[x] days"),
+          //Text("[onset :()]"),
+          FutureBuilder<PatientChart>(
+            future: futureChart,
+            builder: (context, snapshot) {
+              print("HERE");
+              print("${snapshot.error}");
+              if (snapshot.hasData) {
+                return Text(snapshot.data.symptomOnset);
+              } else if (snapshot.hasError) {
+                return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
+              } else {
+                // By default, show a loading spinner.
+                return Text("no data");
+              }
+            },
+          ),
         ],
       ),
     ); //onset of symptoms
@@ -235,7 +265,7 @@ class PatientCard extends StatelessWidget {
                   Text(
                     'temp',
                   ),
-                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
                     'Respiratory Rate (breaths/min)',
                     style: TextStyle(
@@ -245,7 +275,7 @@ class PatientCard extends StatelessWidget {
                   Text(
                     'resp rate',
                   ),
-                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
                     'Heart Rate (beats/min)',
                     style: TextStyle(
@@ -255,7 +285,7 @@ class PatientCard extends StatelessWidget {
                   Text(
                     'heart rate',
                   ),
-                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
                     'Blood Pressure (mm Hg)',
                     style: TextStyle(
@@ -265,7 +295,7 @@ class PatientCard extends StatelessWidget {
                   Text(
                     'blood pressure',
                   ),
-                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
                     'O\u2082 Saturation',
                     style: TextStyle(
@@ -275,7 +305,7 @@ class PatientCard extends StatelessWidget {
                   Text(
                     'oxygen sat',
                   ),
-                  Padding(padding: EdgeInsets.only(top: 4.0)),
+                  Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
                     'O\u2082 Received',
                     style: TextStyle(
@@ -318,7 +348,8 @@ class PatientCard extends StatelessWidget {
     //         general results from the physical
     //--------------------------------------------------------------
     Widget physical = Text(
-      "\'General\' physical results",
+      "[show general physical results here]",
+      style: TextStyle(fontSize: 16),
     );
 
     //        button to "conduct" physical exam
@@ -351,7 +382,9 @@ class PatientCard extends StatelessWidget {
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
             textAlign: TextAlign.center,
           ),
+          Padding(padding: EdgeInsets.only(top: 6.0)),
           physical,
+          Padding(padding: EdgeInsets.only(top: 6.0)),
           conductPhysical,
         ],
       ),
@@ -515,11 +548,16 @@ class PatientCard extends StatelessWidget {
 
     //-----------------------PATIENT CARD FINAL SETUP------------------------
     return MaterialApp(
-      title: chartTitle,
       home: DefaultTabController(
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            title: Text(chartTitle),
+            /*leading: IconButton(
+              icon: Icon(Icons.arrow_back),
+              onPressed:
+            ),*/
+            centerTitle: true,
             bottom: TabBar(
               tabs: [
                 Tab(
@@ -551,8 +589,6 @@ class PatientCard extends StatelessWidget {
                 ),
               ],
             ),
-            title: Text(chartTitle),
-            centerTitle: true,
           ),
           body: TabBarView(
             children: [
