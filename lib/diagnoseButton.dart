@@ -56,48 +56,63 @@ class _DiagnoseState extends State<Diagnose> {
           builder: (context, List<String> incoming, List rejected) {
             return _buildButton(
                 const Color(0xffe34646), Icons.local_pharmacy, disease);
-            /*
-            if (disease == ans) {
-              return _buildButton(
-                  const Color(0xffe34646), Icons.local_pharmacy, disease);
-            } else {
-              return _buildButton(
-                  const Color(0xffe34646), Icons.local_pharmacy, "rand");
-            }*/
           },
-          onWillAccept: (data) => data == disease,
+          //onWillAccept: (data) => data == disease,
           onAccept: (data) {
-            correct = true;
-            showDialog(
-              context: context,
-              barrierDismissible: false,
-              builder: (BuildContext context) {
-                return AlertDialog(
-                  //title: Text('Ready?'),
-                  content: SingleChildScrollView(
-                    child: ListBody(
-                      children: <Widget>[
-                        Text('Are you prepared to diagnose your patient?'),
-                      ],
+            if (data == disease) {
+              //-------IF THEY GOT IT RIGHT!!!---------------------------------
+              correct = true;
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    //title: Text('Ready?'),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          Text('Good guessing!'),
+                        ],
+                      ),
                     ),
-                  ),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text('No, back to chart'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('No, back to chart'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            } else {
+              //------------IF THEY GOT IT WRONG!!!-------------------------------
+              showDialog(
+                context: context,
+                barrierDismissible: false,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                    //title: Text('Ready?'),
+                    content: SingleChildScrollView(
+                      child: ListBody(
+                        children: <Widget>[
+                          Text('You fucked up!'),
+                        ],
+                      ),
                     ),
-                    TextButton(
-                      child: Text('Let\'s diagnose!'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                );
-              },
-            );
+                    actions: <Widget>[
+                      TextButton(
+                        child: Text('No, back to chart'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  );
+                },
+              );
+            }
           },
         ),
       );
