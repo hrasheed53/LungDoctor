@@ -12,6 +12,7 @@ class Game extends StatefulWidget {
 }
 
 class _GameState extends State<Game> {
+  int numPatients = 1;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -76,6 +77,7 @@ class _GameState extends State<Game> {
                   margin: EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
+                      numPatients = 3;
                       navigateToGame(context);
                     },
                     splashColor: Colors.blue[600],
@@ -100,6 +102,7 @@ class _GameState extends State<Game> {
                   margin: EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
+                      numPatients = 5;
                       navigateToGame(context);
                     },
                     splashColor: Colors.blue[600],
@@ -124,6 +127,7 @@ class _GameState extends State<Game> {
                   margin: EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
+                      numPatients = 7;
                       navigateToGame(context);
                     },
                     splashColor: Colors.blue[600],
@@ -148,6 +152,7 @@ class _GameState extends State<Game> {
                   margin: EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
+                      numPatients = 10;
                       navigateToGame(context);
                     },
                     splashColor: Colors.blue[600],
@@ -172,6 +177,7 @@ class _GameState extends State<Game> {
                   margin: EdgeInsets.all(8.0),
                   child: InkWell(
                     onTap: () {
+                      numPatients = 15;
                       navigateToGame(context);
                     },
                     splashColor: Colors.blue[600],
@@ -228,6 +234,10 @@ class _GameState extends State<Game> {
 
   Future navigateToGame(context) async {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => PatientCard()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => PatientCard(
+                  patientsLeft: numPatients,
+                )));
   }
 }
