@@ -3,6 +3,7 @@ import 'package:RESP2/incorrect_answer.dart';
 
 import 'labCoat.dart';
 import 'hataccessories.dart';
+import 'backgrounds.dart';
 import 'package:flutter/material.dart';
 
 int points = 150;
@@ -90,11 +91,11 @@ class _StoreState extends State<Store> {
               Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => simpAccessories(),
+                builder: (context) => background(),
               ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Hair Style'),
+            title: Text('Backgrounds'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
