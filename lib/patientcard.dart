@@ -33,7 +33,7 @@ bool provocatingFactors = true;
 bool history2 = true;
 bool history3 = true;
 
-int caseIDint = 200;
+int caseIDint = 208;
 String caseID = caseIDint.toString();
 String demographics = ": female, 25";
 String chartTitle = caseID + "Patient " + caseID + demographics;
@@ -46,16 +46,35 @@ class _PatientCardState extends State<PatientCard> {
 
   @override
   void initState() {
-    print("HERE");
     super.initState();
     futureChart = getPatientChart(url);
   }
 
   @override
   Widget build(BuildContext context) {
+    //decrement no. patients left to "examine"
     remaining = widget.patientsLeft - 1;
-    print(remaining);
-    print(widget.patientsLeft);
+/*
+    PatientChart chart = new FutureBuilder<PatientChart>(
+      future: futureChart,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return snapshot.data;
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
+        } else {
+          // By default, show a loading spinner.
+          return CircularProgressIndicator();
+        }
+      },
+    );
+  
+    futureChart.then((result) {
+      setState(() {
+        chart = result;
+      });
+    });*/
+    //print(chart.age);
 //                    Symptoms, History, and Tobacco Use tab
 //=============================================================================
     //---------------ONSET OF SYMPTOMS-----------------------------------
@@ -77,15 +96,13 @@ class _PatientCardState extends State<PatientCard> {
           FutureBuilder<PatientChart>(
             future: futureChart,
             builder: (context, snapshot) {
-              print("HERE");
-              print("${snapshot.error}");
               if (snapshot.hasData) {
                 return Text(snapshot.data.symptomOnset);
               } else if (snapshot.hasError) {
                 return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
               } else {
                 // By default, show a loading spinner.
-                return Text("no data");
+                return CircularProgressIndicator();
               }
             },
           ),
@@ -94,8 +111,18 @@ class _PatientCardState extends State<PatientCard> {
     ); //onset of symptoms
 
     //---------------PATIENT'S SYMPTOMS-----------------------------------------
-    Widget symptoms = Text(
-      "symptoms list",
+    Widget symptoms = FutureBuilder<PatientChart>(
+      future: futureChart,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data.symptomDescription);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
+        } else {
+          // By default, show a loading spinner.
+          return CircularProgressIndicator();
+        }
+      },
     );
 
     //--------------SYMPTOMS LIST BOX-----------------------------------------
@@ -120,8 +147,18 @@ class _PatientCardState extends State<PatientCard> {
     ); //symptoms list
 
     //------------PATIENT'S HISTORY-----------------------------------------
-    Widget history = Text(
-      "history list",
+    Widget history = FutureBuilder<PatientChart>(
+      future: futureChart,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data.pastMedHistory1);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
+        } else {
+          // By default, show a loading spinner.
+          return CircularProgressIndicator();
+        }
+      },
     );
 
     //------------HISTORY LIST BOX-----------------------------------------
@@ -267,8 +304,19 @@ class _PatientCardState extends State<PatientCard> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'temp',
+                  FutureBuilder<PatientChart>(
+                    future: futureChart,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(snapshot.data.temperature.toString());
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}",
+                            style: TextStyle(fontSize: 4));
+                      } else {
+                        // By default, show a loading spinner.
+                        return CircularProgressIndicator();
+                      }
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
@@ -277,8 +325,19 @@ class _PatientCardState extends State<PatientCard> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'resp rate',
+                  FutureBuilder<PatientChart>(
+                    future: futureChart,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(snapshot.data.respiratoryRate.toString());
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}",
+                            style: TextStyle(fontSize: 4));
+                      } else {
+                        // By default, show a loading spinner.
+                        return CircularProgressIndicator();
+                      }
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
@@ -287,8 +346,19 @@ class _PatientCardState extends State<PatientCard> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'heart rate',
+                  FutureBuilder<PatientChart>(
+                    future: futureChart,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(snapshot.data.heartRate.toString());
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}",
+                            style: TextStyle(fontSize: 4));
+                      } else {
+                        // By default, show a loading spinner.
+                        return CircularProgressIndicator();
+                      }
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
@@ -297,8 +367,19 @@ class _PatientCardState extends State<PatientCard> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'blood pressure',
+                  FutureBuilder<PatientChart>(
+                    future: futureChart,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(snapshot.data.bloodPressure);
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}",
+                            style: TextStyle(fontSize: 4));
+                      } else {
+                        // By default, show a loading spinner.
+                        return CircularProgressIndicator();
+                      }
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
@@ -307,8 +388,19 @@ class _PatientCardState extends State<PatientCard> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'oxygen sat',
+                  FutureBuilder<PatientChart>(
+                    future: futureChart,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(snapshot.data.oxygenSat);
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}",
+                            style: TextStyle(fontSize: 4));
+                      } else {
+                        // By default, show a loading spinner.
+                        return CircularProgressIndicator();
+                      }
+                    },
                   ),
                   Padding(padding: EdgeInsets.only(top: 9.0)),
                   Text(
@@ -317,8 +409,19 @@ class _PatientCardState extends State<PatientCard> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  Text(
-                    'oxygen received',
+                  FutureBuilder<PatientChart>(
+                    future: futureChart,
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Text(snapshot.data.oxygenAmount);
+                      } else if (snapshot.hasError) {
+                        return Text("${snapshot.error}",
+                            style: TextStyle(fontSize: 4));
+                      } else {
+                        // By default, show a loading spinner.
+                        return CircularProgressIndicator();
+                      }
+                    },
                   ),
                 ],
               ),
@@ -352,9 +455,19 @@ class _PatientCardState extends State<PatientCard> {
 
     //         general results from the physical
     //--------------------------------------------------------------
-    Widget physical = Text(
-      "[show general physical results here]",
-      style: TextStyle(fontSize: 16),
+    Widget physical = FutureBuilder<PatientChart>(
+      future: futureChart,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data.examGeneral,
+              style: TextStyle(fontSize: 16));
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
+        } else {
+          // By default, show a loading spinner.
+          return CircularProgressIndicator();
+        }
+      },
     );
 
     //        button to "conduct" physical exam
@@ -430,8 +543,19 @@ class _PatientCardState extends State<PatientCard> {
 //=============================================================================
     //---------NARRATIVE TEXT--------------------------------------
     //REPLACE REPLACE REPLACE
-    Widget narrative = Text(
-        "Case ID 208 is a 62-year-old male presenting with fever, rigors and fatigue x5 days. He has a history of smoking, non-Hodgkins Lymphoma s/p unrelated bone marrow transplant, heart failure with preserved ejection fraction, and pulmonary embolism on lifelong anticoagulation. He was well until five days prior when he had more fatigue. Two days later, he began having fevers to 102 and rigors. He was too weak to drive so he called an ambulance. He denies chest pain or palpitations. His examination reveals a chronically-ill appearing male lying in bed in no acute distress. His heart exam shows regular rate and rhythm with no murmurs. Lungs have diminished breath sounds in bases with fine crackles, no rhonchi or wheeze with normal work of breathing at rest. Abdomen is soft, nontender, nondistended. He has no edema in the extremities, and his skin is warm and dry.");
+    Widget narrative = FutureBuilder<PatientChart>(
+      future: futureChart,
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Text(snapshot.data.narratives);
+        } else if (snapshot.hasError) {
+          return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
+        } else {
+          // By default, show a loading spinner.
+          return CircularProgressIndicator();
+        }
+      },
+    );
     //---------NARRATIVE BOX--------------------------------------
     Widget narrativeBox = Container(
       padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -545,11 +669,7 @@ class _PatientCardState extends State<PatientCard> {
           )
         ],
       ),
-//-----------------------END ORDER TESTS BUTTON----------------------------------
     );
-//-----------------------BUTTON FOR DIAGNOSING----------------------------------
-
-//-----------------------END BUTTON FOR DIAGNOSING----------------------------------
 
     //-----------------------PATIENT CARD FINAL SETUP------------------------
     return MaterialApp(
