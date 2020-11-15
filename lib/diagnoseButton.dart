@@ -1,25 +1,31 @@
 import 'package:flutter/material.dart';
+import 'package:RESP2/patientcard.dart';
 import 'package:RESP2/gamePlay.dart';
 
 class Diagnose extends StatefulWidget {
-  Diagnose({Key key, this.title}) : super(key: key);
-
-  final String title;
+  Diagnose({Key key, @required this.patientsLeft}) : super(key: key);
+  final int patientsLeft;
 
   @override
   _DiagnoseState createState() => _DiagnoseState();
 }
 
 class _DiagnoseState extends State<Diagnose> {
+  int remaining;
   //variables to be used:
   String ans = "CHF";
   bool correct = false;
   //List<String> illnesses = ["CHF", "COPD", "PNEUMONIA"];
   //List rejectedData;
-  bool lastPatient = true;
+  bool lastPatient = false;
 
   @override
   Widget build(BuildContext context) {
+    remaining = widget.patientsLeft;
+    if (widget.patientsLeft == 0) {
+      lastPatient = true;
+    }
+
     //==============================================================================
     //                Button to be dragged:
     //==============================================================================
@@ -61,6 +67,7 @@ class _DiagnoseState extends State<Diagnose> {
           },
           //onWillAccept: (data) => data == disease,
           onAccept: (data) {
+            //NEED TO CALL UPDATESTATISTICS() FUNCTION HERE W/ CORRECT DIAGNOSIS, RIGHT/WRONG, AND DIFFICULTY!!!!!!!
             if (data == disease) {
               //-------IF THEY GOT IT RIGHT!!!---------------------------------
               correct = true;
@@ -69,19 +76,25 @@ class _DiagnoseState extends State<Diagnose> {
                 barrierDismissible: false,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    //title: Text('Ready?'),
+                    //Show correct doctor man in a widget here ?
                     content: SingleChildScrollView(
                       child: ListBody(
                         children: <Widget>[
-                          Text('Good guessing!'),
+                          Text('CORRECT'),
                         ],
                       ),
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: Text('back'),
+                        child: Text('Proceed'),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          //this is where it either sends them to next patient
+                          //or back to main gameplay screen
+                          if (lastPatient) {
+                            navigateToGameplay(context);
+                          } else {
+                            navigateBackToGame(context);
+                          }
                         },
                       ),
                     ],
@@ -95,19 +108,25 @@ class _DiagnoseState extends State<Diagnose> {
                 barrierDismissible: false,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    //title: Text('Ready?'),
+                    //Show correct doctor man in a widget here ?
                     content: SingleChildScrollView(
                       child: ListBody(
                         children: <Widget>[
-                          Text('You fucked up!'),
+                          Text('INCORRECT'),
                         ],
                       ),
                     ),
                     actions: <Widget>[
                       TextButton(
-                        child: Text('back'),
+                        child: Text('Proceed'),
                         onPressed: () {
-                          Navigator.of(context).pop();
+                          //this is where it either sends them to next patient
+                          //or back to main gameplay screen
+                          if (lastPatient) {
+                            navigateToGameplay(context);
+                          } else {
+                            navigateBackToGame(context);
+                          }
                         },
                       ),
                     ],
@@ -211,4 +230,21 @@ class _DiagnoseState extends State<Diagnose> {
     );
   }
   //=============================================================================
+
+  //IF MORE PATIENTS LEFT
+  Future navigateBackToGame(context) async {
+    Navigator.of(context).pop();
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => PatientCard(
+                  patientsLeft: remaining,
+                )));
+  }
+
+  //IF THIS WAS LAST PATIENT IN GAME SESSION
+  Future navigateToGameplay(context) async {
+    Navigator.of(context).pop();
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Game()));
+  }
 }

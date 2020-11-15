@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'parsePatientData.dart';
+import 'package:RESP2/parsePatientData.dart';
 import 'package:RESP2/testResults.dart';
 import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
@@ -13,8 +13,9 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 class PatientCard extends StatefulWidget {
-  PatientCard({Key key, this.title}) : super(key: key);
-  final String title;
+  PatientCard({Key key, this.patientsLeft}) : super(key: key);
+  final int patientsLeft;
+
   @override
   _PatientCardState createState() => _PatientCardState();
 }
@@ -35,11 +36,12 @@ bool history3 = true;
 int caseIDint = 200;
 String caseID = caseIDint.toString();
 String demographics = ": female, 25";
-String chartTitle = "Patient " + caseID + demographics;
+String chartTitle = caseID + "Patient " + caseID + demographics;
 
 //PatientChart chart;
 
 class _PatientCardState extends State<PatientCard> {
+  int remaining;
   Future<PatientChart> futureChart;
 
   @override
@@ -51,6 +53,9 @@ class _PatientCardState extends State<PatientCard> {
 
   @override
   Widget build(BuildContext context) {
+    remaining = widget.patientsLeft - 1;
+    print(remaining);
+    print(widget.patientsLeft);
 //                    Symptoms, History, and Tobacco Use tab
 //=============================================================================
     //---------------ONSET OF SYMPTOMS-----------------------------------
@@ -746,6 +751,8 @@ class _PatientCardState extends State<PatientCard> {
 
   Future diagnoseBttn(context) async {
     Navigator.push(
-        context, MaterialPageRoute(builder: (context) => Diagnose()));
+        context,
+        MaterialPageRoute(
+            builder: (context) => Diagnose(patientsLeft: remaining)));
   }
 }
