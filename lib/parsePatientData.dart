@@ -161,9 +161,7 @@ class PatientChart {
 
 Future<PatientChart> getPatientChart(url) async {
   final response = await http.get(url);
-  print("HELLO!");
   if (response.statusCode == 200) {
-    print("HELLO");
     print(PatientChart.fromJson(jsonDecode(response.body)).age);
     return PatientChart.fromJson(jsonDecode(response.body));
   } else {
