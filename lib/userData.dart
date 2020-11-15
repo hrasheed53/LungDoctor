@@ -16,27 +16,13 @@ void createUser(String name) async {
 
 Map<String, Future<int>> getStatistics() {
   final db = DatabaseHelper();
-  /*int correct;
-  db.correct.then((value) => correct = value);
-  int attempted;
-  db.attempted.then((value) => attempted = value);
-  int mostMisdiagnosed;
-  db.misdiagnosed.then((value) => mostMisdiagnosed = value);
-  int mostCorrectlyDiagnosed;
-  db.correctDiagnosed.then((value) => mostCorrectlyDiagnosed = value);
-  int longestStreak;
-  db.longestStreak.then((value) => longestStreak = value);
-  int currentStreak;
-  db.currentStreak.then((value) => currentStreak = value);
-  int score;
-  db.score.then((value) => score = value);*/
   Future<int> correct = db.correct;
   Future<int> attempted = db.attempted;
   Future<int> mostMisdiagnosed = db.misdiagnosed;
   Future<int> mostCorrectlyDiagnosed = db.correctDiagnosed;
   Future<int> longestStreak = db.longestStreak;
   Future<int> currentStreak = db.currentStreak;
-  Future<int> score = db.score;
+  Future<int> storePoints = db.storePoints;
 
   return {
     'numCorrect': correct,
@@ -45,7 +31,7 @@ Map<String, Future<int>> getStatistics() {
     'mostCorrectlyDiagnosed': mostCorrectlyDiagnosed,
     'longestStreak': longestStreak,
     'currentStreak': currentStreak,
-    'score': score,
+    'storePoints': storePoints,
   };
 }
 
@@ -74,7 +60,7 @@ class UserData {
   int numPneumCorrect;
   int longestStreak;
   int currentStreak;
-  int score;
+  int storePoints;
 
   UserData(this.userName);
 
@@ -90,7 +76,7 @@ class UserData {
       'numPneumCorrect': numPneumCorrect,
       'longestStreak': longestStreak,
       'currentStreak': currentStreak,
-      'score': score,
+      'storePoints': storePoints,
     };
   }
 }

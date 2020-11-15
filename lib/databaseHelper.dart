@@ -37,13 +37,12 @@ class DatabaseHelper {
         onCreate: (Database myDB, int version) async {
       // Using + to make sqlite command more readable.
       //numPneumMissed INTEGER DEFAULT 0,
-      await myDB.execute(
-          'CREATE TABLE user_data(userName TEXT, numCorrect INTEGER DEFAULT 0, ' +
-              'numAttempted INTEGER DEFAULT 0, numCHFMissed INTEGER DEFAULT 0, ' +
-              'numCOPDMissed INTEGER DEFAULT 0, numPneumMissed INTEGER DEFAULT 0, ' +
-              'numCHFCorrect INTEGER DEFAULT 0, numCOPDCorrect INTEGER DEFAULT 0, ' +
-              'numPneumCorrect INTEGER DEFAULT 0, longestStreak INTEGER DEFAULT 0, ' +
-              'currentStreak INTEGER DEFAULT 0, score INTEGER DEFAULT 0)');
+      await myDB.execute('CREATE TABLE user_data(userName TEXT, numCorrect INTEGER DEFAULT 0, ' +
+          'numAttempted INTEGER DEFAULT 0, numCHFMissed INTEGER DEFAULT 0, ' +
+          'numCOPDMissed INTEGER DEFAULT 0, numPneumMissed INTEGER DEFAULT 0, ' +
+          'numCHFCorrect INTEGER DEFAULT 0, numCOPDCorrect INTEGER DEFAULT 0, ' +
+          'numPneumCorrect INTEGER DEFAULT 0, longestStreak INTEGER DEFAULT 0, ' +
+          'currentStreak INTEGER DEFAULT 0, storePoints INTEGER DEFAULT 0)');
     });
     return db;
   }
@@ -66,6 +65,7 @@ class DatabaseHelper {
       "numPneumCorrect": 0,
       "longestStreak": 0,
       "currentStreak": 0,
+      "storePoints": 0,
     };
     Database db = await database;
     int id = await db.insert("user_data", userMap);
@@ -182,28 +182,30 @@ class DatabaseHelper {
     return streakVar.first["currentStreak"];
   }
 
-  Future<int> get score async {
+  Future<int> get storePoints async {
     Database db = await database;
-    List<Map> scoreVar = await db.query(
+    List<Map> storePointsVar = await db.query(
       "user_data",
       columns: [
-        "score",
+        "storePoints",
       ],
     );
     // List should only have one Map. Sanity check.
-    if (scoreVar.length != 1) {
+    if (storePointsVar.length != 1) {
       return -1;
     }
-    return scoreVar.first["score"];
+    return storePointsVar.first["storePoints"];
   }
 
   Future<int> spendPoints(int amount) async {
     Database db = await database;
-    // Amount is how many points we are decrementing score.
-    await db.rawUpdate("UPDATE user_data SET score = score - ?, ", [amount]);
-    List<Map> score = await db.rawQuery("SELECT score FROM user_data");
+    // Amount is how many points we are decrementing storePoints.
+    await db.rawUpdate(
+        "UPDATE user_data SET storePoints = storePoints - ?, ", [amount]);
+    List<Map> storePoints =
+        await db.rawQuery("SELECT storePoints FROM user_data");
     // Returns new number of points value.
-    return score.first["score"];
+    return storePoints.first["storePoints"];
   }
 
   Future<void> updateStats(
@@ -224,11 +226,14 @@ class DatabaseHelper {
             "UPDATE user_data SET numPneumCorrect = numPneumCorrect + 1, ");
       }
       if (difficulty == "Easy") {
-        await db.rawUpdate("UPDATE user_data SET score = score + 10, ");
+        await db
+            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 10, ");
       } else if (difficulty == "Medium") {
-        await db.rawUpdate("UPDATE user_data SET score = score + 20, ");
+        await db
+            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 20, ");
       } else if (difficulty == "Hard") {
-        await db.rawUpdate("UPDATE user_data SET score = score + 30, ");
+        await db
+            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 30, ");
       }
       int streakLongest = await longestStreak;
       int streakCurrent = await currentStreak;
