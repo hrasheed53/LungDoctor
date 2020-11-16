@@ -1,6 +1,8 @@
+import 'package:RESP2/userData.dart';
 import 'package:flutter/material.dart';
 import 'package:RESP2/patientcard.dart';
 import 'package:RESP2/gamePlay.dart';
+import 'dart:math';
 
 class Diagnose extends StatefulWidget {
   Diagnose({Key key, @required this.patientsLeft}) : super(key: key);
@@ -18,6 +20,9 @@ class _DiagnoseState extends State<Diagnose> {
   //List<String> illnesses = ["CHF", "COPD", "PNEUMONIA"];
   //List rejectedData;
   bool lastPatient = false;
+  bool changeAnswer = false;
+  String difficultyLevel = "easy";
+  var randint = Random();
 
   @override
   Widget build(BuildContext context) {
@@ -68,8 +73,22 @@ class _DiagnoseState extends State<Diagnose> {
           //onWillAccept: (data) => data == disease,
           onAccept: (data) {
             //NEED TO CALL UPDATESTATISTICS() FUNCTION HERE W/ CORRECT DIAGNOSIS, RIGHT/WRONG, AND DIFFICULTY!!!!!!!
-            if (data == disease) {
-              //-------IF THEY GOT IT RIGHT!!!---------------------------------
+            updateStatistics(data, difficultyLevel, data == disease);
+
+            //sabotage logic, for now its a 1 in 3 chance he shows up
+            bool sabotage;
+            if (changeAnswer) {
+              sabotage = false;
+            } else {
+              sabotage = randint.nextInt(2) == 0;
+            }
+
+            //for logic in case they change answer, doesnt get updated unless sabo shows up
+
+            if (sabotage) {
+              //and a 1 in 3 chance he is giving good advice
+              bool sabotageCorrect = randint.nextInt(2) == 0;
+
               correct = true;
               showDialog(
                 context: context,
@@ -80,59 +99,101 @@ class _DiagnoseState extends State<Diagnose> {
                     content: SingleChildScrollView(
                       child: ListBody(
                         children: <Widget>[
-                          Text('CORRECT'),
+                          Text(
+                              'WAIT! Before you answer, your "friendly" neighborhood doctor has some advice for you!'),
+                          Text(sabotageCorrect ? 'Good advice' : 'Bad advice')
                         ],
                       ),
                     ),
                     actions: <Widget>[
+                      /*
                       TextButton(
-                        child: Text('Proceed'),
+                        child: Text('Keep answer'),
                         onPressed: () {
-                          //this is where it either sends them to next patient
-                          //or back to main gameplay screen
-                          if (lastPatient) {
-                            navigateToGameplay(context);
-                          } else {
-                            navigateBackToGame(context);
-                          }
+                          Navigator.of(context).pop();
+                        },
+                      ),*/
+                      TextButton(
+                        child: Text('Change answer'),
+                        onPressed: () {
+                          changeAnswer = true;
+                          Navigator.of(context).pop();
                         },
                       ),
                     ],
                   );
                 },
               );
+
+              //its hacky but stfu im tired and dont want to fix the repeated code sue me
+
             } else {
-              //------------IF THEY GOT IT WRONG!!!-------------------------------
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    //Show correct doctor man in a widget here ?
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: <Widget>[
-                          Text('INCORRECT'),
-                        ],
+              if (data == disease) {
+                //-------IF THEY GOT IT RIGHT!!!---------------------------------
+                correct = true;
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      //Show correct doctor man in a widget here ?
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text('CORRECT'),
+                          ],
+                        ),
                       ),
-                    ),
-                    actions: <Widget>[
-                      TextButton(
-                        child: Text('Proceed'),
-                        onPressed: () {
-                          //this is where it either sends them to next patient
-                          //or back to main gameplay screen
-                          if (lastPatient) {
-                            navigateToGameplay(context);
-                          } else {
-                            navigateBackToGame(context);
-                          }
-                        },
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Proceed'),
+                          onPressed: () {
+                            //this is where it either sends them to next patient
+                            //or back to main gameplay screen
+                            if (lastPatient) {
+                              navigateToGameplay(context);
+                            } else {
+                              navigateBackToGame(context);
+                            }
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              } else {
+                //------------IF THEY GOT IT WRONG!!!-------------------------------
+                showDialog(
+                  context: context,
+                  barrierDismissible: false,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      //Show incorrect doctor man in a widget here ?
+                      content: SingleChildScrollView(
+                        child: ListBody(
+                          children: <Widget>[
+                            Text('INCORRECT'),
+                          ],
+                        ),
                       ),
-                    ],
-                  );
-                },
-              );
+                      actions: <Widget>[
+                        TextButton(
+                          child: Text('Proceed'),
+                          onPressed: () {
+                            //this is where it either sends them to next patient
+                            //or back to main gameplay screen
+                            if (lastPatient) {
+                              navigateToGameplay(context);
+                            } else {
+                              navigateBackToGame(context);
+                            }
+                          },
+                        ),
+                      ],
+                    );
+                  },
+                );
+              }
             }
           },
         ),
