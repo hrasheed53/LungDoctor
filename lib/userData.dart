@@ -48,7 +48,14 @@ int spendPoints(int amount) {
   return newPointsVal;
 }
 
-class UserData {
+int getStorePoints() {
+  final db = DatabaseHelper();
+  int storePointsVal;
+  db.storePoints.then((value) => storePointsVal = value);
+  return storePointsVal;
+}
+
+/*class UserData {
   String userName;
   int numCorrect;
   int numAttempted;
@@ -79,4 +86,4 @@ class UserData {
       'storePoints': storePoints,
     };
   }
-}
+}*/

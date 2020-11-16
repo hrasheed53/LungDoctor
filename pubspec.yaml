@@ -66,6 +66,12 @@ flutter:
         - assets/images/alien_flowercrown.png
         - assets/images/alien_hat2.png
         - assets/images/alien_flowers.png
+        - assets/images/alien_background_cloud.png
+        - assets/images/alien_background_fruit.png
+        - assets/images/alien_background_hearts.png
+        - assets/images/alien_background_lightening.png
+        - assets/images/alien_background_rainbow.png
+        - assets/images/alien_background_swirls.png
 
 
   # The following line ensures that the Material Icons font is
