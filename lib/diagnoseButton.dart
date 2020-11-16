@@ -103,7 +103,6 @@ class _DiagnoseState extends State<Diagnose> {
           onAccept: (data) {
             //NEED TO CALL UPDATESTATISTICS() FUNCTION HERE W/ CORRECT DIAGNOSIS, RIGHT/WRONG, AND DIFFICULTY!!!!!!!
             updateStatistics(data, difficultyLevel, data == disease);
-
             //sabotage logic, for now its a 1 in 3 chance he shows up
             bool sabotage;
             if (changeAnswer) {
@@ -118,7 +117,6 @@ class _DiagnoseState extends State<Diagnose> {
               //and a 1 in 3 chance he is giving good advice
               bool sabotageCorrect = randint.nextInt(2) == 0;
               cache.play("sabo.mp3");
-
               correct = true;
               showDialog(
                 context: context,

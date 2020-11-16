@@ -37,11 +37,12 @@ int spendPoints(int amount) {
   return newPointsVal;
 }
 
-int getStorePoints() {
+Future<int> getStorePoints() {
   final db = DatabaseHelper();
-  int storePointsVal;
-  db.storePoints.then((value) => storePointsVal = value);
-  return storePointsVal;
+  //int storePointsVal;
+  //db.storePoints.then((value) => storePointsVal = value);
+  //return storePointsVal;
+  return db.storePoints;
 }
 
 /*class UserData {

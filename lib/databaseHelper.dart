@@ -41,7 +41,8 @@ class DatabaseHelper {
           'numCOPDMissed INTEGER DEFAULT 0, numPneumMissed INTEGER DEFAULT 0, ' +
           'numCHFCorrect INTEGER DEFAULT 0, numCOPDCorrect INTEGER DEFAULT 0, ' +
           'numPneumCorrect INTEGER DEFAULT 0, longestStreak INTEGER DEFAULT 0, ' +
-          'currentStreak INTEGER DEFAULT 0, storePoints INTEGER DEFAULT 1500)');
+          'currentStreak INTEGER DEFAULT 0, storePoints INTEGER DEFAULT 1500, ' +
+          'UNIQUE(userName))');
     });
     return db;
   }
@@ -67,7 +68,8 @@ class DatabaseHelper {
       "storePoints": 1500,
     };
     Database db = await database;
-    int id = await db.insert("user_data", userMap);
+    int id = await db.insert("user_data", userMap,
+        conflictAlgorithm: ConflictAlgorithm.ignore);
     if (id == -1) {
       print("ERROR IN INSERT INTO DB!");
     }
@@ -126,11 +128,15 @@ class DatabaseHelper {
     ];
     // Get index of highest miss count value.
     int maxIndex = 0;
-    if (missed[1] > missed[0]) {
+    if (missed[1] >= missed[0]) {
       maxIndex = 1;
     }
-    if (missed[2] > missed[maxIndex]) {
+    if (missed[2] >= missed[maxIndex]) {
       maxIndex = 2;
+    }
+    if (missed[maxIndex] == 0) {
+      // Represents no maximum yet.
+      return 3;
     }
     return maxIndex;
   }
@@ -156,11 +162,15 @@ class DatabaseHelper {
     ];
     // Get index of highest correct count value.
     int maxIndex = 0;
-    if (corrects[1] > corrects[0]) {
+    if (corrects[1] >= corrects[0]) {
       maxIndex = 1;
     }
-    if (corrects[2] > corrects[maxIndex]) {
+    if (corrects[2] >= corrects[maxIndex]) {
       maxIndex = 2;
+    }
+    if (corrects[maxIndex] == 0) {
+      // Represents no maximum yet.
+      return 3;
     }
     return maxIndex;
   }
@@ -239,46 +249,46 @@ class DatabaseHelper {
     if (correct) {
       await db.rawUpdate("UPDATE user_data SET numCorrect = numCorrect + 1, " +
           "numAttempted = numAttempted + 1, " +
-          "currentStreak = currentStreak + 1, ");
+          "currentStreak = currentStreak + 1 ");
       if (diagnosis == "Heart failure") {
         await db.rawUpdate(
-            "UPDATE user_data SET numCHFCorrect = numCHFCorrect + 1, ");
+            "UPDATE user_data SET numCHFCorrect = numCHFCorrect + 1 ");
       } else if (diagnosis == "COPD") {
         await db.rawUpdate(
-            "UPDATE user_data SET numCOPDCorrect = numCOPDCorrect + 1, ");
+            "UPDATE user_data SET numCOPDCorrect = numCOPDCorrect + 1 ");
       } else if (diagnosis == "Pneumonia") {
         await db.rawUpdate(
-            "UPDATE user_data SET numPneumCorrect = numPneumCorrect + 1, ");
+            "UPDATE user_data SET numPneumCorrect = numPneumCorrect + 1 ");
       }
       if (difficulty == "Easy") {
         await db
-            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 10, ");
+            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 10 ");
       } else if (difficulty == "Medium") {
         await db
-            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 20, ");
+            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 20 ");
       } else if (difficulty == "Hard") {
         await db
-            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 30, ");
+            .rawUpdate("UPDATE user_data SET storePoints = storePoints + 30 ");
       }
       int streakLongest = await longestStreak;
       int streakCurrent = await currentStreak;
       if (streakCurrent > streakLongest) {
         await db.rawUpdate(
-            "UPDATE user_data SET longestStreak = ?, ", [currentStreak]);
+            "UPDATE user_data SET longestStreak = ? ", [currentStreak]);
       }
     } else {
       await db.rawUpdate(
           "UPDATE user_data SET numAttempted = numAttempted + 1, " +
               "currentStreak = 0");
       if (diagnosis == "Heart failure") {
-        await db.rawUpdate(
-            "UPDATE user_data SET numCHFMissed = numCHFMissed + 1, ");
+        await db
+            .rawUpdate("UPDATE user_data SET numCHFMissed = numCHFMissed + 1 ");
       } else if (diagnosis == "COPD") {
         await db.rawUpdate(
-            "UPDATE user_data SET numCOPDMissed = numCOPDMissed + 1, ");
+            "UPDATE user_data SET numCOPDMissed = numCOPDMissed + 1 ");
       } else if (diagnosis == "Pneumonia") {
         await db.rawUpdate(
-            "UPDATE user_data SET numPneumMissed = numPneumMissed + 1, ");
+            "UPDATE user_data SET numPneumMissed = numPneumMissed + 1 ");
       }
     }
   }
