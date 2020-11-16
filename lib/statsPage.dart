@@ -12,6 +12,12 @@ class StatsPage extends StatefulWidget {
 
 class _StatsPageState extends State<StatsPage> {
   @override
+
+  /* for most correct and incorrect diagnosed:
+  0 - CHF
+  1 - COPD
+  2 - PNUEMONIA
+  */
   Widget build(BuildContext context) {
     return new FutureBuilder(
         future: getStatistics(),
