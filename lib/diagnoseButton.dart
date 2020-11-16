@@ -2,6 +2,7 @@ import 'package:RESP2/userData.dart';
 import 'package:flutter/material.dart';
 import 'package:RESP2/patientcard.dart';
 import 'package:RESP2/gamePlay.dart';
+import 'package:RESP2/parsePatientData.dart';
 import 'dart:math';
 
 class Diagnose extends StatefulWidget {
@@ -99,9 +100,15 @@ class _DiagnoseState extends State<Diagnose> {
                     content: SingleChildScrollView(
                       child: ListBody(
                         children: <Widget>[
+                          Image.asset(
+                            'assets/images/sabotage_man.png',
+                            fit: BoxFit.cover,
+                            scale: 4.5,
+                            ),
                           Text(
                               'WAIT! Before you answer, your "friendly" neighborhood doctor has some advice for you!'),
                           Text(sabotageCorrect ? 'Good advice' : 'Bad advice')
+
                         ],
                       ),
                     ),
@@ -140,7 +147,12 @@ class _DiagnoseState extends State<Diagnose> {
                       content: SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
-                            Text('CORRECT'),
+                            Text('CORRECT - scroll to see reasoning'),
+                            Image.asset(
+                            'assets/images/alien.png',
+                            fit: BoxFit.cover,
+                            scale: 4.5,
+                            ),
                           ],
                         ),
                       ),
@@ -172,7 +184,12 @@ class _DiagnoseState extends State<Diagnose> {
                       content: SingleChildScrollView(
                         child: ListBody(
                           children: <Widget>[
-                            Text('INCORRECT'),
+                            Text('INCORRECT - scroll to see reasoning'),
+                            Image.asset(
+                            'assets/images/alien_incorrect.png',
+                            fit: BoxFit.cover,
+                            scale: 4.5,
+                            ),
                           ],
                         ),
                       ),

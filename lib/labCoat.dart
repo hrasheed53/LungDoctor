@@ -72,11 +72,7 @@ class _LabCoatState extends State<LabCoat> {
                     color: Colors.blue[600],
                     child: InkWell(
                       onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => Store(),
-                            ));
+                        
                       },
                       splashColor: Colors.grey[600],
                       child: Center(

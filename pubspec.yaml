@@ -72,6 +72,8 @@ flutter:
         - assets/images/alien_background_lightening.png
         - assets/images/alien_background_rainbow.png
         - assets/images/alien_background_swirls.png
+        - assets/images/sabotage_man.png
+        - assets/images/alien_incorrect.png
 
 
   # The following line ensures that the Material Icons font is
