@@ -14,25 +14,9 @@ void createUser(String name) async {
   await db.createUser(name);
 }
 
-Map<String, Future<int>> getStatistics() {
+Future<Map<String, int>> getStatistics() {
   final db = DatabaseHelper();
-  Future<int> correct = db.correct;
-  Future<int> attempted = db.attempted;
-  Future<int> mostMisdiagnosed = db.misdiagnosed;
-  Future<int> mostCorrectlyDiagnosed = db.correctDiagnosed;
-  Future<int> longestStreak = db.longestStreak;
-  Future<int> currentStreak = db.currentStreak;
-  Future<int> storePoints = db.storePoints;
-
-  return {
-    'numCorrect': correct,
-    'numAttempted': attempted,
-    'mostMisdiagnosed': mostMisdiagnosed,
-    'mostCorrectlyDiagnosed': mostCorrectlyDiagnosed,
-    'longestStreak': longestStreak,
-    'currentStreak': currentStreak,
-    'storePoints': storePoints,
-  };
+  return db.getStats();
 }
 
 void updateStatistics(

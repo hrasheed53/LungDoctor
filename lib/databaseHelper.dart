@@ -207,6 +207,18 @@ class DatabaseHelper {
     return storePoints.first["storePoints"];
   }
 
+  Future<Map<String, int>> getStats() async {
+    return {
+      'numCorrect': await correct,
+      'numAttempted': await attempted,
+      'mostMisdiagnosed': await misdiagnosed,
+      'mostCorrectlyDiagnosed': await correctDiagnosed,
+      'longestStreak': await longestStreak,
+      'currentStreak': await currentStreak,
+      'storePoints': await storePoints,
+    };
+  }
+
   Future<void> updateStats(
       String diagnosis, String difficulty, bool correct) async {
     Database db = await database;
