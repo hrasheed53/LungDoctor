@@ -36,13 +36,12 @@ class DatabaseHelper {
     Database db = await openDatabase(path, version: 1,
         onCreate: (Database myDB, int version) async {
       // Using + to make sqlite command more readable.
-      //numPneumMissed INTEGER DEFAULT 0,
       await myDB.execute('CREATE TABLE user_data(userName TEXT, numCorrect INTEGER DEFAULT 0, ' +
           'numAttempted INTEGER DEFAULT 0, numCHFMissed INTEGER DEFAULT 0, ' +
           'numCOPDMissed INTEGER DEFAULT 0, numPneumMissed INTEGER DEFAULT 0, ' +
           'numCHFCorrect INTEGER DEFAULT 0, numCOPDCorrect INTEGER DEFAULT 0, ' +
           'numPneumCorrect INTEGER DEFAULT 0, longestStreak INTEGER DEFAULT 0, ' +
-          'currentStreak INTEGER DEFAULT 0, storePoints INTEGER DEFAULT 0)');
+          'currentStreak INTEGER DEFAULT 0, storePoints INTEGER DEFAULT 1500)');
     });
     return db;
   }
@@ -65,7 +64,7 @@ class DatabaseHelper {
       "numPneumCorrect": 0,
       "longestStreak": 0,
       "currentStreak": 0,
-      "storePoints": 0,
+      "storePoints": 1500,
     };
     Database db = await database;
     int id = await db.insert("user_data", userMap);
