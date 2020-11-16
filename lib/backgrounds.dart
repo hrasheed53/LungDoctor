@@ -30,11 +30,12 @@ class _backgroundState extends State<background> {
                   fit: BoxFit.cover,
                   scale: 4.5,
                 ),
-                if (newImage != '') Image.asset(
-                  newImage,
-                  fit: BoxFit.cover,
-                  scale: 4.5,
-                ),
+                if (newImage != '')
+                  Image.asset(
+                    newImage,
+                    fit: BoxFit.cover,
+                    scale: 4.5,
+                  ),
               ],
             ),
             Row(
@@ -44,15 +45,11 @@ class _backgroundState extends State<background> {
                 buttonHelper("Swirls", "alien_background_swirls.png"),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               buttonHelper("Fruit", "alien_background_fruit.png"),
-              buttonHelper("Lightening", "alien_background_lightening.png"),
+              buttonHelper("Lightning", "alien_background_lightening.png"),
             ]),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               buttonHelper("Rainbow", "alien_background_rainbow.png"),
               buttonHelper("Clouds", "alien_background_cloud.png"),
             ]),
@@ -69,9 +66,7 @@ class _backgroundState extends State<background> {
                     margin: EdgeInsets.all(8.0),
                     color: Colors.blue[600],
                     child: InkWell(
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                       splashColor: Colors.grey[600],
                       child: Center(
                         child: Column(
