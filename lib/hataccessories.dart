@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 //import 'store.dart';
 
 String currentImage = 'assets/images/alien.png';
 String newImage = '';
+AudioCache cache = new AudioCache();
 
 class simpAccessories extends StatefulWidget {
   simpAccessories({Key key, this.title}) : super(key: key);
@@ -83,7 +86,7 @@ class _simpAccessoriesState extends State<simpAccessories> {
                     color: Colors.blue[600],
                     child: InkWell(
                       onTap: () {
-
+                        cache.play("cash.mp3");
                       },
                       splashColor: Colors.grey[600],
                       child: Center(

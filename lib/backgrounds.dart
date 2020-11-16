@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 //import 'store.dart';
 
 String currentImage = 'assets/images/alien.png';
 String newImage = '';
+AudioCache cache = new AudioCache();
 
 class background extends StatefulWidget {
   background({Key key, this.title}) : super(key: key);
@@ -66,7 +69,9 @@ class _backgroundState extends State<background> {
                     margin: EdgeInsets.all(8.0),
                     color: Colors.blue[600],
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        cache.play("cash.mp3");
+                      },
                       splashColor: Colors.grey[600],
                       child: Center(
                         child: Column(
@@ -122,4 +127,8 @@ class _backgroundState extends State<background> {
       ),
     );
   }
+}
+Future<AudioPlayer> playLocalAsset() async {
+    AudioCache cache = new AudioCache();
+    return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
 }

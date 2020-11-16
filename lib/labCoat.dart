@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'store.dart';
+import 'package:audioplayers/audio_cache.dart';
+import 'package:audioplayers/audioplayers.dart';
 
 String currentImage = 'assets/images/alien.png';
+AudioCache cache = new AudioCache();
 
 class LabCoat extends StatefulWidget {
   LabCoat({Key key, this.title}) : super(key: key);
@@ -72,7 +75,7 @@ class _LabCoatState extends State<LabCoat> {
                     color: Colors.blue[600],
                     child: InkWell(
                       onTap: () {
-                        
+                        cache.play("cash.mp3");
                       },
                       splashColor: Colors.grey[600],
                       child: Center(

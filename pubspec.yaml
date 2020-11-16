@@ -27,6 +27,7 @@ dependencies:
   path:
   photo_view: ^0.10.2
   http: ^0.12.2
+  audioplayers: ^0.13.2
   
   firebase_auth: ^0.18.3
   firebase_core: "^0.5.2"
@@ -74,6 +75,7 @@ flutter:
         - assets/images/alien_background_swirls.png
         - assets/images/sabotage_man.png
         - assets/images/alien_incorrect.png
+        - assets/cash.mp3
 
 
   # The following line ensures that the Material Icons font is
