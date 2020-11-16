@@ -33,21 +33,42 @@ bool provocatingFactors = true;
 bool history2 = true;
 bool history3 = true;
 
-int caseIDint = 208;
-String caseID = caseIDint.toString();
-String demographics = ": female, 25";
-String chartTitle = caseID + "Patient " + caseID + demographics;
-
 class _PatientCardState extends State<PatientCard> {
-  int remaining;
   Future<PatientChart> futureChart;
-  //PatientChart chart;
+
+  //vars for pulling random case:
   Random random = new Random();
   int randomCase;
   String url;
 
-  //JUST FOR BETA -- only 19 available cases, non-sequential case IDs
-  //  (had to hardcode them)
+  int caseID;
+  //data to be passed on to diagnoseButton:
+  int remaining;
+  String redHerring;
+  String expertAdvice;
+  String diagnosis;
+  String difficultyLevel;
+
+  //data to be passed on to testResults:
+  String wbc;
+  String hemo;
+  String hema;
+  String plat;
+  String na;
+  String cl;
+  String k;
+  String c;
+  String bun;
+  String creat;
+  String glucose;
+  String bnp;
+  String abgph;
+  String abgpo;
+  String abgpo2;
+  String lactate;
+
+  //For Beta, provided 19 available cases with non-sequential case IDs
+  //  (had to hardcode the IDs)
   List<int> availableCaseIDs = [
     208,
     209,
@@ -88,19 +109,45 @@ class _PatientCardState extends State<PatientCard> {
   Widget build(BuildContext context) {
     //decrement no. patients left to examine:
     remaining = widget.patientsLeft - 1;
-
     //ensconced the FutureBuilder, which creates the entire patient card UI,
     //in a big container below. this is so we can access the API data ONCE
     //instead of repeatedly calling futurebuilder in every
     //widget that requires data from the API, which is slow.
-    //(FutureBuilder required since pulling the API is asynchronous)
+    //(FutureBuilder required since pulling from the API is asynchronous)
 
     return Container(
       child: new FutureBuilder<PatientChart>(
         future: futureChart,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            //BEGIN WIDGET CREATION
+            //
+            //update variables to pass to the buttons (diagnose, order tests, order x-ray):
+            //  diagnose
+            redHerring = snapshot.data.redHerrings;
+            expertAdvice = snapshot.data.expertComments;
+            diagnosis = snapshot.data.diagnosis;
+            difficultyLevel = snapshot.data.difficulty;
+            //  order tests
+            wbc = snapshot.data.bloodWBC.toString();
+            hemo = snapshot.data.bloodHemoglobin.toString();
+            hema = snapshot.data.bloodHemacrotit.toString();
+            plat = snapshot.data.bloodPlatelets.toString();
+            na = snapshot.data.bloodSodium.toString();
+            cl = snapshot.data.bloodChloride.toString();
+            k = snapshot.data.bloodPotassium.toString();
+            c = snapshot.data.bloodBicarbonate.toString();
+            bun = snapshot.data.bloodBUN.toString();
+            creat = snapshot.data.bloodCreatinine.toString();
+            glucose = snapshot.data.bloodGlucose.toString();
+            bnp = snapshot.data.bloodBNP.toString();
+            abgph = snapshot.data.bloodABGph.toString();
+            abgpo = snapshot.data.bloodABGpo2.toString();
+            abgpo2 = snapshot.data.bloodABGpco2.toString();
+            lactate = snapshot.data.bloodLactate.toString();
+
+            //  xray
+            caseID = snapshot.data.caseID;
+            //BEGIN WIDGET CREATION:
             //---------------SYMPTOM ONSET-----------------------------------------
             Widget onset = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -578,7 +625,12 @@ class _PatientCardState extends State<PatientCard> {
                 length: 3,
                 child: Scaffold(
                   appBar: AppBar(
-                    title: Text(chartTitle),
+                    title: Text("Patient " +
+                        snapshot.data.caseID.toString() +
+                        ": " +
+                        snapshot.data.gender +
+                        ", age " +
+                        snapshot.data.age.toString()),
                     /*leading: IconButton(
               icon: Icon(Icons.arrow_back),
               onPressed:
@@ -776,17 +828,42 @@ class _PatientCardState extends State<PatientCard> {
   }
 
   Future viewTestResults(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Tests()));
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Tests(
+                wbc: wbc,
+                hemo: hemo,
+                hema: hema,
+                plat: plat,
+                na: na,
+                cl: cl,
+                k: k,
+                c: c,
+                bun: bun,
+                creat: creat,
+                glucose: glucose,
+                bnp: bnp,
+                abgph: abgph,
+                abgpo: abgpo,
+                abgpo2: abgpo2,
+                lactate: lactate)));
   }
 
   Future viewXrays(context) async {
-    Navigator.push(context, MaterialPageRoute(builder: (context) => Xrays()));
+    Navigator.push(context,
+        MaterialPageRoute(builder: (context) => Xrays(caseID: caseID)));
   }
 
   Future diagnoseBttn(context) async {
     Navigator.push(
         context,
         MaterialPageRoute(
-            builder: (context) => Diagnose(patientsLeft: remaining)));
+            builder: (context) => Diagnose(
+                patientsLeft: remaining,
+                difficulty: difficultyLevel,
+                answer: diagnosis,
+                rH: redHerring,
+                eA: expertAdvice)));
   }
 }
