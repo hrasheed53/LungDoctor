@@ -3,6 +3,7 @@ import 'package:RESP2/parsePatientData.dart';
 import 'package:RESP2/testResults.dart';
 import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
+import 'package:RESP2/physicalExam.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'diagnoseButton.dart';
@@ -66,6 +67,15 @@ class _PatientCardState extends State<PatientCard> {
   String abgpo;
   String abgpo2;
   String lactate;
+
+  //for physical exam:
+  String head;
+  String neck;
+  String heart;
+  String lungs;
+  String ab;
+  String ext;
+  String skin;
 
   //For Beta, provided 19 available cases with non-sequential case IDs
   //  (had to hardcode the IDs)
@@ -147,6 +157,19 @@ class _PatientCardState extends State<PatientCard> {
 
             //  xray
             caseID = snapshot.data.caseID;
+
+            //  physical exam
+            head = snapshot.data.examHead;
+            neck = snapshot.data.examNeck;
+            if (neck == null) {
+              neck = "blank";
+            }
+            heart = snapshot.data.examHeart;
+            lungs = snapshot.data.examLungs;
+            ab = snapshot.data.examAbdomen;
+            ext = snapshot.data.examExtremeties;
+            skin = snapshot.data.examSkin;
+
             //BEGIN WIDGET CREATION:
             //---------------SYMPTOM ONSET-----------------------------------------
             Widget onset = Container(
@@ -201,7 +224,10 @@ class _PatientCardState extends State<PatientCard> {
             //------------PATIENT'S HISTORY-----------------------------------------
             Widget history = Container(
                 padding: const EdgeInsets.only(top: 4, left: 9, right: 9),
-                child: Text("- " + snapshot.data.pastMedHistory1));
+                child: Text(
+                  "- " + snapshot.data.pastMedHistory1,
+                  style: TextStyle(fontSize: 16),
+                ));
 
             //------------HISTORY LIST BOX-----------------------------------------
             Widget historyList = Container(
@@ -433,7 +459,7 @@ class _PatientCardState extends State<PatientCard> {
               child: Column(children: [
                 GestureDetector(
                     onTap: () {
-                      viewXrays(context);
+                      viewExamResults(context);
                     },
                     child: _buildPhysicalExamButton(
                         Theme.of(context).primaryColor,
@@ -481,15 +507,6 @@ class _PatientCardState extends State<PatientCard> {
                   ),
                   //onset,
                   Padding(padding: EdgeInsets.only(top: 12.0)),
-                  Row(
-                    children: [Expanded(child: physicalExam)],
-                  ),
-                  Row(
-                    children: [Expanded(child: physicalExam)],
-                  ),
-                  Row(
-                    children: [Expanded(child: physicalExam)],
-                  ),
                   Row(
                     children: [Expanded(child: physicalExam)],
                   ),
@@ -825,6 +842,20 @@ class _PatientCardState extends State<PatientCard> {
         ),
       ],
     );
+  }
+
+  Future viewExamResults(context) async {
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => Physical(
+                head: head,
+                neck: neck,
+                heart: heart,
+                lungs: lungs,
+                ab: ab,
+                ext: ext,
+                skin: skin)));
   }
 
   Future viewTestResults(context) async {
