@@ -187,6 +187,7 @@ class _DiagnoseState extends State<Diagnose> {
                         TextButton(
                           child: Text('Proceed'),
                           onPressed: () {
+                            Navigator.of(context).pop();
                             //this is where it either sends them to next patient
                             //or back to main gameplay screen
                             if (lastPatient) {
@@ -230,6 +231,7 @@ class _DiagnoseState extends State<Diagnose> {
                         TextButton(
                           child: Text('Proceed'),
                           onPressed: () {
+                            Navigator.of(context).pop();
                             //this is where it either sends them to next patient
                             //or back to main gameplay screen
                             if (lastPatient) {
