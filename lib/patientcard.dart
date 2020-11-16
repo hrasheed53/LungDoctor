@@ -193,12 +193,62 @@ class _PatientCardState extends State<PatientCard> {
               ),
             ); //onset of symptoms
 
+            //some patients do not have provocating factors listed:
+            bool _checkProvocating() {
+              if (snapshot.data.provocatingFactors == "") {
+                return false;
+              }
+              return true;
+            }
+
+            Widget _checkSymptoms() {
+              return Container(
+                child: Conditioned(
+                  cases: [
+                    Case(
+                      //no provocating factors listed:
+                      _checkProvocating() == false,
+                      builder: () => Container(
+                        padding:
+                            const EdgeInsets.only(top: 4, left: 9, right: 9),
+                        child: Text(snapshot.data.symptomDescription,
+                            style: TextStyle(fontSize: 16)),
+                      ),
+                    ),
+                    Case(
+                      //provocating factors are listed:
+                      _checkProvocating() == true,
+                      builder: () => Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.only(
+                                top: 4, left: 9, right: 9),
+                            child: Text(
+                                "Provocating factors: " +
+                                    snapshot.data.provocatingFactors,
+                                style: TextStyle(fontSize: 16)),
+                          ),
+                          Container(
+                            padding: const EdgeInsets.only(
+                                top: 4, left: 9, right: 9),
+                            child: Text(snapshot.data.symptomDescription,
+                                style: TextStyle(fontSize: 16)),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                  defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
+                ),
+              );
+            }
+
             //---------------PATIENT'S SYMPTOMS-----------------------------------------
-            Widget symptoms = Container(
+            /* Widget symptoms = Container(
               padding: const EdgeInsets.only(top: 4, left: 9, right: 9),
               child: Text(snapshot.data.symptomDescription,
                   style: TextStyle(fontSize: 16)),
-            );
+            );*/
 
             //--------------SYMPTOMS LIST BOX-----------------------------------------
             Widget symptomsList = Container(
@@ -216,18 +266,122 @@ class _PatientCardState extends State<PatientCard> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
-                  symptoms,
+                  _checkSymptoms(),
                 ],
               ),
             ); //symptoms list
 
             //------------PATIENT'S HISTORY-----------------------------------------
-            Widget history = Container(
+            //some patients don't have pastmedicalhistory2 field, check for that:
+            bool _history2() {
+              if (snapshot.data.pastMedHistory2 == "") {
+                return false;
+              }
+              return true;
+            }
+
+            //some patients don't have pastmedicalhistory3 field, check for that:
+            bool _history3() {
+              if (snapshot.data.pastMedHistory3 == "") {
+                return false;
+              }
+              return true;
+            }
+
+            //build history widget based on
+            Widget _checkHistory() {
+              return Container(
+                child: Conditioned(
+                  cases: [
+                    Case(
+                      //if history2 exists, check if history3 exists:
+                      _history2() == true,
+                      builder: () => Conditioned(
+                        cases: [
+                          Case(
+                            //history3 exists, print all 3 histories
+                            _history3() == true,
+                            builder: () => Column(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      top: 4, left: 9, right: 9),
+                                  child: Text(
+                                    "- " + snapshot.data.pastMedHistory1,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      top: 4, left: 9, right: 9),
+                                  child: Text(
+                                    "- " + snapshot.data.pastMedHistory2,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      top: 4, left: 9, right: 9),
+                                  child: Text(
+                                    "- " + snapshot.data.pastMedHistory3,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Case(
+                            //history3 doesn't exist, print only history 1 and 2
+                            _history3() == false,
+                            builder: () => Column(
+                              children: [
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      top: 4, left: 9, right: 9),
+                                  child: Text(
+                                    "- " + snapshot.data.pastMedHistory1,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                                Container(
+                                  padding: const EdgeInsets.only(
+                                      top: 4, left: 9, right: 9),
+                                  child: Text(
+                                    "- " + snapshot.data.pastMedHistory2,
+                                    style: TextStyle(fontSize: 16),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                        defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
+                      ),
+                    ),
+                    Case(
+                      //if history2 doesn't exist, history3 doesn't either:
+                      _history2() == false,
+                      builder: () => Container(
+                        padding:
+                            const EdgeInsets.only(top: 4, left: 9, right: 9),
+                        child: Text(
+                          "- " + snapshot.data.pastMedHistory1,
+                          style: TextStyle(fontSize: 16),
+                        ),
+                      ),
+                    ),
+                  ],
+                  defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
+                ),
+              );
+            }
+
+            /*Widget history = Container(
                 padding: const EdgeInsets.only(top: 4, left: 9, right: 9),
                 child: Text(
                   "- " + snapshot.data.pastMedHistory1,
                   style: TextStyle(fontSize: 16),
-                ));
+                ));*/
 
             //------------HISTORY LIST BOX-----------------------------------------
             Widget historyList = Container(
@@ -245,7 +399,7 @@ class _PatientCardState extends State<PatientCard> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
-                  history,
+                  _checkHistory(),
                 ],
               ),
             );
@@ -887,6 +1041,7 @@ class _PatientCardState extends State<PatientCard> {
   }
 
   Future diagnoseBttn(context) async {
+    Navigator.of(context).pop();
     Navigator.push(
         context,
         MaterialPageRoute(
