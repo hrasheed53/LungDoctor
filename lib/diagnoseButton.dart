@@ -6,43 +6,66 @@ import 'package:RESP2/parsePatientData.dart';
 import 'dart:math';
 
 class Diagnose extends StatefulWidget {
-  Diagnose({Key key, @required this.patientsLeft}) : super(key: key);
+  Diagnose(
+      {Key key,
+      @required this.patientsLeft,
+      this.difficulty,
+      this.answer,
+      this.rH,
+      this.eA})
+      : super(key: key);
   final int patientsLeft;
-
+  final String answer;
+  final String difficulty;
+  final String rH;
+  final String eA;
   @override
   _DiagnoseState createState() => _DiagnoseState();
 }
 
 class _DiagnoseState extends State<Diagnose> {
   int remaining;
-  //variables to be used:
+  //variables needed from db: correct answer, difficulty, red herring, expert advice
   String ans = "CHF";
   bool correct = false;
   //List<String> illnesses = ["CHF", "COPD", "PNEUMONIA"];
   //List rejectedData;
   bool lastPatient = false;
   bool changeAnswer = false;
+  String redHerring;
+  String expertAdvice;
   String difficultyLevel = "easy";
   var randint = Random();
 
   @override
   Widget build(BuildContext context) {
     remaining = widget.patientsLeft;
-    if (widget.patientsLeft == 0) {
+    ans = widget.answer;
+    difficultyLevel = widget.difficulty;
+    redHerring = widget.rH;
+    expertAdvice = widget.eA;
+
+    if (remaining == 0) {
       lastPatient = true;
+    }
+
+    if (widget.answer == "Heart failure") {
+      ans = "CHF";
+    } else if (widget.answer == "Pneumonia") {
+      ans = "PNEUMONIA";
     }
 
     //==============================================================================
     //                Button to be dragged:
     //==============================================================================
     Widget draggableButton = Draggable<String>(
-      data: "CHF",
-      child: _buildButton(
+      data: ans,
+      child: _buildDiagnoseButton(
           const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
-      feedback: _buildButton(
+      feedback: _buildDiagnoseButton(
           const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
       childWhenDragging: Container(
-        width: 100,
+        width: 110,
         height: 80,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
@@ -69,7 +92,7 @@ class _DiagnoseState extends State<Diagnose> {
         child: DragTarget<String>(
           builder: (context, List<String> incoming, List rejected) {
             return _buildButton(
-                const Color(0xffe34646), Icons.local_pharmacy, disease);
+                const Color(0xff2398f7), Icons.local_pharmacy, disease);
           },
           //onWillAccept: (data) => data == disease,
           onAccept: (data) {
@@ -96,7 +119,6 @@ class _DiagnoseState extends State<Diagnose> {
                 barrierDismissible: false,
                 builder: (BuildContext context) {
                   return AlertDialog(
-                    //Show correct doctor man in a widget here ?
                     content: SingleChildScrollView(
                       child: ListBody(
                         children: <Widget>[
@@ -104,11 +126,12 @@ class _DiagnoseState extends State<Diagnose> {
                             'assets/images/sabotage_man.png',
                             fit: BoxFit.cover,
                             scale: 4.5,
-                            ),
+                          ),
                           Text(
-                              'WAIT! Before you answer, your "friendly" neighborhood doctor has some advice for you!'),
-                          Text(sabotageCorrect ? 'Good advice' : 'Bad advice')
-
+                              'WAIT! Before you answer, your "friendly" neighborhood doctor has some advice for you:'),
+                          Padding(padding: EdgeInsets.only(top: 6)),
+                          Text(sabotageCorrect ? expertAdvice : redHerring,
+                              style: TextStyle(fontStyle: FontStyle.italic))
                         ],
                       ),
                     ),
@@ -131,9 +154,6 @@ class _DiagnoseState extends State<Diagnose> {
                   );
                 },
               );
-
-              //its hacky but stfu im tired and dont want to fix the repeated code sue me
-
             } else {
               if (data == disease) {
                 //-------IF THEY GOT IT RIGHT!!!---------------------------------
@@ -149,10 +169,12 @@ class _DiagnoseState extends State<Diagnose> {
                           children: <Widget>[
                             Text('CORRECT - scroll to see reasoning'),
                             Image.asset(
-                            'assets/images/alien.png',
-                            fit: BoxFit.cover,
-                            scale: 4.5,
+                              'assets/images/alien.png',
+                              fit: BoxFit.cover,
+                              scale: 4.5,
                             ),
+                            Padding(padding: EdgeInsets.only(top: 6)),
+                            Text(expertAdvice),
                           ],
                         ),
                       ),
@@ -186,10 +208,15 @@ class _DiagnoseState extends State<Diagnose> {
                           children: <Widget>[
                             Text('INCORRECT - scroll to see reasoning'),
                             Image.asset(
-                            'assets/images/alien_incorrect.png',
-                            fit: BoxFit.cover,
-                            scale: 4.5,
+                              'assets/images/alien_incorrect.png',
+                              fit: BoxFit.cover,
+                              scale: 4.5,
                             ),
+                            Padding(padding: EdgeInsets.only(top: 6)),
+                            Text("Correct answer was " + widget.answer + ": ",
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Padding(padding: EdgeInsets.only(top: 6)),
+                            Text(expertAdvice),
                           ],
                         ),
                       ),
@@ -263,18 +290,18 @@ class _DiagnoseState extends State<Diagnose> {
     //==============================================================================
   }
 
-  //                button builder helper function
+  //                button builder helper functions
   //==============================================================================
   Material _buildButton(Color color, IconData icon, String label) {
     return Material(
       child: Column(
         children: [
           Container(
-            width: 100,
+            width: 110,
             padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black54, width: 2),
-              borderRadius: BorderRadius.circular(12),
+              //borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey[300].withOpacity(0.5),
@@ -288,14 +315,57 @@ class _DiagnoseState extends State<Diagnose> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, color: color, size: 24),
+                Icon(icon, color: color, size: 26),
                 Container(
                   margin: const EdgeInsets.only(top: 8),
                   child: Text(
                     label,
                     style: TextStyle(
-                      fontSize: 18,
+                      fontSize: 16,
                       fontWeight: FontWeight.w400,
+                      color: color,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Material _buildDiagnoseButton(Color color, IconData icon, String label) {
+    return Material(
+      child: Column(
+        children: [
+          Container(
+            width: 110,
+            padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black54, width: 2),
+              //borderRadius: BorderRadius.circular(12),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey[300].withOpacity(0.5),
+                  spreadRadius: 5,
+                  blurRadius: 7,
+                  offset: Offset(0, 3), // changes position of shadow
+                ),
+              ],
+            ),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(icon, color: color, size: 26),
+                Container(
+                  margin: const EdgeInsets.only(top: 8),
+                  child: Text(
+                    label,
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
                       color: color,
                     ),
                   ),
