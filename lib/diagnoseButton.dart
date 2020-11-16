@@ -4,6 +4,11 @@ import 'package:RESP2/patientcard.dart';
 import 'package:RESP2/gamePlay.dart';
 import 'package:RESP2/parsePatientData.dart';
 import 'dart:math';
+import 'package:audioplayers/audio_cache.dart';
+
+//import 'store.dart';
+
+AudioCache cache = new AudioCache();
 
 class Diagnose extends StatefulWidget {
   Diagnose(
@@ -112,6 +117,7 @@ class _DiagnoseState extends State<Diagnose> {
             if (sabotage) {
               //and a 1 in 3 chance he is giving good advice
               bool sabotageCorrect = randint.nextInt(2) == 0;
+              cache.play("sabo.mp3");
 
               correct = true;
               showDialog(
@@ -158,6 +164,7 @@ class _DiagnoseState extends State<Diagnose> {
               if (data == disease) {
                 //-------IF THEY GOT IT RIGHT!!!---------------------------------
                 correct = true;
+                cache.play("correct.mp3");
                 showDialog(
                   context: context,
                   barrierDismissible: false,
@@ -197,6 +204,7 @@ class _DiagnoseState extends State<Diagnose> {
                 );
               } else {
                 //------------IF THEY GOT IT WRONG!!!-------------------------------
+                cache.play("incorrect.mp3");
                 showDialog(
                   context: context,
                   barrierDismissible: false,

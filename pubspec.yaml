@@ -76,6 +76,9 @@ flutter:
         - assets/images/sabotage_man.png
         - assets/images/alien_incorrect.png
         - assets/cash.mp3
+        - assets/correct.mp3
+        - assets/incorrect.mp3
+        - assets/sabo.mp3
 
 
   # The following line ensures that the Material Icons font is
