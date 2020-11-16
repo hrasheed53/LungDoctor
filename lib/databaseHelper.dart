@@ -84,9 +84,9 @@ class DatabaseHelper {
       ],
     );
     // List should only have one Map. Sanity check.
-    if (correctVar.length != 1) {
-      return -1;
-    }
+    //if (correctVar.length != 1) {
+    //  return -1;
+    //}
     return correctVar.first["numCorrect"];
   }
 
@@ -99,9 +99,9 @@ class DatabaseHelper {
       ],
     );
     // List should only have one Map. Sanity check.
-    if (attemptedVar.length != 1) {
-      return -1;
-    }
+    //if (attemptedVar.length != 1) {
+    //  return -1;
+    //}
     return attemptedVar.first["numAttempted"];
   }
 
@@ -116,16 +116,23 @@ class DatabaseHelper {
       ],
     );
     // List should only have one Map. Sanity check.
-    if (missedVals.length != 1) {
-      return -1;
-    }
+    //if (missedVals.length != 1) {
+    //  return -1;
+    //}
     List<int> missed = [
       missedVals.first["numCHFMissed"],
       missedVals.first["numCOPDMissed"],
       missedVals.first["numPneumMissed"],
     ];
-    // Get highest miss count value.
-    return missed.reduce(max);
+    // Get index of highest miss count value.
+    int maxIndex = 0;
+    if (missed[1] > missed[0]) {
+      maxIndex = 1;
+    }
+    if (missed[2] > missed[maxIndex]) {
+      maxIndex = 2;
+    }
+    return maxIndex;
   }
 
   Future<int> get correctDiagnosed async {
@@ -139,16 +146,23 @@ class DatabaseHelper {
       ],
     );
     // List should only have one Map. Sanity check.
-    if (correctVals.length != 1) {
-      return -1;
-    }
-    List<int> correct = [
+    // if (correctVals.length != 1) {
+    //  return -1;
+    // }
+    List<int> corrects = [
       correctVals.first["numCHFCorrect"],
       correctVals.first["numCOPDCorrect"],
       correctVals.first["numPneumCorrect"],
     ];
-    // Get highest correct count value.
-    return correct.reduce(max);
+    // Get index of highest correct count value.
+    int maxIndex = 0;
+    if (corrects[1] > corrects[0]) {
+      maxIndex = 1;
+    }
+    if (corrects[2] > corrects[maxIndex]) {
+      maxIndex = 2;
+    }
+    return maxIndex;
   }
 
   Future<int> get longestStreak async {
@@ -160,9 +174,9 @@ class DatabaseHelper {
       ],
     );
     // List should only have one Map. Sanity check.
-    if (streakVar.length != 1) {
-      return -1;
-    }
+    // if (streakVar.length != 1) {
+    //  return -1;
+    //}
     return streakVar.first["longestStreak"];
   }
 
@@ -175,9 +189,9 @@ class DatabaseHelper {
       ],
     );
     // List should only have one Map. Sanity check.
-    if (streakVar.length != 1) {
-      return -1;
-    }
+    //if (streakVar.length != 1) {
+    //  return -1;
+    //}
     return streakVar.first["currentStreak"];
   }
 
@@ -190,9 +204,9 @@ class DatabaseHelper {
       ],
     );
     // List should only have one Map. Sanity check.
-    if (storePointsVar.length != 1) {
-      return -1;
-    }
+    //if (storePointsVar.length != 1) {
+    //  return -1;
+    //}
     return storePointsVar.first["storePoints"];
   }
 

@@ -16,6 +16,11 @@ void createUser(String name) async {
 
 Future<Map<String, int>> getStatistics() {
   final db = DatabaseHelper();
+  /* for most correct and incorrect diagnosed:
+  0 - CHF
+  1 - COPD
+  2 - PNUEMONIA
+  */
   return db.getStats();
 }
 
