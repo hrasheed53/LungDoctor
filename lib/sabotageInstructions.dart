@@ -1,12 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:flutter/gestures.dart';
-import 'package:flutter/material.dart';
-import 'gamePlay.dart';
-import 'leaderboard.dart';
-import 'settings.dart';
-import 'store.dart';
-
 class QA extends StatefulWidget {
   QA({Key key, this.title}) : super(key: key);
 

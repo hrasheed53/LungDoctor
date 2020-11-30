@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'settings.dart';
 import 'leaderboard.dart';
 import 'newFrontPage.dart';
@@ -15,11 +14,6 @@ class Instr extends StatefulWidget {
 
 class _InstrState extends State<Instr> {
   int _selectedIndex = 0;
-  static const TextStyle optionStyle = TextStyle(
-      fontFamily: 'Montserrat',
-      fontWeight: FontWeight.bold,
-      fontSize: 40,
-      color: Colors.white);
   final _widgetOptions = [
     //THIS IS WHERE THE PAGES GO
 

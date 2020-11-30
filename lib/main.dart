@@ -38,7 +38,7 @@ class _LoginFieldsState extends State<LoginFields> {
 
   @override
   Widget build(BuildContext context) {
-    final emailField = TextField(
+    /*final emailField = TextField(
       obscureText: false,
       style: style,
       decoration: InputDecoration(
@@ -55,8 +55,8 @@ class _LoginFieldsState extends State<LoginFields> {
           hintText: "Password",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-    final loginButon = Material(
+    );*/
+    final loginButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
       color: Colors.blue[600],
@@ -111,7 +111,7 @@ class _LoginFieldsState extends State<LoginFields> {
                 SizedBox(
                   height: 35.0,
                 ),
-                loginButon,
+                loginButton,
                 SizedBox(
                   height: 15.0,
                 ),

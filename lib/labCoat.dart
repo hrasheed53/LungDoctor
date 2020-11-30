@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'store.dart';
 import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
 
 String currentImage = 'assets/images/alien.png';
 AudioCache cache = new AudioCache();
@@ -42,9 +40,7 @@ class _LabCoatState extends State<LabCoat> {
                     "alien_labcoat_orange.png"),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               colorButton(context, Colors.yellow[600], "Yellow",
                   "alien_labcoat_yellow.png"),
               colorButton(context, Colors.green[400], "Green",
@@ -52,9 +48,7 @@ class _LabCoatState extends State<LabCoat> {
               colorButton(
                   context, Colors.blue[300], "Blue", "alien_labcoat_blue.png"),
             ]),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               colorButton(context, Colors.purple[600], "Purple",
                   "alien_labcoat_purple.png"),
               colorButton(

@@ -7,16 +7,16 @@ String currentImage = 'assets/images/alien.png';
 String newImage = '';
 AudioCache cache = new AudioCache();
 
-class background extends StatefulWidget {
-  background({Key key, this.title}) : super(key: key);
+class Background extends StatefulWidget {
+  Background({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _backgroundState createState() => _backgroundState();
+  _BackgroundState createState() => _BackgroundState();
 }
 
-class _backgroundState extends State<background> {
+class _BackgroundState extends State<Background> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +128,8 @@ class _backgroundState extends State<background> {
     );
   }
 }
+
 Future<AudioPlayer> playLocalAsset() async {
-    AudioCache cache = new AudioCache();
-    return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
+  AudioCache cache = new AudioCache();
+  return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
 }

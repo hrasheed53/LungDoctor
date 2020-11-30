@@ -5,13 +5,9 @@ import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
 import 'package:RESP2/physicalExam.dart';
 import 'package:flutter/rendering.dart';
-import 'package:flutter/services.dart';
 import 'diagnoseButton.dart';
-import 'package:path/path.dart';
 import 'xrayResults.dart';
 import 'package:condition/condition.dart';
-import 'dart:convert';
-import 'package:http/http.dart' as http;
 import 'dart:math';
 
 class PatientCard extends StatefulWidget {

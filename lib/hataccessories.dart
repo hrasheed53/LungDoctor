@@ -1,22 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
-import 'package:audioplayers/audioplayers.dart';
-//import 'store.dart';
 
 String currentImage = 'assets/images/alien.png';
 String newImage = '';
 AudioCache cache = new AudioCache();
 
-class simpAccessories extends StatefulWidget {
-  simpAccessories({Key key, this.title}) : super(key: key);
+class HatAccessories extends StatefulWidget {
+  HatAccessories({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _simpAccessoriesState createState() => _simpAccessoriesState();
+  _HatAccessoriesState createState() => _HatAccessoriesState();
 }
 
-class _simpAccessoriesState extends State<simpAccessories> {
+class _HatAccessoriesState extends State<HatAccessories> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,9 +64,7 @@ class _simpAccessoriesState extends State<simpAccessories> {
                 buttonHelper("Hat 2", "alien_hat2.png"),
               ],
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               buttonHelper("Flowers", "alien_flowercrown.png"),
               buttonHelper("Flowers 2", "alien_flowers.png"),
             ]),

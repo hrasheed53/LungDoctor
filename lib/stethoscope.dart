@@ -7,16 +7,16 @@ String currentImage = 'assets/images/alien.png';
 String newImage = '';
 AudioCache cache = new AudioCache();
 
-class stethescope extends StatefulWidget {
-  stethescope({Key key, this.title}) : super(key: key);
+class Stethoscope extends StatefulWidget {
+  Stethoscope({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _stethescopeState createState() => _stethescopeState();
+  _StethoscopeState createState() => _StethoscopeState();
 }
 
-class _stethescopeState extends State<stethescope> {
+class _StethoscopeState extends State<Stethoscope> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -128,7 +128,8 @@ class _stethescopeState extends State<stethescope> {
     );
   }
 }
+
 Future<AudioPlayer> playLocalAsset() async {
-    AudioCache cache = new AudioCache();
-    return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
+  AudioCache cache = new AudioCache();
+  return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
 }

@@ -30,11 +30,12 @@ void updateStatistics(
   db.updateStats(diagnosisAnswer, difficultyLevel, correctVal);
 }
 
-int spendPoints(int amount) {
+Future<int> spendPoints(int amount) {
   final db = DatabaseHelper();
-  int newPointsVal;
-  db.spendPoints(amount).then((value) => newPointsVal = value);
-  return newPointsVal;
+  //int newPointsVal;
+  //db.spendPoints(amount).then((value) => newPointsVal = value);
+  //return newPointsVal;
+  return db.spendPoints(amount);
 }
 
 Future<int> getStorePoints() {

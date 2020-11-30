@@ -1,19 +1,16 @@
-import 'package:RESP2/hataccessories.dart';
+import 'package:RESP2/hatAccessories.dart';
 import 'package:RESP2/headbands.dart';
-import 'package:RESP2/incorrect_answer.dart';
 import 'package:RESP2/masks.dart';
 import 'package:RESP2/pets.dart';
 
 import 'labCoat.dart';
-import 'hataccessories.dart';
+import 'hatAccessories.dart';
 import 'backgrounds.dart';
-import 'stethescope.dart';
+import 'stethoscope.dart';
 import 'headbands.dart';
 import 'masks.dart';
 import 'pets.dart';
-import 'userData.dart';
 import 'package:flutter/material.dart';
-
 
 int points = 350;
 
@@ -40,12 +37,12 @@ class _StoreState extends State<Store> {
             const SizedBox(height: 10.0),
             Text('You have ' + points.toString() + ' spending points',
                 style: TextStyle(fontSize: 25)),
-            if (points >= 100) one_hundred_click(),
-            if (points < 100) one_hundred_noclick(),
-            if (points >= 200) two_hundred_click(),
-            if (points < 200) two_hundred_noclick(),
-            if (points >= 300) three_hundred_click(),
-            if (points < 300) three_hundred_noclick(),
+            if (points >= 100) oneHundredClick(),
+            if (points < 100) oneHundredNoClick(),
+            if (points >= 200) twoHundredClick(),
+            if (points < 200) twoHundredNoClick(),
+            if (points >= 300) threeHundredClick(),
+            if (points < 300) threeHundredNoClick(),
             SizedBox(height: 35),
           ],
         ),
@@ -72,7 +69,7 @@ class _StoreState extends State<Store> {
     );
   }
 
-  Card one_hundred_click() {
+  Card oneHundredClick() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
@@ -85,10 +82,10 @@ class _StoreState extends State<Store> {
           ListTile(
             onTap: () {
               Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => LabCoat(),
-              ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => LabCoat(),
+                  ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Labcoat Color'),
@@ -98,10 +95,10 @@ class _StoreState extends State<Store> {
           ListTile(
             onTap: () {
               Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => background(),
-              ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Background(),
+                  ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Backgrounds'),
@@ -111,10 +108,10 @@ class _StoreState extends State<Store> {
           ListTile(
             onTap: () {
               Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => simpAccessories(),
-              ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => HatAccessories(),
+                  ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Simple accessories'),
@@ -125,7 +122,7 @@ class _StoreState extends State<Store> {
     );
   }
 
-  Card one_hundred_noclick() {
+  Card oneHundredNoClick() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
@@ -166,7 +163,7 @@ class _StoreState extends State<Store> {
     );
   }
 
-  Card two_hundred_click() {
+  Card twoHundredClick() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
@@ -179,10 +176,10 @@ class _StoreState extends State<Store> {
           ListTile(
             onTap: () {
               Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => stethescope(),
-              ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Stethoscope(),
+                  ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Stethescopes'),
@@ -192,10 +189,10 @@ class _StoreState extends State<Store> {
           ListTile(
             onTap: () {
               Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => headbands(),
-              ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Headbands(),
+                  ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Headbands'),
@@ -205,10 +202,10 @@ class _StoreState extends State<Store> {
           ListTile(
             onTap: () {
               Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => masks(),
-              ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Masks(),
+                  ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Masks'),
@@ -219,7 +216,7 @@ class _StoreState extends State<Store> {
     );
   }
 
-  Card two_hundred_noclick() {
+  Card twoHundredNoClick() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
@@ -260,7 +257,7 @@ class _StoreState extends State<Store> {
     );
   }
 
-  Card three_hundred_click() {
+  Card threeHundredClick() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,
@@ -273,10 +270,10 @@ class _StoreState extends State<Store> {
           ListTile(
             onTap: () {
               Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => pets(),
-              ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Pets(),
+                  ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
             title: Text('Pets'),
@@ -296,7 +293,7 @@ class _StoreState extends State<Store> {
     );
   }
 
-  Card three_hundred_noclick() {
+  Card threeHundredNoClick() {
     return Card(
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       color: Colors.white,

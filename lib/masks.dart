@@ -7,16 +7,16 @@ String currentImage = 'assets/images/alien.png';
 String newImage = '';
 AudioCache cache = new AudioCache();
 
-class masks extends StatefulWidget {
-  masks({Key key, this.title}) : super(key: key);
+class Masks extends StatefulWidget {
+  Masks({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _masksState createState() => _masksState();
+  _MasksState createState() => _MasksState();
 }
 
-class _masksState extends State<masks> {
+class _MasksState extends State<Masks> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +40,7 @@ class _masksState extends State<masks> {
                     scale: 4.5,
                   ),
                 if (newImage == "assets/images/mask_6.png")
-                    Image.asset(
+                  Image.asset(
                     newImage,
                     fit: BoxFit.cover,
                     scale: 4.65,
@@ -60,9 +60,10 @@ class _masksState extends State<masks> {
               buttonHelper("Orange", "mask_5.png"),
               buttonHelper("Red", "mask_6.png"),
             ]),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[]),
             Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-            ]),
-                        Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
               buttonHelper("Pink", "mask_7.png"),
               buttonHelper("Purple", "mask_8.png"),
             ]),
@@ -138,7 +139,8 @@ class _masksState extends State<masks> {
     );
   }
 }
+
 Future<AudioPlayer> playLocalAsset() async {
-    AudioCache cache = new AudioCache();
-    return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
+  AudioCache cache = new AudioCache();
+  return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
 }

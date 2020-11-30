@@ -1,8 +1,7 @@
 import 'package:RESP2/userData.dart';
 import 'package:flutter/material.dart';
-import 'package:RESP2/patientcard.dart';
+import 'package:RESP2/patientCard.dart';
 import 'package:RESP2/gamePlay.dart';
-import 'package:RESP2/parsePatientData.dart';
 import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
 
