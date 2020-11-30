@@ -1,13 +1,21 @@
 import 'package:RESP2/hataccessories.dart';
+import 'package:RESP2/headbands.dart';
 import 'package:RESP2/incorrect_answer.dart';
+import 'package:RESP2/masks.dart';
+import 'package:RESP2/pets.dart';
 
 import 'labCoat.dart';
 import 'hataccessories.dart';
 import 'backgrounds.dart';
+import 'stethescope.dart';
+import 'headbands.dart';
+import 'masks.dart';
+import 'pets.dart';
 import 'userData.dart';
 import 'package:flutter/material.dart';
 
-int points = 150;
+
+int points = 350;
 
 class Store extends StatefulWidget {
   Store({Key key, this.title}) : super(key: key);
@@ -132,7 +140,7 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Avatar Color'),
+            title: Text('Labcoat Color'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
@@ -141,7 +149,7 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Hair Style'),
+            title: Text('Backgrounds'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
@@ -170,28 +178,40 @@ class _StoreState extends State<Store> {
           thickline(),
           ListTile(
             onTap: () {
-              //if we want to add edit profile functionality
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => stethescope(),
+              ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Clothes'),
+            title: Text('Stethescopes'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
           ListTile(
             onTap: () {
-              //if we want to add edit profile functionality
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => headbands(),
+              ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Shoes'),
+            title: Text('Headbands'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
           ListTile(
             onTap: () {
-              //if we want to add edit profile functionality
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => masks(),
+              ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Fun accessories'),
+            title: Text('Masks'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
         ],
@@ -214,7 +234,7 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Clothes'),
+            title: Text('Stethescopes'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
@@ -223,7 +243,7 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Shoes'),
+            title: Text('Headbands'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
@@ -232,7 +252,7 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Fun accessories'),
+            title: Text('Masks'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
         ],
@@ -252,10 +272,14 @@ class _StoreState extends State<Store> {
           thickline(),
           ListTile(
             onTap: () {
-              //if we want to add edit profile functionality
+              Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => pets(),
+              ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Color theme'),
+            title: Text('Pets'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
@@ -264,16 +288,7 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Doctor accessories'),
-            trailing: Icon(Icons.arrow_right_alt_rounded),
-          ),
-          line(),
-          ListTile(
-            onTap: () {
-              //if we want to add edit profile functionality
-            },
-            leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Pet for avatar'),
+            title: Text('Color Customization'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
         ],
@@ -296,7 +311,7 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Color theme'),
+            title: Text('Pets'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
@@ -305,18 +320,10 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Doctor accessories'),
+            title: Text('Color Theme'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
-          ListTile(
-            onTap: () {
-              //if we want to add edit profile functionality
-            },
-            leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Pet for avatar'),
-            trailing: Icon(Icons.arrow_right_alt_rounded),
-          ),
         ],
       ),
     );

@@ -79,6 +79,32 @@ flutter:
         - assets/correct.mp3
         - assets/incorrect.mp3
         - assets/sabo.mp3
+        - assets/images/stethescope_1.png
+        - assets/images/stethescope_2.png
+        - assets/images/stethescope_3.png
+        - assets/images/stethescope_4.png
+        - assets/images/stethescope_5.png
+        - assets/images/stethescope_6.png
+        - assets/images/pet_1.png
+        - assets/images/pet_2.png
+        - assets/images/pet_3.png
+        - assets/images/pet_4.png
+        - assets/images/pet_5.png
+        - assets/images/pet_6.png
+        - assets/images/pet_7.png
+        - assets/images/pet_8.png
+        - assets/images/mask_1.png
+        - assets/images/mask_2.png
+        - assets/images/mask_3.png
+        - assets/images/mask_4.png
+        - assets/images/mask_5.png
+        - assets/images/mask_6.png
+        - assets/images/mask_7.png
+        - assets/images/mask_8.png
+        - assets/images/head_1.png
+        - assets/images/head_2.png
+        - assets/images/head_3.png
+        - assets/images/head_4.png
 
 
   # The following line ensures that the Material Icons font is
