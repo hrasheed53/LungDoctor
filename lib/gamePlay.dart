@@ -1,4 +1,4 @@
-import 'package:RESP2/patientCard.dart';
+import 'package:RESP2/patientcard.dart';
 import 'package:RESP2/instructions.dart';
 import 'package:flutter/material.dart';
 
