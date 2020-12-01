@@ -30,8 +30,8 @@ dependencies:
   audioplayers: ^0.13.2
   
   firebase_auth: ^0.18.3
-  firebase_core: "^0.5.2"
-  google_sign_in: ^4.4.4
+  firebase_core: "^0.5.2+1"
+  google_sign_in: ^4.5.1
   condition: ^0.0.8
   firebase_database: "^4.3.0"
   

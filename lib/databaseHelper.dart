@@ -32,6 +32,7 @@ class DatabaseHelper {
   _initDatabase() async {
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, 'user_data.db');
+    print(path);
     Database db = await openDatabase(path, version: 1,
         onCreate: (Database myDB, int version) async {
       // Using + to make sqlite command more readable.
@@ -45,11 +46,6 @@ class DatabaseHelper {
     });
     return db;
   }
-
-  /* raw version allow direct usage of SQLite syntax vs. using a map.
-  Future<void> updateName(String oldName, String newName) async {
-    await _database.rawUpdate(); 
-  }*/
 
   Future<void> createUser(String name) async {
     var userMap = {
@@ -66,6 +62,7 @@ class DatabaseHelper {
       "currentStreak": 0,
       "storePoints": 1500,
     };
+
     Database db = await database;
     int id = await db.insert("user_data", userMap,
         conflictAlgorithm: ConflictAlgorithm.ignore);
@@ -84,10 +81,6 @@ class DatabaseHelper {
         "numCorrect",
       ],
     );
-    // List should only have one Map. Sanity check.
-    //if (correctVar.length != 1) {
-    //  return -1;
-    //}
     return correctVar.first["numCorrect"];
   }
 
@@ -99,10 +92,6 @@ class DatabaseHelper {
         "numAttempted",
       ],
     );
-    // List should only have one Map. Sanity check.
-    //if (attemptedVar.length != 1) {
-    //  return -1;
-    //}
     return attemptedVar.first["numAttempted"];
   }
 
@@ -116,10 +105,6 @@ class DatabaseHelper {
         "numPneumMissed",
       ],
     );
-    // List should only have one Map. Sanity check.
-    //if (missedVals.length != 1) {
-    //  return -1;
-    //}
     List<int> missed = [
       missedVals.first["numCHFMissed"],
       missedVals.first["numCOPDMissed"],
@@ -150,10 +135,6 @@ class DatabaseHelper {
         "numPneumCorrect",
       ],
     );
-    // List should only have one Map. Sanity check.
-    // if (correctVals.length != 1) {
-    //  return -1;
-    // }
     List<int> corrects = [
       correctVals.first["numCHFCorrect"],
       correctVals.first["numCOPDCorrect"],
@@ -182,10 +163,6 @@ class DatabaseHelper {
         "longestStreak",
       ],
     );
-    // List should only have one Map. Sanity check.
-    // if (streakVar.length != 1) {
-    //  return -1;
-    //}
     return streakVar.first["longestStreak"];
   }
 
@@ -197,10 +174,6 @@ class DatabaseHelper {
         "currentStreak",
       ],
     );
-    // List should only have one Map. Sanity check.
-    //if (streakVar.length != 1) {
-    //  return -1;
-    //}
     return streakVar.first["currentStreak"];
   }
 
@@ -212,10 +185,6 @@ class DatabaseHelper {
         "storePoints",
       ],
     );
-    // List should only have one Map. Sanity check.
-    //if (storePointsVar.length != 1) {
-    //  return -1;
-    //}
     return storePointsVar.first["storePoints"];
   }
 
