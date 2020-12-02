@@ -16,7 +16,7 @@ class _XraysState extends State<Xrays> {
   Widget build(BuildContext context) {
     //set url to correct db link for case:
     int id = widget.caseID;
-    String url = "https://xrayimagesresp2.s3.amazonaws.com/";
+    String url = "https://lungxrays.s3.amazonaws.com/";
     url = url + id.toString() + ".jpg";
     print(url);
     NetworkImage(url);
