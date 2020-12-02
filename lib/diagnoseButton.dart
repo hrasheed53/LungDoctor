@@ -308,7 +308,6 @@ class _DiagnoseState extends State<Diagnose> {
             padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black54, width: 2),
-              //borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey[300].withOpacity(0.5),
@@ -328,7 +327,7 @@ class _DiagnoseState extends State<Diagnose> {
                   child: Text(
                     label,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.w400,
                       color: color,
                     ),
@@ -351,7 +350,6 @@ class _DiagnoseState extends State<Diagnose> {
             padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black54, width: 2),
-              //borderRadius: BorderRadius.circular(12),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey[300].withOpacity(0.5),
@@ -371,7 +369,7 @@ class _DiagnoseState extends State<Diagnose> {
                   child: Text(
                     label,
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: color,
                     ),
