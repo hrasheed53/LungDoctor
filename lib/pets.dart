@@ -142,12 +142,14 @@ Future<AudioPlayer> playLocalAsset() async {
             title: Text('You just bought a customizaiont'),
               content:Image.asset(
                       newImage,
-                      fit: BoxFit.cover,
-                      scale: 4.5,
+                      scale: .5,
                     ),
             actions: <Widget>[
               FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
                   child: Text('OK')),
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),

@@ -146,7 +146,10 @@ Future<AudioPlayer> playLocalAsset() async {
                     ),
             actions: <Widget>[
               FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    Navigator.of(context).pop();
+                  },
                   child: Text('OK')),
               FlatButton(
                   onPressed: () => Navigator.of(context).pop(),
