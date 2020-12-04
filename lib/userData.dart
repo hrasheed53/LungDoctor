@@ -32,3 +32,10 @@ Future<int> getStorePoints() {
   final db = DatabaseHelper();
   return db.storePoints;
 }
+
+Future<String> changeName(String newName) async {
+  // Get a reference to the database.
+  final db = DatabaseHelper();
+  db.updateName(userName, newName);
+  return newName;
+}
