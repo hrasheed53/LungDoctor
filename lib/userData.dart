@@ -33,11 +33,11 @@ Future<int> getStorePoints() {
   return db.storePoints;
 }
 
-// THIS COULD CAUSE ISSUE B/C NAME CHANGES WON'T MATCH WHEN LOGGING IN WITH OLD NAME
+/* THIS COULD CAUSE ISSUE B/C NAME CHANGES WON'T MATCH WHEN LOGGING IN WITH OLD NAME
 // POSSIBLE FIX - HAVE OG/LOGIN NAME OR EMAIL IN DB AND THEN DISPLAY NAME SEPARATELY?
 Future<String> changeName(String newName) async {
   // Get a reference to the database.
   final db = DatabaseHelper();
   db.updateName(userName, newName);
   return newName;
-}
+}*/
