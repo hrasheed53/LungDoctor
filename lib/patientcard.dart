@@ -853,8 +853,16 @@ class _PatientCardState extends State<PatientCard> {
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
           } else {
-            // By default, show a loading spinner.
-            return CircularProgressIndicator();
+            //show loading spinner when pulling data
+            return Scaffold(
+              body: Center(
+                child: Container(
+                  width: 40,
+                  height: 40,
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            );
           }
         },
       ),
