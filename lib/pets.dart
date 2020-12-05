@@ -1,6 +1,8 @@
+import 'package:RESP2/userData.dart';
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
+import 'store.dart';
 //import 'store.dart';
 
 String currentImage = 'assets/images/alien.png';
@@ -127,19 +129,13 @@ class _PetsState extends State<Pets> {
       ),
     );
   }
-}
-
-Future<AudioPlayer> playLocalAsset() async {
-  AudioCache cache = new AudioCache();
-  return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
-}
-  void _popupDialog(BuildContext context) {
+    void _popupDialog(BuildContext context) {
     cache.play("cash.mp3");
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: Text('You just bought a customizaiont'),
+            title: Text('You just bought a customizaion'),
               content:Image.asset(
                       newImage,
                       scale: .5,
@@ -147,8 +143,15 @@ Future<AudioPlayer> playLocalAsset() async {
             actions: <Widget>[
               FlatButton(
                   onPressed: () {
+                    new FutureBuilder(
+                    future: spendPoints(300),
+                    builder: (BuildContext context, AsyncSnapshot<int> data) {
+                    },);
                     Navigator.of(context).pop();
-                    Navigator.of(context).pop();
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => Store()));
                   },
                   child: Text('OK')),
               FlatButton(
@@ -158,3 +161,10 @@ Future<AudioPlayer> playLocalAsset() async {
           );
         });
   }
+}
+
+Future<AudioPlayer> playLocalAsset() async {
+  AudioCache cache = new AudioCache();
+  return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
+}
+
