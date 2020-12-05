@@ -1,7 +1,7 @@
 import 'package:RESP2/userData.dart';
 import 'package:flutter/material.dart';
 import 'package:RESP2/patientcard.dart';
-//import 'package:RESP2/gamePlay.dart';
+import 'package:RESP2/gamePlay.dart';
 import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
 
@@ -32,8 +32,6 @@ class _DiagnoseState extends State<Diagnose> {
   //variables needed from db: correct answer, difficulty, red herring, expert advice
   String ans = "CHF";
   bool correct = false;
-  //List<String> illnesses = ["CHF", "COPD", "PNEUMONIA"];
-  //List rejectedData;
   bool lastPatient = false;
   bool changeAnswer = false;
   String redHerring;
@@ -147,7 +145,7 @@ class _DiagnoseState extends State<Diagnose> {
                         },
                       ),*/
                       TextButton(
-                        child: Text('Answer again'),
+                        child: Text('Answer Again'),
                         onPressed: () {
                           changeAnswer = true;
                           Navigator.of(context).pop();
@@ -386,13 +384,15 @@ class _DiagnoseState extends State<Diagnose> {
 
   //IF MORE PATIENTS LEFT
   Future navigateBackToGame(context) async {
-    Navigator.of(context).pop();
+    //Navigator.of(context).pop();
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PatientCard(
-                  patientsLeft: remaining,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => PatientCard(
+          patientsLeft: remaining,
+        ),
+      ),
+    );
   }
 
   //IF THIS WAS LAST PATIENT IN GAME SESSION
