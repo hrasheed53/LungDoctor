@@ -25,6 +25,10 @@ class DatabaseHelper {
   // Getter for database.
   Future<Database> get database async {
     if (_database != null) {
+      var databasePath = await getDatabasesPath();
+      String path = join(databasePath, 'user_data.db');
+      print("THIS IS THE PATH");
+      print(path);
       return _database;
     }
     _database = await _initDatabase();
@@ -35,23 +39,27 @@ class DatabaseHelper {
   _initDatabase() async {
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, 'user_data.db');
+    print("THIS IS THE PATH");
     print(path);
     Database db = await openDatabase(path, version: 1,
         onCreate: (Database myDB, int version) async {
       // Using + to make sqlite command more readable.
-      await myDB.execute('CREATE TABLE user_data(userName TEXT, numCorrect INTEGER DEFAULT 0, ' +
-          'numAttempted INTEGER DEFAULT 0, numCHFMissed INTEGER DEFAULT 0, ' +
-          'numCOPDMissed INTEGER DEFAULT 0, numPneumMissed INTEGER DEFAULT 0, ' +
-          'numCHFCorrect INTEGER DEFAULT 0, numCOPDCorrect INTEGER DEFAULT 0, ' +
-          'numPneumCorrect INTEGER DEFAULT 0, longestStreak INTEGER DEFAULT 0, ' +
-          'currentStreak INTEGER DEFAULT 0, storePoints INTEGER DEFAULT 1500, ' +
-          'UNIQUE(userName))');
+      await myDB.execute('CREATE TABLE user_data(uid TEXT, userName TEXT, ' +
+          'numCorrect INTEGER DEFAULT 0, numAttempted INTEGER DEFAULT 0, ' +
+          'numCHFMissed INTEGER DEFAULT 0, numCOPDMissed INTEGER DEFAULT 0, ' +
+          'numPneumMissed INTEGER DEFAULT 0, numCHFCorrect INTEGER DEFAULT 0, ' +
+          'numCOPDCorrect INTEGER DEFAULT 0, numPneumCorrect INTEGER DEFAULT 0, ' +
+          'longestStreak INTEGER DEFAULT 0, currentStreak INTEGER DEFAULT 0, ' +
+          'storePoints INTEGER DEFAULT 1500, background TEXT, hatAccessory TEXT, ' +
+          'headband TEXT, labCoatColor TEXT, mask TEXT, pet TEXT, ' +
+          'stethoscope TEXT, UNIQUE(userName))');
     });
     return db;
   }
 
-  Future<void> createUser(String name) async {
+  Future<void> createUser(String name, String userID) async {
     var userMap = {
+      "uid": userID,
       "userName": name,
       "numCorrect": 0,
       "numAttempted": 0,
@@ -64,6 +72,13 @@ class DatabaseHelper {
       "longestStreak": 0,
       "currentStreak": 0,
       "storePoints": 1500,
+      "background": "",
+      "hatAccessory": "",
+      "headband": "",
+      "labCoatColor": "",
+      "mask": "",
+      "pet": "",
+      "stethoscope": "",
     };
 
     Database db = await database;
@@ -74,7 +89,7 @@ class DatabaseHelper {
     }
     List<Map> list = await db.rawQuery('SELECT * from user_data');
     print(list);
-    currentUser = name;
+    currentUser = userID;
   }
 
   Future<int> get correct async {
@@ -192,6 +207,13 @@ class DatabaseHelper {
     return storePointsVar.first["storePoints"];
   }
 
+  Future<String> get name async {
+    Database db = await database;
+    List<Map> nameVar = await db.query("user_data",
+        columns: ["userName"], where: 'uid = ?', whereArgs: [currentUser]);
+    return nameVar.first["userName"];
+  }
+
   Future<int> spendPoints(int amount) async {
     Database db = await database;
     // Amount is how many points we are decrementing storePoints.
@@ -216,13 +238,38 @@ class DatabaseHelper {
     };
   }
 
-  Future<String> updateName(userName, newName) async {
+  Future<String> updateName(newName) async {
     Database db = await database;
-    await db.rawUpdate("UPDATE user_data SET userName = ? WHERE userName = ?",
-        [newName, userName]);
+    await db.rawUpdate("UPDATE user_data SET userName = ? WHERE uid = ?",
+        [newName, currentUser]);
     List<Map> name = await db.rawQuery(
         "SELECT userName FROM user_data WHERE userName = ?", [newName]);
     return name.first["userName"];
+  }
+
+  Future<void> updateCustomization(customizationType, customizationItem) async {
+    Database db = await database;
+    await db.rawUpdate("UPDATE user_data SET ? = ? WHERE uid = ?",
+        [customizationType, customizationType, currentUser]);
+    return;
+  }
+
+  Future<Map<String, dynamic>> getCustomizations() async {
+    Database db = await database;
+    var customizations = await db.query("user_data",
+        columns: [
+          "background",
+          "hatAccessory",
+          "headband",
+          "labCoatColor",
+          "mask",
+          "pet",
+          "stethoscope",
+        ],
+        where: 'uid = ?',
+        whereArgs: [currentUser]);
+    print(customizations.first);
+    return customizations.first;
   }
 
   Future<void> updateStats(

@@ -140,21 +140,21 @@ Future<AudioPlayer> playLocalAsset() async {
         builder: (context) {
           return AlertDialog(
             title: Text('You just bought a customizaiont'),
-              content:Image.asset(
-                      newImage,
-                      scale: .5,
-                    ),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK')),
-              FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text('CANCEL')),
-            ],
-          );
-        });
-  }
+          content: Image.asset(
+            newImage,
+            scale: .5,
+          ),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK')),
+            FlatButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('CANCEL')),
+          ],
+        );
+      });
+}
