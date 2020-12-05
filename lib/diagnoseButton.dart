@@ -257,7 +257,7 @@ class _DiagnoseState extends State<Diagnose> {
     //==============================================================================
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Test Results'),
+        title: const Text('Diagnose'),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -398,6 +398,6 @@ class _DiagnoseState extends State<Diagnose> {
   //IF THIS WAS LAST PATIENT IN GAME SESSION
   Future navigateToGameplay(context) async {
     Navigator.of(context).pop();
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Game()));
+    //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Game()));
   }
 }

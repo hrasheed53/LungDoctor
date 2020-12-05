@@ -133,13 +133,14 @@ Future<AudioPlayer> playLocalAsset() async {
   AudioCache cache = new AudioCache();
   return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
 }
-  void _popupDialog(BuildContext context) {
-    cache.play("cash.mp3");
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('You just bought a customizaiont'),
+
+void _popupDialog(BuildContext context) {
+  cache.play("cash.mp3");
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('You just bought a customizaiont'),
           content: Image.asset(
             newImage,
             scale: .5,
