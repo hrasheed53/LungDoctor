@@ -57,25 +57,6 @@ class _SettingsState extends State<Settings> {
                     trailing: Icon(Icons.arrow_right_alt_rounded),
                   ),
                   line(),
-                  ListTile(
-                    onTap: () {
-                      //if we want to add edit profile functionality
-                    },
-                    leading: Icon(Icons.lock_outline_rounded,
-                        color: Colors.blue[200]),
-                    title: Text('Change Password'),
-                    trailing: Icon(Icons.arrow_right_alt_rounded),
-                  ),
-                  line(),
-                  ListTile(
-                    onTap: () {
-                      //if we want to add edit profile functionality
-                    },
-                    leading:
-                        Icon(Icons.language_rounded, color: Colors.blue[200]),
-                    title: Text('Change Language'),
-                    trailing: Icon(Icons.arrow_right_alt_rounded),
-                  ),
                 ],
               ),
             ),
