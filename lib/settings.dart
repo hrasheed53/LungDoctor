@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'changeName.dart';
 import 'sabotageInstructions.dart';
 
 class Settings extends StatefulWidget {
@@ -50,8 +50,11 @@ class _SettingsState extends State<Settings> {
                 children: <Widget>[
                   ListTile(
                     onTap: () {
-                      //if we want to add edit profile functionality
-                    },
+                        Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => MyCustomForm()));
+                      },
                     leading: Icon(Icons.portrait, color: Colors.blue[200]),
                     title: Text('Change Name'),
                     trailing: Icon(Icons.arrow_right_alt_rounded),
