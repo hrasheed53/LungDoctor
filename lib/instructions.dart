@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
+import 'beginningGame.dart';
 import 'gamePlay.dart';
 import 'leaderboard.dart';
 import 'settings.dart';
@@ -117,7 +118,7 @@ class _InstState extends State<Inst> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => LeaderBoard(),
+                                    builder: (context) => Instr(),
                                   ));
                             }),
                     ],
