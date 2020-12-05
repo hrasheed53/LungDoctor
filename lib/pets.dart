@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
-//import 'store.dart';
+import 'store.dart';
+import 'userData.dart';
 
 String currentImage = 'assets/images/alien.png';
 String newImage = '';
@@ -140,21 +141,29 @@ void _popupDialog(BuildContext context) {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('You just bought a customizaiont'),
+          title: Text('You just bought a customizaion'),
           content: Image.asset(
             newImage,
             scale: .5,
           ),
           actions: <Widget>[
             FlatButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                },
-                child: Text('OK')),
+              onPressed: () {
+                new FutureBuilder(
+                future: spendPoints(300),
+                builder: (BuildContext context, AsyncSnapshot<int> data) {
+                },);
+            Navigator.of(context).pop();
+            Navigator.of(context).pop();
+                Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => Store()));
+              },
+              child: Text('ok')),
             FlatButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: Text('CANCEL')),
+              onPressed: () => Navigator.of(context).pop(),
+              child: Text("cancel")),
           ],
         );
       });
