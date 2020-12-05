@@ -2,6 +2,7 @@ import 'package:RESP2/hatAccessories.dart';
 import 'package:RESP2/headbands.dart';
 import 'package:RESP2/masks.dart';
 import 'package:RESP2/pets.dart';
+import 'package:RESP2/userData.dart';
 
 import 'labCoat.dart';
 import 'hatAccessories.dart';
@@ -12,8 +13,7 @@ import 'masks.dart';
 import 'pets.dart';
 import 'package:flutter/material.dart';
 
-int points = 350;
-
+int points = 0;
 class Store extends StatefulWidget {
   Store({Key key, this.title}) : super(key: key);
 
@@ -26,27 +26,38 @@ class Store extends StatefulWidget {
 class _StoreState extends State<Store> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return new FutureBuilder(
       // appBar: AppBar(
       //   title: const Text('Store'),
       // ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            const SizedBox(height: 10.0),
-            Text('You have ' + points.toString() + ' spending points',
-                style: TextStyle(fontSize: 25)),
-            if (points >= 100) oneHundredClick(),
-            if (points < 100) oneHundredNoClick(),
-            if (points >= 200) twoHundredClick(),
-            if (points < 200) twoHundredNoClick(),
-            if (points >= 300) threeHundredClick(),
-            if (points < 300) threeHundredNoClick(),
-            SizedBox(height: 35),
-          ],
+      future: getStorePoints(),
+      builder: (BuildContext context, AsyncSnapshot<int> data) {
+        if (data.hasData) {
+        points = data.data;
+        return Scaffold(
+          body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              const SizedBox(height: 10.0),
+              Text('You have ' + points.toString() + ' spending points',
+                  style: TextStyle(fontSize: 25)),
+              if (points >= 100) oneHundredClick(),
+              if (points < 100) oneHundredNoClick(),
+              if (points >= 200) twoHundredClick(),
+              if (points < 200) twoHundredNoClick(),
+              if (points >= 300) threeHundredClick(),
+              if (points < 300) threeHundredNoClick(),
+              SizedBox(height: 35),
+            ],
+          ),
         ),
-      ),
+      );
+      }
+      else {
+        return CircularProgressIndicator();
+      }
+      }
       //bottomNavigationBar: navBar(),
     );
   }

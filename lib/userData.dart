@@ -1,10 +1,11 @@
 import 'package:RESP2/databaseHelper.dart';
+import 'package:sqflite/sqlite_api.dart';
 
 // Interfaces with database.
 
-void createUser(String name) async {
+void createUser(String name, String id) async {
   final db = DatabaseHelper();
-  await db.createUser(name);
+  await db.createUser(name, id);
 }
 
 Future<Map<String, int>> getStatistics() {
@@ -33,11 +34,14 @@ Future<int> getStorePoints() {
   return db.storePoints;
 }
 
-/* THIS COULD CAUSE ISSUE B/C NAME CHANGES WON'T MATCH WHEN LOGGING IN WITH OLD NAME
-// POSSIBLE FIX - HAVE OG/LOGIN NAME OR EMAIL IN DB AND THEN DISPLAY NAME SEPARATELY?
 Future<String> changeName(String newName) async {
   // Get a reference to the database.
   final db = DatabaseHelper();
-  db.updateName(userName, newName);
+  db.updateName(newName);
   return newName;
-}*/
+}
+
+Future<String> getName() async {
+  final db = DatabaseHelper();
+  return db.name;
+}

@@ -38,7 +38,7 @@ Future<String> signInWithGoogle() async {
     name = name.substring(0, name.indexOf(" "));
   }
 
-  createUser(name);
+  createUser(name, user.uid);
 
   final User currentUser = _auth.currentUser;
   assert(user.uid == currentUser.uid);
