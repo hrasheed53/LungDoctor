@@ -664,7 +664,6 @@ class _PatientCardState extends State<PatientCard> {
               ),
             );
 //=============================================================================
-
 //                       Narrative tab
 //=============================================================================
             //---------NARRATIVE TEXT--------------------------------------
@@ -1046,14 +1045,17 @@ class _PatientCardState extends State<PatientCard> {
 
   Future diagnoseBttn(context) async {
     Navigator.of(context).pop();
+    Navigator.of(context).pop();
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => Diagnose(
-                patientsLeft: remaining,
-                difficulty: difficultyLevel,
-                answer: diagnosis,
-                rH: redHerring,
-                eA: expertAdvice)));
+      context,
+      MaterialPageRoute(
+        builder: (context) => Diagnose(
+            patientsLeft: remaining,
+            difficulty: difficultyLevel,
+            answer: diagnosis,
+            rH: redHerring,
+            eA: expertAdvice),
+      ),
+    );
   }
 }
