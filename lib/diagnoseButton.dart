@@ -1,7 +1,7 @@
 import 'package:RESP2/userData.dart';
 import 'package:flutter/material.dart';
 import 'package:RESP2/patientcard.dart';
-import 'package:RESP2/gamePlay.dart';
+//import 'package:RESP2/gamePlay.dart';
 import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
 
@@ -147,7 +147,7 @@ class _DiagnoseState extends State<Diagnose> {
                         },
                       ),*/
                       TextButton(
-                        child: Text('Change answer'),
+                        child: Text('Answer again'),
                         onPressed: () {
                           changeAnswer = true;
                           Navigator.of(context).pop();
