@@ -14,6 +14,7 @@ import 'pets.dart';
 import 'package:flutter/material.dart';
 
 int points = 0;
+
 class Store extends StatefulWidget {
   Store({Key key, this.title}) : super(key: key);
 
@@ -27,39 +28,38 @@ class _StoreState extends State<Store> {
   @override
   Widget build(BuildContext context) {
     return new FutureBuilder(
-      // appBar: AppBar(
-      //   title: const Text('Store'),
-      // ),
-      future: getStorePoints(),
-      builder: (BuildContext context, AsyncSnapshot<int> data) {
-        if (data.hasData) {
-        points = data.data;
-        return Scaffold(
-          body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const SizedBox(height: 10.0),
-              Text('You have ' + points.toString() + ' spending points',
-                  style: TextStyle(fontSize: 25)),
-              if (points >= 100) oneHundredClick(),
-              if (points < 100) oneHundredNoClick(),
-              if (points >= 200) twoHundredClick(),
-              if (points < 200) twoHundredNoClick(),
-              if (points >= 300) threeHundredClick(),
-              if (points < 300) threeHundredNoClick(),
-              SizedBox(height: 35),
-            ],
-          ),
-        ),
-      );
-      }
-      else {
-        return CircularProgressIndicator();
-      }
-      }
-      //bottomNavigationBar: navBar(),
-    );
+        // appBar: AppBar(
+        //   title: const Text('Store'),
+        // ),
+        future: getStorePoints(),
+        builder: (BuildContext context, AsyncSnapshot<int> data) {
+          if (data.hasData) {
+            points = data.data;
+            return Scaffold(
+              body: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    const SizedBox(height: 10.0),
+                    Text('You have ' + points.toString() + ' spending points',
+                        style: TextStyle(fontSize: 25)),
+                    if (points >= 100) oneHundredClick(),
+                    if (points < 100) oneHundredNoClick(),
+                    if (points >= 200) twoHundredClick(),
+                    if (points < 200) twoHundredNoClick(),
+                    if (points >= 300) threeHundredClick(),
+                    if (points < 300) threeHundredNoClick(),
+                    SizedBox(height: 35),
+                  ],
+                ),
+              ),
+            );
+          } else {
+            return CircularProgressIndicator();
+          }
+        }
+        //bottomNavigationBar: navBar(),
+        );
   }
 
   Container line() {

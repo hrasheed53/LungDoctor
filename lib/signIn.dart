@@ -38,13 +38,12 @@ Future<String> signInWithGoogle() async {
     name = name.substring(0, name.indexOf(" "));
   }
 
-  createUser(name, user.uid);
-
   final User currentUser = _auth.currentUser;
   assert(user.uid == currentUser.uid);
-
   print(currentUser);
-  print(user.uid);
+  print(user.email);
+
+  createUser(name, user.email);
 
   return 'signInWithGoogle succeeded: $user';
 }

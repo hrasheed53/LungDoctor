@@ -4,8 +4,8 @@ import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  // this is the name of whoever is logged in
-  String currentUser;
+  // this is the email of whoever is logged in
+  static String currentEmail;
 
   /* This syntax allows user to believe they are creating an instance of class 
   when in reality they are just accessing the persistent database object */
@@ -25,10 +25,6 @@ class DatabaseHelper {
   // Getter for database.
   Future<Database> get database async {
     if (_database != null) {
-      var databasePath = await getDatabasesPath();
-      String path = join(databasePath, 'user_data.db');
-      print("THIS IS THE PATH");
-      print(path);
       return _database;
     }
     _database = await _initDatabase();
@@ -39,27 +35,40 @@ class DatabaseHelper {
   _initDatabase() async {
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, 'user_data.db');
-    print("THIS IS THE PATH");
     print(path);
     Database db = await openDatabase(path, version: 1,
         onCreate: (Database myDB, int version) async {
       // Using + to make sqlite command more readable.
-      await myDB.execute('CREATE TABLE user_data(uid TEXT, userName TEXT, ' +
-          'numCorrect INTEGER DEFAULT 0, numAttempted INTEGER DEFAULT 0, ' +
-          'numCHFMissed INTEGER DEFAULT 0, numCOPDMissed INTEGER DEFAULT 0, ' +
-          'numPneumMissed INTEGER DEFAULT 0, numCHFCorrect INTEGER DEFAULT 0, ' +
-          'numCOPDCorrect INTEGER DEFAULT 0, numPneumCorrect INTEGER DEFAULT 0, ' +
-          'longestStreak INTEGER DEFAULT 0, currentStreak INTEGER DEFAULT 0, ' +
-          'storePoints INTEGER DEFAULT 1500, background TEXT, hatAccessory TEXT, ' +
-          'headband TEXT, labCoatColor TEXT, mask TEXT, pet TEXT, ' +
-          'stethoscope TEXT, UNIQUE(userName))');
+      await myDB.execute('CREATE TABLE user_data(' +
+          'email TEXT PRIMARY KEY, ' +
+          'userName TEXT, ' +
+          'numCorrect INTEGER DEFAULT 0, ' +
+          'numAttempted INTEGER DEFAULT 0, ' +
+          'numCHFMissed INTEGER DEFAULT 0, ' +
+          'numCOPDMissed INTEGER DEFAULT 0, ' +
+          'numPneumMissed INTEGER DEFAULT 0, ' +
+          'numCHFCorrect INTEGER DEFAULT 0, ' +
+          'numCOPDCorrect INTEGER DEFAULT 0, ' +
+          'numPneumCorrect INTEGER DEFAULT 0, ' +
+          'longestStreak INTEGER DEFAULT 0, ' +
+          'currentStreak INTEGER DEFAULT 0, ' +
+          'storePoints INTEGER DEFAULT 1500, ' +
+          'background TEXT, ' +
+          'hatAccessory TEXT, ' +
+          'headband TEXT, ' +
+          'labCoatColor TEXT, ' +
+          'mask TEXT, ' +
+          'pet TEXT, ' +
+          'stethoscope TEXT, ' +
+          'UNIQUE(email))');
     });
     return db;
   }
 
-  Future<void> createUser(String name, String userID) async {
-    var userMap = {
-      "uid": userID,
+  Future<void> createUser(String name, String email) async {
+    String empty = "none";
+    Map<String, dynamic> userMap = {
+      "email": email,
       "userName": name,
       "numCorrect": 0,
       "numAttempted": 0,
@@ -72,24 +81,28 @@ class DatabaseHelper {
       "longestStreak": 0,
       "currentStreak": 0,
       "storePoints": 1500,
-      "background": "",
-      "hatAccessory": "",
-      "headband": "",
-      "labCoatColor": "",
-      "mask": "",
-      "pet": "",
-      "stethoscope": "",
+      "background": empty,
+      "hatAccessory": empty,
+      "headband": empty,
+      "labCoatColor": empty,
+      "mask": empty,
+      "pet": empty,
+      "stethoscope": empty,
     };
 
     Database db = await database;
+
+    // Setting ConflictAlgorithm.ignore means no overwrite if user already exists.
     int id = await db.insert("user_data", userMap,
         conflictAlgorithm: ConflictAlgorithm.ignore);
-    if (id == -1) {
-      print("ERROR IN INSERT INTO DB!");
-    }
+
+    assert(id != -1);
+    currentEmail = email;
+
     List<Map> list = await db.rawQuery('SELECT * from user_data');
     print(list);
-    currentUser = userID;
+
+    return;
   }
 
   Future<int> get correct async {
@@ -98,8 +111,8 @@ class DatabaseHelper {
         columns: [
           "numCorrect",
         ],
-        where: 'userName = ?',
-        whereArgs: [currentUser]);
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
     return correctVar.first["numCorrect"];
   }
 
@@ -109,8 +122,8 @@ class DatabaseHelper {
         columns: [
           "numAttempted",
         ],
-        where: 'userName = ?',
-        whereArgs: [currentUser]);
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
     return attemptedVar.first["numAttempted"];
   }
 
@@ -122,8 +135,8 @@ class DatabaseHelper {
           "numCOPDMissed",
           "numPneumMissed",
         ],
-        where: 'userName = ?',
-        whereArgs: [currentUser]);
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
     List<int> missed = [
       missedVals.first["numCHFMissed"],
       missedVals.first["numCOPDMissed"],
@@ -152,8 +165,8 @@ class DatabaseHelper {
           "numCOPDCorrect",
           "numPneumCorrect",
         ],
-        where: 'userName = ?',
-        whereArgs: [currentUser]);
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
     List<int> corrects = [
       correctVals.first["numCHFCorrect"],
       correctVals.first["numCOPDCorrect"],
@@ -180,8 +193,8 @@ class DatabaseHelper {
         columns: [
           "longestStreak",
         ],
-        where: 'userName = ?',
-        whereArgs: [currentUser]);
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
     return streakVar.first["longestStreak"];
   }
 
@@ -191,8 +204,8 @@ class DatabaseHelper {
         columns: [
           "currentStreak",
         ],
-        where: 'userName = ?',
-        whereArgs: [currentUser]);
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
     return streakVar.first["currentStreak"];
   }
 
@@ -202,15 +215,15 @@ class DatabaseHelper {
         columns: [
           "storePoints",
         ],
-        where: 'userName = ?',
-        whereArgs: [currentUser]);
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
     return storePointsVar.first["storePoints"];
   }
 
   Future<String> get name async {
     Database db = await database;
     List<Map> nameVar = await db.query("user_data",
-        columns: ["userName"], where: 'uid = ?', whereArgs: [currentUser]);
+        columns: ["userName"], where: 'email = ?', whereArgs: [currentEmail]);
     return nameVar.first["userName"];
   }
 
@@ -218,8 +231,8 @@ class DatabaseHelper {
     Database db = await database;
     // Amount is how many points we are decrementing storePoints.
     await db.rawUpdate(
-        "UPDATE user_data SET storePoints = storePoints - ? WHERE userName = ?",
-        [amount, currentUser]);
+        "UPDATE user_data SET storePoints = storePoints - ? WHERE email = ?",
+        [amount, currentEmail]);
     List<Map> storePoints =
         await db.rawQuery("SELECT storePoints FROM user_data");
     // Returns new number of points value.
@@ -240,17 +253,17 @@ class DatabaseHelper {
 
   Future<String> updateName(newName) async {
     Database db = await database;
-    await db.rawUpdate("UPDATE user_data SET userName = ? WHERE uid = ?",
-        [newName, currentUser]);
+    await db.rawUpdate("UPDATE user_data SET userName = ? WHERE email = ?",
+        [newName, currentEmail]);
     List<Map> name = await db.rawQuery(
-        "SELECT userName FROM user_data WHERE userName = ?", [newName]);
+        "SELECT userName FROM user_data WHERE email = ?", [currentEmail]);
     return name.first["userName"];
   }
 
   Future<void> updateCustomization(customizationType, customizationItem) async {
     Database db = await database;
-    await db.rawUpdate("UPDATE user_data SET ? = ? WHERE uid = ?",
-        [customizationType, customizationType, currentUser]);
+    await db.rawUpdate("UPDATE user_data SET ? = ? WHERE email = ?",
+        [customizationType, customizationType, currentEmail]);
     return;
   }
 
@@ -266,8 +279,8 @@ class DatabaseHelper {
           "pet",
           "stethoscope",
         ],
-        where: 'uid = ?',
-        whereArgs: [currentUser]);
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
     print(customizations.first);
     return customizations.first;
   }
@@ -279,68 +292,71 @@ class DatabaseHelper {
       await db.rawUpdate(
           "UPDATE user_data SET numCorrect = numCorrect + 1, " +
               "numAttempted = numAttempted + 1, " +
-              "currentStreak = currentStreak + 1 WHERE userName = ?",
-          [currentUser]);
-      if (diagnosis == "Heart failure") {
+              "currentStreak = currentStreak + 1 WHERE email = ?",
+          [currentEmail]);
+      if (diagnosis == "CHF") {
         await db.rawUpdate(
             "UPDATE user_data SET numCHFCorrect = numCHFCorrect + 1 " +
-                "WHERE userName = ?",
-            [currentUser]);
+                "WHERE email = ?",
+            [currentEmail]);
       } else if (diagnosis == "COPD") {
         await db.rawUpdate(
             "UPDATE user_data SET numCOPDCorrect = numCOPDCorrect + 1 " +
-                "WHERE userName = ?",
-            [currentUser]);
-      } else if (diagnosis == "Pneumonia") {
+                "WHERE email = ?",
+            [currentEmail]);
+      } else if (diagnosis == "PNEUMONIA") {
         await db.rawUpdate(
             "UPDATE user_data SET numPneumCorrect = numPneumCorrect + 1 " +
-                "WHERE userName = ?",
-            [currentUser]);
+                "WHERE email = ?",
+            [currentEmail]);
       }
       if (difficulty == "Easy") {
         await db.rawUpdate(
             "UPDATE user_data SET storePoints = storePoints + 10 " +
-                "WHERE userName = ?",
-            [currentUser]);
+                "WHERE email = ?",
+            [currentEmail]);
       } else if (difficulty == "Medium") {
         await db.rawUpdate(
-            "UPDATE user_data SET storePoints = storePoints + 20" +
-                "WHERE userName = ?",
-            [currentUser]);
+            "UPDATE user_data SET storePoints = storePoints + 20 " +
+                "WHERE email = ?",
+            [currentEmail]);
       } else if (difficulty == "Hard") {
         await db.rawUpdate(
-            "UPDATE user_data SET storePoints = storePoints + 30" +
-                "WHERE userName = ?",
-            [currentUser]);
+            "UPDATE user_data SET storePoints = storePoints + 30 " +
+                "WHERE email = ?",
+            [currentEmail]);
       }
       int streakLongest = await longestStreak;
       int streakCurrent = await currentStreak;
+      var newStreak = streakCurrent;
       if (streakCurrent > streakLongest) {
         await db.rawUpdate(
-            "UPDATE user_data SET longestStreak = ? WHERE userName = ?",
-            [currentStreak, currentUser]);
+            "UPDATE user_data SET longestStreak = ? WHERE email = ?",
+            [newStreak, currentEmail]);
       }
     } else {
       await db.rawUpdate(
           "UPDATE user_data SET numAttempted = numAttempted + 1, " +
-              "currentStreak = 0 WHERE userName = ?",
-          [currentUser]);
-      if (diagnosis == "Heart failure") {
+              "currentStreak = 0 WHERE email = ?",
+          [currentEmail]);
+      if (diagnosis == "CHF") {
         await db.rawUpdate(
             "UPDATE user_data SET numCHFMissed = numCHFMissed + 1 " +
-                "WHERE userName = ?",
-            [currentUser]);
+                "WHERE email = ?",
+            [currentEmail]);
       } else if (diagnosis == "COPD") {
         await db.rawUpdate(
             "UPDATE user_data SET numCOPDMissed = numCOPDMissed + 1 " +
-                "WHERE userName = ?",
-            [currentUser]);
-      } else if (diagnosis == "Pneumonia") {
+                "WHERE email = ?",
+            [currentEmail]);
+      } else if (diagnosis == "PNEUMONIA") {
         await db.rawUpdate(
             "UPDATE user_data SET numPneumMissed = numPneumMissed + 1 " +
-                "WHERE userName = ?",
-            [currentUser]);
+                "WHERE email = ?",
+            [currentEmail]);
       }
     }
+    var updated = await db.rawQuery('SELECT * FROM user_data');
+    print(updated);
   }
 }

@@ -38,24 +38,6 @@ class _LoginFieldsState extends State<LoginFields> {
 
   @override
   Widget build(BuildContext context) {
-    /*final emailField = TextField(
-      obscureText: false,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Email",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );
-    final passwordField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Password",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(32.0))),
-    );*/
     final loginButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
@@ -75,6 +57,20 @@ class _LoginFieldsState extends State<LoginFields> {
               ),
             );
           });
+          /*var signIn = signInWithGoogle();
+          if (signIn != Null) {
+            signInWithGoogle().whenComplete(() {
+              // need to have some kind of check here to see if signInWithGoogle
+              // returns a null, aka they cancelled sign in
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) {
+                    return Instr();
+                  },
+                ),
+              );
+            });
+          } else {}*/
         },
         child: Text("Sign in with Google",
             textAlign: TextAlign.center,

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/gestures.dart';
 import 'beginningGame.dart';
 import 'gamePlay.dart';
-import 'leaderboard.dart';
 import 'settings.dart';
 import 'store.dart';
 

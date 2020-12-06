@@ -126,29 +126,30 @@ class _LabCoatState extends State<LabCoat> {
     );
   }
 }
-  void _popupDialog(BuildContext context) {
-    cache.play("cash.mp3");
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('You just bought a customizaiont'),
-              content:Image.asset(
-                      currentImage,
-                      fit: BoxFit.cover,
-                      scale: 4.5,
-                    ),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK')),
-              FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text('CANCEL')),
-            ],
-          );
-        });
-  }
+
+void _popupDialog(BuildContext context) {
+  cache.play("cash.mp3");
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('You just bought a customization'),
+          content: Image.asset(
+            currentImage,
+            fit: BoxFit.cover,
+            scale: 4.5,
+          ),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK')),
+            FlatButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('CANCEL')),
+          ],
+        );
+      });
+}

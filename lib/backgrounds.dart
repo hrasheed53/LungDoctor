@@ -69,7 +69,7 @@ class _BackgroundState extends State<Background> {
                     margin: EdgeInsets.all(8.0),
                     color: Colors.blue[600],
                     child: InkWell(
-                  onTap: () => _popupDialog(context),
+                      onTap: () => _popupDialog(context),
                       splashColor: Colors.grey[600],
                       child: Center(
                         child: Column(
@@ -132,30 +132,29 @@ Future<AudioPlayer> playLocalAsset() async {
   return await cache.play("assets/Cash Register Sound-9798-Free-Loops.com.mp3");
 }
 
-  void _popupDialog(BuildContext context) {
-    cache.play("cash.mp3");
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Text('You just bought a customizaiont'),
-              content:Image.asset(
-                      newImage,
-                      fit: BoxFit.cover,
-                      scale: 4.5,
-                    ),
-            actions: <Widget>[
-              FlatButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('OK')),
-              FlatButton(
-                  onPressed: () => Navigator.of(context).pop(),
-                  child: Text('CANCEL')),
-            ],
-          );
-        });
-  }
-
+void _popupDialog(BuildContext context) {
+  cache.play("cash.mp3");
+  showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('You just bought a customization'),
+          content: Image.asset(
+            newImage,
+            fit: BoxFit.cover,
+            scale: 4.5,
+          ),
+          actions: <Widget>[
+            FlatButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                },
+                child: Text('OK')),
+            FlatButton(
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text('CANCEL')),
+          ],
+        );
+      });
+}

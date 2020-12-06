@@ -4,7 +4,6 @@ import 'leaderboard.dart';
 import 'newFrontPage.dart';
 import 'statsPage.dart';
 import 'store.dart';
-import 'package:RESP2/userData.dart';
 
 class Instr extends StatefulWidget {
   Instr({Key key}) : super(key: key);
@@ -26,9 +25,6 @@ class _InstrState extends State<Instr> {
   ];
   final _appbarWords = [
     //HEADERS FOR THE PAGES IN NAVBAR
-
-    // UPDATED: welcome gets overridden with their name once they sign in
-    // in future
     Text('Welcome!'),
     Text('Leaderboard'),
     Text('Settings'),
@@ -42,54 +38,45 @@ class _InstrState extends State<Instr> {
   }
 
   @override
+  @override
   Widget build(BuildContext context) {
-    return new FutureBuilder(
-        future: getStatistics(),
-        builder: (BuildContext context, AsyncSnapshot<Map<String, int>> data) {
-          // if (data.hasData) {
-          _appbarWords[0] = Text("");
-          //data.data
-          return Scaffold(
-            appBar: AppBar(
-                title: _appbarWords.elementAt(_selectedIndex),
-                leading: Container(),
-                centerTitle: true),
-            body: Center(
-              child: _widgetOptions.elementAt(_selectedIndex),
-            ),
-            bottomNavigationBar: BottomNavigationBar(
-              selectedItemColor: Colors.blue,
-              selectedIconTheme: IconThemeData(color: Colors.blue),
-              unselectedItemColor: Colors.red,
-              items: <BottomNavigationBarItem>[
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.games, color: Colors.blue),
-                  label: 'Play',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.arrow_upward, color: Colors.blue),
-                  label: 'Leaderboard',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.settings, color: Colors.blue),
-                  label: 'Settings',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.shopping_bag, color: Colors.blue),
-                  label: 'Store',
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.poll, color: Colors.blue),
-                  label: 'Stats',
-                ),
-              ],
-              currentIndex: _selectedIndex,
-              onTap: _onItemTapped,
-            ),
-          );
-          // } else {
-          // return CircularProgressIndicator();
-          // }
-        });
+    return Scaffold(
+      appBar: AppBar(
+          title: _appbarWords.elementAt(_selectedIndex),
+          leading: Container(),
+          centerTitle: true),
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: Colors.blue,
+        selectedIconTheme: IconThemeData(color: Colors.blue),
+        unselectedItemColor: Colors.red,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.games, color: Colors.blue),
+            label: 'Play',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.arrow_upward, color: Colors.blue),
+            label: 'Leaderboard',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.settings, color: Colors.blue),
+            label: 'Settings',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag, color: Colors.blue),
+            label: 'Store',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.poll, color: Colors.blue),
+            label: 'Stats',
+          ),
+        ],
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+      ),
+    );
   }
 }

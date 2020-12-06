@@ -1,11 +1,10 @@
 import 'package:RESP2/databaseHelper.dart';
-import 'package:sqflite/sqlite_api.dart';
 
 // Interfaces with database.
 
-void createUser(String name, String id) async {
+void createUser(String name, String email) async {
   final db = DatabaseHelper();
-  await db.createUser(name, id);
+  await db.createUser(name, email);
 }
 
 Future<Map<String, int>> getStatistics() {
@@ -34,14 +33,18 @@ Future<int> getStorePoints() {
   return db.storePoints;
 }
 
+Future<String> getName() {
+  final db = DatabaseHelper();
+  return db.name;
+}
+
 Future<String> changeName(String newName) async {
-  // Get a reference to the database.
   final db = DatabaseHelper();
   db.updateName(newName);
   return newName;
 }
 
-Future<String> getName() async {
+Future<Map<String, dynamic>> getCustomizations() {
   final db = DatabaseHelper();
-  return db.name;
+  return db.getCustomizations();
 }

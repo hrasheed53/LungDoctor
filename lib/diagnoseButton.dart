@@ -1,7 +1,6 @@
 import 'package:RESP2/userData.dart';
 import 'package:flutter/material.dart';
 import 'package:RESP2/patientcard.dart';
-import 'package:RESP2/gamePlay.dart';
 import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
 
@@ -99,6 +98,7 @@ class _DiagnoseState extends State<Diagnose> {
           //onWillAccept: (data) => data == disease,
           onAccept: (data) {
             //NEED TO CALL UPDATESTATISTICS() FUNCTION HERE W/ CORRECT DIAGNOSIS, RIGHT/WRONG, AND DIFFICULTY!!!!!!!
+            print("UPDATESTATSCALL");
             updateStatistics(data, difficultyLevel, data == disease);
             //sabotage logic, for now its a 1 in 3 chance he shows up
             bool sabotage;

@@ -149,7 +149,7 @@ void _popupDialog(BuildContext context) {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: Text('You just bought a customizaiont'),
+          title: Text('You just bought a customization'),
           content: Image.asset(
             newImage,
             fit: BoxFit.cover,

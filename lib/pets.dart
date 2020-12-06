@@ -148,22 +148,20 @@ void _popupDialog(BuildContext context) {
           ),
           actions: <Widget>[
             FlatButton(
-              onPressed: () {
-                new FutureBuilder(
-                future: spendPoints(300),
-                builder: (BuildContext context, AsyncSnapshot<int> data) {
-                },);
-            Navigator.of(context).pop();
-            Navigator.of(context).pop();
-                Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Store()));
-              },
-              child: Text('ok')),
+                onPressed: () {
+                  new FutureBuilder(
+                    future: spendPoints(300),
+                    builder: (BuildContext context, AsyncSnapshot<int> data) {},
+                  );
+                  Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Store()));
+                },
+                child: Text('ok')),
             FlatButton(
-              onPressed: () => Navigator.of(context).pop(),
-              child: Text("cancel")),
+                onPressed: () => Navigator.of(context).pop(),
+                child: Text("cancel")),
           ],
         );
       });
