@@ -60,13 +60,15 @@ class DatabaseHelper {
           'mask TEXT, ' +
           'pet TEXT, ' +
           'stethoscope TEXT, ' +
+          'soundOn INTEGER DEFAULT 1, ' +
+          'sabotageOn INTEGER DEFAULT 1, ' +
           'UNIQUE(email))');
     });
     return db;
   }
 
   Future<void> createUser(String name, String email) async {
-    String empty = "none";
+    // Sound effects and sabotage man initialized to ON!
     Map<String, dynamic> userMap = {
       "email": email,
       "userName": name,
@@ -81,13 +83,15 @@ class DatabaseHelper {
       "longestStreak": 0,
       "currentStreak": 0,
       "storePoints": 1500,
-      "background": empty,
-      "hatAccessory": empty,
-      "headband": empty,
-      "labCoatColor": empty,
-      "mask": empty,
-      "pet": empty,
-      "stethoscope": empty,
+      "background": "",
+      "hatAccessory": "",
+      "headband": "",
+      "labCoatColor": "",
+      "mask": "",
+      "pet": "",
+      "stethoscope": "",
+      "soundOn": 1,
+      "sabotageOn": 1,
     };
 
     Database db = await database;
@@ -225,6 +229,34 @@ class DatabaseHelper {
     List<Map> nameVar = await db.query("user_data",
         columns: ["userName"], where: 'email = ?', whereArgs: [currentEmail]);
     return nameVar.first["userName"];
+  }
+
+  Future<int> get sound async {
+    Database db = await database;
+    List<Map> soundVar = await db.query("user_data",
+        columns: ["soundOn"], where: 'email = ?', whereArgs: [currentEmail]);
+    return soundVar.first["soundOn"];
+  }
+
+  Future<int> get sabotage async {
+    Database db = await database;
+    List<Map> sabotageVar = await db.query("user_data",
+        columns: ["sabotageOn"], where: 'email = ?', whereArgs: [currentEmail]);
+    return sabotageVar.first["sabotageOn"];
+  }
+
+  Future<void> setSound(int isSoundOn) async {
+    Database db = await database;
+    await db.rawUpdate("UPDATE user_data SET soundOn = ? WHERE email = ?",
+        [isSoundOn, currentEmail]);
+    return;
+  }
+
+  Future<void> setSabotage(int isSabotageOn) async {
+    Database db = await database;
+    await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
+        [isSabotageOn, currentEmail]);
+    return;
   }
 
   Future<int> spendPoints(int amount) async {
