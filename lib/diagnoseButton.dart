@@ -384,7 +384,8 @@ class _DiagnoseState extends State<Diagnose> {
 
   //IF MORE PATIENTS LEFT
   Future navigateBackToGame(context) async {
-    //Navigator.of(context).pop();
+    Navigator.of(context).pop();
+    Navigator.of(context).pop();
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -397,6 +398,7 @@ class _DiagnoseState extends State<Diagnose> {
 
   //IF THIS WAS LAST PATIENT IN GAME SESSION
   Future navigateToGameplay(context) async {
+    Navigator.of(context).pop();
     Navigator.of(context).pop();
     //Navigator.of(context).push(MaterialPageRoute(builder: (context) => Game()));
   }

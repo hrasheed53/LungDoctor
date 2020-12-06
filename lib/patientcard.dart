@@ -173,7 +173,7 @@ class _PatientCardState extends State<PatientCard> {
               padding: const EdgeInsets.only(bottom: 6, top: 6),
               margin: const EdgeInsets.only(left: 12, right: 12),
               decoration: BoxDecoration(
-                color: const Color(0x99f5e6bc),
+                color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -251,7 +251,7 @@ class _PatientCardState extends State<PatientCard> {
             Widget symptomsList = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
               decoration: BoxDecoration(
-                color: const Color(0x99f5e6bc),
+                color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -384,7 +384,7 @@ class _PatientCardState extends State<PatientCard> {
             Widget historyList = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
               decoration: BoxDecoration(
-                color: const Color(0x99f5e6bc),
+                color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -466,7 +466,7 @@ class _PatientCardState extends State<PatientCard> {
             Widget tobaccoUse = Container(
               padding: const EdgeInsets.all(6.0),
               decoration: BoxDecoration(
-                color: const Color(0x99f5e6bc),
+                color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
               ),
               child: Row(
@@ -581,7 +581,7 @@ class _PatientCardState extends State<PatientCard> {
             Widget vitalsList = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
               decoration: BoxDecoration(
-                color: const Color(0x99f5e6bc),
+                color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -624,7 +624,7 @@ class _PatientCardState extends State<PatientCard> {
             Widget physicalExam = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
               decoration: BoxDecoration(
-                color: const Color(0x99f5e6bc),
+                color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -675,7 +675,7 @@ class _PatientCardState extends State<PatientCard> {
             Widget narrativeBox = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
               decoration: BoxDecoration(
-                color: const Color(0x99f5e6bc),
+                color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -846,7 +846,7 @@ class _PatientCardState extends State<PatientCard> {
                     ],
                   ),
                   bottomNavigationBar: new Container(
-                      height: 100.0,
+                      height: 105.0,
                       color: color.withOpacity(0.2),
                       padding: new EdgeInsets.only(top: 7.0),
                       child: bottomButtons),
@@ -879,7 +879,100 @@ class _PatientCardState extends State<PatientCard> {
 //----------------------------------------------------------------------
 //                      HELPER FUNCTIONS
 //----------------------------------------------------------------------
-  Column _buildButtonColumn(Color color, IconData icon, String label) {
+  Card _buildButtonColumn(Color color, IconData icon, String label) {
+    return Card(
+      elevation: 8,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+      margin: EdgeInsets.all(8.0),
+      child: InkWell(
+        splashColor: Colors.blue[600],
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                width: 80,
+                //padding:
+                //  EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
+                child: Column(
+                  children: [
+                    Container(
+                      width: 62,
+                      padding:
+                          EdgeInsets.only(top: 8, left: 2, right: 2, bottom: 8),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Icon(icon, color: color, size: 18),
+                          Container(
+                            margin: const EdgeInsets.only(top: 8),
+                            child: Align(
+                              alignment: Alignment.center,
+                              child: Text(
+                                label,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  color: color,
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Card _buildDiagnoseButtonColumn(Color color, IconData icon, String label) {
+    return Card(
+      elevation: 8,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(32)),
+      margin: EdgeInsets.all(8.0),
+      child: InkWell(
+        splashColor: Colors.blue[600],
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                width: 110,
+                padding:
+                    EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(icon, color: color, size: 24),
+                    Container(
+                      margin: const EdgeInsets.only(top: 4),
+                      child: Text(
+                        label,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w400,
+                          color: color,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Column _TEMPOFFbuildButtonColumn(Color color, IconData icon, String label) {
     return Column(
       children: [
         Container(
@@ -924,7 +1017,8 @@ class _PatientCardState extends State<PatientCard> {
     );
   }
 
-  Column _buildDiagnoseButtonColumn(Color color, IconData icon, String label) {
+  Column _TEMPOFFbuildDiagnoseButtonColumn(
+      Color color, IconData icon, String label) {
     return Column(
       children: [
         Container(
@@ -1005,6 +1099,9 @@ class _PatientCardState extends State<PatientCard> {
     );
   }
 
+//----------------------------------------------------------------------
+//                      NAVIGATOR  FUNCTIONS
+//----------------------------------------------------------------------
   Future viewExamResults(context) async {
     Navigator.push(
         context,
@@ -1053,8 +1150,6 @@ class _PatientCardState extends State<PatientCard> {
   }
 
   Future diagnoseBttn(context) async {
-    Navigator.of(context).pop();
-    Navigator.of(context).pop();
     Navigator.push(
       context,
       MaterialPageRoute(
