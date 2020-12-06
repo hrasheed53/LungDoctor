@@ -46,22 +46,10 @@ class _LoginFieldsState extends State<LoginFields> {
         minWidth: MediaQuery.of(context).size.width,
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          signInWithGoogle().whenComplete(() {
+          signInWithGoogle().then((value) {
             // need to have some kind of check here to see if signInWithGoogle
             // returns a null, aka they cancelled sign in
-            Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) {
-                  return Instr();
-                },
-              ),
-            );
-          });
-          /*var signIn = signInWithGoogle();
-          if (signIn != Null) {
-            signInWithGoogle().whenComplete(() {
-              // need to have some kind of check here to see if signInWithGoogle
-              // returns a null, aka they cancelled sign in
+            if (value != null) {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
@@ -69,8 +57,8 @@ class _LoginFieldsState extends State<LoginFields> {
                   },
                 ),
               );
-            });
-          } else {}*/
+            }
+          });
         },
         child: Text("Sign in with Google",
             textAlign: TextAlign.center,
