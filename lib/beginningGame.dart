@@ -40,7 +40,7 @@ class _InstrState extends State<Instr> {
   ];
 
   //_InstrState(i);
-  int _selectedIndex;
+  int _selectedIndex = 0;
 
   void _onItemTapped(int index) {
     setState(() {
@@ -56,6 +56,7 @@ class _InstrState extends State<Instr> {
       _selectedIndex = widget.i;
       widget.i = 0;
     }
+    // else if (widget.i == 0 && _selectedIndex == Null) {}
 
     return Scaffold(
       appBar: AppBar(

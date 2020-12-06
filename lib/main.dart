@@ -51,7 +51,7 @@ class _LoginFieldsState extends State<LoginFields> {
             // returns a null, aka they cancelled sign in
             if (value != null) {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => Instr(i: 1)));
+                  MaterialPageRoute(builder: (context) => Instr(i: 0)));
             }
           });
         },
