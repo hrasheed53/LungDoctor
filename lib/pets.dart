@@ -155,9 +155,9 @@ void _popupDialog(BuildContext context) {
                   );
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
-                  Navigator.of(context).pop();
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Store()));
+                  //Navigator.of(context).pop();
+                  //Navigator.push(context,
+                  //  MaterialPageRoute(builder: (context) => Store()));
                 },
                 child: Text('ok')),
             FlatButton(
