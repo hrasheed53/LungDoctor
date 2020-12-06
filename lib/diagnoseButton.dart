@@ -110,6 +110,9 @@ class _DiagnoseState extends State<Diagnose> {
 
             //for logic in case they change answer, doesnt get updated unless sabo shows up
 
+            //Emma and Lea do that thing here
+            //if sabotage_setting = OFF{sabotage = false}
+
             if (sabotage) {
               //and a 1 in 3 chance he is giving good advice
               bool sabotageCorrect = randint.nextInt(2) == 0;
@@ -137,13 +140,111 @@ class _DiagnoseState extends State<Diagnose> {
                       ),
                     ),
                     actions: <Widget>[
-                      /*
+//============================================DONT WORRY ABOUT IT====================================================
+                      //yea should make that a function or something to not repeat code but here we are
                       TextButton(
                         child: Text('Keep answer'),
                         onPressed: () {
                           Navigator.of(context).pop();
+                          if (data == disease) {
+                            //-------IF THEY GOT IT RIGHT!!!---------------------------------
+                            correct = true;
+                            cache.play("correct.mp3");
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  //Show correct doctor man in a widget here ?
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: <Widget>[
+                                        Text(
+                                            'CORRECT - scroll to see reasoning'),
+                                        Image.asset(
+                                          'assets/images/alien.png',
+                                          fit: BoxFit.cover,
+                                          scale: 4.5,
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 6)),
+                                        Text(expertAdvice),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Proceed'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        //this is where it either sends them to next patient
+                                        //or back to main gameplay screen
+                                        if (lastPatient) {
+                                          navigateToGameplay(context);
+                                        } else {
+                                          navigateBackToGame(context);
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
+                            //------------IF THEY GOT IT WRONG!!!-------------------------------
+                            cache.play("incorrect.mp3");
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  //Show incorrect doctor man in a widget here ?
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: <Widget>[
+                                        Text(
+                                            'INCORRECT - scroll to see reasoning'),
+                                        Image.asset(
+                                          'assets/images/alien_incorrect.png',
+                                          fit: BoxFit.cover,
+                                          scale: 4.5,
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 6)),
+                                        Text(
+                                            "Correct answer was " +
+                                                widget.answer +
+                                                ": ",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold)),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 6)),
+                                        Text(expertAdvice),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Proceed'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        //this is where it either sends them to next patient
+                                        //or back to main gameplay screen
+                                        if (lastPatient) {
+                                          navigateToGameplay(context);
+                                        } else {
+                                          navigateBackToGame(context);
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          }
+//=================================END OF SABO MAN KEEP FUNCTION, BELOW CODE IS UNTOUCHED==========================
                         },
-                      ),*/
+                      ),
                       TextButton(
                         child: Text('Answer Again'),
                         onPressed: () {
