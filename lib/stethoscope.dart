@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
 //import 'store.dart';
+import 'beginningGame.dart';
+import 'userData.dart';
 
 String currentImage = 'assets/images/alien.png';
 String newImage = '';
@@ -147,8 +149,15 @@ void _popupDialog(BuildContext context) {
           actions: <Widget>[
             FlatButton(
                 onPressed: () {
+                  new FutureBuilder(
+                    future: spendPoints(200),
+                    builder: (BuildContext context, AsyncSnapshot<int> data) {},
+                  );
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();
+                  Navigator.of(context).pop();
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Instr(i: 3)));
                 },
                 child: Text('OK')),
             FlatButton(
