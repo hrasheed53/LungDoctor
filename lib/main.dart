@@ -50,13 +50,8 @@ class _LoginFieldsState extends State<LoginFields> {
             // need to have some kind of check here to see if signInWithGoogle
             // returns a null, aka they cancelled sign in
             if (value != null) {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) {
-                    return Instr(i: 0);
-                  },
-                ),
-              );
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => Instr(i: 1)));
             }
           });
         },
