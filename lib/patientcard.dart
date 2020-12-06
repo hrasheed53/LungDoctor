@@ -4,6 +4,7 @@ import 'package:RESP2/testResults.dart';
 import 'package:RESP2/xrayResults.dart';
 import 'package:flutter/material.dart';
 import 'package:RESP2/physicalExam.dart';
+import 'package:RESP2/gamePlay.dart';
 import 'package:flutter/rendering.dart';
 import 'diagnoseButton.dart';
 import 'xrayResults.dart';
@@ -797,10 +798,13 @@ class _PatientCardState extends State<PatientCard> {
                         snapshot.data.gender +
                         ", age " +
                         snapshot.data.age.toString()),
-                    /*leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed:
-            ),*/
+                    leading: IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        navigateToGameplay(context);
+                      },
+                    ),
                     centerTitle: true,
                     bottom: TabBar(
                       tabs: [
@@ -1041,6 +1045,11 @@ class _PatientCardState extends State<PatientCard> {
   Future viewXrays(context) async {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => Xrays(caseID: caseID)));
+  }
+
+  Future navigateToGameplay(context) async {
+    Navigator.of(context).pop();
+    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Game()));
   }
 
   Future diagnoseBttn(context) async {
