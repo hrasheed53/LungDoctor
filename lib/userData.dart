@@ -48,3 +48,23 @@ Future<Map<String, dynamic>> getCustomizations() {
   final db = DatabaseHelper();
   return db.getCustomizations();
 }
+
+Future<int> getSoundSetting() {
+  final db = DatabaseHelper();
+  return db.sound;
+}
+
+Future<int> getSabotageSettings() {
+  final db = DatabaseHelper();
+  return db.sabotage;
+}
+
+void setSoundSetting(int isSoundOn) async {
+  final db = DatabaseHelper();
+  await db.setSound(isSoundOn);
+}
+
+void setSabotageSetting(int isSabotageOn) async {
+  final db = DatabaseHelper();
+  await db.setSabotage(isSabotageOn);
+}
