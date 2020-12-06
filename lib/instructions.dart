@@ -3,7 +3,7 @@ import 'package:flutter/gestures.dart';
 import 'beginningGame.dart';
 import 'gamePlay.dart';
 import 'settings.dart';
-import 'store.dart';
+//import 'store.dart';
 
 class Inst extends StatefulWidget {
   Inst({Key key, this.title}) : super(key: key);
@@ -83,7 +83,7 @@ class _InstState extends State<Inst> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Settings(),
+                                    builder: (context) => Instr(i: 2),
                                   ));
                             }),
                       TextSpan(
@@ -98,7 +98,7 @@ class _InstState extends State<Inst> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Store(),
+                                    builder: (context) => Instr(i: 3),
                                   ));
                             }),
                       TextSpan(
@@ -117,7 +117,7 @@ class _InstState extends State<Inst> {
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => Instr(),
+                                    builder: (context) => Instr(i: 4),
                                   ));
                             }),
                     ],

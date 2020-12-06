@@ -53,7 +53,7 @@ class _LoginFieldsState extends State<LoginFields> {
               Navigator.of(context).push(
                 MaterialPageRoute(
                   builder: (context) {
-                    return Instr();
+                    return Instr(i: 0);
                   },
                 ),
               );

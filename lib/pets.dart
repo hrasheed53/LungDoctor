@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:audioplayers/audio_cache.dart';
 import 'package:audioplayers/audioplayers.dart';
-import 'store.dart';
+//import 'store.dart';
 import 'userData.dart';
 
 String currentImage = 'assets/images/alien.png';

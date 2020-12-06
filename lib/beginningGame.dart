@@ -5,15 +5,22 @@ import 'newFrontPage.dart';
 import 'statsPage.dart';
 import 'store.dart';
 
+//TO CALL THIS MAIN PAGE:
+//use Instr(i:<int index of page to start on>)
+//ex: Instr(i:0);
+
+//yea ignore that ignore thing thanks
+// ignore: must_be_immutable
 class Instr extends StatefulWidget {
-  Instr({Key key}) : super(key: key);
+  //final int i = 0;
+  Instr({Key key, @required this.i}) : super(key: key);
+  int i;
 
   @override
   _InstrState createState() => _InstrState();
 }
 
 class _InstrState extends State<Instr> {
-  int _selectedIndex = 0;
   final _widgetOptions = [
     //THIS IS WHERE THE PAGES GO
 
@@ -31,6 +38,10 @@ class _InstrState extends State<Instr> {
     Text('Store'),
     Text('Statistics')
   ];
+
+  //_InstrState(i);
+  int _selectedIndex;
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -40,6 +51,12 @@ class _InstrState extends State<Instr> {
   @override
   @override
   Widget build(BuildContext context) {
+    //hacky but whatever
+    if (widget.i != 0) {
+      _selectedIndex = widget.i;
+      widget.i = 0;
+    }
+
     return Scaffold(
       appBar: AppBar(
           title: _appbarWords.elementAt(_selectedIndex),
