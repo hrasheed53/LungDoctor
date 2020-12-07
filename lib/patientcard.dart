@@ -259,7 +259,7 @@ class _PatientCardState extends State<PatientCard> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "Symptoms:",
+                    "Symptoms",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
@@ -392,7 +392,7 @@ class _PatientCardState extends State<PatientCard> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "History:",
+                    "History",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
@@ -468,6 +468,7 @@ class _PatientCardState extends State<PatientCard> {
               decoration: BoxDecoration(
                 color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
+                borderRadius: BorderRadius.circular(12),
               ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -488,15 +489,15 @@ class _PatientCardState extends State<PatientCard> {
               child: ListView(
                 children: [
                   onset,
-                  Padding(padding: EdgeInsets.only(top: 12.0)),
+                  Padding(padding: EdgeInsets.only(top: 15.0)),
                   Row(
                     children: [Expanded(child: symptomsList)],
                   ),
-                  Padding(padding: EdgeInsets.only(top: 12.0)),
+                  Padding(padding: EdgeInsets.only(top: 15.0)),
                   Row(
                     children: [Expanded(child: historyList)],
                   ),
-                  Padding(padding: EdgeInsets.only(top: 12.0)),
+                  Padding(padding: EdgeInsets.only(top: 15.0)),
                   Row(
                     children: [Expanded(child: tobaccoUse)],
                   ),
@@ -580,6 +581,7 @@ class _PatientCardState extends State<PatientCard> {
             //-------------------------------------------------------
             Widget vitalsList = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
+              margin: EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
                 color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
@@ -601,8 +603,8 @@ class _PatientCardState extends State<PatientCard> {
             //         general results from the physical
             //--------------------------------------------------------------
             Widget physical = Container(
-                padding: const EdgeInsets.only(left: 9, right: 9),
-                child: Text(snapshot.data.examGeneral));
+                padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
+                child: Text("Patient is " + snapshot.data.examGeneral));
 
             //        button to "conduct" physical exam
             //------------------------------------------------------
@@ -623,6 +625,7 @@ class _PatientCardState extends State<PatientCard> {
             //-----------------------------------------------------------
             Widget physicalExam = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
+              margin: EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
                 color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
