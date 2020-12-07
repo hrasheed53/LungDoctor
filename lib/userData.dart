@@ -49,12 +49,12 @@ Future<Map<String, dynamic>> getCustomizations() {
   return db.getCustomizations();
 }
 
-Future<int> getSoundSetting() {
+Future<int> getSoundSetting() async {
   final db = DatabaseHelper();
   return db.sound;
 }
 
-Future<int> getSabotageSettings() {
+Future<int> getSabotageSetting() async {
   final db = DatabaseHelper();
   return db.sabotage;
 }
