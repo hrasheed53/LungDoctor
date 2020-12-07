@@ -49,6 +49,13 @@ Future<Map<String, dynamic>> getCustomizations() {
   return db.getCustomizations();
 }
 
+// Type is customization category we are updating, item is asset URL of
+// specific customization purchased. (e.g. mask -> assets/mask_1.png)
+void setCustomization(String type, String item) async {
+  final db = DatabaseHelper();
+  await db.updateCustomization(type, item);
+}
+
 Future<int> getSoundSetting() async {
   final db = DatabaseHelper();
   return db.sound;
