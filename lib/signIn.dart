@@ -1,7 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:RESP2/userData.dart';
 
+import 'dart:io' show Platform;
+
+bool isAuth = false;
+DatabaseReference leaderboardRef;
+User user;
 final FirebaseAuth _auth = FirebaseAuth.instance;
 final GoogleSignIn googleSignIn = GoogleSignIn();
 String name;
@@ -19,6 +26,28 @@ Future<String> signInWithGoogle() async {
   final GoogleSignInAuthentication googleSignInAuthentication =
       await googleSignInAccount.authentication;
 
+  final FirebaseApp app = await Firebase.initializeApp(
+      name: 'db',
+      options: Platform.isIOS
+          ? FirebaseOptions(
+              //ios stuff
+              appId: '1:710337551246:ios:f1db02542500a9ea2a22df',
+              apiKey: 'AIzaSyA1NYKuXCNd_6zq8YbctrA-uiHbNYwjrM4',
+              projectId: 'flutter-firebase-plugins',
+              messagingSenderId: '710337551246',
+              databaseURL: 'https://the-lung-doctor.firebaseio.com/')
+          : FirebaseOptions(
+              // android stuff
+              appId: '1:710337551246:android:f483bac498cbd8242a22df',
+              apiKey: 'AIzaSyA1NYKuXCNd_6zq8YbctrA-uiHbNYwjrM4',
+              messagingSenderId: '710337551246',
+              projectId: 'flutter-firebase-plugins',
+              databaseURL: 'https://the-lung-doctor.firebaseio.com/'));
+  final database = FirebaseDatabase(
+      app: app, databaseURL: 'https://the-lung-doctor.firebaseio.com/');
+
+  leaderboardRef = database.reference().child('leaderboard');
+
   final AuthCredential credential = GoogleAuthProvider.credential(
     accessToken: googleSignInAuthentication.accessToken,
     idToken: googleSignInAuthentication.idToken,
@@ -26,7 +55,7 @@ Future<String> signInWithGoogle() async {
 
   final UserCredential authResult =
       await _auth.signInWithCredential(credential);
-  final User user = authResult.user;
+  user = authResult.user;
 
   assert(!user.isAnonymous);
   assert(await user.getIdToken() != null);
@@ -47,7 +76,7 @@ Future<String> signInWithGoogle() async {
   print(user.email);
 
   createUser(name, user.email);
-
+  isAuth = true;
   return 'signInWithGoogle succeeded: $user';
 }
 
