@@ -20,6 +20,7 @@ class _GameState extends State<Game> {
         title: const Text('Game'),
       ),
       body: Container(
+        padding: EdgeInsets.only(top: 20),
         decoration: BoxDecoration(
             gradient: LinearGradient(
                 begin: Alignment.topCenter,
@@ -28,8 +29,11 @@ class _GameState extends State<Game> {
         child: ListTile(
           title: Text(
             "How many patients would you like to see in this session?",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 25),
-            textAlign: TextAlign.left,
+            style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 25,
+                color: Colors.blue[600]),
+            textAlign: TextAlign.center,
           ),
           subtitle: entirePage(),
         ),
@@ -234,10 +238,12 @@ class _GameState extends State<Game> {
 
   Future navigateToGame(context) async {
     Navigator.push(
-        context,
-        MaterialPageRoute(
-            builder: (context) => PatientCard(
-                  patientsLeft: numPatients,
-                )));
+      context,
+      MaterialPageRoute(
+        builder: (context) => PatientCard(
+          patientsLeft: numPatients,
+        ),
+      ),
+    );
   }
 }
