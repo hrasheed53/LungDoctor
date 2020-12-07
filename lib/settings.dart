@@ -20,6 +20,24 @@ class _SettingsState extends State<Settings> {
   String name ='';
   @override
   Widget build(BuildContext context) {
+    return new FutureBuilder(
+      future: settings(),
+      builder: (BuildContext context, AsyncSnapshot <Map<String, int>> data) {
+        if (data.hasData) {
+          if (data.data["soundOn"] == 0) {
+            isSound = false;
+          }
+          else {
+            isSound = true;
+          }
+        if (data.data["sabotageOn"] == 0) {
+            isSab = false;
+          }
+          else {
+            isSab = true;
+          }
+        }
+    //isSab2 = isSab;
     return Scaffold(
       //  appBar: AppBar(
       //     title: const Text('Settings'),
@@ -74,7 +92,10 @@ class _SettingsState extends State<Settings> {
               title: Text('Sabotage Man'),
               onChanged: (value) {
                 setState(() {
-                  isSab = !isSab;
+                  if (isSab == true) {
+                    isSab = false;
+                  }
+                  print(data.data["sabotageOn"]);
                 });
               },
             ),
@@ -118,6 +139,7 @@ class _SettingsState extends State<Settings> {
         ),
       ),
     );
+      });
   }
 
   Container line() {
