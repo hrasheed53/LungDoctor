@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:RESP2/userData.dart';
 import 'changeName.dart';
 import 'sabotageInstructions.dart';
 
@@ -12,7 +13,7 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  String name ='';
+  String name = '';
   bool isSwitched = false;
   bool isSwitched2 = false;
   bool isSwitched3 = false;
@@ -50,11 +51,11 @@ class _SettingsState extends State<Settings> {
                 children: <Widget>[
                   ListTile(
                     onTap: () {
-                        Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => MyCustomForm()));
-                      },
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyCustomForm()));
+                    },
                     leading: Icon(Icons.portrait, color: Colors.blue[200]),
                     title: Text('Change Name'),
                     trailing: Icon(Icons.arrow_right_alt_rounded),

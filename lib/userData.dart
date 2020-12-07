@@ -56,12 +56,12 @@ void setCustomization(String type, String item) async {
   await db.updateCustomization(type, item);
 }
 
-Future<int> getSoundSetting() async {
+Future<int> getSoundSetting() {
   final db = DatabaseHelper();
   return db.sound;
 }
 
-Future<int> getSabotageSetting() async {
+Future<int> getSabotageSetting() {
   final db = DatabaseHelper();
   return db.sabotage;
 }

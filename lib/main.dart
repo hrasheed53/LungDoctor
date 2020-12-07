@@ -47,8 +47,8 @@ class _LoginFieldsState extends State<LoginFields> {
         padding: EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
           signInWithGoogle().then((value) {
-            // need to have some kind of check here to see if signInWithGoogle
-            // returns a null, aka they cancelled sign in
+            // If signInWithGoogle returns null, user cancelled signIn process
+            // and we do not want to proceed to the main page.
             if (value != null) {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => Instr(i: 0)));
