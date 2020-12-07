@@ -8,6 +8,8 @@ import 'package:audioplayers/audio_cache.dart';
 
 AudioCache cache = new AudioCache();
 
+String hatImage ='';
+
 class Diagnose extends StatefulWidget {
   Diagnose(
       {Key key,
@@ -172,43 +174,43 @@ class _DiagnoseState extends State<Diagnose> {
                                             scale: 4.5,
                                           ),
                                           if (data.hasData)
-                                            if (data.data["background"].toString() != "")
+                                            if (data.data["background"].toString() != "none")
                                               Image.asset(
                                               data.data["background"].toString(),
                                               fit: BoxFit.cover,
                                               scale: 4.5,
                                             ),
-                                            if (data.data["hatAccessory"].toString() != "")
+                                            if (data.data["hatAccessory"].toString() != "none")
                                               Image.asset(
                                               data.data["hatAccessory"].toString(),
                                               fit: BoxFit.cover,
                                               scale: 4.5,
                                             ),
-                                            if (data.data["headband"].toString() != "")
+                                            if (data.data["headband"].toString() != "none")
                                               Image.asset(
                                               data.data["headband"].toString(),
                                               fit: BoxFit.cover,
                                               scale: 4.5,
                                             ),
-                                            if (data.data["labCoatColor"].toString() != "")
+                                            if (data.data["labCoatColor"].toString() != "none")
                                               Image.asset(
                                               data.data["labCoatColor"].toString(),
                                               fit: BoxFit.cover,
                                               scale: 4.5,
                                             ),
-                                            if (data.data["mask"].toString() != "")
+                                            if (data.data["mask"].toString() != "none")
                                               Image.asset(
                                               data.data["mask"].toString(),
                                               fit: BoxFit.cover,
                                               scale: 4.5,
                                             ),
-                                            if (data.data["pet"].toString() != "")
+                                            if (data.data["pet"].toString() != "none")
                                               Image.asset(
                                               data.data["pet"].toString(),
                                               fit: BoxFit.cover,
                                               scale: 4.5,
                                             ),
-                                            if (data.data["stethoscope"].toString() != "")
+                                            if (data.data["stethoscope"].toString() != "none")
                                               Image.asset(
                                               data.data["stethoscope"].toString(),
                                               fit: BoxFit.cover,
