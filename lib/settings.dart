@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:RESP2/userData.dart';
 import 'changeName.dart';
 import 'sabotageInstructions.dart';
-import 'userData.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key key, this.title}) : super(key: key);
@@ -17,7 +16,7 @@ class _SettingsState extends State<Settings> {
   bool isSab = false;
   bool isSound = false;
   bool isSwitched3 = false;
-  String name ='';
+  String name = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
