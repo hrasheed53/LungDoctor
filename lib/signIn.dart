@@ -27,7 +27,7 @@ Future<String> signInWithGoogle() async {
       await googleSignInAccount.authentication;
 
   final FirebaseApp app = await Firebase.initializeApp(
-      name: 'db',
+      //name: 'db',
       options: Platform.isIOS
           ? FirebaseOptions(
               //ios stuff

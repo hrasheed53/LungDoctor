@@ -40,6 +40,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
         future: getStatistics(),
         builder: (BuildContext context, AsyncSnapshot<Map<String, int>> data) {
           //data.data['Nmae']
+
           if (data.hasData) {
             writeScore(data.data['storePoints'].toInt());
             return Scaffold(
@@ -75,13 +76,13 @@ class _LeaderBoardState extends State<LeaderBoard> {
   }
 
   Future writeScore(int score) async {
-    if (!isAuth) return;
+    //if (!isAuth) return;
     // ignore: await_only_futures
     await leaderboardRef.child(user.displayName).update({'score': score});
   }
 
   Future readScores() async {
-    if (!isAuth) return;
+    // if (!isAuth) return;
     var item =
         await leaderboardRef.orderByChild('score').limitToFirst(10).once();
     leaderboardList.clear();
