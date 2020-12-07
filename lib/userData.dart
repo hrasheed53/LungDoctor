@@ -61,11 +61,6 @@ Future<Map<String, int>> settings() {
   return db.getSettings();
 }
 
-Future<int> getSabotageSetting() {
-  final db = DatabaseHelper();
-  return db.sabotage;
-}
-
 void setSoundSetting(int isSoundOn) {
   final db = DatabaseHelper();
   db.setSound(isSoundOn);
