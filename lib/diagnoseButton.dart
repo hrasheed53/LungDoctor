@@ -313,45 +313,98 @@ class _DiagnoseState extends State<Diagnose> {
               if (data == disease) {
                 //-------IF THEY GOT IT RIGHT!!!---------------------------------
                 correct = true;
-                cache.play("correct.mp3");
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      //Show correct doctor man in a widget here ?
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            Text('CORRECT - scroll to see reasoning'),
-                            Image.asset(
-                              'assets/images/alien.png',
-                              fit: BoxFit.cover,
-                              scale: 4.5,
-                            ),
-                            Padding(padding: EdgeInsets.only(top: 6)),
-                            Text(expertAdvice),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('Proceed'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            //this is where it either sends them to next patient
-                            //or back to main gameplay screen
-                            if (lastPatient) {
-                              navigateToGameplay(context);
-                            } else {
-                              navigateBackToGame(context);
-                            }
-                          },
-                        ),
-                      ],
-                    );
-                  },
-                );
+                            cache.play("correct.mp3");
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return new FutureBuilder(
+                                  future: getCustomizations(),
+                                  builder: (BuildContext context, AsyncSnapshot <Map<String, dynamic>> data) {
+                                  return AlertDialog(
+                                  //Show correct doctor man in a widget here ?
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: <Widget>[
+                                        Text(
+                                            'CORRECT - scroll to see reasoning'),
+                                        Stack(
+                                        children: <Widget> [
+                                          Image.asset(
+                                            'assets/images/alien.png',
+                                            fit: BoxFit.cover,
+                                            scale: 4.5,
+                                          ),
+                                          if (data.hasData)
+                                            if (data.data["background"].toString() != "none")
+                                              Image.asset(
+                                              data.data["background"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["hatAccessory"].toString() != "none")
+                                              Image.asset(
+                                              data.data["hatAccessory"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["headband"].toString() != "none")
+                                              Image.asset(
+                                              data.data["headband"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["labCoatColor"].toString() != "none")
+                                              Image.asset(
+                                              data.data["labCoatColor"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["mask"].toString() != "none")
+                                              Image.asset(
+                                              data.data["mask"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["pet"].toString() != "none")
+                                              Image.asset(
+                                              data.data["pet"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["stethoscope"].toString() != "none")
+                                              Image.asset(
+                                              data.data["stethoscope"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            )
+                                          ]
+                                        ),
+                                        Padding(
+                                            padding: EdgeInsets.only(top: 6)),
+                                        Text(expertAdvice),
+                                      ],
+                                    ),
+                                  ),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Proceed'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        //this is where it either sends them to next patient
+                                        //or back to main gameplay screen
+                                        if (lastPatient) {
+                                          navigateToGameplay(context);
+                                        } else {
+                                          navigateBackToGame(context);
+                                        }
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                              });
               } else {
                 //------------IF THEY GOT IT WRONG!!!-------------------------------
                 cache.play("incorrect.mp3");
