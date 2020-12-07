@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
 
 //import 'store.dart';
-String backgroundImage = '';
+
 AudioCache cache = new AudioCache();
 
 class Diagnose extends StatefulWidget {
@@ -154,22 +154,14 @@ class _DiagnoseState extends State<Diagnose> {
                               context: context,
                               barrierDismissible: false,
                               builder: (BuildContext context) {
-                                return AlertDialog(
+                                return new FutureBuilder(
+                                  future: getCustomizations(),
+                                  builder: (BuildContext context, AsyncSnapshot <Map<String, String>> data) {
+                                  return AlertDialog(
                                   //Show correct doctor man in a widget here ?
                                   content: SingleChildScrollView(
                                     child: ListBody(
                                       children: <Widget>[
-                                        new FutureBuilder(
-                                        future: getCustomizations(),
-                                        builder: (BuildContext context, AsyncSnapshot<Map<String, String>> data) {
-                                          if (data.hasData) {
-                                            if (data.data["background"] != "") {
-                                              backgroundImage = data.data["background"];
-                                              print(backgroundImage);
-                                            }
-                                          }
-                                        },
-                                        ),
                                         Text(
                                             'CORRECT - scroll to see reasoning'),
                                         Image.asset(
@@ -177,12 +169,13 @@ class _DiagnoseState extends State<Diagnose> {
                                           fit: BoxFit.cover,
                                           scale: 4.5,
                                         ),
-                                        if (backgroundImage != '')
-                                          Image.asset(
-                                          backgroundImage,
-                                          fit: BoxFit.cover,
-                                          scale: 4.5,
-                                        ),
+                                        if (data.hasData)
+                                          if (data.data["backgrounds"] != "")
+                                            Image.asset(
+                                            data.data["backgrounds"],
+                                            fit: BoxFit.cover,
+                                            scale: 4.5,
+                                          ),
                                         Padding(
                                             padding: EdgeInsets.only(top: 6)),
                                         Text(expertAdvice),
@@ -207,6 +200,7 @@ class _DiagnoseState extends State<Diagnose> {
                                 );
                               },
                             );
+                              });
                           } else {
                             //------------IF THEY GOT IT WRONG!!!-------------------------------
                             cache.play("incorrect.mp3");
