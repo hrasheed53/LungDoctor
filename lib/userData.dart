@@ -56,9 +56,9 @@ void setCustomization(String type, String item) async {
   await db.updateCustomization(type, item);
 }
 
-Future<int> getSoundSetting() {
+Future<Map<String, int>> settings() {
   final db = DatabaseHelper();
-  return db.sound;
+  return db.getSettings();
 }
 
 Future<int> getSabotageSetting() {
@@ -66,12 +66,12 @@ Future<int> getSabotageSetting() {
   return db.sabotage;
 }
 
-void setSoundSetting(int isSoundOn) async {
+void setSoundSetting(int isSoundOn) {
   final db = DatabaseHelper();
-  await db.setSound(isSoundOn);
+  db.setSound(isSoundOn);
 }
 
-void setSabotageSetting(int isSabotageOn) async {
+void setSabotageSetting(int isSabotageOn) {
   final db = DatabaseHelper();
-  await db.setSabotage(isSabotageOn);
+  db.setSabotage(isSabotageOn);
 }

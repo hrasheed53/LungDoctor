@@ -283,6 +283,13 @@ class DatabaseHelper {
     };
   }
 
+  Future<Map<String, int>> getSettings() async {
+    return {
+      'soundSetting': await sound,
+      'sabotageSetting': await sabotage,
+    };
+  }
+
   Future<String> updateName(newName) async {
     Database db = await database;
     await db.rawUpdate("UPDATE user_data SET userName = ? WHERE email = ?",
