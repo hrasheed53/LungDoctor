@@ -7,6 +7,7 @@ import 'userData.dart';
 
 String currentImage = 'assets/images/alien.png';
 String newImage = '';
+int soundOn;
 AudioCache cache = new AudioCache();
 
 class Headbands extends StatefulWidget {
@@ -21,75 +22,85 @@ class Headbands extends StatefulWidget {
 class _HeadbandsState extends State<Headbands> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("HeadBands customization"),
-      ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Image.asset(
-                  currentImage,
-                  fit: BoxFit.cover,
-                  scale: 4.5,
-                ),
-                if (newImage != '')
-                  Image.asset(
-                    newImage,
-                    fit: BoxFit.cover,
-                    scale: 4.75,
+    return new FutureBuilder(
+        future: settings(),
+        builder:
+            (BuildContext context, AsyncSnapshot<Map<String, int>> snapshot) {
+          if (snapshot.hasData) {
+            soundOn = snapshot.data['soundSetting'];
+          }
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("HeadBands customization"),
+            ),
+            body: Container(
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Image.asset(
+                        currentImage,
+                        fit: BoxFit.cover,
+                        scale: 4.5,
+                      ),
+                      if (newImage != '')
+                        Image.asset(
+                          newImage,
+                          fit: BoxFit.cover,
+                          scale: 4.75,
+                        ),
+                    ],
                   ),
-              ],
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                buttonHelper("Option  1", "head_1.png"),
-                buttonHelper("Option  2", "head_2.png"),
-              ],
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              buttonHelper("Option  3", "head_3.png"),
-              buttonHelper("Option  4", "head_4.png"),
-            ]),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  height: 50,
-                  width: 350,
-                  child: Card(
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                    margin: EdgeInsets.all(8.0),
-                    color: Colors.blue[600],
-                    child: InkWell(
-                      onTap: () => _popupDialog(context),
-                      splashColor: Colors.grey[600],
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text("Save",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
-                          ],
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      buttonHelper("Option  1", "head_1.png"),
+                      buttonHelper("Option  2", "head_2.png"),
+                    ],
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        buttonHelper("Option  3", "head_3.png"),
+                        buttonHelper("Option  4", "head_4.png"),
+                      ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 50,
+                        width: 350,
+                        child: Card(
+                          elevation: 8,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          margin: EdgeInsets.all(8.0),
+                          color: Colors.blue[600],
+                          child: InkWell(
+                            onTap: () => _popupDialog(context),
+                            splashColor: Colors.grey[600],
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text("Save",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    ); //   <-- image
+          );
+        }); //   <-- image
   }
 
   Widget buttonHelper(name, filename) {
@@ -131,7 +142,6 @@ Future<AudioPlayer> playLocalAsset() async {
 }
 
 void _popupDialog(BuildContext context) {
-  cache.play("cash.mp3");
   showDialog(
       context: context,
       builder: (context) {
@@ -147,6 +157,9 @@ void _popupDialog(BuildContext context) {
                 onPressed: () {
                   Navigator.of(context).pop();
                   setCustomization("headband", newImage);
+                  if (soundOn == 1) {
+                    cache.play("cash.mp3");
+                  }
                   new FutureBuilder(
                     future: spendPoints(200),
                     builder: (BuildContext context, AsyncSnapshot<int> data) {},

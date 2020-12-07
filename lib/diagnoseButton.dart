@@ -8,7 +8,7 @@ import 'package:audioplayers/audio_cache.dart';
 
 AudioCache cache = new AudioCache();
 
-String hatImage ='';
+String hatImage = '';
 
 class Diagnose extends StatefulWidget {
   Diagnose(
@@ -91,369 +91,455 @@ class _DiagnoseState extends State<Diagnose> {
     //               Build target for button:
     //==============================================================================
     Widget _targetBox(String disease) {
-      return Material(
-        child: DragTarget<String>(
-          builder: (context, List<String> incoming, List rejected) {
-            return _buildButton(
-                const Color(0xff2398f7), Icons.local_pharmacy, disease);
-          },
-          //onWillAccept: (data) => data == disease,
-          onAccept: (data) {
-            //NEED TO CALL UPDATESTATISTICS() FUNCTION HERE W/ CORRECT DIAGNOSIS, RIGHT/WRONG, AND DIFFICULTY!!!!!!!
-            print("UPDATESTATSCALL");
-            updateStatistics(data, difficultyLevel, data == disease);
-            //sabotage logic, for now its a 1 in 3 chance he shows up
-            bool sabotage;
-            if (changeAnswer) {
-              sabotage = false;
-            } else {
-              sabotage = randint.nextInt(2) == 0;
-            }
-
-            //for logic in case they change answer, doesnt get updated unless sabo shows up
-
-            //Emma and Lea do that thing here
-            //if sabotage_setting = OFF{sabotage = false}
-
-            if (sabotage) {
-              //and a 1 in 3 chance he is giving good advice
-              bool sabotageCorrect = randint.nextInt(2) == 0;
-              cache.play("sabo.mp3");
-              correct = true;
-              showDialog(
-                context: context,
-                barrierDismissible: false,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                    content: SingleChildScrollView(
-                      child: ListBody(
-                        children: <Widget>[
-                          Image.asset(
-                            'assets/images/sabotage_man.png',
-                            fit: BoxFit.cover,
-                            scale: 4.5,
-                          ),
-                          Text(
-                              'WAIT! Before you answer, your "friendly" neighborhood doctor has some advice for you:'),
-                          Padding(padding: EdgeInsets.only(top: 6)),
-                          Text(sabotageCorrect ? expertAdvice : redHerring,
-                              style: TextStyle(fontStyle: FontStyle.italic))
-                        ],
-                      ),
-                    ),
-                    actions: <Widget>[
-//============================================DONT WORRY ABOUT IT====================================================
-                      //yea should make that a function or something to not repeat code but here we are
-                      TextButton(
-                        child: Text('Keep answer'),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                          if (data == disease) {
-                            //-------IF THEY GOT IT RIGHT!!!---------------------------------
-                            correct = true;
-                            cache.play("correct.mp3");
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext context) {
-                                return new FutureBuilder(
-                                  future: getCustomizations(),
-                                  builder: (BuildContext context, AsyncSnapshot <Map<String, dynamic>> data) {
-                                  return AlertDialog(
-                                  //Show correct doctor man in a widget here ?
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: <Widget>[
-                                        Text(
-                                            'CORRECT - scroll to see reasoning'),
-                                        Stack(
-                                        children: <Widget> [
-                                          Image.asset(
-                                            'assets/images/alien.png',
-                                            fit: BoxFit.cover,
-                                            scale: 4.5,
-                                          ),
-                                          if (data.hasData)
-                                            if (data.data["background"].toString() != "none")
-                                              Image.asset(
-                                              data.data["background"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["hatAccessory"].toString() != "none")
-                                              Image.asset(
-                                              data.data["hatAccessory"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["headband"].toString() != "none")
-                                              Image.asset(
-                                              data.data["headband"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["labCoatColor"].toString() != "none")
-                                              Image.asset(
-                                              data.data["labCoatColor"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["mask"].toString() != "none")
-                                              Image.asset(
-                                              data.data["mask"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["pet"].toString() != "none")
-                                              Image.asset(
-                                              data.data["pet"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["stethoscope"].toString() != "none")
-                                              Image.asset(
-                                              data.data["stethoscope"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            )
-                                          ]
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 6)),
-                                        Text(expertAdvice),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text('Proceed'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        //this is where it either sends them to next patient
-                                        //or back to main gameplay screen
-                                        if (lastPatient) {
-                                          navigateToGameplay(context);
-                                        } else {
-                                          navigateBackToGame(context);
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                              });
-                          } else {
-                            //------------IF THEY GOT IT WRONG!!!-------------------------------
-                            cache.play("incorrect.mp3");
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext context) {
-                                return AlertDialog(
-                                  //Show incorrect doctor man in a widget here ?
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: <Widget>[
-                                        Text(
-                                            'INCORRECT - scroll to see reasoning'),
-                                        Image.asset(
-                                          'assets/images/alien_incorrect.png',
-                                          fit: BoxFit.cover,
-                                          scale: 4.5,
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 6)),
-                                        Text(
-                                            "Correct answer was " +
-                                                widget.answer +
-                                                ": ",
-                                            style: TextStyle(
-                                                fontWeight: FontWeight.bold)),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 6)),
-                                        Text(expertAdvice),
-                                      ],
-                                    ),
-                                  ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text('Proceed'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        //this is where it either sends them to next patient
-                                        //or back to main gameplay screen
-                                        if (lastPatient) {
-                                          navigateToGameplay(context);
-                                        } else {
-                                          navigateBackToGame(context);
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          }
-//=================================END OF SABO MAN KEEP FUNCTION, BELOW CODE IS UNTOUCHED==========================
-                        },
-                      ),
-                      TextButton(
-                        child: Text('Answer Again'),
-                        onPressed: () {
-                          changeAnswer = true;
-                          Navigator.of(context).pop();
-                        },
-                      ),
-                    ],
-                  );
+      return new FutureBuilder(
+          future: settings(),
+          builder:
+              (BuildContext context, AsyncSnapshot<Map<String, int>> snapshot) {
+            return Material(
+              child: DragTarget<String>(
+                builder: (context, List<String> incoming, List rejected) {
+                  return _buildButton(
+                      const Color(0xff2398f7), Icons.local_pharmacy, disease);
                 },
-              );
-            } else {
-              if (data == disease) {
-                //-------IF THEY GOT IT RIGHT!!!---------------------------------
-                correct = true;
-                            cache.play("correct.mp3");
-                            showDialog(
-                              context: context,
-                              barrierDismissible: false,
-                              builder: (BuildContext context) {
-                                return new FutureBuilder(
-                                  future: getCustomizations(),
-                                  builder: (BuildContext context, AsyncSnapshot <Map<String, dynamic>> data) {
-                                  return AlertDialog(
-                                  //Show correct doctor man in a widget here ?
-                                  content: SingleChildScrollView(
-                                    child: ListBody(
-                                      children: <Widget>[
-                                        Text(
-                                            'CORRECT - scroll to see reasoning'),
-                                        Stack(
-                                        children: <Widget> [
-                                          Image.asset(
-                                            'assets/images/alien.png',
-                                            fit: BoxFit.cover,
-                                            scale: 4.5,
-                                          ),
-                                          if (data.hasData)
-                                            if (data.data["background"].toString() != "none")
-                                              Image.asset(
-                                              data.data["background"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["hatAccessory"].toString() != "none")
-                                              Image.asset(
-                                              data.data["hatAccessory"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["headband"].toString() != "none")
-                                              Image.asset(
-                                              data.data["headband"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["labCoatColor"].toString() != "none")
-                                              Image.asset(
-                                              data.data["labCoatColor"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["mask"].toString() != "none")
-                                              Image.asset(
-                                              data.data["mask"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["pet"].toString() != "none")
-                                              Image.asset(
-                                              data.data["pet"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            ),
-                                            if (data.data["stethoscope"].toString() != "none")
-                                              Image.asset(
-                                              data.data["stethoscope"].toString(),
-                                              fit: BoxFit.cover,
-                                              scale: 4.5,
-                                            )
-                                          ]
-                                        ),
-                                        Padding(
-                                            padding: EdgeInsets.only(top: 6)),
-                                        Text(expertAdvice),
-                                      ],
-                                    ),
+                //onWillAccept: (data) => data == disease,
+                onAccept: (data) {
+                  //NEED TO CALL UPDATESTATISTICS() FUNCTION HERE W/ CORRECT DIAGNOSIS, RIGHT/WRONG, AND DIFFICULTY!!!!!!!
+                  print("UPDATESTATSCALL");
+                  updateStatistics(data, difficultyLevel, data == disease);
+                  //sabotage logic, for now its a 1 in 3 chance he shows up
+                  bool sabotage;
+                  if (changeAnswer) {
+                    sabotage = false;
+                  } else {
+                    sabotage = randint.nextInt(2) == 0;
+                  }
+
+                  //for logic in case they change answer, doesnt get updated unless sabo shows up
+
+                  //Emma and Lea do that thing here
+                  //if sabotage_setting = OFF{sabotage = false}
+                  if (snapshot.hasData) {
+                    if (snapshot.data['sabotageSetting'] == 1 && sabotage) {
+                      //and a 1 in 3 chance he is giving good advice
+                      bool sabotageCorrect = randint.nextInt(2) == 0;
+                      if (snapshot.data['soundSetting'] == 1) {
+                        cache.play("sabo.mp3");
+                      }
+                      correct = true;
+                      showDialog(
+                        context: context,
+                        barrierDismissible: false,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            content: SingleChildScrollView(
+                              child: ListBody(
+                                children: <Widget>[
+                                  Image.asset(
+                                    'assets/images/sabotage_man.png',
+                                    fit: BoxFit.cover,
+                                    scale: 4.5,
                                   ),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      child: Text('Proceed'),
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        //this is where it either sends them to next patient
-                                        //or back to main gameplay screen
-                                        if (lastPatient) {
-                                          navigateToGameplay(context);
-                                        } else {
-                                          navigateBackToGame(context);
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                              });
-              } else {
-                //------------IF THEY GOT IT WRONG!!!-------------------------------
-                cache.play("incorrect.mp3");
-                showDialog(
-                  context: context,
-                  barrierDismissible: false,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      //Show incorrect doctor man in a widget here ?
-                      content: SingleChildScrollView(
-                        child: ListBody(
-                          children: <Widget>[
-                            Text('INCORRECT - scroll to see reasoning'),
-                            Image.asset(
-                              'assets/images/alien_incorrect.png',
-                              fit: BoxFit.cover,
-                              scale: 4.5,
+                                  Text(
+                                      'WAIT! Before you answer, your "friendly" neighborhood doctor has some advice for you:'),
+                                  Padding(padding: EdgeInsets.only(top: 6)),
+                                  Text(
+                                      sabotageCorrect
+                                          ? expertAdvice
+                                          : redHerring,
+                                      style: TextStyle(
+                                          fontStyle: FontStyle.italic))
+                                ],
+                              ),
                             ),
-                            Padding(padding: EdgeInsets.only(top: 6)),
-                            Text("Correct answer was " + widget.answer + ": ",
-                                style: TextStyle(fontWeight: FontWeight.bold)),
-                            Padding(padding: EdgeInsets.only(top: 6)),
-                            Text(expertAdvice),
-                          ],
-                        ),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('Proceed'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            //this is where it either sends them to next patient
-                            //or back to main gameplay screen
-                            if (lastPatient) {
-                              navigateToGameplay(context);
-                            } else {
-                              navigateBackToGame(context);
-                            }
+                            actions: <Widget>[
+//============================================DONT WORRY ABOUT IT====================================================
+                              //yea should make that a function or something to not repeat code but here we are
+                              TextButton(
+                                child: Text('Keep Answer'),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                  if (data == disease) {
+                                    //-------IF THEY GOT IT RIGHT!!!---------------------------------
+                                    correct = true;
+                                    if (snapshot.data['soundSetting'] == 1) {
+                                      cache.play("correct.mp3");
+                                    }
+                                    showDialog(
+                                        context: context,
+                                        barrierDismissible: false,
+                                        builder: (BuildContext context) {
+                                          return new FutureBuilder(
+                                            future: getCustomizations(),
+                                            builder: (BuildContext context,
+                                                AsyncSnapshot<
+                                                        Map<String, dynamic>>
+                                                    data) {
+                                              return AlertDialog(
+                                                //Show correct doctor man in a widget here ?
+                                                content: SingleChildScrollView(
+                                                  child: ListBody(
+                                                    children: <Widget>[
+                                                      Text(
+                                                          'CORRECT - scroll to see reasoning'),
+                                                      Stack(children: <Widget>[
+                                                        if (data.hasData)
+                                                          if (data.data[
+                                                                      "labCoatColor"]
+                                                                  .toString() ==
+                                                              "none")
+                                                            Image.asset(
+                                                              'assets/images/alien.png',
+                                                              fit: BoxFit.cover,
+                                                              scale: 4.5,
+                                                            ),
+                                                        if (data.data[
+                                                                    "labCoatColor"]
+                                                                .toString() !=
+                                                            "none")
+                                                          Image.asset(
+                                                            data.data[
+                                                                    "labCoatColor"]
+                                                                .toString(),
+                                                            fit: BoxFit.cover,
+                                                            scale: 4.5,
+                                                          ),
+                                                        if (data.data[
+                                                                    "background"]
+                                                                .toString() !=
+                                                            "none")
+                                                          Image.asset(
+                                                            data.data[
+                                                                    "background"]
+                                                                .toString(),
+                                                            fit: BoxFit.cover,
+                                                            scale: 4.5,
+                                                          ),
+                                                        if (data.data[
+                                                                    "hatAccessory"]
+                                                                .toString() !=
+                                                            "none")
+                                                          Image.asset(
+                                                            data.data[
+                                                                    "hatAccessory"]
+                                                                .toString(),
+                                                            fit: BoxFit.cover,
+                                                            scale: 4.5,
+                                                          ),
+                                                        if (data.data[
+                                                                    "headband"]
+                                                                .toString() !=
+                                                            "none")
+                                                          Image.asset(
+                                                            data.data[
+                                                                    "headband"]
+                                                                .toString(),
+                                                            fit: BoxFit.cover,
+                                                            scale: 4.5,
+                                                          ),
+                                                        if (data.data["mask"]
+                                                                .toString() !=
+                                                            "none")
+                                                          Image.asset(
+                                                            data.data["mask"]
+                                                                .toString(),
+                                                            fit: BoxFit.cover,
+                                                            scale: 4.5,
+                                                          ),
+                                                        if (data.data["pet"]
+                                                                .toString() !=
+                                                            "none")
+                                                          Image.asset(
+                                                            data.data["pet"]
+                                                                .toString(),
+                                                            fit: BoxFit.cover,
+                                                            scale: 4.5,
+                                                          ),
+                                                        if (data.data[
+                                                                    "stethoscope"]
+                                                                .toString() !=
+                                                            "none")
+                                                          Image.asset(
+                                                            data.data[
+                                                                    "stethoscope"]
+                                                                .toString(),
+                                                            fit: BoxFit.cover,
+                                                            scale: 4.5,
+                                                          )
+                                                      ]),
+                                                      Padding(
+                                                          padding:
+                                                              EdgeInsets.only(
+                                                                  top: 6)),
+                                                      Text(expertAdvice),
+                                                    ],
+                                                  ),
+                                                ),
+                                                actions: <Widget>[
+                                                  TextButton(
+                                                    child: Text('Proceed'),
+                                                    onPressed: () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      //this is where it either sends them to next patient
+                                                      //or back to main gameplay screen
+                                                      if (lastPatient) {
+                                                        navigateToGameplay(
+                                                            context);
+                                                      } else {
+                                                        navigateBackToGame(
+                                                            context);
+                                                      }
+                                                    },
+                                                  ),
+                                                ],
+                                              );
+                                            },
+                                          );
+                                        });
+                                  } else {
+                                    //------------IF THEY GOT IT WRONG!!!-------------------------------
+                                    if (snapshot.data['soundSetting'] == 1) {
+                                      cache.play("incorrect.mp3");
+                                    }
+                                    showDialog(
+                                      context: context,
+                                      barrierDismissible: false,
+                                      builder: (BuildContext context) {
+                                        return AlertDialog(
+                                          //Show incorrect doctor man in a widget here ?
+                                          content: SingleChildScrollView(
+                                            child: ListBody(
+                                              children: <Widget>[
+                                                Text(
+                                                    'INCORRECT - scroll to see reasoning'),
+                                                Image.asset(
+                                                  'assets/images/alien_incorrect.png',
+                                                  fit: BoxFit.cover,
+                                                  scale: 4.5,
+                                                ),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 6)),
+                                                Text(
+                                                    "Correct answer was " +
+                                                        widget.answer +
+                                                        ": ",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold)),
+                                                Padding(
+                                                    padding: EdgeInsets.only(
+                                                        top: 6)),
+                                                Text(expertAdvice),
+                                              ],
+                                            ),
+                                          ),
+                                          actions: <Widget>[
+                                            TextButton(
+                                              child: Text('Proceed'),
+                                              onPressed: () {
+                                                Navigator.of(context).pop();
+                                                //this is where it either sends them to next patient
+                                                //or back to main gameplay screen
+                                                if (lastPatient) {
+                                                  navigateToGameplay(context);
+                                                } else {
+                                                  navigateBackToGame(context);
+                                                }
+                                              },
+                                            ),
+                                          ],
+                                        );
+                                      },
+                                    );
+                                  }
+//=================================END OF SABO MAN KEEP FUNCTION, BELOW CODE IS UNTOUCHED==========================
+                                },
+                              ),
+                              TextButton(
+                                child: Text('Answer Again'),
+                                onPressed: () {
+                                  changeAnswer = true;
+                                  Navigator.of(context).pop();
+                                },
+                              ),
+                            ],
+                          );
+                        },
+                      );
+                    } else {
+                      if (data == disease) {
+                        //-------IF THEY GOT IT RIGHT!!!---------------------------------
+                        correct = true;
+                        if (snapshot.data['soundSetting'] == 1) {
+                          cache.play("correct.mp3");
+                        }
+                        showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (BuildContext context) {
+                              return new FutureBuilder(
+                                future: getCustomizations(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot<Map<String, dynamic>> data) {
+                                  return AlertDialog(
+                                    //Show correct doctor man in a widget here ?
+                                    content: SingleChildScrollView(
+                                      child: ListBody(
+                                        children: <Widget>[
+                                          Text(
+                                              'CORRECT - scroll to see reasoning'),
+                                          Stack(children: <Widget>[
+                                            if (data.hasData)
+                                              if (data.data['labCoatColor'] ==
+                                                  "none")
+                                                Image.asset(
+                                                  'assets/images/alien.png',
+                                                  fit: BoxFit.cover,
+                                                  scale: 4.5,
+                                                ),
+                                            if (data.data["labCoatColor"]
+                                                    .toString() !=
+                                                "none")
+                                              Image.asset(
+                                                data.data["labCoatColor"]
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                                scale: 4.5,
+                                              ),
+                                            if (data.data["background"]
+                                                    .toString() !=
+                                                "none")
+                                              Image.asset(
+                                                data.data["background"]
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                                scale: 4.5,
+                                              ),
+                                            if (data.data["hatAccessory"]
+                                                    .toString() !=
+                                                "none")
+                                              Image.asset(
+                                                data.data["hatAccessory"]
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                                scale: 4.5,
+                                              ),
+                                            if (data.data["headband"]
+                                                    .toString() !=
+                                                "none")
+                                              Image.asset(
+                                                data.data["headband"]
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                                scale: 4.5,
+                                              ),
+                                            if (data.data["mask"].toString() !=
+                                                "none")
+                                              Image.asset(
+                                                data.data["mask"].toString(),
+                                                fit: BoxFit.cover,
+                                                scale: 4.5,
+                                              ),
+                                            if (data.data["pet"].toString() !=
+                                                "none")
+                                              Image.asset(
+                                                data.data["pet"].toString(),
+                                                fit: BoxFit.cover,
+                                                scale: 4.5,
+                                              ),
+                                            if (data.data["stethoscope"]
+                                                    .toString() !=
+                                                "none")
+                                              Image.asset(
+                                                data.data["stethoscope"]
+                                                    .toString(),
+                                                fit: BoxFit.cover,
+                                                scale: 4.5,
+                                              )
+                                          ]),
+                                          Padding(
+                                              padding: EdgeInsets.only(top: 6)),
+                                          Text(expertAdvice),
+                                        ],
+                                      ),
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: Text('Proceed'),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          //this is where it either sends them to next patient
+                                          //or back to main gameplay screen
+                                          if (lastPatient) {
+                                            navigateToGameplay(context);
+                                          } else {
+                                            navigateBackToGame(context);
+                                          }
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            });
+                      } else {
+                        //------------IF THEY GOT IT WRONG!!!-------------------------------
+                        if (snapshot.data['soundSetting'] == 1) {
+                          cache.play("incorrect.mp3");
+                        }
+                        showDialog(
+                          context: context,
+                          barrierDismissible: false,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              //Show incorrect doctor man in a widget here ?
+                              content: SingleChildScrollView(
+                                child: ListBody(
+                                  children: <Widget>[
+                                    Text('INCORRECT - scroll to see reasoning'),
+                                    Image.asset(
+                                      'assets/images/alien_incorrect.png',
+                                      fit: BoxFit.cover,
+                                      scale: 4.5,
+                                    ),
+                                    Padding(padding: EdgeInsets.only(top: 6)),
+                                    Text(
+                                        "Correct answer was " +
+                                            widget.answer +
+                                            ": ",
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.bold)),
+                                    Padding(padding: EdgeInsets.only(top: 6)),
+                                    Text(expertAdvice),
+                                  ],
+                                ),
+                              ),
+                              actions: <Widget>[
+                                TextButton(
+                                  child: Text('Proceed'),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                    //this is where it either sends them to next patient
+                                    //or back to main gameplay screen
+                                    if (lastPatient) {
+                                      navigateToGameplay(context);
+                                    } else {
+                                      navigateBackToGame(context);
+                                    }
+                                  },
+                                ),
+                              ],
+                            );
                           },
-                        ),
-                      ],
-                    );
-                  },
-                );
-              }
-            }
-          },
-        ),
-      );
+                        );
+                      }
+                    }
+                  }
+                },
+              ),
+            );
+          });
     }
     //==============================================================================
 

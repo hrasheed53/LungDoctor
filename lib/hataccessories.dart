@@ -5,6 +5,7 @@ import 'userData.dart';
 
 String currentImage = 'assets/images/alien.png';
 String newImage = '';
+int soundOn;
 AudioCache cache = new AudioCache();
 
 class HatAccessories extends StatefulWidget {
@@ -19,93 +20,103 @@ class HatAccessories extends StatefulWidget {
 class _HatAccessoriesState extends State<HatAccessories> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Simple Accessories customization"),
-      ),
-      body: Container(
-        child: Column(
-          children: <Widget>[
-            Stack(
-              children: <Widget>[
-                Image.asset(
-                  currentImage,
-                  fit: BoxFit.cover,
-                  scale: 4.5,
-                ),
-                if (newImage == 'assets/images/alien_hat1.png')
-                  Image.asset(
-                    newImage,
-                    fit: BoxFit.cover,
-                    scale: 5,
-                  ),
-                if (newImage == 'assets/images/alien_hat2.png')
-                  Image.asset(
-                    newImage,
-                    fit: BoxFit.cover,
-                    scale: 4,
-                  ),
-                if (newImage == 'assets/images/alien_flowercrown.png')
-                  Image.asset(
-                    newImage,
-                    fit: BoxFit.cover,
-                    scale: 4.5,
-                  ),
-                if (newImage == 'assets/images/alien_flowers.png')
-                  Image.asset(
-                    newImage,
-                    fit: BoxFit.cover,
-                    scale: 4,
-                  )
-              ],
+    return new FutureBuilder(
+        future: settings(),
+        builder:
+            (BuildContext context, AsyncSnapshot<Map<String, int>> snapshot) {
+          if (snapshot.hasData) {
+            soundOn = snapshot.data['soundSetting'];
+          }
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Simple Accessories customization"),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                buttonHelper("Hat 1", "alien_hat1.png"),
-                buttonHelper("Hat 2", "alien_hat2.png"),
-              ],
-            ),
-            Row(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
-              buttonHelper("Flowers", "alien_flowercrown.png"),
-              buttonHelper("Flowers 2", "alien_flowers.png"),
-            ]),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  height: 50,
-                  width: 350,
-                  child: Card(
-                    elevation: 8,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(32)),
-                    margin: EdgeInsets.all(8.0),
-                    color: Colors.blue[600],
-                    child: InkWell(
-                      onTap: () => _popupDialog(context),
-                      splashColor: Colors.grey[600],
-                      child: Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            Text("Save",
-                                style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white)),
-                          ],
+            body: Container(
+              child: Column(
+                children: <Widget>[
+                  Stack(
+                    children: <Widget>[
+                      Image.asset(
+                        currentImage,
+                        fit: BoxFit.cover,
+                        scale: 4.5,
+                      ),
+                      if (newImage == 'assets/images/alien_hat1.png')
+                        Image.asset(
+                          newImage,
+                          fit: BoxFit.cover,
+                          scale: 5,
+                        ),
+                      if (newImage == 'assets/images/alien_hat2.png')
+                        Image.asset(
+                          newImage,
+                          fit: BoxFit.cover,
+                          scale: 4,
+                        ),
+                      if (newImage == 'assets/images/alien_flowercrown.png')
+                        Image.asset(
+                          newImage,
+                          fit: BoxFit.cover,
+                          scale: 4.5,
+                        ),
+                      if (newImage == 'assets/images/alien_flowers.png')
+                        Image.asset(
+                          newImage,
+                          fit: BoxFit.cover,
+                          scale: 4,
+                        )
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      buttonHelper("Hat 1", "alien_hat1.png"),
+                      buttonHelper("Hat 2", "alien_hat2.png"),
+                    ],
+                  ),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        buttonHelper("Flowers", "alien_flowercrown.png"),
+                        buttonHelper("Flowers 2", "alien_flowers.png"),
+                      ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        height: 50,
+                        width: 350,
+                        child: Card(
+                          elevation: 8,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(32)),
+                          margin: EdgeInsets.all(8.0),
+                          color: Colors.blue[600],
+                          child: InkWell(
+                            onTap: () => _popupDialog(context),
+                            splashColor: Colors.grey[600],
+                            child: Center(
+                              child: Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text("Save",
+                                      style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white)),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
                       ),
-                    ),
+                    ],
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ],
-        ),
-      ),
-    ); //   <-- image
+          );
+        }); //   <-- image
   }
 
   Widget buttonHelper(name, filename) {
@@ -142,7 +153,6 @@ class _HatAccessoriesState extends State<HatAccessories> {
 }
 
 void _popupDialog(BuildContext context) {
-  cache.play("cash.mp3");
   showDialog(
       context: context,
       builder: (context) {
@@ -157,6 +167,9 @@ void _popupDialog(BuildContext context) {
             FlatButton(
                 onPressed: () {
                   setCustomization("hatAccessory", newImage);
+                  if (soundOn == 1) {
+                    cache.play("cash.mp3");
+                  }
                   new FutureBuilder(
                     future: spendPoints(100),
                     builder: (BuildContext context, AsyncSnapshot<int> data) {},

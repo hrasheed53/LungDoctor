@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:RESP2/userData.dart';
 
 // Define a custom Form widget.
 class MyCustomForm extends StatefulWidget {
@@ -40,6 +41,7 @@ class _MyCustomFormState extends State<MyCustomForm> {
           return showDialog(
             context: context,
             builder: (context) {
+              changeName(myController.text);
               return AlertDialog(
                 // Retrieve the text the that user has entered by using the
                 // TextEditingController.
@@ -53,7 +55,8 @@ class _MyCustomFormState extends State<MyCustomForm> {
       ),
     );
   }
-    Future navigateToGame(context) async {
+
+  Future navigateToGame(context) async {
     Navigator.of(context).pop();
   }
 }

@@ -193,7 +193,7 @@ class _StoreState extends State<Store> {
                   ));
             },
             leading: Icon(Icons.check_rounded, color: Colors.blue[300]),
-            title: Text('Stethescopes'),
+            title: Text('Stethoscopes'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
@@ -242,7 +242,7 @@ class _StoreState extends State<Store> {
               //if we want to add edit profile functionality
             },
             leading: Icon(Icons.lock_rounded, color: Colors.blueGrey[300]),
-            title: Text('Stethescopes'),
+            title: Text('Stethoscopes'),
             trailing: Icon(Icons.arrow_right_alt_rounded),
           ),
           line(),
