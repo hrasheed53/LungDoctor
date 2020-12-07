@@ -146,6 +146,7 @@ void _popupDialog(BuildContext context) {
             FlatButton(
                 onPressed: () {
                   Navigator.of(context).pop();
+                  setCustomization("headband", newImage);
                   new FutureBuilder(
                     future: spendPoints(200),
                     builder: (BuildContext context, AsyncSnapshot<int> data) {},

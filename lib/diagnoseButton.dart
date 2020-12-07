@@ -156,7 +156,7 @@ class _DiagnoseState extends State<Diagnose> {
                               builder: (BuildContext context) {
                                 return new FutureBuilder(
                                   future: getCustomizations(),
-                                  builder: (BuildContext context, AsyncSnapshot <Map<String, String>> data) {
+                                  builder: (BuildContext context, AsyncSnapshot <Map<String, dynamic>> data) {
                                   return AlertDialog(
                                   //Show correct doctor man in a widget here ?
                                   content: SingleChildScrollView(
@@ -164,18 +164,58 @@ class _DiagnoseState extends State<Diagnose> {
                                       children: <Widget>[
                                         Text(
                                             'CORRECT - scroll to see reasoning'),
-                                        Image.asset(
-                                          'assets/images/alien.png',
-                                          fit: BoxFit.cover,
-                                          scale: 4.5,
-                                        ),
-                                        if (data.hasData)
-                                          if (data.data["backgrounds"] != "")
-                                            Image.asset(
-                                            data.data["backgrounds"],
+                                        Stack(
+                                        children: <Widget> [
+                                          Image.asset(
+                                            'assets/images/alien.png',
                                             fit: BoxFit.cover,
                                             scale: 4.5,
                                           ),
+                                          if (data.hasData)
+                                            if (data.data["background"].toString() != "")
+                                              Image.asset(
+                                              data.data["background"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["hatAccessory"].toString() != "")
+                                              Image.asset(
+                                              data.data["hatAccessory"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["headband"].toString() != "")
+                                              Image.asset(
+                                              data.data["headband"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["labCoatColor"].toString() != "")
+                                              Image.asset(
+                                              data.data["labCoatColor"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["mask"].toString() != "")
+                                              Image.asset(
+                                              data.data["mask"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["pet"].toString() != "")
+                                              Image.asset(
+                                              data.data["pet"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            ),
+                                            if (data.data["stethoscope"].toString() != "")
+                                              Image.asset(
+                                              data.data["stethoscope"].toString(),
+                                              fit: BoxFit.cover,
+                                              scale: 4.5,
+                                            )
+                                          ]
+                                        ),
                                         Padding(
                                             padding: EdgeInsets.only(top: 6)),
                                         Text(expertAdvice),

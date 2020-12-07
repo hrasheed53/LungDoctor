@@ -44,7 +44,7 @@ Future<String> changeName(String newName) async {
   return newName;
 }
 
-Future<Map<String, String>> getCustomizations() {
+Future<Map<String, dynamic>> getCustomizations() {
   final db = DatabaseHelper();
   return db.getCustomizations();
 }

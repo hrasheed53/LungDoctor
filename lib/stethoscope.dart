@@ -149,6 +149,7 @@ void _popupDialog(BuildContext context) {
           actions: <Widget>[
             FlatButton(
                 onPressed: () {
+                  setCustomization("stethoscope", newImage);
                   new FutureBuilder(
                     future: spendPoints(200),
                     builder: (BuildContext context, AsyncSnapshot<int> data) {},

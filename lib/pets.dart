@@ -150,6 +150,7 @@ void _popupDialog(BuildContext context) {
           actions: <Widget>[
             FlatButton(
                 onPressed: () {
+                  setCustomization("pet", newImage);
                   new FutureBuilder(
                     future: spendPoints(300),
                     builder: (BuildContext context, AsyncSnapshot<int> data) {},

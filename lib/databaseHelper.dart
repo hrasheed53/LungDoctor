@@ -321,7 +321,7 @@ class DatabaseHelper {
     return;
   }
 
-  Future<Map<String, String>> getCustomizations() async {
+  Future<Map<String, dynamic>> getCustomizations() async {
     Database db = await database;
     var customizations = await db.query("user_data",
         columns: [

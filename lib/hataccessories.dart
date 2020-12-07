@@ -156,6 +156,7 @@ void _popupDialog(BuildContext context) {
           actions: <Widget>[
             FlatButton(
                 onPressed: () {
+                  setCustomization("hatAccessory", newImage);
                   new FutureBuilder(
                     future: spendPoints(100),
                     builder: (BuildContext context, AsyncSnapshot<int> data) {},
