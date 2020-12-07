@@ -5,7 +5,7 @@ import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
 
 //import 'store.dart';
-
+String backgroundImage = '';
 AudioCache cache = new AudioCache();
 
 class Diagnose extends StatefulWidget {
@@ -159,10 +159,27 @@ class _DiagnoseState extends State<Diagnose> {
                                   content: SingleChildScrollView(
                                     child: ListBody(
                                       children: <Widget>[
+                                        new FutureBuilder(
+                                        future: getCustomizations(),
+                                        builder: (BuildContext context, AsyncSnapshot<Map<String, String>> data) {
+                                          if (data.hasData) {
+                                            if (data.data["background"] != "") {
+                                              backgroundImage = data.data["background"];
+                                              print(backgroundImage);
+                                            }
+                                          }
+                                        },
+                                        ),
                                         Text(
                                             'CORRECT - scroll to see reasoning'),
                                         Image.asset(
                                           'assets/images/alien.png',
+                                          fit: BoxFit.cover,
+                                          scale: 4.5,
+                                        ),
+                                        if (backgroundImage != '')
+                                          Image.asset(
+                                          backgroundImage,
                                           fit: BoxFit.cover,
                                           scale: 4.5,
                                         ),

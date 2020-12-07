@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:RESP2/userData.dart';
 import 'changeName.dart';
 import 'sabotageInstructions.dart';
+import 'userData.dart';
 
 class Settings extends StatefulWidget {
   Settings({Key key, this.title}) : super(key: key);
@@ -13,10 +14,10 @@ class Settings extends StatefulWidget {
 }
 
 class _SettingsState extends State<Settings> {
-  String name = '';
-  bool isSwitched = false;
-  bool isSwitched2 = false;
+  bool isSab = false;
+  bool isSound = false;
   bool isSwitched3 = false;
+  String name ='';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,22 +70,22 @@ class _SettingsState extends State<Settings> {
             SwitchListTile(
               activeColor: Colors.blue[300],
               contentPadding: const EdgeInsets.all(5.0),
-              value: isSwitched,
+              value: isSab,
               title: Text('Sabotage Man'),
               onChanged: (value) {
                 setState(() {
-                  isSwitched = !isSwitched;
+                  isSab = !isSab;
                 });
               },
             ),
             SwitchListTile(
               activeColor: Colors.blue[300],
               contentPadding: const EdgeInsets.all(5.0),
-              value: isSwitched2,
+              value: isSound,
               title: Text('Sound effects'),
               onChanged: (value) {
                 setState(() {
-                  isSwitched2 = !isSwitched2;
+                  isSound = !isSound;
                 });
               },
             ),

@@ -294,12 +294,32 @@ class DatabaseHelper {
 
   Future<void> updateCustomization(customizationType, customizationItem) async {
     Database db = await database;
-    await db.rawUpdate("UPDATE user_data SET ? = ? WHERE email = ?",
-        [customizationType, customizationType, currentEmail]);
+    if (customizationType == "background") {
+      await db.rawUpdate("UPDATE user_data SET background = ? WHERE email = ?",
+        [customizationItem, currentEmail]);
+    } else if (customizationType == "hatAccessory") {
+      await db.rawUpdate("UPDATE user_data SET hatAccessory = ? WHERE email = ?",
+        [customizationItem, currentEmail]);
+    } else if (customizationType == "headband") {
+      await db.rawUpdate("UPDATE user_data SET headband = ? WHERE email = ?",
+        [customizationItem, currentEmail]);
+    } else if (customizationType == "labCoatColor") {
+      await db.rawUpdate("UPDATE user_data SET labCoatColor = ? WHERE email = ?",
+        [customizationItem, currentEmail]);
+    } else if (customizationType == "mask") {
+      await db.rawUpdate("UPDATE user_data SET mask = ? WHERE email = ?",
+        [customizationItem, currentEmail]);
+    } else if (customizationType == "pet") {
+      await db.rawUpdate("UPDATE user_data SET pet = ? WHERE email = ?",
+        [customizationItem, currentEmail]);
+    } else if (customizationType =="stethoscope") {
+      await db.rawUpdate("UPDATE user_data SET stethoscope = ? WHERE email = ?",
+        [customizationItem, currentEmail]);
+    }
     return;
   }
 
-  Future<Map<String, dynamic>> getCustomizations() async {
+  Future<Map<String, String>> getCustomizations() async {
     Database db = await database;
     var customizations = await db.query("user_data",
         columns: [
