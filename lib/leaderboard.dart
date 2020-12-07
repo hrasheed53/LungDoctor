@@ -35,7 +35,6 @@ class LeaderBoard extends StatefulWidget {
 class _LeaderBoardState extends State<LeaderBoard> {
   @override
   Widget build(BuildContext context) {
-    readScores();
     return new FutureBuilder(
         future: getStatistics(),
         builder: (BuildContext context, AsyncSnapshot<Map<String, int>> data) {
@@ -43,6 +42,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
 
           if (data.hasData) {
             writeScore(data.data['storePoints'].toInt());
+            readScores();
             return Scaffold(
                 body: ListView(
                     children: !isAuth //uses default/dummy values if auth fails
