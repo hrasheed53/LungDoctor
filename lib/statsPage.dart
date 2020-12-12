@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:RESP2/userData.dart';
 
-double accuracy;
+int accuracy;
 
 class StatsPage extends StatefulWidget {
   StatsPage({Key key, this.title}) : super(key: key);
@@ -30,7 +30,8 @@ class _StatsPageState extends State<StatsPage> {
               accuracy = 0;
             } else {
               accuracy =
-                  (data.data['numCorrect'] / data.data['numAttempted']) * 100;
+                  ((data.data['numCorrect'] / data.data['numAttempted']) * 100)
+                      .round();
             }
             return Scaffold(
                 body: (ListView(children: [
