@@ -756,7 +756,7 @@ class _PatientCardState extends State<PatientCard>
               child: ListView(
                 children: [
                   ListTile(
-                      leading: Text('1'),
+                      //leading: Text('1'),
                       title: Text("White blood cells"),
                       subtitle: Text(wbc + " K/uL")),
                   Divider(
@@ -767,7 +767,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('2'),
+                      //leading: Text('2'),
                       title: Text("Hemoglobin"),
                       subtitle: Text(hemo + " g/dL")),
                   Divider(
@@ -778,7 +778,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('3'),
+                      //leading: Text('3'),
                       title: Text("Hematocrit"),
                       subtitle: Text(hema + "%")),
                   Divider(
@@ -789,7 +789,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('4'),
+                     //leading: Text('4'),
                       title: Text("Platelets"),
                       subtitle: Text(plat + " K/uL")),
                   Divider(
@@ -800,7 +800,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('5'),
+                      //leading: Text('5'),
                       title: Text("Sodium"),
                       subtitle: Text(na + " mmol/L")),
                   Divider(
@@ -811,7 +811,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('6'),
+                      //leading: Text('6'),
                       title: Text("Potassium"),
                       subtitle: Text(k + " mmo/L")),
                   Divider(
@@ -822,7 +822,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('7'),
+                      //leading: Text('7'),
                       title: Text("Chloride"),
                       subtitle: Text(cl + " mmo/L")),
                   Divider(
@@ -833,7 +833,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('8'),
+                      //leading: Text('8'),
                       title: Text("Bicarbonate"),
                       subtitle: Text(c + " mmo/L")),
                   Divider(
@@ -844,7 +844,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('9'),
+                      //leading: Text('9'),
                       title: Text("BUN (blood urea nitrogen)"),
                       subtitle: Text(bun + " mg/dL")),
                   Divider(
@@ -855,7 +855,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('10'),
+                      //leading: Text('10'),
                       title: Text("Creatinine"),
                       subtitle: Text(creat + " mg/dL")),
                   Divider(
@@ -866,7 +866,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('11'),
+                      //leading: Text('11'),
                       title: Text("Glucose"),
                       subtitle: Text(glucose + " mg/dL")),
                   Divider(
@@ -877,7 +877,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('12'),
+                      //leading: Text('12'),
                       title: Text("BNP"),
                       subtitle: Text(bnp + " mg/dL")),
                   Divider(
@@ -888,7 +888,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('13'),
+                      //leading: Text('13'),
                       title: Text("ABG (arterial blood gas)"),
                       subtitle: Text("pH " + abgph)),
                   Divider(
@@ -899,7 +899,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('14'),
+                      //leading: Text('14'),
                       title: Text("ABG - pCO\u2082"),
                       subtitle: Text(abgpo2 + " mm Hg")),
                   Divider(
@@ -910,7 +910,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('15'),
+                      //leading: Text('15'),
                       title: Text("ABG - pO\u2082"),
                       subtitle: Text(abgpo + " mm Hg")),
                   Divider(
@@ -921,7 +921,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                      leading: Text('16'),
+                      //leading: Text('16'),
                       title: Text("Lactate"),
                       subtitle: Text(lactate + " mmol/L")),
                 ],
