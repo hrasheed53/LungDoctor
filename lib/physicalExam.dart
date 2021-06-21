@@ -42,7 +42,22 @@ class _PhysicalState extends State<Physical> {
       body: ListView(
         children: [
           ListTile(
-              leading: Text('1'), title: Text("Head"), subtitle: Text(head)),
+            title: Text("Head",
+            textAlign: TextAlign.center,
+                style: TextStyle(
+                  //color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+            subtitle: Text(
+              head,
+              style: TextStyle(
+                color: Colors.black,
+                //fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
           Divider(
             color: Colors.grey[400],
             height: 0,
@@ -51,7 +66,21 @@ class _PhysicalState extends State<Physical> {
             endIndent: 0,
           ),
           ListTile(
-              leading: Text('2'), title: Text("Neck"), subtitle: Text(neck)),
+            title: Text("Neck",
+            textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+            subtitle: Text(
+              neck,
+              style: TextStyle(
+                color: Colors.black,
+                //fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
           Divider(
             color: Colors.grey[400],
             height: 0,
@@ -60,7 +89,21 @@ class _PhysicalState extends State<Physical> {
             endIndent: 0,
           ),
           ListTile(
-              leading: Text('3'), title: Text("Heart"), subtitle: Text(heart)),
+            title: Text("Heart",
+            textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+            subtitle: Text(
+              heart,
+              style: TextStyle(
+                color: Colors.black,
+                //fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
           Divider(
             color: Colors.grey[400],
             height: 0,
@@ -69,7 +112,21 @@ class _PhysicalState extends State<Physical> {
             endIndent: 0,
           ),
           ListTile(
-              leading: Text('4'), title: Text("Lungs"), subtitle: Text(lungs)),
+            title: Text("Lungs",
+            textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+            subtitle: Text(
+              lungs,
+              style: TextStyle(
+                color: Colors.black,
+                //fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
           Divider(
             color: Colors.grey[400],
             height: 0,
@@ -78,7 +135,21 @@ class _PhysicalState extends State<Physical> {
             endIndent: 0,
           ),
           ListTile(
-              leading: Text('5'), title: Text("Abdomen"), subtitle: Text(ab)),
+            title: Text("Abdomen",
+            textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+            subtitle: Text(
+              ab,
+              style: TextStyle(
+                color: Colors.black,
+                //fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
           Divider(
             color: Colors.grey[400],
             height: 0,
@@ -87,9 +158,21 @@ class _PhysicalState extends State<Physical> {
             endIndent: 0,
           ),
           ListTile(
-              leading: Text('6'),
-              title: Text("Extremities"),
-              subtitle: Text(ext)),
+            title: Text("Extremities",
+            textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+            subtitle: Text(
+              ext,
+              style: TextStyle(
+                color: Colors.black,
+                //fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
           Divider(
             color: Colors.grey[400],
             height: 0,
@@ -98,7 +181,21 @@ class _PhysicalState extends State<Physical> {
             endIndent: 0,
           ),
           ListTile(
-              leading: Text('7'), title: Text("Skin"), subtitle: Text(skin)),
+            title: Text("Skin",
+            textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+            subtitle: Text(
+              skin,
+              style: TextStyle(
+                color: Colors.black,
+                //fontWeight: FontWeight.bold,
+                fontSize: 20,
+              ),
+            ),
+          ),
         ],
       ),
     );
