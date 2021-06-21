@@ -10,6 +10,7 @@ import 'diagnoseButton.dart';
 import 'xrayResults.dart';
 import 'package:condition/condition.dart';
 import 'dart:math';
+import 'package:photo_view/photo_view.dart';
 
 class PatientCard extends StatefulWidget {
   PatientCard({Key key, this.patientsLeft}) : super(key: key);
@@ -30,9 +31,18 @@ bool provocatingFactors = true;
 //some patients only have one or two histories listed:
 bool history2 = true;
 bool history3 = true;
+//TabController tabController;
 
-class _PatientCardState extends State<PatientCard> {
+//bool seenLabsTab = false;
+//bool seenCXRTab = false;
+
+class _PatientCardState extends State<PatientCard>
+    with TickerProviderStateMixin {
   Future<PatientChart> futureChart;
+
+  TabController tabController;
+  bool seenLabsTab = false;
+  bool seenCXRTab = false;
 
   //vars for pulling random case:
   Random random = new Random();
@@ -103,6 +113,8 @@ class _PatientCardState extends State<PatientCard> {
   @override
   void initState() {
     super.initState();
+
+    tabController = new TabController(vsync: this, length: 4);
     //choose a random case ID to pull from:
     randomCase = random.nextInt(19);
     url = baseURL + availableCaseIDs[randomCase].toString();
@@ -110,6 +122,14 @@ class _PatientCardState extends State<PatientCard> {
     //pull Future item containing case data:
     futureChart = getPatientChart(url);
   }
+
+  @override
+  void dispose() {
+    tabController.dispose();
+    super.dispose();
+  }
+
+  //static final _myTabbedPageKey = new GlobalKey<_PatientCardState>();
 
   //where the widget building happens:
   @override
@@ -121,7 +141,9 @@ class _PatientCardState extends State<PatientCard> {
     //instead of repeatedly calling futurebuilder in every
     //widget that requires data from the API, which is slow.
     //(FutureBuilder required since pulling from the API is asynchronous)
-
+    tabController = new TabController(vsync: this, length: 4);
+    bool seenLabsTab = false;
+    bool seenCXRTab = false;
     return Container(
       child: new FutureBuilder<PatientChart>(
         future: futureChart,
@@ -523,52 +545,100 @@ class _PatientCardState extends State<PatientCard> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Text(
-                            'Temperature (\u2103)',
+                            snapshot.data.heartRate.toString() + '\u2103',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 25,
                             ),
                           ),
-                          Text(snapshot.data.temperature.toString()),
+                          Padding(padding: EdgeInsets.only(top: 4.0)),
+                          Text(
+                            '(Temperature)',
+                            style: TextStyle(
+                              //fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                           Padding(padding: EdgeInsets.only(top: 9.0)),
                           Text(
-                            'Respiratory Rate (breaths/min)',
+                            snapshot.data.respiratoryRate.toString() + ' mm Hg',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 25,
                             ),
                           ),
-                          Text(snapshot.data.respiratoryRate.toString()),
+                          Padding(padding: EdgeInsets.only(top: 4.0)),
+                          Text(
+                            '(Blood Pressure)',
+                            style: TextStyle(
+                              //fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                           Padding(padding: EdgeInsets.only(top: 9.0)),
                           Text(
-                            'Heart Rate (beats/min)',
+                            snapshot.data.temperature.toString() + ' Beats/Min',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 25,
                             ),
                           ),
-                          Text(snapshot.data.heartRate.toString()),
+                          Padding(padding: EdgeInsets.only(top: 4.0)),
+                          Text(
+                            '(Heart Rate)',
+                            style: TextStyle(
+                              //fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                           Padding(padding: EdgeInsets.only(top: 9.0)),
                           Text(
-                            'Blood Pressure (mm Hg)',
+                            snapshot.data.bloodPressure + ' Breaths/Min',
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 25,
                             ),
                           ),
-                          Text(snapshot.data.bloodPressure),
+                          Padding(padding: EdgeInsets.only(top: 4.0)),
+                          Text(
+                            '(Respiratory Rate)',
+                            style: TextStyle(
+                              //fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                           Padding(padding: EdgeInsets.only(top: 9.0)),
                           Text(
-                            'O\u2082 Saturation',
+                            snapshot.data.oxygenSat,
                             style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontSize: 25,
                             ),
                           ),
-                          Text(snapshot.data.oxygenSat),
-                          Padding(padding: EdgeInsets.only(top: 9.0)),
+                          Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
-                            'O\u2082 Received',
+                            '(O\u2082 Saturation)',
                             style: TextStyle(
-                              fontWeight: FontWeight.bold,
+                              //fontWeight: FontWeight.bold,
+                              fontSize: 15,
                             ),
                           ),
-                          Text(snapshot.data.oxygenAmount),
+                          Padding(padding: EdgeInsets.only(top: 09.0)),
+                          Text(
+                            snapshot.data.oxygenAmount,
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 25,
+                            ),
+                          ),
+                          Padding(padding: EdgeInsets.only(top: 4.0)),
+                          Text(
+                            '(O\u2082 Received)',
+                            style: TextStyle(
+                              //fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                         ],
                       ),
                     ],
@@ -592,7 +662,10 @@ class _PatientCardState extends State<PatientCard> {
                 children: [
                   Text(
                     "Vitals",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        decoration: TextDecoration.underline),
                     textAlign: TextAlign.center,
                   ),
                   vitals,
@@ -604,7 +677,13 @@ class _PatientCardState extends State<PatientCard> {
             //--------------------------------------------------------------
             Widget physical = Container(
                 padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
-                child: Text("Patient is " + snapshot.data.examGeneral));
+                child: Text(
+                  "Patient is " + snapshot.data.examGeneral,
+                  style: TextStyle(
+                      //fontWeight: FontWeight.bold,
+                      fontSize: 18),
+                  textAlign: TextAlign.center,
+                ));
 
             //        button to "conduct" physical exam
             //------------------------------------------------------
@@ -636,7 +715,10 @@ class _PatientCardState extends State<PatientCard> {
                 children: [
                   Text(
                     "Physical Exam",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+                    style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 30,
+                        decoration: TextDecoration.underline),
                     textAlign: TextAlign.center,
                   ),
                   Padding(padding: EdgeInsets.only(top: 6.0)),
@@ -668,12 +750,209 @@ class _PatientCardState extends State<PatientCard> {
               ),
             );
 //=============================================================================
+//                       Labs tab
+//=============================================================================
+            Widget labTab = Container(
+              child: ListView(
+                children: [
+                  ListTile(
+                      leading: Text('1'),
+                      title: Text("White blood cells"),
+                      subtitle: Text(wbc + " K/uL")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('2'),
+                      title: Text("Hemoglobin"),
+                      subtitle: Text(hemo + " g/dL")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('3'),
+                      title: Text("Hematocrit"),
+                      subtitle: Text(hema + "%")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('4'),
+                      title: Text("Platelets"),
+                      subtitle: Text(plat + " K/uL")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('5'),
+                      title: Text("Sodium"),
+                      subtitle: Text(na + " mmol/L")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('6'),
+                      title: Text("Potassium"),
+                      subtitle: Text(k + " mmo/L")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('7'),
+                      title: Text("Chloride"),
+                      subtitle: Text(cl + " mmo/L")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('8'),
+                      title: Text("Bicarbonate"),
+                      subtitle: Text(c + " mmo/L")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('9'),
+                      title: Text("BUN (blood urea nitrogen)"),
+                      subtitle: Text(bun + " mg/dL")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('10'),
+                      title: Text("Creatinine"),
+                      subtitle: Text(creat + " mg/dL")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('11'),
+                      title: Text("Glucose"),
+                      subtitle: Text(glucose + " mg/dL")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('12'),
+                      title: Text("BNP"),
+                      subtitle: Text(bnp + " mg/dL")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('13'),
+                      title: Text("ABG (arterial blood gas)"),
+                      subtitle: Text("pH " + abgph)),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('14'),
+                      title: Text("ABG - pCO\u2082"),
+                      subtitle: Text(abgpo2 + " mm Hg")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('15'),
+                      title: Text("ABG - pO\u2082"),
+                      subtitle: Text(abgpo + " mm Hg")),
+                  Divider(
+                    color: Colors.grey[400],
+                    height: 0,
+                    thickness: 1,
+                    indent: 0,
+                    endIndent: 0,
+                  ),
+                  ListTile(
+                      leading: Text('16'),
+                      title: Text("Lactate"),
+                      subtitle: Text(lactate + " mmol/L")),
+                ],
+              ),
+            );
+
+//=============================================================================
+//                       CXR tab
+//=============================================================================
+            Widget cxrTab = Container(
+              child: Image(
+                image: NetworkImage("https://lungxrays.s3.amazonaws.com/" +
+                    caseID.toString() +
+                    ".jpg"),
+              ),
+              // PhotoView(
+              //   imageProvider: NetworkImage("https://lungxrays.s3.amazonaws.com/" + caseID.toString() + ".jpg"),
+              // ),
+              //THIS VERSION LETS YOU ZOOM BUT I GET AN ERROR
+            );
+
+//=============================================================================
 //                       Narrative tab
 //=============================================================================
             //---------NARRATIVE TEXT--------------------------------------
             Widget narrative = Container(
                 padding: const EdgeInsets.only(top: 6, left: 12, right: 12),
-                child: Text(snapshot.data.narratives));
+                child: Text(
+                  snapshot.data.narratives,
+                  style: TextStyle(fontSize: 18),
+                ));
             //---------NARRATIVE BOX--------------------------------------
             Widget narrativeBox = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -706,6 +985,7 @@ class _PatientCardState extends State<PatientCard> {
                 ], //BOXES OF TAB
               ),
             );
+
 //=============================================================================
             Color color = Theme.of(context).primaryColor;
 
@@ -715,15 +995,21 @@ class _PatientCardState extends State<PatientCard> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-//-----------------------X-RAYS BUTTON----------------------------------
+//-----------------------BACK BUTTON----------------------------------
                   Column(
                     children: [
                       GestureDetector(
                         onTap: () {
-                          viewXrays(context);
+                          //viewXrays(context);
+                          int pagenum = (tabController.index - 1) % 4;
+                          if (pagenum == 3) {
+                            pagenum = 0;
+                            //_buildButtonColumn(Colors.grey, Icons.wb_sunny, 'BACK')
+                          }
+                          tabController.animateTo(pagenum);
                         },
-                        child: _buildButtonColumn(
-                            color, Icons.wb_sunny, 'ORDER X-RAYS'),
+                        child:
+                            _buildButtonColumn(color, Icons.wb_sunny, 'BACK'),
                       ),
                     ],
                   ),
@@ -774,15 +1060,26 @@ class _PatientCardState extends State<PatientCard> {
                     ],
                   ),
 //-----------------------END DIAGNOSE BUTTON----------------------------------
-//-----------------------ORDER TESTS BUTTON----------------------------------
+//-----------------------NEXT BUTTON----------------------------------
                   Column(
                     children: [
                       GestureDetector(
                           onTap: () {
-                            viewTestResults(context);
+                            //viewTestResults(context);
+                            int pagenum = (tabController.index + 1) % 4;
+                            if (pagenum == 0) {
+                              pagenum = 3;
+                            }
+                            if (pagenum == 2) {
+                              seenLabsTab = true;
+                            }
+                            if (pagenum == 3) {
+                              seenCXRTab = true;
+                            }
+                            tabController.animateTo(pagenum);
                           },
                           child: _buildButtonColumn(
-                              color, Icons.folder_shared, 'ORDER TESTS')),
+                              color, Icons.folder_shared, 'NEXT')),
                     ],
                   )
                 ],
@@ -790,71 +1087,108 @@ class _PatientCardState extends State<PatientCard> {
             );
 
             //-----------------------PATIENT CARD FINAL SETUP------------------------
-            return MaterialApp(
-              home: DefaultTabController(
-                length: 3,
-                child: Scaffold(
-                  appBar: AppBar(
-                    title: Text("Patient " +
-                        snapshot.data.caseID.toString() +
-                        ": " +
-                        snapshot.data.gender +
-                        ", age " +
-                        snapshot.data.age.toString()),
-                    leading: IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                        navigateToGameplay(context);
-                      },
+            return new // MaterialApp(
+                //   home: //new PatientCard(
+                //   key: _myTabbedPageKey,
+                // ),
+                Scaffold(
+              appBar: AppBar(
+                title: Text("Patient " +
+                    snapshot.data.caseID.toString() +
+                    ": " +
+                    snapshot.data.gender +
+                    ", age " +
+                    snapshot.data.age.toString()),
+                leading: IconButton(
+                  icon: Icon(Icons.arrow_back),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    navigateToGameplay(context);
+                  },
+                ),
+                centerTitle: true,
+                bottom: TabBar(
+                  // onTap: (index) {
+                  //   if(tabController.index == 2 && seenLabstab == false){
+                  //     //tabController.index = tabController.previousIndex;
+                  //   }
+                  //   else if(tabController.index == 3 && seenCXRtab == false){
+                  //     //tabController.index = tabController.previousIndex;
+                  //   }
+                  //   else{
+                  //     //tabController.index = (tabController.index) % 4;
+                  //   }
+                  //   //tabController.index = tabController.previousIndex;
+                  // },
+                  controller: tabController,
+                  tabs: [
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Patient Narrative",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
                     ),
-                    centerTitle: true,
-                    bottom: TabBar(
-                      tabs: [
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Vitals and Physical",
-                              textAlign: TextAlign.center,
-                            ),
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Vitals and Physical",
+                          style: TextStyle(
+                            fontSize: 15,
                           ),
+                          textAlign: TextAlign.center,
                         ),
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Symptoms and History",
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                        Tab(
-                          child: Align(
-                            alignment: Alignment.center,
-                            child: Text(
-                              "Patient Narrative",
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
-                  ),
-                  body: TabBarView(
-                    children: [
-                      vitalsPhysicalTab,
-                      symptomsHistoryTab,
-                      narrativeTab,
-                    ],
-                  ),
-                  bottomNavigationBar: new Container(
-                      height: 105.0,
-                      color: color.withOpacity(0.2),
-                      padding: new EdgeInsets.only(top: 7.0),
-                      child: bottomButtons),
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "Labs",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "CXR",
+                          style: TextStyle(
+                            fontSize: 15,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
               ),
+              body: TabBarView(
+                //physics: NeverScrollableScrollPhysics(),
+                controller: tabController,
+                children: [
+                  narrativeTab,
+                  vitalsPhysicalTab,
+                  labTab,
+                  cxrTab,
+                ],
+              ),
+              bottomNavigationBar: new Container(
+                  height: 105.0,
+                  color: color.withOpacity(0.2),
+                  padding: new EdgeInsets.only(top: 7.0),
+                  child: bottomButtons),
+              //),
             );
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
@@ -989,7 +1323,7 @@ class _PatientCardState extends State<PatientCard> {
                 color: Colors.grey[300].withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                offset: Offset(0, 4), // changes position of shadow
               ),
             ],
           ),
@@ -1035,7 +1369,7 @@ class _PatientCardState extends State<PatientCard> {
                 color: Colors.grey[300].withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                offset: Offset(0, 4), // changes position of shadow
               ),
             ],
           ),
@@ -1075,7 +1409,7 @@ class _PatientCardState extends State<PatientCard> {
                 color: Colors.grey[300].withOpacity(0.5),
                 spreadRadius: 5,
                 blurRadius: 7,
-                offset: Offset(0, 3), // changes position of shadow
+                offset: Offset(0, 4), // changes position of shadow
               ),
             ],
           ),
