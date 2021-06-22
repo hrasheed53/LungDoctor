@@ -954,26 +954,20 @@ class _PatientCardState extends State<PatientCard>
             //---------NARRATIVE BOX--------------------------------------
             Widget narrativeBox = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
-              /*decoration: BoxDecoration(
+              decoration: BoxDecoration(
                 color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
-              ),*/
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  InkResponse(
-                    child: Text("Patient Narrative"),
-                    highlightColor: Colors.blue,
-                    highlightShape: BoxShape.rectangle,
-                    hoverColor: Colors.lime,
-                  ),
-                  /*Text(
+                  Text(
                     "Patient Narrative",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
-                  narrative,*/
+                  narrative,
                 ],
               ),
             );
