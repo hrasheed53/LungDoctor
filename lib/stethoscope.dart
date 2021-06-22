@@ -167,7 +167,9 @@ void _popupDialog(BuildContext context) {
                   }
                   new FutureBuilder(
                     future: spendPoints(200),
-                    builder: (BuildContext context, AsyncSnapshot<int> data) {},
+                    builder: (BuildContext context, AsyncSnapshot<int> data) {
+                      return;
+                    },
                   );
                   Navigator.of(context).pop();
                   Navigator.of(context).pop();

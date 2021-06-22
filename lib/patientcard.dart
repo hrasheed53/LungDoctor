@@ -10,7 +10,7 @@ import 'diagnoseButton.dart';
 import 'xrayResults.dart';
 import 'package:condition/condition.dart';
 import 'dart:math';
-import 'package:photo_view/photo_view.dart';
+// import 'package:photo_view/photo_view.dart';
 
 class PatientCard extends StatefulWidget {
   PatientCard({Key key, this.patientsLeft}) : super(key: key);
@@ -142,8 +142,6 @@ class _PatientCardState extends State<PatientCard>
     //widget that requires data from the API, which is slow.
     //(FutureBuilder required since pulling from the API is asynchronous)
     tabController = new TabController(vsync: this, length: 4);
-    bool seenLabsTab = false;
-    bool seenCXRTab = false;
     return Container(
       child: new FutureBuilder<PatientChart>(
         future: futureChart,
@@ -789,7 +787,7 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   ListTile(
-                     //leading: Text('4'),
+                      //leading: Text('4'),
                       title: Text("Platelets"),
                       subtitle: Text(plat + " K/uL")),
                   Divider(
@@ -956,20 +954,26 @@ class _PatientCardState extends State<PatientCard>
             //---------NARRATIVE BOX--------------------------------------
             Widget narrativeBox = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
-              decoration: BoxDecoration(
+              /*decoration: BoxDecoration(
                 color: Colors.red[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
-              ),
+              ),*/
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(
+                  InkResponse(
+                    child: Text("Patient Narrative"),
+                    highlightColor: Colors.blue,
+                    highlightShape: BoxShape.rectangle,
+                    hoverColor: Colors.lime,
+                  ),
+                  /*Text(
                     "Patient Narrative",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
-                  narrative,
+                  narrative,*/
                 ],
               ),
             );
@@ -1174,7 +1178,7 @@ class _PatientCardState extends State<PatientCard>
                 ),
               ),
               body: TabBarView(
-                //physics: NeverScrollableScrollPhysics(),
+                physics: NeverScrollableScrollPhysics(),
                 controller: tabController,
                 children: [
                   narrativeTab,

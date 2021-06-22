@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'signIn.dart';
-import 'main.dart';
 import 'package:RESP2/userData.dart';
 
 List<LeaderboardEntry> leaderboardList = [];
