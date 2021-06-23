@@ -25,6 +25,9 @@ class PatientCard extends StatefulWidget {
 
 String baseURL = 'https://diagnostic-gamification-api.herokuapp.com/v1/cases/';
 
+//list of values user highlighted
+List<String> summary = List<String>.filled(0, '', growable: true);
+
 //REPLACE BOOLS BELOW WITH LOGIC
 //some patients have no provocating factors listed:
 bool provocatingFactors = true;
@@ -39,6 +42,14 @@ bool history3 = true;
 class _PatientCardState extends State<PatientCard>
     with TickerProviderStateMixin {
   Future<PatientChart> futureChart;
+  
+  //highlighting bools vitals
+  bool pressedTemp = false;
+  bool pressedBP = false;
+  bool pressedHR = false;
+  bool pressedRR = false;
+  bool pressedOS = false;
+  bool pressedO = false;
 
   TabController tabController;
   bool seenLabsTab = false;
@@ -542,30 +553,81 @@ class _PatientCardState extends State<PatientCard>
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
+                          // Text(
+                          //   snapshot.data.heartRate.toString() + '\u2103',
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //     fontSize: 25,
+                          //   ),
+                          // ),
+                          TextButton(
+                              child: new Text(
+                                snapshot.data.temperature.toString() + '\u2103',
+                                style: pressedTemp
+                                    ? TextStyle(
+                                        color: Colors.black,
+                                        backgroundColor: Colors.yellow,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold)
+                                    : TextStyle(
+                                        fontSize: 25.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
+                                setState(
+                                  () => pressedTemp = !pressedTemp,
+                                );
+                                if (!pressedTemp) {
+                                  summary.remove(
+                                      snapshot.data.temperature.toString() +
+                                          '\u2103');
+                                } else {
+                                  summary.add(
+                                      snapshot.data.temperature.toString() +
+                                          '\u2103');
+                                }
+                              }),
+                          //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
-                            snapshot.data.heartRate.toString() + '\u2103',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
-                            ),
-                          ),
-                          Padding(padding: EdgeInsets.only(top: 4.0)),
-                          Text(
-                            '(Temperature)',
+                            '(Temperature) TEST summary.length=' + summary.length.toString(),
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 9.0)),
-                          Text(
-                            snapshot.data.respiratoryRate.toString() + ' mm Hg',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                          TextButton(
+                            child: new Text(
+                              snapshot.data.bloodPressure.toString() +
+                                  ' mm Hg',
+                              style: pressedBP
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                             ),
+                            onPressed: () {
+                                setState(
+                                  () => pressedBP = !pressedBP,
+                                );
+                                if (!pressedBP) {
+                                  summary.remove(
+                                      snapshot.data.bloodPressure.toString() +
+                                  ' mm Hg');
+                                } else {
+                                  summary.add(
+                                      snapshot.data.bloodPressure.toString() +
+                                  ' mm Hg');
+                                }
+                              }
                           ),
-                          Padding(padding: EdgeInsets.only(top: 4.0)),
+                          //Padding(padding: EdgeInsets.only(top: 9.0)),
+                          //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
                             '(Blood Pressure)',
                             style: TextStyle(
@@ -573,15 +635,33 @@ class _PatientCardState extends State<PatientCard>
                               fontSize: 15,
                             ),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 9.0)),
-                          Text(
-                            snapshot.data.temperature.toString() + ' Beats/Min',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                          TextButton(
+                            child: new Text(
+                              snapshot.data.heartRate.toString() + ' Beats/Min',
+                              style: pressedHR
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                             ),
+                            onPressed: () {
+                                setState(
+                                  () => pressedHR = !pressedHR,
+                                );
+                                if (!pressedHR) {
+                                  summary.remove(
+                                      snapshot.data.heartRate.toString() + ' Beats/Min');
+                                } else {
+                                  summary.add(
+                                      snapshot.data.heartRate.toString() + ' Beats/Min');
+                                }
+                              }
                           ),
-                          Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
                             '(Heart Rate)',
                             style: TextStyle(
@@ -589,15 +669,33 @@ class _PatientCardState extends State<PatientCard>
                               fontSize: 15,
                             ),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 9.0)),
-                          Text(
-                            snapshot.data.bloodPressure + ' Breaths/Min',
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                          TextButton(
+                            child: new Text(
+                              snapshot.data.respiratoryRate.toString() + ' Breaths/Min',
+                              style: pressedRR
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                             ),
+                            onPressed: () {
+                                setState(
+                                  () => pressedRR = !pressedRR,
+                                );
+                                if (!pressedRR) {
+                                  summary.remove(
+                                      snapshot.data.respiratoryRate.toString() + ' Breaths/Min');
+                                } else {
+                                  summary.add(
+                                      snapshot.data.respiratoryRate.toString() + ' Breaths/Min');
+                                }
+                              }
                           ),
-                          Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
                             '(Respiratory Rate)',
                             style: TextStyle(
@@ -605,15 +703,33 @@ class _PatientCardState extends State<PatientCard>
                               fontSize: 15,
                             ),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 9.0)),
-                          Text(
-                            snapshot.data.oxygenSat,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                          TextButton(
+                            child: new Text(
+                              snapshot.data.oxygenSat,
+                              style: pressedOS
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                             ),
+                            onPressed: () {
+                                setState(
+                                  () => pressedOS = !pressedOS,
+                                );
+                                if (!pressedOS) {
+                                  summary.remove(
+                                      snapshot.data.oxygenSat.toString() + ' (O\u2082 Saturation)');
+                                } else {
+                                  summary.add(
+                                      snapshot.data.oxygenSat.toString() + ' (O\u2082 Saturation)');
+                                }
+                              }
                           ),
-                          Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
                             '(O\u2082 Saturation)',
                             style: TextStyle(
@@ -621,15 +737,33 @@ class _PatientCardState extends State<PatientCard>
                               fontSize: 15,
                             ),
                           ),
-                          Padding(padding: EdgeInsets.only(top: 09.0)),
-                          Text(
-                            snapshot.data.oxygenAmount,
-                            style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 25,
+                          TextButton(
+                            child: new Text(
+                              snapshot.data.oxygenAmount,
+                              style: pressedO
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 25.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 25.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
                             ),
+                            onPressed: () {
+                                setState(
+                                  () => pressedO = !pressedO,
+                                );
+                                if (!pressedO) {
+                                  summary.remove(
+                                      snapshot.data.oxygenAmount.toString() + ' (O\u2082 Received)');
+                                } else {
+                                  summary.add(
+                                      snapshot.data.oxygenAmount.toString() + ' (O\u2082 Received)');
+                                }
+                              }
                           ),
-                          Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
                             '(O\u2082 Received)',
                             style: TextStyle(
@@ -644,6 +778,7 @@ class _PatientCardState extends State<PatientCard>
                 ),
               ],
             );
+
 
             //             title and vitals widgets
             //-------------------------------------------------------
