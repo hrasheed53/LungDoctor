@@ -148,6 +148,7 @@ class _PatientCardState extends State<PatientCard>
     randomCase = random.nextInt(19);
     url = baseURL + availableCaseIDs[randomCase].toString();
     print(url);
+    summary.clear();
     //pull Future item containing case data:
     futureChart = getPatientChart(url);
   }
@@ -578,6 +579,13 @@ class _PatientCardState extends State<PatientCard>
                           //     fontSize: 25,
                           //   ),
                           // ),
+                          Text(
+                            '(Temperature)',
+                            style: TextStyle(
+                              //fontWeight: FontWeight.bold,
+                              fontSize: 15,
+                            ),
+                          ),
                           TextButton(
                               child: new Text(
                                 snapshot.data.temperature.toString() + '\u2103',
@@ -598,17 +606,17 @@ class _PatientCardState extends State<PatientCard>
                                 );
                                 if (!pressedTemp) {
                                   summary.remove(
-                                      snapshot.data.temperature.toString() +
+                                      "(Temperature): " + snapshot.data.temperature.toString() +
                                           '\u2103');
                                 } else {
                                   summary.add(
-                                      snapshot.data.temperature.toString() +
+                                      "(Temperature): " + snapshot.data.temperature.toString() +
                                           '\u2103');
                                 }
                               }),
                           //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
-                            '(Temperature)',
+                            '(Blood Pressure)',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -635,18 +643,18 @@ class _PatientCardState extends State<PatientCard>
                                 );
                                 if (!pressedBP) {
                                   summary.remove(
-                                      snapshot.data.bloodPressure.toString() +
+                                      "(Blood Pressure): " + snapshot.data.bloodPressure.toString() +
                                           ' mm Hg');
                                 } else {
                                   summary.add(
-                                      snapshot.data.bloodPressure.toString() +
+                                      "(Blood Pressure): " + snapshot.data.bloodPressure.toString() +
                                           ' mm Hg');
                                 }
                               }),
                           //Padding(padding: EdgeInsets.only(top: 9.0)),
                           //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
-                            '(Blood Pressure)',
+                            '(Heart Rate)',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -673,16 +681,16 @@ class _PatientCardState extends State<PatientCard>
                                 );
                                 if (!pressedHR) {
                                   summary.remove(
-                                      snapshot.data.heartRate.toString() +
+                                      "(Heart Rate): " + snapshot.data.heartRate.toString() +
                                           ' Beats/Min');
                                 } else {
                                   summary.add(
-                                      snapshot.data.heartRate.toString() +
+                                      "(Heart Rate): " + snapshot.data.heartRate.toString() +
                                           ' Beats/Min');
                                 }
                               }),
                           Text(
-                            '(Heart Rate)',
+                            '(Respiratory Rate)',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -709,16 +717,16 @@ class _PatientCardState extends State<PatientCard>
                                 );
                                 if (!pressedRR) {
                                   summary.remove(
-                                      snapshot.data.respiratoryRate.toString() +
+                                      "(Respiratory Rate): " + snapshot.data.respiratoryRate.toString() +
                                           ' Breaths/Min');
                                 } else {
                                   summary.add(
-                                      snapshot.data.respiratoryRate.toString() +
+                                      "(Respiratory Rate): " + snapshot.data.respiratoryRate.toString() +
                                           ' Breaths/Min');
                                 }
                               }),
                           Text(
-                            '(Respiratory Rate)',
+                            '(O\u2082 Saturation)',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -753,7 +761,7 @@ class _PatientCardState extends State<PatientCard>
                                 }
                               }),
                           Text(
-                            '(O\u2082 Saturation)',
+                            '(O\u2082 Received)',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -787,13 +795,7 @@ class _PatientCardState extends State<PatientCard>
                                           ' (O\u2082 Received)');
                                 }
                               }),
-                          Text(
-                            '(O\u2082 Received)',
-                            style: TextStyle(
-                              //fontWeight: FontWeight.bold,
-                              fontSize: 15,
-                            ),
-                          ),
+                          
                         ],
                       ),
                     ],
@@ -965,14 +967,12 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedhemo = !pressedhemo,
                               );
                               if (!pressedhemo) {
-                                summary.remove(
-                                    "Hemoglobin - " + hemo + " g/dL");
+                                summary
+                                    .remove("Hemoglobin - " + hemo + " g/dL");
                               } else {
-                                summary.add(
-                                    "Hemoglobin - " + hemo + " g/dL");
+                                summary.add("Hemoglobin - " + hemo + " g/dL");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: g/dL")),
                   ListTile(
@@ -998,14 +998,11 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedhema = !pressedhema,
                               );
                               if (!pressedhema) {
-                                summary.remove(
-                                    "Hematocrit - " + hema + "%");
+                                summary.remove("Hematocrit - " + hema + "%");
                               } else {
-                                summary.add(
-                                    "Hematocrit - " + hema + "%");
+                                summary.add("Hematocrit - " + hema + "%");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: ")),
                   ListTile(
@@ -1031,14 +1028,11 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedplat = !pressedplat,
                               );
                               if (!pressedplat) {
-                                summary.remove(
-                                    "Platelets - " + plat + " K/uL");
+                                summary.remove("Platelets - " + plat + " K/uL");
                               } else {
-                                summary.add(
-                                    "Platelets - " + plat + " K/uL");
+                                summary.add("Platelets - " + plat + " K/uL");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: K/uL")),
                   ListTile(
@@ -1064,14 +1058,11 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedNa = !pressedNa,
                               );
                               if (!pressedNa) {
-                                summary.remove(
-                                    "Sodium - " + na + " mmol/L");
+                                summary.remove("Sodium - " + na + " mmol/L");
                               } else {
-                                summary.add(
-                                    "Sodium - " + na + " mmol/L");
+                                summary.add("Sodium - " + na + " mmol/L");
                               }
                             }),
-                       
                       ]),
                       subtitle: Text("Normal Ranges: mmol/L")),
                   ListTile(
@@ -1097,14 +1088,11 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedK = !pressedK,
                               );
                               if (!pressedK) {
-                                summary.remove(
-                                    "Potassium - " + k + " mmo/L");
+                                summary.remove("Potassium - " + k + " mmo/L");
                               } else {
-                                summary.add(
-                                    "Potassium - " + k + " mmo/L");
+                                summary.add("Potassium - " + k + " mmo/L");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: mmo/L")),
                   ListTile(
@@ -1130,14 +1118,11 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedCl = !pressedCl,
                               );
                               if (!pressedCl) {
-                                summary.remove(
-                                    "Chloride - " + cl + " mmo/L");
+                                summary.remove("Chloride - " + cl + " mmo/L");
                               } else {
-                                summary.add(
-                                    "Chloride - " + cl + " mmo/L");
+                                summary.add("Chloride - " + cl + " mmo/L");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: mmo/L")),
                   ListTile(
@@ -1163,14 +1148,11 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedBi = !pressedBi,
                               );
                               if (!pressedBi) {
-                                summary.remove(
-                                    "Bicarbonate - " + c + " mmo/L");
+                                summary.remove("Bicarbonate - " + c + " mmo/L");
                               } else {
-                                summary.add(
-                                    "Bicarbonate - " + c + " mmo/L");
+                                summary.add("Bicarbonate - " + c + " mmo/L");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: mmo/L")),
                   ListTile(
@@ -1196,14 +1178,15 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedBun = !pressedBun,
                               );
                               if (!pressedBun) {
-                                summary.remove(
-                                    "BUN (blood urea nitrogen) - " + bun + " mg/dL");
+                                summary.remove("BUN (blood urea nitrogen) - " +
+                                    bun +
+                                    " mg/dL");
                               } else {
-                                summary.add(
-                                    "BUN (blood urea nitrogen) - " + bun + " mg/dL");
+                                summary.add("BUN (blood urea nitrogen) - " +
+                                    bun +
+                                    " mg/dL");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: mg/dL")),
                   ListTile(
@@ -1229,14 +1212,12 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedCrea = !pressedCrea,
                               );
                               if (!pressedCrea) {
-                                summary.remove(
-                                    "Creatinine - " + creat + " mg/dL");
+                                summary
+                                    .remove("Creatinine - " + creat + " mg/dL");
                               } else {
-                                summary.add(
-                                    "Creatinine - " + creat + " mg/dL");
+                                summary.add("Creatinine - " + creat + " mg/dL");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: mg/dL")),
                   ListTile(
@@ -1262,14 +1243,12 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedGluc = !pressedGluc,
                               );
                               if (!pressedGluc) {
-                                summary.remove(
-                                    "Glucose - " + glucose + " mg/dL");
+                                summary
+                                    .remove("Glucose - " + glucose + " mg/dL");
                               } else {
-                                summary.add(
-                                    "Glucose - " + glucose + " mg/dL");
+                                summary.add("Glucose - " + glucose + " mg/dL");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: mg/dL")),
                   ListTile(
@@ -1295,14 +1274,11 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedBNP = !pressedBNP,
                               );
                               if (!pressedBNP) {
-                                summary.remove(
-                                    "BNP - " + bnp + " mg/dL");
+                                summary.remove("BNP - " + bnp + " mg/dL");
                               } else {
-                                summary.add(
-                                    "BNP - " + bnp + " mg/dL");
+                                summary.add("BNP - " + bnp + " mg/dL");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: mg/dL")),
                   ListTile(
@@ -1328,14 +1304,15 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedABG = !pressedABG,
                               );
                               if (!pressedABG) {
-                                summary.remove(
-                                    "ABG (arterial blood gas) - " + "pH " + abgph);
+                                summary.remove("ABG (arterial blood gas) - " +
+                                    "pH " +
+                                    abgph);
                               } else {
-                                summary.add(
-                                    "ABG (arterial blood gas) - " + "pH " + abgph);
+                                summary.add("ABG (arterial blood gas) - " +
+                                    "pH " +
+                                    abgph);
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges:")),
                   ListTile(
@@ -1368,7 +1345,6 @@ class _PatientCardState extends State<PatientCard>
                                     "ABG - pCO\u2082 - " + abgpo2 + " mm Hg");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: ")),
                   ListTile(
@@ -1401,7 +1377,6 @@ class _PatientCardState extends State<PatientCard>
                                     "ABG - pO\u2082 - " + abgpo + " mm Hg");
                               }
                             }),
-                       
                       ]),
                       subtitle: Text("Normal Ranges")),
                   ListTile(
@@ -1427,14 +1402,12 @@ class _PatientCardState extends State<PatientCard>
                                 () => pressedlac = !pressedlac,
                               );
                               if (!pressedlac) {
-                                summary.remove(
-                                    "Lactate - " + lactate + " mmol/L");
+                                summary
+                                    .remove("Lactate - " + lactate + " mmol/L");
                               } else {
-                                summary.add(
-                                    "Lactate - " + lactate + " mmol/L");
+                                summary.add("Lactate - " + lactate + " mmol/L");
                               }
                             }),
-                        
                       ]),
                       subtitle: Text("Normal Ranges: ")),
                 ],
