@@ -608,8 +608,7 @@ class _PatientCardState extends State<PatientCard>
                               }),
                           //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
-                            '(Temperature) TEST summary.length=' +
-                                summary.length.toString(),
+                            '(Temperature)',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -837,7 +836,7 @@ class _PatientCardState extends State<PatientCard>
                   "Patient is " + snapshot.data.examGeneral,
                   style: TextStyle(
                       //fontWeight: FontWeight.bold,
-                      fontSize: 18),
+                      fontSize: 15),
                   textAlign: TextAlign.center,
                 ));
 
