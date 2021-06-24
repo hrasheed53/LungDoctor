@@ -42,7 +42,7 @@ bool history3 = true;
 class _PatientCardState extends State<PatientCard>
     with TickerProviderStateMixin {
   Future<PatientChart> futureChart;
-  
+
   //highlighting bools vitals
   bool pressedTemp = false;
   bool pressedBP = false;
@@ -50,6 +50,24 @@ class _PatientCardState extends State<PatientCard>
   bool pressedRR = false;
   bool pressedOS = false;
   bool pressedO = false;
+
+  //labtab
+  bool pressedwbc = false;
+  bool pressedhemo = false;
+  bool pressedhema = false;
+  bool pressedplat = false;
+  bool pressedNa = false;
+  bool pressedK = false;
+  bool pressedCl = false;
+  bool pressedBi = false;
+  bool pressedBun = false;
+  bool pressedCrea = false;
+  bool pressedGluc = false;
+  bool pressedBNP = false;
+  bool pressedABG = false;
+  bool pressedPCO = false;
+  bool pressedPO = false;
+  bool pressedlac = false;
 
   TabController tabController;
   bool seenLabsTab = false;
@@ -590,42 +608,42 @@ class _PatientCardState extends State<PatientCard>
                               }),
                           //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
-                            '(Temperature) TEST summary.length=' + summary.length.toString(),
+                            '(Temperature) TEST summary.length=' +
+                                summary.length.toString(),
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
                           ),
                           TextButton(
-                            child: new Text(
-                              snapshot.data.bloodPressure.toString() +
-                                  ' mm Hg',
-                              style: pressedBP
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 25.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
+                              child: new Text(
+                                snapshot.data.bloodPressure.toString() +
+                                    ' mm Hg',
+                                style: pressedBP
+                                    ? TextStyle(
+                                        color: Colors.black,
+                                        backgroundColor: Colors.yellow,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold)
+                                    : TextStyle(
+                                        fontSize: 25.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
                                 setState(
                                   () => pressedBP = !pressedBP,
                                 );
                                 if (!pressedBP) {
                                   summary.remove(
                                       snapshot.data.bloodPressure.toString() +
-                                  ' mm Hg');
+                                          ' mm Hg');
                                 } else {
                                   summary.add(
                                       snapshot.data.bloodPressure.toString() +
-                                  ' mm Hg');
+                                          ' mm Hg');
                                 }
-                              }
-                          ),
+                              }),
                           //Padding(padding: EdgeInsets.only(top: 9.0)),
                           //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
@@ -636,32 +654,34 @@ class _PatientCardState extends State<PatientCard>
                             ),
                           ),
                           TextButton(
-                            child: new Text(
-                              snapshot.data.heartRate.toString() + ' Beats/Min',
-                              style: pressedHR
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 25.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
+                              child: new Text(
+                                snapshot.data.heartRate.toString() +
+                                    ' Beats/Min',
+                                style: pressedHR
+                                    ? TextStyle(
+                                        color: Colors.black,
+                                        backgroundColor: Colors.yellow,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold)
+                                    : TextStyle(
+                                        fontSize: 25.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
                                 setState(
                                   () => pressedHR = !pressedHR,
                                 );
                                 if (!pressedHR) {
                                   summary.remove(
-                                      snapshot.data.heartRate.toString() + ' Beats/Min');
+                                      snapshot.data.heartRate.toString() +
+                                          ' Beats/Min');
                                 } else {
                                   summary.add(
-                                      snapshot.data.heartRate.toString() + ' Beats/Min');
+                                      snapshot.data.heartRate.toString() +
+                                          ' Beats/Min');
                                 }
-                              }
-                          ),
+                              }),
                           Text(
                             '(Heart Rate)',
                             style: TextStyle(
@@ -670,32 +690,34 @@ class _PatientCardState extends State<PatientCard>
                             ),
                           ),
                           TextButton(
-                            child: new Text(
-                              snapshot.data.respiratoryRate.toString() + ' Breaths/Min',
-                              style: pressedRR
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 25.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
+                              child: new Text(
+                                snapshot.data.respiratoryRate.toString() +
+                                    ' Breaths/Min',
+                                style: pressedRR
+                                    ? TextStyle(
+                                        color: Colors.black,
+                                        backgroundColor: Colors.yellow,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold)
+                                    : TextStyle(
+                                        fontSize: 25.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
                                 setState(
                                   () => pressedRR = !pressedRR,
                                 );
                                 if (!pressedRR) {
                                   summary.remove(
-                                      snapshot.data.respiratoryRate.toString() + ' Breaths/Min');
+                                      snapshot.data.respiratoryRate.toString() +
+                                          ' Breaths/Min');
                                 } else {
                                   summary.add(
-                                      snapshot.data.respiratoryRate.toString() + ' Breaths/Min');
+                                      snapshot.data.respiratoryRate.toString() +
+                                          ' Breaths/Min');
                                 }
-                              }
-                          ),
+                              }),
                           Text(
                             '(Respiratory Rate)',
                             style: TextStyle(
@@ -704,32 +726,33 @@ class _PatientCardState extends State<PatientCard>
                             ),
                           ),
                           TextButton(
-                            child: new Text(
-                              snapshot.data.oxygenSat,
-                              style: pressedOS
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 25.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
+                              child: new Text(
+                                snapshot.data.oxygenSat,
+                                style: pressedOS
+                                    ? TextStyle(
+                                        color: Colors.black,
+                                        backgroundColor: Colors.yellow,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold)
+                                    : TextStyle(
+                                        fontSize: 25.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
                                 setState(
                                   () => pressedOS = !pressedOS,
                                 );
                                 if (!pressedOS) {
                                   summary.remove(
-                                      snapshot.data.oxygenSat.toString() + ' (O\u2082 Saturation)');
+                                      snapshot.data.oxygenSat.toString() +
+                                          ' (O\u2082 Saturation)');
                                 } else {
                                   summary.add(
-                                      snapshot.data.oxygenSat.toString() + ' (O\u2082 Saturation)');
+                                      snapshot.data.oxygenSat.toString() +
+                                          ' (O\u2082 Saturation)');
                                 }
-                              }
-                          ),
+                              }),
                           Text(
                             '(O\u2082 Saturation)',
                             style: TextStyle(
@@ -738,32 +761,33 @@ class _PatientCardState extends State<PatientCard>
                             ),
                           ),
                           TextButton(
-                            child: new Text(
-                              snapshot.data.oxygenAmount,
-                              style: pressedO
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 25.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 25.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
+                              child: new Text(
+                                snapshot.data.oxygenAmount,
+                                style: pressedO
+                                    ? TextStyle(
+                                        color: Colors.black,
+                                        backgroundColor: Colors.yellow,
+                                        fontSize: 25.0,
+                                        fontWeight: FontWeight.bold)
+                                    : TextStyle(
+                                        fontSize: 25.0,
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.bold),
+                              ),
+                              onPressed: () {
                                 setState(
                                   () => pressedO = !pressedO,
                                 );
                                 if (!pressedO) {
                                   summary.remove(
-                                      snapshot.data.oxygenAmount.toString() + ' (O\u2082 Received)');
+                                      snapshot.data.oxygenAmount.toString() +
+                                          ' (O\u2082 Received)');
                                 } else {
                                   summary.add(
-                                      snapshot.data.oxygenAmount.toString() + ' (O\u2082 Received)');
+                                      snapshot.data.oxygenAmount.toString() +
+                                          ' (O\u2082 Received)');
                                 }
-                              }
-                          ),
+                              }),
                           Text(
                             '(O\u2082 Received)',
                             style: TextStyle(
@@ -778,7 +802,6 @@ class _PatientCardState extends State<PatientCard>
                 ),
               ],
             );
-
 
             //             title and vitals widgets
             //-------------------------------------------------------
@@ -890,115 +913,530 @@ class _PatientCardState extends State<PatientCard>
                 children: [
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("White blood cells - "),
-                        Text(wbc + " K/uL", style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextButton(
+                            child: new Text(
+                              wbc + " K/uL",
+                              style: pressedwbc
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedwbc = !pressedwbc,
+                              );
+                              if (!pressedwbc) {
+                                summary.remove(
+                                    "White blood cells - " + wbc + " K/uL");
+                              } else {
+                                summary.add(
+                                    "White blood cells - " + wbc + " K/uL");
+                              }
+                            }),
                       ]),
                       subtitle: Text("Normal Ranges: K/uL")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Hemoglobin - "),
-                        Text(hemo + " g/dL", style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextButton(
+                            child: new Text(
+                              hemo + " g/dL",
+                              style: pressedhemo
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedhemo = !pressedhemo,
+                              );
+                              if (!pressedhemo) {
+                                summary.remove(
+                                    "Hemoglobin - " + hemo + " g/dL");
+                              } else {
+                                summary.add(
+                                    "Hemoglobin - " + hemo + " g/dL");
+                              }
+                            }),
+                        
                       ]),
                       subtitle: Text("Normal Ranges: g/dL")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Hematocrit - "),
-                        Text(hema + "%", style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextButton(
+                            child: new Text(
+                              hema + "%",
+                              style: pressedhema
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedhema = !pressedhema,
+                              );
+                              if (!pressedhema) {
+                                summary.remove(
+                                    "Hematocrit - " + hema + "%");
+                              } else {
+                                summary.add(
+                                    "Hematocrit - " + hema + "%");
+                              }
+                            }),
+                        
                       ]),
                       subtitle: Text("Normal Ranges: ")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Platelets - "),
-                        Text(plat + " K/uL", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                        TextButton(
+                            child: new Text(
+                              plat + " K/uL",
+                              style: pressedplat
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedplat = !pressedplat,
+                              );
+                              if (!pressedplat) {
+                                summary.remove(
+                                    "Platelets - " + plat + " K/uL");
+                              } else {
+                                summary.add(
+                                    "Platelets - " + plat + " K/uL");
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges: K/uL")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Sodium - "),
-                        Text(na + " mmol/L", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),  
+                        TextButton(
+                            child: new Text(
+                              na + " mmol/L",
+                              style: pressedNa
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedNa = !pressedNa,
+                              );
+                              if (!pressedNa) {
+                                summary.remove(
+                                    "Sodium - " + na + " mmol/L");
+                              } else {
+                                summary.add(
+                                    "Sodium - " + na + " mmol/L");
+                              }
+                            }),
+                       
+                      ]),
                       subtitle: Text("Normal Ranges: mmol/L")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Potassium - "),
-                        Text(k + " mmo/L", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]), 
+                        TextButton(
+                            child: new Text(
+                              k + " mmo/L",
+                              style: pressedK
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedK = !pressedK,
+                              );
+                              if (!pressedK) {
+                                summary.remove(
+                                    "Potassium - " + k + " mmo/L");
+                              } else {
+                                summary.add(
+                                    "Potassium - " + k + " mmo/L");
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges: mmo/L")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Chloride - "),
-                        Text(cl + " mmo/L", style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextButton(
+                            child: new Text(
+                              cl + " mmo/L",
+                              style: pressedCl
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedCl = !pressedCl,
+                              );
+                              if (!pressedCl) {
+                                summary.remove(
+                                    "Chloride - " + cl + " mmo/L");
+                              } else {
+                                summary.add(
+                                    "Chloride - " + cl + " mmo/L");
+                              }
+                            }),
+                        
                       ]),
                       subtitle: Text("Normal Ranges: mmo/L")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Bicarbonate - "),
-                        Text(c + " mmo/L", style: TextStyle(fontWeight: FontWeight.bold)),
+                        TextButton(
+                            child: new Text(
+                              c + " mmo/L",
+                              style: pressedBi
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedBi = !pressedBi,
+                              );
+                              if (!pressedBi) {
+                                summary.remove(
+                                    "Bicarbonate - " + c + " mmo/L");
+                              } else {
+                                summary.add(
+                                    "Bicarbonate - " + c + " mmo/L");
+                              }
+                            }),
+                        
                       ]),
                       subtitle: Text("Normal Ranges: mmo/L")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
-                        Text("BUN (blood urea nitrogen) - "),
-                        Text(bun + " mg/dL", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                      title: Row(children: <Widget>[
+                        Text("BUN (blood urea nitrogen) -"),
+                        TextButton(
+                            child: new Text(
+                              bun + " mg/dL",
+                              style: pressedBun
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedBun = !pressedBun,
+                              );
+                              if (!pressedBun) {
+                                summary.remove(
+                                    "BUN (blood urea nitrogen) - " + bun + " mg/dL");
+                              } else {
+                                summary.add(
+                                    "BUN (blood urea nitrogen) - " + bun + " mg/dL");
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges: mg/dL")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Creatinine - "),
-                        Text(creat + " mg/dL", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                        TextButton(
+                            child: new Text(
+                              creat + " mg/dL",
+                              style: pressedCrea
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedCrea = !pressedCrea,
+                              );
+                              if (!pressedCrea) {
+                                summary.remove(
+                                    "Creatinine - " + creat + " mg/dL");
+                              } else {
+                                summary.add(
+                                    "Creatinine - " + creat + " mg/dL");
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges: mg/dL")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Glucose - "),
-                        Text(glucose + " mg/dL", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                        TextButton(
+                            child: new Text(
+                              glucose + " mg/dL",
+                              style: pressedGluc
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedGluc = !pressedGluc,
+                              );
+                              if (!pressedGluc) {
+                                summary.remove(
+                                    "Glucose - " + glucose + " mg/dL");
+                              } else {
+                                summary.add(
+                                    "Glucose - " + glucose + " mg/dL");
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges: mg/dL")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("BNP - "),
-                        Text(bnp + " mg/dL", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                        TextButton(
+                            child: new Text(
+                              bnp + " mg/dL",
+                              style: pressedBNP
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedBNP = !pressedBNP,
+                              );
+                              if (!pressedBNP) {
+                                summary.remove(
+                                    "BNP - " + bnp + " mg/dL");
+                              } else {
+                                summary.add(
+                                    "BNP - " + bnp + " mg/dL");
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges: mg/dL")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("ABG (arterial blood gas) - "),
-                        Text("pH " + abgph, style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                        TextButton(
+                            child: new Text(
+                              "pH " + abgph,
+                              style: pressedABG
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedABG = !pressedABG,
+                              );
+                              if (!pressedABG) {
+                                summary.remove(
+                                    "ABG (arterial blood gas) - " + "pH " + abgph);
+                              } else {
+                                summary.add(
+                                    "ABG (arterial blood gas) - " + "pH " + abgph);
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges:")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("ABG - pCO\u2082 - "),
-                        Text(abgpo2 + " mm Hg", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                        TextButton(
+                            child: new Text(
+                              abgpo2 + " mm Hg",
+                              style: pressedPCO
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedPCO = !pressedPCO,
+                              );
+                              if (!pressedPCO) {
+                                summary.remove(
+                                    "ABG - pCO\u2082 - " + abgpo2 + " mm Hg");
+                              } else {
+                                summary.add(
+                                    "ABG - pCO\u2082 - " + abgpo2 + " mm Hg");
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges: ")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("ABG - pO\u2082 - "),
-                        Text(abgpo + " mm Hg", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                        TextButton(
+                            child: new Text(
+                              abgpo + " mm Hg",
+                              style: pressedPO
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedPO = !pressedPO,
+                              );
+                              if (!pressedPO) {
+                                summary.remove(
+                                    "ABG - pO\u2082 - " + abgpo + " mm Hg");
+                              } else {
+                                summary.add(
+                                    "ABG - pO\u2082 - " + abgpo + " mm Hg");
+                              }
+                            }),
+                       
+                      ]),
                       subtitle: Text("Normal Ranges")),
                   ListTile(
                       leading: Text(''),
-                      title: Row(children: <Widget> [
+                      title: Row(children: <Widget>[
                         Text("Lactate - "),
-                        Text(lactate + " mmol/L", style: TextStyle(fontWeight: FontWeight.bold)),
-                      ]),                      
+                        TextButton(
+                            child: new Text(
+                              lactate + " mmol/L",
+                              style: pressedlac
+                                  ? TextStyle(
+                                      color: Colors.black,
+                                      backgroundColor: Colors.yellow,
+                                      fontSize: 17.0,
+                                      fontWeight: FontWeight.bold)
+                                  : TextStyle(
+                                      fontSize: 17.0,
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                            onPressed: () {
+                              setState(
+                                () => pressedlac = !pressedlac,
+                              );
+                              if (!pressedlac) {
+                                summary.remove(
+                                    "Lactate - " + lactate + " mmol/L");
+                              } else {
+                                summary.add(
+                                    "Lactate - " + lactate + " mmol/L");
+                              }
+                            }),
+                        
+                      ]),
                       subtitle: Text("Normal Ranges: ")),
                 ],
               ),
