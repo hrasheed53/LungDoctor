@@ -1642,7 +1642,7 @@ class _PatientCardState extends State<PatientCard>
                         child: Text(
                           "Patient Narrative",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -1654,7 +1654,7 @@ class _PatientCardState extends State<PatientCard>
                         child: Text(
                           "Vitals and Physical",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -1666,7 +1666,7 @@ class _PatientCardState extends State<PatientCard>
                         child: Text(
                           "Labs",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -1678,7 +1678,7 @@ class _PatientCardState extends State<PatientCard>
                         child: Text(
                           "CXR",
                           style: TextStyle(
-                            fontSize: 15,
+                            fontSize: 13,
                           ),
                           textAlign: TextAlign.center,
                         ),
