@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class Physical extends StatefulWidget {
   Physical({
     Key key,
+    this.patient,
     this.head,
     this.neck,
     this.heart,
@@ -12,6 +13,7 @@ class Physical extends StatefulWidget {
     this.skin,
   }) : super(key: key);
 
+  String patient;
   String head;
   String neck;
   String heart;
@@ -27,6 +29,7 @@ class Physical extends StatefulWidget {
 class _PhysicalState extends State<Physical> {
   @override
   Widget build(BuildContext context) {
+    String patient = widget.patient;
     String head = widget.head;
     if (widget.head == "") {
       widget.head = "No Info";
@@ -59,6 +62,16 @@ class _PhysicalState extends State<Physical> {
       ),
       body: ListView(
         children: [
+          ListTile(
+            title: Text(patient,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  //color: Colors.blue,
+                  //fontWeight: FontWeight.bold,
+                  fontSize: 20,
+                )),
+          ),
+          
           ListTile(
             title: Text("Head",
                 textAlign: TextAlign.center,

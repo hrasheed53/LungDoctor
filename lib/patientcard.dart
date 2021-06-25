@@ -105,6 +105,7 @@ class _PatientCardState extends State<PatientCard>
   String lactate;
 
   //for physical exam:
+  String patient;
   String head;
   String neck;
   String heart;
@@ -206,6 +207,7 @@ class _PatientCardState extends State<PatientCard>
             caseID = snapshot.data.caseID;
 
             //  physical exam
+            patient = "Patient is " + snapshot.data.examGeneral;
             head = snapshot.data.examHead;
             neck = snapshot.data.examNeck;
             if (neck == null) {
@@ -605,13 +607,13 @@ class _PatientCardState extends State<PatientCard>
                                   () => pressedTemp = !pressedTemp,
                                 );
                                 if (!pressedTemp) {
-                                  summary.remove(
-                                      "(Temperature): " + snapshot.data.temperature.toString() +
-                                          '\u2103');
+                                  summary.remove("(Temperature): " +
+                                      snapshot.data.temperature.toString() +
+                                      '\u2103');
                                 } else {
-                                  summary.add(
-                                      "(Temperature): " + snapshot.data.temperature.toString() +
-                                          '\u2103');
+                                  summary.add("(Temperature): " +
+                                      snapshot.data.temperature.toString() +
+                                      '\u2103');
                                 }
                               }),
                           //Padding(padding: EdgeInsets.only(top: 4.0)),
@@ -642,13 +644,13 @@ class _PatientCardState extends State<PatientCard>
                                   () => pressedBP = !pressedBP,
                                 );
                                 if (!pressedBP) {
-                                  summary.remove(
-                                      "(Blood Pressure): " + snapshot.data.bloodPressure.toString() +
-                                          ' mm Hg');
+                                  summary.remove("(Blood Pressure): " +
+                                      snapshot.data.bloodPressure.toString() +
+                                      ' mm Hg');
                                 } else {
-                                  summary.add(
-                                      "(Blood Pressure): " + snapshot.data.bloodPressure.toString() +
-                                          ' mm Hg');
+                                  summary.add("(Blood Pressure): " +
+                                      snapshot.data.bloodPressure.toString() +
+                                      ' mm Hg');
                                 }
                               }),
                           //Padding(padding: EdgeInsets.only(top: 9.0)),
@@ -680,13 +682,13 @@ class _PatientCardState extends State<PatientCard>
                                   () => pressedHR = !pressedHR,
                                 );
                                 if (!pressedHR) {
-                                  summary.remove(
-                                      "(Heart Rate): " + snapshot.data.heartRate.toString() +
-                                          ' Beats/Min');
+                                  summary.remove("(Heart Rate): " +
+                                      snapshot.data.heartRate.toString() +
+                                      ' Beats/Min');
                                 } else {
-                                  summary.add(
-                                      "(Heart Rate): " + snapshot.data.heartRate.toString() +
-                                          ' Beats/Min');
+                                  summary.add("(Heart Rate): " +
+                                      snapshot.data.heartRate.toString() +
+                                      ' Beats/Min');
                                 }
                               }),
                           Text(
@@ -716,13 +718,13 @@ class _PatientCardState extends State<PatientCard>
                                   () => pressedRR = !pressedRR,
                                 );
                                 if (!pressedRR) {
-                                  summary.remove(
-                                      "(Respiratory Rate): " + snapshot.data.respiratoryRate.toString() +
-                                          ' Breaths/Min');
+                                  summary.remove("(Respiratory Rate): " +
+                                      snapshot.data.respiratoryRate.toString() +
+                                      ' Breaths/Min');
                                 } else {
-                                  summary.add(
-                                      "(Respiratory Rate): " + snapshot.data.respiratoryRate.toString() +
-                                          ' Breaths/Min');
+                                  summary.add("(Respiratory Rate): " +
+                                      snapshot.data.respiratoryRate.toString() +
+                                      ' Breaths/Min');
                                 }
                               }),
                           Text(
@@ -795,7 +797,6 @@ class _PatientCardState extends State<PatientCard>
                                           ' (O\u2082 Received)');
                                 }
                               }),
-                          
                         ],
                       ),
                     ],
@@ -834,13 +835,14 @@ class _PatientCardState extends State<PatientCard>
             //--------------------------------------------------------------
             Widget physical = Container(
                 padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
-                child: Text(
-                  "Patient is " + snapshot.data.examGeneral,
-                  style: TextStyle(
-                      //fontWeight: FontWeight.bold,
-                      fontSize: 15),
-                  textAlign: TextAlign.center,
-                ));
+                // child: Text(
+                //   "Patient is " + snapshot.data.examGeneral,
+                //   style: TextStyle(
+                //       //fontWeight: FontWeight.bold,
+                //       fontSize: 15),
+                //   textAlign: TextAlign.center,
+                // )
+                );
 
             //        button to "conduct" physical exam
             //------------------------------------------------------
@@ -1930,6 +1932,7 @@ class _PatientCardState extends State<PatientCard>
         context,
         MaterialPageRoute(
             builder: (context) => Physical(
+                patient: patient,
                 head: head,
                 neck: neck,
                 heart: heart,
