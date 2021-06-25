@@ -1168,10 +1168,10 @@ class _PatientCardState extends State<PatientCard>
                                   ? TextStyle(
                                       color: Colors.black,
                                       backgroundColor: Colors.yellow,
-                                      fontSize: 16.0,
+                                      fontSize: 15.0,
                                       fontWeight: FontWeight.bold)
                                   : TextStyle(
-                                      fontSize: 16.0,
+                                      fontSize: 15.0,
                                       color: Colors.black,
                                       fontWeight: FontWeight.bold),
                             ),
