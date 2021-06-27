@@ -134,8 +134,8 @@ class _PatientCardState extends State<PatientCard>
     247
   ];
 
-  //initialize state and get (future) chart data
-  //  (this is called every time the app navs to this screen):
+  // initialize state and get (future) chart data
+  // (this is called every time the app navs to this screen):
   @override
   void initState() {
     super.initState();
@@ -212,7 +212,7 @@ class _PatientCardState extends State<PatientCard>
             ext = snapshot.data.examExtremeties;
             skin = snapshot.data.examSkin;
 
-            //BEGIN WIDGET CREATION:
+            // BEGIN WIDGET CREATION:
             //---------------SYMPTOM ONSET-----------------------------------------
             Widget onset = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -248,7 +248,7 @@ class _PatientCardState extends State<PatientCard>
                 child: Conditioned(
                   cases: [
                     Case(
-                      //no provocating factors listed:
+                      // no provocating factors listed:
                       _checkProvocating() == false,
                       builder: () => Container(
                         padding:
@@ -595,11 +595,9 @@ class _PatientCardState extends State<PatientCard>
                                       '\u2103');
                                 }
                               }),
-                          //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
                             '(Blood Pressure)',
                             style: TextStyle(
-                              //fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
                           ),
@@ -632,12 +630,9 @@ class _PatientCardState extends State<PatientCard>
                                       ' mm Hg');
                                 }
                               }),
-                          //Padding(padding: EdgeInsets.only(top: 9.0)),
-                          //Padding(padding: EdgeInsets.only(top: 4.0)),
                           Text(
                             '(Heart Rate)',
                             style: TextStyle(
-                              //fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
                           ),
@@ -673,7 +668,6 @@ class _PatientCardState extends State<PatientCard>
                           Text(
                             '(Respiratory Rate)',
                             style: TextStyle(
-                              //fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
                           ),
@@ -709,7 +703,6 @@ class _PatientCardState extends State<PatientCard>
                           Text(
                             '(O\u2082 Saturation)',
                             style: TextStyle(
-                              //fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
                           ),
@@ -742,7 +735,6 @@ class _PatientCardState extends State<PatientCard>
                           Text(
                             '(O\u2082 Received)',
                             style: TextStyle(
-                              //fontWeight: FontWeight.bold,
                               fontSize: 15,
                             ),
                           ),
@@ -780,7 +772,7 @@ class _PatientCardState extends State<PatientCard>
               ],
             );
 
-            //             title and vitals widgets
+            //             Title and Vitals Widgets
             //-------------------------------------------------------
             Widget vitalsList = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -806,7 +798,7 @@ class _PatientCardState extends State<PatientCard>
               ),
             );
 
-            //         general results from the physical
+            //         General Results from the Physical Examination
             //--------------------------------------------------------------
             Widget physical = Container(
               padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
@@ -819,7 +811,7 @@ class _PatientCardState extends State<PatientCard>
               // )
             );
 
-            //        button to "conduct" physical exam
+            //        Button to "Conduct" Physical Exam
             //------------------------------------------------------
             Widget conductPhysical = Container(
               child: Column(children: [
@@ -834,7 +826,7 @@ class _PatientCardState extends State<PatientCard>
               ]),
             );
 
-            //               box with physical exam button
+            //               Box with Physical Exam Button
             //-----------------------------------------------------------
             Widget physicalExam = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -863,28 +855,26 @@ class _PatientCardState extends State<PatientCard>
               ),
             );
 
-            //            vitals and physical exam TAB
+            //            Vitals and Physical Exam Tab
             //-----------------------------------------------------------
             Widget vitalsPhysicalTab = Container(
               margin: const EdgeInsets.only(left: 5.0, right: 5.0),
               padding: const EdgeInsets.all(12),
               child: ListView(
-                //WHOLE COLUMN FOR TAB
-                //mainAxisAlignment: MainAxisAlignment.start, //space between??
                 children: [
                   Row(
                     children: [Expanded(child: vitalsList)],
                   ),
-                  //onset,
+                  // onset,
                   Padding(padding: EdgeInsets.only(top: 12.0)),
                   Row(
                     children: [Expanded(child: physicalExam)],
                   ),
-                ], //BOXES OF TAB
+                ], // BOXES OF TAB
               ),
             );
 //=============================================================================
-//                       Labs tab
+//                       Labs Tab
 //=============================================================================
             Widget labTab = Container(
               child: ListView(
@@ -1492,7 +1482,7 @@ class _PatientCardState extends State<PatientCard>
                     children: [
                       GestureDetector(
                         onTap: () {
-                          //viewXrays(context);
+                          // viewXrays(context);
                           int pagenum = (tabController.index - 1) % 4;
                           if (pagenum == 3) {
                             pagenum = 0;
@@ -1560,7 +1550,7 @@ class _PatientCardState extends State<PatientCard>
                     children: [
                       GestureDetector(
                           onTap: () {
-                            //viewTestResults(context);
+                            // viewTestResults(context);
                             int pagenum = (tabController.index + 1) % 4;
                             if (pagenum == 0) {
                               pagenum = 3;
@@ -1582,11 +1572,7 @@ class _PatientCardState extends State<PatientCard>
             );
 
             //-----------------------PATIENT CARD FINAL SETUP------------------------
-            return new // MaterialApp(
-                //   home: //new PatientCard(
-                //   key: _myTabbedPageKey,
-                // ),
-                Scaffold(
+            return new Scaffold(
               appBar: AppBar(
                 title: Text("Patient " +
                     snapshot.data.caseID.toString() +
@@ -1671,7 +1657,6 @@ class _PatientCardState extends State<PatientCard>
                   color: color.withOpacity(0.2),
                   padding: new EdgeInsets.only(top: 7.0),
                   child: bottomButtons),
-              //),
             );
           } else if (snapshot.hasError) {
             return Text("${snapshot.error}", style: TextStyle(fontSize: 4));
@@ -1711,8 +1696,8 @@ class _PatientCardState extends State<PatientCard>
             children: [
               Container(
                 width: 80,
-                //padding:
-                //  EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
+                // padding:
+                // EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
                 child: Column(
                   children: [
                     Container(
