@@ -4,8 +4,6 @@ import 'package:RESP2/patientcard.dart';
 import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
 
-//import 'store.dart';
-
 AudioCache cache = new AudioCache();
 
 String hatImage = '';
@@ -30,7 +28,7 @@ class Diagnose extends StatefulWidget {
 
 class _DiagnoseState extends State<Diagnose> {
   int remaining;
-  //variables needed from db: correct answer, difficulty, red herring, expert advice
+  // variables needed from db: correct answer, difficulty, red herring, expert advice
   String ans = "CHF";
   bool correct = false;
   bool lastPatient = false;

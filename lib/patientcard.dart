@@ -1,3 +1,4 @@
+//import 'dart:html';
 import 'dart:ui';
 import 'package:RESP2/parsePatientData.dart';
 import 'package:RESP2/testResults.dart';
@@ -10,7 +11,7 @@ import 'diagnoseButton.dart';
 import 'xrayResults.dart';
 import 'package:condition/condition.dart';
 import 'dart:math';
-// import 'package:photo_view/photo_view.dart';
+//import 'package:photo_view/photo_view.dart';
 
 class PatientCard extends StatefulWidget {
   PatientCard({Key key, this.patientsLeft}) : super(key: key);
@@ -178,14 +179,13 @@ class _PatientCardState extends State<PatientCard>
         future: futureChart,
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            //
-            //update variables to pass to the buttons (diagnose, order tests, order x-ray):
-            //  diagnose
+            // update variables to pass to the buttons (diagnose, order tests, order x-ray):
+            // diagnose
             redHerring = snapshot.data.redHerrings;
             expertAdvice = snapshot.data.expertComments;
             diagnosis = snapshot.data.diagnosis;
             difficultyLevel = snapshot.data.difficulty;
-            //  order tests
+            // order tests
             wbc = snapshot.data.bloodWBC.toString();
             hemo = snapshot.data.bloodHemoglobin.toString();
             hema = snapshot.data.bloodHemacrotit.toString();
@@ -203,10 +203,10 @@ class _PatientCardState extends State<PatientCard>
             abgpo2 = snapshot.data.bloodABGpco2.toString();
             lactate = snapshot.data.bloodLactate.toString();
 
-            //  xray
+            // xray
             caseID = snapshot.data.caseID;
 
-            //  physical exam
+            // physical exam
             patient = "Patient is " + snapshot.data.examGeneral;
             head = snapshot.data.examHead;
             neck = snapshot.data.examNeck;
@@ -240,9 +240,9 @@ class _PatientCardState extends State<PatientCard>
                       style: TextStyle(fontSize: 18)),
                 ],
               ),
-            ); //onset of symptoms
+            ); // onset of symptoms
 
-            //some patients do not have provocating factors listed:
+            // some patients do not have provocating factors listed:
             bool _checkProvocating() {
               if (snapshot.data.provocatingFactors == "") {
                 return false;
@@ -834,15 +834,15 @@ class _PatientCardState extends State<PatientCard>
             //         general results from the physical
             //--------------------------------------------------------------
             Widget physical = Container(
-                padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
-                // child: Text(
-                //   "Patient is " + snapshot.data.examGeneral,
-                //   style: TextStyle(
-                //       //fontWeight: FontWeight.bold,
-                //       fontSize: 15),
-                //   textAlign: TextAlign.center,
-                // )
-                );
+              padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
+              // child: Text(
+              //   "Patient is " + snapshot.data.examGeneral,
+              //   style: TextStyle(
+              //       //fontWeight: FontWeight.bold,
+              //       fontSize: 15),
+              //   textAlign: TextAlign.center,
+              // )
+            );
 
             //        button to "conduct" physical exam
             //------------------------------------------------------
@@ -914,127 +914,139 @@ class _PatientCardState extends State<PatientCard>
             Widget labTab = Container(
               child: ListView(
                 children: [
+                  Row(
+                    children: <Widget>[
+                      Text(" CBC                                           ",
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      Text("Normal Ranges",
+                          style: TextStyle(
+                              fontSize: 20,
+                              color: Colors.grey,
+                              fontWeight: FontWeight.bold)),
+                    ],
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(" White blood cells -",
+                          style: TextStyle(fontSize: 18)),
+                      TextButton(
+                          child: new Text(
+                            wbc + " K/uL",
+                            style: pressedwbc
+                                ? TextStyle(
+                                    color: Colors.black,
+                                    backgroundColor: Colors.yellow,
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.bold)
+                                : TextStyle(
+                                    fontSize: 17.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                          ),
+                          onPressed: () {
+                            setState(
+                              () => pressedwbc = !pressedwbc,
+                            );
+                            if (!pressedwbc) {
+                              summary.remove(
+                                  "White blood cells - " + wbc + " K/uL");
+                            } else {
+                              summary
+                                  .add("White blood cells - " + wbc + " K/uL");
+                            }
+                          }),
+                      Text("                5-10 K/uL",
+                          style: TextStyle(fontSize: 18, color: Colors.grey))
+                    ],
+                  ),
                   Row(children: <Widget>[
-                    Text(" CBC                                           ", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                    Text("Normal Ranges", style: TextStyle(fontSize: 20, color: Colors.grey, fontWeight: FontWeight.bold)),
-                  ],),
-                  Row(children: <Widget>[
-                    Text(" White blood cells -", style: TextStyle(fontSize: 18)),
+                    Text(" Hemoglobin -", style: TextStyle(fontSize: 18)),
                     TextButton(
-                            child: new Text(
-                              wbc + " K/uL",
-                              style: pressedwbc
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedwbc = !pressedwbc,
-                              );
-                              if (!pressedwbc) {
-                                summary.remove(
-                                    "White blood cells - " + wbc + " K/uL");
-                              } else {
-                                summary.add(
-                                    "White blood cells - " + wbc + " K/uL");
-                              }
-                            }),
-                    Text("                5-10 K/uL", style: TextStyle(fontSize: 18, color: Colors.grey))
-                  ],),
-                  
+                        child: new Text(
+                          hemo + " g/dL",
+                          style: pressedhemo
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedhemo = !pressedhemo,
+                          );
+                          if (!pressedhemo) {
+                            summary.remove("Hemoglobin - " + hemo + " g/dL");
+                          } else {
+                            summary.add("Hemoglobin - " + hemo + " g/dL");
+                          }
+                        }),
+                    Text("                12.0-17.5 g/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  ]),
                   Row(children: <Widget>[
-                        Text(" Hemoglobin -", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              hemo + " g/dL",
-                              style: pressedhemo
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedhemo = !pressedhemo,
-                              );
-                              if (!pressedhemo) {
-                                summary
-                                    .remove("Hemoglobin - " + hemo + " g/dL");
-                              } else {
-                                summary.add("Hemoglobin - " + hemo + " g/dL");
-                              }
-                            }),
-                            Text("                12.0 -17.5 g/dL", style: TextStyle(fontSize: 18, color: Colors.grey)),
-                      ]),
+                    Text(" Hematocrit - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          hema + "%",
+                          style: pressedhema
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedhema = !pressedhema,
+                          );
+                          if (!pressedhema) {
+                            summary.remove("Hematocrit - " + hema + "%");
+                          } else {
+                            summary.add("Hematocrit - " + hema + "%");
+                          }
+                        }),
+                    Text("                            36-50%",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  ]),
                   Row(children: <Widget>[
-                        Text(" Hematocrit - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              hema + "%",
-                              style: pressedhema
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedhema = !pressedhema,
-                              );
-                              if (!pressedhema) {
-                                summary.remove("Hematocrit - " + hema + "%");
-                              } else {
-                                summary.add("Hematocrit - " + hema + "%");
-                              }
-                            }),
-                        Text("                            36-50%", style: TextStyle(fontSize: 18, color: Colors.grey)),
-
-                      ]),
-                  Row(children: <Widget>[
-                        Text( " Platelets - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              plat + " K/uL",
-                              style: pressedplat
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedplat = !pressedplat,
-                              );
-                              if (!pressedplat) {
-                                summary.remove("Platelets - " + plat + " K/uL");
-                              } else {
-                                summary.add("Platelets - " + plat + " K/uL");
-                              }
-                            }),
-                          Text("                       140-400 K/uL", style: TextStyle(fontSize: 18, color: Colors.grey)),
-                      ]),
+                    Text(" Platelets - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          plat + " K/uL",
+                          style: pressedplat
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedplat = !pressedplat,
+                          );
+                          if (!pressedplat) {
+                            summary.remove("Platelets - " + plat + " K/uL");
+                          } else {
+                            summary.add("Platelets - " + plat + " K/uL");
+                          }
+                        }),
+                    Text("                       140-400 K/uL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  ]),
                   Divider(
                     color: Colors.grey[400],
                     height: 0,
@@ -1043,212 +1055,217 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   Row(children: <Widget>[
-                    Text("Basic Metabolic Panel", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text("Basic Metabolic Panel",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                   ]),
                   Row(children: <Widget>[
-                        Text(" Sodium - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              na + " mmol/L",
-                              style: pressedNa
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedNa = !pressedNa,
-                              );
-                              if (!pressedNa) {
-                                summary.remove("Sodium - " + na + " mmol/L");
-                              } else {
-                                summary.add("Sodium - " + na + " mmol/L");
-                              }
-                            }),
-                            Text("               136-145 mmol/L", style: TextStyle(fontSize: 18, color: Colors.grey)),
-                      ]),
+                    Text(" Sodium - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          na + " mmol/L",
+                          style: pressedNa
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedNa = !pressedNa,
+                          );
+                          if (!pressedNa) {
+                            summary.remove("Sodium - " + na + " mmol/L");
+                          } else {
+                            summary.add("Sodium - " + na + " mmol/L");
+                          }
+                        }),
+                    Text("               136-145 mmol/L",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  ]),
                   Row(children: <Widget>[
-                        Text(" Potassium - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              k + " mmol/L",
-                              style: pressedK
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedK = !pressedK,
-                              );
-                              if (!pressedK) {
-                                summary.remove("Potassium - " + k + " mmo/L");
-                              } else {
-                                summary.add("Potassium - " + k + " mmo/L");
-                              }
-                            }),
-                        Text("             3.6-5.2 mmol/L", style: TextStyle(fontSize: 18, color: Colors.grey)),
-
-                      ]),
+                    Text(" Potassium - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          k + " mmol/L",
+                          style: pressedK
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedK = !pressedK,
+                          );
+                          if (!pressedK) {
+                            summary.remove("Potassium - " + k + " mmo/L");
+                          } else {
+                            summary.add("Potassium - " + k + " mmo/L");
+                          }
+                        }),
+                    Text("             3.6-5.2 mmol/L",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  ]),
                   Row(children: <Widget>[
-                        Text(" Chloride - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              cl + " mmol/L",
-                              style: pressedCl
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedCl = !pressedCl,
-                              );
-                              if (!pressedCl) {
-                                summary.remove("Chloride - " + cl + " mmo/L");
-                              } else {
-                                summary.add("Chloride - " + cl + " mmo/L");
-                              }
-                            }),
-                        Text("                  96-106 mmol/L", style: TextStyle(fontSize: 18, color: Colors.grey)),
-
-                      ]),
+                    Text(" Chloride - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          cl + " mmol/L",
+                          style: pressedCl
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedCl = !pressedCl,
+                          );
+                          if (!pressedCl) {
+                            summary.remove("Chloride - " + cl + " mmo/L");
+                          } else {
+                            summary.add("Chloride - " + cl + " mmo/L");
+                          }
+                        }),
+                    Text("                  96-106 mmol/L",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  ]),
                   Row(children: <Widget>[
-                        Text(" Bicarbonate - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              c + " mmol/L",
-                              style: pressedBi
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedBi = !pressedBi,
-                              );
-                              if (!pressedBi) {
-                                summary.remove("Bicarbonate - " + c + " mmo/L");
-                              } else {
-                                summary.add("Bicarbonate - " + c + " mmo/L");
-                              }
-                            }),
-                        Text("             23-30 mmol/L", style: TextStyle(fontSize: 18, color: Colors.grey)),
-                      ]),
+                    Text(" Bicarbonate - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          c + " mmol/L",
+                          style: pressedBi
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedBi = !pressedBi,
+                          );
+                          if (!pressedBi) {
+                            summary.remove("Bicarbonate - " + c + " mmo/L");
+                          } else {
+                            summary.add("Bicarbonate - " + c + " mmo/L");
+                          }
+                        }),
+                    Text("             23-30 mmol/L",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                  ]),
                   Row(children: <Widget>[
-                        Text(" BUN -", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              bun + " mg/dL",
-                              style: pressedBun
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedBun = !pressedBun,
-                              );
-                              if (!pressedBun) {
-                                summary.remove("BUN (blood urea nitrogen) - " +
-                                    bun +
-                                    " mg/dL");
-                              } else {
-                                summary.add("BUN (blood urea nitrogen) - " +
-                                    bun +
-                                    " mg/dL");
-                              }
-                            }),
-                        Text("                                 7-20 mg/dL", style: TextStyle(fontSize: 18, color: Colors.grey))
-                      ]),
+                    Text(" BUN -", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          bun + " mg/dL",
+                          style: pressedBun
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedBun = !pressedBun,
+                          );
+                          if (!pressedBun) {
+                            summary.remove("BUN (blood urea nitrogen) - " +
+                                bun +
+                                " mg/dL");
+                          } else {
+                            summary.add("BUN (blood urea nitrogen) - " +
+                                bun +
+                                " mg/dL");
+                          }
+                        }),
+                    Text("                                 7-20 mg/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                  ]),
                   Row(children: <Widget>[
-                        Text(" Creatinine - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              creat + " mg/dL",
-                              style: pressedCrea
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedCrea = !pressedCrea,
-                              );
-                              if (!pressedCrea) {
-                                summary
-                                    .remove("Creatinine - " + creat + " mg/dL");
-                              } else {
-                                summary.add("Creatinine - " + creat + " mg/dL");
-                              }
-                            }),
-                        Text("              0.59-1.35 mg/dL", style: TextStyle(fontSize: 18, color: Colors.grey))
-                      ]),
+                    Text(" Creatinine - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          creat + " mg/dL",
+                          style: pressedCrea
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedCrea = !pressedCrea,
+                          );
+                          if (!pressedCrea) {
+                            summary.remove("Creatinine - " + creat + " mg/dL");
+                          } else {
+                            summary.add("Creatinine - " + creat + " mg/dL");
+                          }
+                        }),
+                    Text("              0.59-1.35 mg/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                  ]),
                   Row(children: <Widget>[
-                        Text(" Glucose - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              glucose + " mg/dL",
-                              style: pressedGluc
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedGluc = !pressedGluc,
-                              );
-                              if (!pressedGluc) {
-                                summary
-                                    .remove("Glucose - " + glucose + " mg/dL");
-                              } else {
-                                summary.add("Glucose - " + glucose + " mg/dL");
-                              }
-                            }),
-                        Text("                         <100 mg/dL", style: TextStyle(fontSize: 18, color: Colors.grey))
-                      ]),
+                    Text(" Glucose - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          glucose + " mg/dL",
+                          style: pressedGluc
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedGluc = !pressedGluc,
+                          );
+                          if (!pressedGluc) {
+                            summary.remove("Glucose - " + glucose + " mg/dL");
+                          } else {
+                            summary.add("Glucose - " + glucose + " mg/dL");
+                          }
+                        }),
+                    Text("                         <100 mg/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                  ]),
                   Divider(
                     color: Colors.grey[400],
                     height: 0,
@@ -1257,167 +1274,173 @@ class _PatientCardState extends State<PatientCard>
                     endIndent: 0,
                   ),
                   Row(children: <Widget>[
-                    Text("Arterial Blood Gas", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                    Text("Arterial Blood Gas",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
                   ]),
                   Row(children: <Widget>[
-                        Text(" pH -", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              abgph,
-                              style: pressedABG
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedABG = !pressedABG,
-                              );
-                              if (!pressedABG) {
-                                summary.remove("ABG (arterial blood gas) - " +
-                                    "pH " +
-                                    abgph);
-                              } else {
-                                summary.add("ABG (arterial blood gas) - " +
-                                    "pH " +
-                                    abgph);
-                              }
-                            }),
-                        Text("                                               5.0-8.0", style: TextStyle(fontSize: 18, color: Colors.grey))
-                      ]),
+                    Text(" pH -", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          abgph,
+                          style: pressedABG
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedABG = !pressedABG,
+                          );
+                          if (!pressedABG) {
+                            summary.remove(
+                                "ABG (arterial blood gas) - " + "pH " + abgph);
+                          } else {
+                            summary.add(
+                                "ABG (arterial blood gas) - " + "pH " + abgph);
+                          }
+                        }),
+                    Text(
+                        "                                               5.0-8.0",
+                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                  ]),
                   Row(children: <Widget>[
-                        Text(" pCO\u2082 - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              abgpo2 + " mmHg",
-                              style: pressedPCO
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedPCO = !pressedPCO,
-                              );
-                              if (!pressedPCO) {
-                                summary.remove(
-                                    "ABG - pCO\u2082 - " + abgpo2 + " mmHg");
-                              } else {
-                                summary.add(
-                                    "ABG - pCO\u2082 - " + abgpo2 + " mmHg");
-                              }
-                            }),
-                        Text("                           38-42 mmHg", style: TextStyle(fontSize: 18, color: Colors.grey))
-                      ]),
+                    Text(" pCO\u2082 - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          abgpo2 + " mmHg",
+                          style: pressedPCO
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedPCO = !pressedPCO,
+                          );
+                          if (!pressedPCO) {
+                            summary.remove(
+                                "ABG - pCO\u2082 - " + abgpo2 + " mmHg");
+                          } else {
+                            summary
+                                .add("ABG - pCO\u2082 - " + abgpo2 + " mmHg");
+                          }
+                        }),
+                    Text("                           38-42 mmHg",
+                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                  ]),
                   Row(children: <Widget>[
-                        Text(" pO\u2082 -", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              abgpo + " mmHg",
-                              style: pressedPO
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedPO = !pressedPO,
-                              );
-                              if (!pressedPO) {
-                                summary.remove(
-                                    "ABG - pO\u2082 - " + abgpo + " mmHg");
-                              } else {
-                                summary.add(
-                                    "ABG - pO\u2082 - " + abgpo + " mmHg");
-                              }
-                            }),
-                        Text("                             75-100 mmHg", style: TextStyle(fontSize: 18, color: Colors.grey))
-                      ]),
+                    Text(" pO\u2082 -", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          abgpo + " mmHg",
+                          style: pressedPO
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedPO = !pressedPO,
+                          );
+                          if (!pressedPO) {
+                            summary
+                                .remove("ABG - pO\u2082 - " + abgpo + " mmHg");
+                          } else {
+                            summary.add("ABG - pO\u2082 - " + abgpo + " mmHg");
+                          }
+                        }),
+                    Text("                             75-100 mmHg",
+                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                  ]),
                   Divider(
                     color: Colors.grey[400],
                     height: 0,
                     thickness: 2,
                     indent: 0,
                     endIndent: 0,
-                  ), 
+                  ),
                   Row(children: <Widget>[
-                    Text("Other Labs", style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-                  ]),                     
-                    Row(children: <Widget>[
-                        Text(" BNP - ", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              bnp + " mg/dL",
-                              style: pressedBNP
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedBNP = !pressedBNP,
-                              );
-                              if (!pressedBNP) {
-                                summary.remove("BNP - " + bnp + " mg/dL");
-                              } else {
-                                summary.add("BNP - " + bnp + " mg/dL");
-                              }
-                            }),
-                        Text("                              ???? mg/dL", style: TextStyle(fontSize: 18, color: Colors.grey))
-                      ]),                      
+                    Text("Other Labs",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold)),
+                  ]),
                   Row(children: <Widget>[
-                        Text(" Lactate -", style: TextStyle(fontSize: 18)),
-                        TextButton(
-                            child: new Text(
-                              lactate + " mmol/L",
-                              style: pressedlac
-                                  ? TextStyle(
-                                      color: Colors.black,
-                                      backgroundColor: Colors.yellow,
-                                      fontSize: 17.0,
-                                      fontWeight: FontWeight.bold)
-                                  : TextStyle(
-                                      fontSize: 17.0,
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.bold),
-                            ),
-                            onPressed: () {
-                              setState(
-                                () => pressedlac = !pressedlac,
-                              );
-                              if (!pressedlac) {
-                                summary
-                                    .remove("Lactate - " + lactate + " mmol/L");
-                              } else {
-                                summary.add("Lactate - " + lactate + " mmol/L");
-                              }
-                            }),
-                        Text("                        <1.0 mmol/L ", style: TextStyle(fontSize: 18, color: Colors.grey))
-                      ]),
+                    Text(" BNP - ", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          bnp + " mg/dL",
+                          style: pressedBNP
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedBNP = !pressedBNP,
+                          );
+                          if (!pressedBNP) {
+                            summary.remove("BNP - " + bnp + " mg/dL");
+                          } else {
+                            summary.add("BNP - " + bnp + " mg/dL");
+                          }
+                        }),
+                    Text("                              ???? mg/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                  ]),
+                  Row(children: <Widget>[
+                    Text(" Lactate -", style: TextStyle(fontSize: 18)),
+                    TextButton(
+                        child: new Text(
+                          lactate + " mmol/L",
+                          style: pressedlac
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedlac = !pressedlac,
+                          );
+                          if (!pressedlac) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }),
+                    Text("                        <1.0 mmol/L ",
+                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                  ]),
                 ],
               ),
             );
@@ -1518,18 +1541,21 @@ class _PatientCardState extends State<PatientCard>
                             barrierDismissible: false,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                //title: Text('Ready?'),
+                                // title: Text('Summary'),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
-                                      Text(
-                                          'Are you prepared to diagnose your patient?'),
+                                      if (summary.isNotEmpty)
+                                        for (int i = 0; i < summary.length; i++)
+                                          Text('${summary[i]}')
+                                      else
+                                        Text('You did not highlight any data!')
                                     ],
                                   ),
                                 ),
                                 actions: <Widget>[
                                   TextButton(
-                                    child: Text('No, back to chart'),
+                                    child: Text('Back to chart'),
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },

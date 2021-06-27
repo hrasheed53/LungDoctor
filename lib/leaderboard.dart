@@ -38,7 +38,6 @@ class _LeaderBoardState extends State<LeaderBoard> {
     return new FutureBuilder(
         future: getStatistics(),
         builder: (BuildContext context, AsyncSnapshot<Map<String, int>> data) {
-          //data.data['Nmae']
           if (data.hasData) {
             writeScore(data.data['storePoints'].toInt());
             return Scaffold(
