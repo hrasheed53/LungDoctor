@@ -1,4 +1,3 @@
-//import 'dart:html';
 import 'dart:ui';
 import 'package:RESP2/parsePatientData.dart';
 import 'package:RESP2/testResults.dart';
@@ -21,30 +20,26 @@ class PatientCard extends StatefulWidget {
   _PatientCardState createState() => _PatientCardState();
 }
 
-//Contains all the logic for the patient card user interface. Now with comment
-//headers for easier understanding.
+// Contains all the logic for the patient card user interface. Now with comment
+// headers for easier understanding.
 
 String baseURL = 'https://diagnostic-gamification-api.herokuapp.com/v1/cases/';
 
-//list of values user highlighted
+// list of values user highlighted
 List<String> summary = List<String>.filled(0, '', growable: true);
 
-//REPLACE BOOLS BELOW WITH LOGIC
-//some patients have no provocating factors listed:
+// TODO: REPLACE BOOLS BELOW WITH LOGIC
+// some patients have no provocating factors listed:
 bool provocatingFactors = true;
-//some patients only have one or two histories listed:
+// some patients only have one or two histories listed:
 bool history2 = true;
 bool history3 = true;
-//TabController tabController;
-
-//bool seenLabsTab = false;
-//bool seenCXRTab = false;
 
 class _PatientCardState extends State<PatientCard>
     with TickerProviderStateMixin {
   Future<PatientChart> futureChart;
 
-  //highlighting bools vitals
+  // highlighting bools vitals
   bool pressedTemp = false;
   bool pressedBP = false;
   bool pressedHR = false;
@@ -52,7 +47,7 @@ class _PatientCardState extends State<PatientCard>
   bool pressedOS = false;
   bool pressedO = false;
 
-  //labtab
+  // labtab
   bool pressedwbc = false;
   bool pressedhemo = false;
   bool pressedhema = false;
@@ -74,20 +69,20 @@ class _PatientCardState extends State<PatientCard>
   bool seenLabsTab = false;
   bool seenCXRTab = false;
 
-  //vars for pulling random case:
+  // vars for pulling random case:
   Random random = new Random();
   int randomCase;
   String url;
 
   int caseID;
-  //data to be passed on to diagnoseButton:
+  // data to be passed on to diagnoseButton:
   int remaining;
   String redHerring;
   String expertAdvice;
   String diagnosis;
   String difficultyLevel;
 
-  //data to be passed on to testResults:
+  // data to be passed on to testResults:
   String wbc;
   String hemo;
   String hema;
@@ -105,7 +100,7 @@ class _PatientCardState extends State<PatientCard>
   String abgpo2;
   String lactate;
 
-  //for physical exam:
+  // for physical exam:
   String patient;
   String head;
   String neck;
@@ -115,8 +110,8 @@ class _PatientCardState extends State<PatientCard>
   String ext;
   String skin;
 
-  //For Beta, provided 19 available cases with non-sequential case IDs
-  //  (had to hardcode the IDs)
+  // For Beta, provided 19 available cases with non-sequential case IDs
+  // (had to hardcode the IDs)
   List<int> availableCaseIDs = [
     208,
     209,
@@ -146,12 +141,12 @@ class _PatientCardState extends State<PatientCard>
     super.initState();
 
     tabController = new TabController(vsync: this, length: 4);
-    //choose a random case ID to pull from:
+    // choose a random case ID to pull from:
     randomCase = random.nextInt(19);
     url = baseURL + availableCaseIDs[randomCase].toString();
     print(url);
     summary.clear();
-    //pull Future item containing case data:
+    // pull Future item containing case data:
     futureChart = getPatientChart(url);
   }
 
@@ -161,9 +156,7 @@ class _PatientCardState extends State<PatientCard>
     super.dispose();
   }
 
-  //static final _myTabbedPageKey = new GlobalKey<_PatientCardState>();
-
-  //where the widget building happens:
+  // where the widget building happens:
   @override
   Widget build(BuildContext context) {
     //decrement no. patients left to examine:
@@ -265,7 +258,7 @@ class _PatientCardState extends State<PatientCard>
                       ),
                     ),
                     Case(
-                      //provocating factors are listed:
+                      // provocating factors are listed:
                       _checkProvocating() == true,
                       builder: () => Column(
                         children: [
@@ -292,13 +285,6 @@ class _PatientCardState extends State<PatientCard>
               );
             }
 
-            //---------------PATIENT'S SYMPTOMS-----------------------------------------
-            /* Widget symptoms = Container(
-              padding: const EdgeInsets.only(top: 4, left: 9, right: 9),
-              child: Text(snapshot.data.symptomDescription,
-                  style: TextStyle(fontSize: 16)),
-            );*/
-
             //--------------SYMPTOMS LIST BOX-----------------------------------------
             Widget symptomsList = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -318,10 +304,10 @@ class _PatientCardState extends State<PatientCard>
                   _checkSymptoms(),
                 ],
               ),
-            ); //symptoms list
+            ); // symptoms list
 
             //------------PATIENT'S HISTORY-----------------------------------------
-            //some patients don't have pastmedicalhistory2 field, check for that:
+            // some patients don't have pastmedicalhistory2 field, check for that:
             bool _history2() {
               if (snapshot.data.pastMedHistory2 == "") {
                 return false;
@@ -329,7 +315,7 @@ class _PatientCardState extends State<PatientCard>
               return true;
             }
 
-            //some patients don't have pastmedicalhistory3 field, check for that:
+            // some patients don't have pastmedicalhistory3 field, check for that:
             bool _history3() {
               if (snapshot.data.pastMedHistory3 == "") {
                 return false;
@@ -337,18 +323,18 @@ class _PatientCardState extends State<PatientCard>
               return true;
             }
 
-            //build history widget based on
+            // build history widget based on
             Widget _checkHistory() {
               return Container(
                 child: Conditioned(
                   cases: [
                     Case(
-                      //if history2 exists, check if history3 exists:
+                      // if history2 exists, check if history3 exists:
                       _history2() == true,
                       builder: () => Conditioned(
                         cases: [
                           Case(
-                            //history3 exists, print all 3 histories
+                            // history3 exists, print all 3 histories
                             _history3() == true,
                             builder: () => Column(
                               children: [
@@ -380,7 +366,7 @@ class _PatientCardState extends State<PatientCard>
                             ),
                           ),
                           Case(
-                            //history3 doesn't exist, print only history 1 and 2
+                            // history3 doesn't exist, print only history 1 and 2
                             _history3() == false,
                             builder: () => Column(
                               children: [
@@ -408,7 +394,7 @@ class _PatientCardState extends State<PatientCard>
                       ),
                     ),
                     Case(
-                      //if history2 doesn't exist, history3 doesn't either:
+                      // if history2 doesn't exist, history3 doesn't either:
                       _history2() == false,
                       builder: () => Container(
                         padding:
@@ -424,13 +410,6 @@ class _PatientCardState extends State<PatientCard>
                 ),
               );
             }
-
-            /*Widget history = Container(
-                padding: const EdgeInsets.only(top: 4, left: 9, right: 9),
-                child: Text(
-                  "- " + snapshot.data.pastMedHistory1,
-                  style: TextStyle(fontSize: 16),
-                ));*/
 
             //------------HISTORY LIST BOX-----------------------------------------
             Widget historyList = Container(
@@ -467,7 +446,7 @@ class _PatientCardState extends State<PatientCard>
                   child: Conditioned(
                 cases: [
                   Case(
-                    //IF SMOKER
+                    // IF SMOKER
                     _checkSmoker() == true,
                     builder: () => Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -489,7 +468,7 @@ class _PatientCardState extends State<PatientCard>
                     ),
                   ),
                   Case(
-                    //IF NON-SMOKER
+                    // IF NON-SMOKER
                     _checkSmoker() == false,
                     builder: () => Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -535,7 +514,7 @@ class _PatientCardState extends State<PatientCard>
             );
 
             //-----------TAB FOR SYMPTOMS, HISTORY, AND TOBACCO-----------------------------------------
-            Widget symptomsHistoryTab = Container(
+            Container(
               margin: const EdgeInsets.only(left: 20.0, right: 20.0),
               padding: const EdgeInsets.all(12),
               child: ListView(
@@ -754,12 +733,10 @@ class _PatientCardState extends State<PatientCard>
                                 );
                                 if (!pressedOS) {
                                   summary.remove(
-                                      snapshot.data.oxygenSat.toString() +
-                                          ' (O\u2082 Saturation)');
+                                      '(O\u2082 Saturation): ${snapshot.data.oxygenSat.toString()}');
                                 } else {
                                   summary.add(
-                                      snapshot.data.oxygenSat.toString() +
-                                          ' (O\u2082 Saturation)');
+                                      '(O\u2082 Saturation): ${snapshot.data.oxygenSat.toString()}');
                                 }
                               }),
                           Text(
@@ -789,12 +766,10 @@ class _PatientCardState extends State<PatientCard>
                                 );
                                 if (!pressedO) {
                                   summary.remove(
-                                      snapshot.data.oxygenAmount.toString() +
-                                          ' (O\u2082 Received)');
+                                      '(O\u2082 Received): ${snapshot.data.oxygenAmount.toString()}');
                                 } else {
                                   summary.add(
-                                      snapshot.data.oxygenAmount.toString() +
-                                          ' (O\u2082 Received)');
+                                      '(O\u2082 Received): ${snapshot.data.oxygenAmount.toString()}');
                                 }
                               }),
                         ],
@@ -1541,7 +1516,7 @@ class _PatientCardState extends State<PatientCard>
                             barrierDismissible: false,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                // title: Text('Summary'),
+                                title: Text('Summary'),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
@@ -1628,18 +1603,6 @@ class _PatientCardState extends State<PatientCard>
                 ),
                 centerTitle: true,
                 bottom: TabBar(
-                  // onTap: (index) {
-                  //   if(tabController.index == 2 && seenLabstab == false){
-                  //     //tabController.index = tabController.previousIndex;
-                  //   }
-                  //   else if(tabController.index == 3 && seenCXRtab == false){
-                  //     //tabController.index = tabController.previousIndex;
-                  //   }
-                  //   else{
-                  //     //tabController.index = (tabController.index) % 4;
-                  //   }
-                  //   //tabController.index = tabController.previousIndex;
-                  // },
                   controller: tabController,
                   tabs: [
                     Tab(

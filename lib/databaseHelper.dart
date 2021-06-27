@@ -146,6 +146,7 @@ class DatabaseHelper {
       missedVals.first["numCOPDMissed"],
       missedVals.first["numPneumMissed"],
     ];
+    print(missedVals);
     // Get index of highest miss count value.
     int maxIndex = 0;
     if (missed[1] >= missed[0]) {
@@ -176,6 +177,7 @@ class DatabaseHelper {
       correctVals.first["numCOPDCorrect"],
       correctVals.first["numPneumCorrect"],
     ];
+    print(correctVals);
     // Get index of highest correct count value.
     int maxIndex = 0;
     if (corrects[1] >= corrects[0]) {
