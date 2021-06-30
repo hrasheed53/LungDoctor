@@ -69,6 +69,8 @@ class _PatientCardState extends State<PatientCard>
   bool seenLabsTab = false;
   bool seenCXRTab = false;
 
+  bool showNormalRanges = false;
+
   // vars for pulling random case:
   Random random = new Random();
   int randomCase;
@@ -879,16 +881,22 @@ class _PatientCardState extends State<PatientCard>
             Widget labTab = Container(
               child: ListView(
                 children: [
+                  SwitchListTile(
+                        activeColor: Colors.blue[300],
+                        contentPadding: const EdgeInsets.all(5.0),
+                        value: showNormalRanges,
+                        title: Text('Show Normal Ranges'),
+                        onChanged: (value) {
+                          setState(() {
+                            showNormalRanges = !showNormalRanges;
+                          });
+                        }),
                   Row(
                     children: <Widget>[
-                      Text(" CBC                                           ",
+                      Text(" CBC  ",
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold)),
-                      Text("Normal Ranges",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                              fontWeight: FontWeight.bold)),
+
                     ],
                   ),
                   Row(
@@ -897,7 +905,7 @@ class _PatientCardState extends State<PatientCard>
                           style: TextStyle(fontSize: 18)),
                       TextButton(
                           child: new Text(
-                            wbc + " K/uL",
+                            wbc,
                             style: pressedwbc
                                 ? TextStyle(
                                     color: Colors.black,
@@ -921,15 +929,17 @@ class _PatientCardState extends State<PatientCard>
                                   .add("White blood cells - " + wbc + " K/uL");
                             }
                           }),
-                      Text("                5-10 K/uL",
-                          style: TextStyle(fontSize: 18, color: Colors.grey))
+                      
+                        showNormalRanges ? Text("                5-10 K/uL",
+                            style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
+                      
                     ],
                   ),
                   Row(children: <Widget>[
                     Text(" Hemoglobin -", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          hemo + " g/dL",
+                          hemo,
                           style: pressedhemo
                               ? TextStyle(
                                   color: Colors.black,
@@ -951,14 +961,14 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Hemoglobin - " + hemo + " g/dL");
                           }
                         }),
-                    Text("                12.0-17.5 g/dL",
-                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    showNormalRanges ? Text("                12.0-17.5 g/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" Hematocrit - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          hema + "%",
+                          hema,
                           style: pressedhema
                               ? TextStyle(
                                   color: Colors.black,
@@ -980,14 +990,14 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Hematocrit - " + hema + "%");
                           }
                         }),
-                    Text("                            36-50%",
-                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    showNormalRanges ? Text("                            36-50%",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" Platelets - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          plat + " K/uL",
+                          plat,
                           style: pressedplat
                               ? TextStyle(
                                   color: Colors.black,
@@ -1009,8 +1019,8 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Platelets - " + plat + " K/uL");
                           }
                         }),
-                    Text("                       140-400 K/uL",
-                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    showNormalRanges ? Text("                       140-450 K/uL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Divider(
                     color: Colors.grey[400],
@@ -1028,7 +1038,7 @@ class _PatientCardState extends State<PatientCard>
                     Text(" Sodium - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          na + " mmol/L",
+                          na,
                           style: pressedNa
                               ? TextStyle(
                                   color: Colors.black,
@@ -1050,14 +1060,14 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Sodium - " + na + " mmol/L");
                           }
                         }),
-                    Text("               136-145 mmol/L",
-                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    showNormalRanges ? Text("               136-145 mmol/L",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" Potassium - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          k + " mmol/L",
+                          k,
                           style: pressedK
                               ? TextStyle(
                                   color: Colors.black,
@@ -1079,14 +1089,14 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Potassium - " + k + " mmo/L");
                           }
                         }),
-                    Text("             3.6-5.2 mmol/L",
-                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    showNormalRanges ? Text("             3.6-5.2 mmol/L",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
-                    Text(" Chloride - ", style: TextStyle(fontSize: 18)),
+                    Text("Chloride - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          cl + " mmol/L",
+                          cl,
                           style: pressedCl
                               ? TextStyle(
                                   color: Colors.black,
@@ -1108,14 +1118,14 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Chloride - " + cl + " mmo/L");
                           }
                         }),
-                    Text("                  96-106 mmol/L",
-                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    showNormalRanges ? Text("                  96-106 mmol/L",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" Bicarbonate - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          c + " mmol/L",
+                          c,
                           style: pressedBi
                               ? TextStyle(
                                   color: Colors.black,
@@ -1137,14 +1147,14 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Bicarbonate - " + c + " mmo/L");
                           }
                         }),
-                    Text("             23-30 mmol/L",
-                        style: TextStyle(fontSize: 18, color: Colors.grey)),
+                    showNormalRanges ? Text("             23-30 mmol/L",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" BUN -", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          bun + " mg/dL",
+                          bun,
                           style: pressedBun
                               ? TextStyle(
                                   color: Colors.black,
@@ -1170,14 +1180,14 @@ class _PatientCardState extends State<PatientCard>
                                 " mg/dL");
                           }
                         }),
-                    Text("                                 7-20 mg/dL",
-                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                    showNormalRanges ? Text("                                 7-20 mg/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" Creatinine - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          creat + " mg/dL",
+                          creat,
                           style: pressedCrea
                               ? TextStyle(
                                   color: Colors.black,
@@ -1199,14 +1209,14 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Creatinine - " + creat + " mg/dL");
                           }
                         }),
-                    Text("              0.59-1.35 mg/dL",
-                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                    showNormalRanges ? Text("              0.59-1.35 mg/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" Glucose - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          glucose + " mg/dL",
+                          glucose,
                           style: pressedGluc
                               ? TextStyle(
                                   color: Colors.black,
@@ -1228,8 +1238,8 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Glucose - " + glucose + " mg/dL");
                           }
                         }),
-                    Text("                         <100 mg/dL",
-                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                    showNormalRanges ? Text("                     <100 mg/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Divider(
                     color: Colors.grey[400],
@@ -1271,15 +1281,15 @@ class _PatientCardState extends State<PatientCard>
                                 "ABG (arterial blood gas) - " + "pH " + abgph);
                           }
                         }),
-                    Text(
-                        "                                               5.0-8.0",
-                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                    showNormalRanges ? Text(
+                        "                                            7.35-7.45",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" pCO\u2082 - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          abgpo2 + " mmHg",
+                          abgpo2,
                           style: pressedPCO
                               ? TextStyle(
                                   color: Colors.black,
@@ -1303,14 +1313,14 @@ class _PatientCardState extends State<PatientCard>
                                 .add("ABG - pCO\u2082 - " + abgpo2 + " mmHg");
                           }
                         }),
-                    Text("                           38-42 mmHg",
-                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                    showNormalRanges ? Text("                           38-42 mmHg",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" pO\u2082 -", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          abgpo + " mmHg",
+                          abgpo,
                           style: pressedPO
                               ? TextStyle(
                                   color: Colors.black,
@@ -1333,8 +1343,8 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("ABG - pO\u2082 - " + abgpo + " mmHg");
                           }
                         }),
-                    Text("                             75-100 mmHg",
-                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                    showNormalRanges ? Text("                             75-100 mmHg",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Divider(
                     color: Colors.grey[400],
@@ -1352,7 +1362,7 @@ class _PatientCardState extends State<PatientCard>
                     Text(" BNP - ", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          bnp + " mg/dL",
+                          bnp,
                           style: pressedBNP
                               ? TextStyle(
                                   color: Colors.black,
@@ -1374,14 +1384,14 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("BNP - " + bnp + " mg/dL");
                           }
                         }),
-                    Text("                              ???? mg/dL",
-                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                    showNormalRanges ? Text("                              ???? mg/dL",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
                     Text(" Lactate -", style: TextStyle(fontSize: 18)),
                     TextButton(
                         child: new Text(
-                          lactate + " mmol/L",
+                          lactate,
                           style: pressedlac
                               ? TextStyle(
                                   color: Colors.black,
@@ -1403,8 +1413,8 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Lactate - " + lactate + " mmol/L");
                           }
                         }),
-                    Text("                        <1.0 mmol/L ",
-                        style: TextStyle(fontSize: 18, color: Colors.grey))
+                    showNormalRanges ? Text("                        <1.0 mmol/L ",
+                        style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                 ],
               ),
@@ -1428,14 +1438,56 @@ class _PatientCardState extends State<PatientCard>
 //=============================================================================
 //                       Narrative tab
 //=============================================================================
+            Widget getTextWidgets(List<String> strings)
+            {
+              var sentence = '';
+              List<Widget> list = new List<Widget>();
+              for(var i = 0; i < snapshot.data.narratives.length; i++){
+                if (snapshot.data.narratives[i] != '.') {
+                  sentence += snapshot.data.narratives[i];
+                }
+                else {
+                  list.add(
+                    TextButton(
+                        child: new Text(
+                          sentence,
+                          style: pressedPO
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold)
+                              : TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => pressedPO = !pressedPO,
+                          );
+                          if (!pressedPO) {
+                            summary.remove("Patient narrative - " + sentence);
+                          } else {
+                            summary.add("Patient narrative - " + sentence);
+                          }
+                        }),
+                  );
+                }
+              }
+              return new Row(children: list);
+            }
             //---------NARRATIVE TEXT--------------------------------------
             Widget narrative = Container(
                 padding: const EdgeInsets.only(top: 6, left: 12, right: 12),
-                child: Text(
+                child: 
+
+                Text(
                   snapshot.data.narratives,
                   style: TextStyle(fontSize: 18),
                 ));
             //---------NARRATIVE BOX--------------------------------------
+
             Widget narrativeBox = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
               decoration: BoxDecoration(
@@ -1451,7 +1503,7 @@ class _PatientCardState extends State<PatientCard>
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
-                  narrative,
+                  narrative
                 ],
               ),
             );
