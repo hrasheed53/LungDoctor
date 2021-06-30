@@ -71,6 +71,28 @@ class _PatientCardState extends State<PatientCard>
 
   bool showNormalRanges = false;
 
+  bool sentence1 = false;
+  bool sentence2 = false;
+  bool sentence3 = false;
+  bool sentence4 = false;
+  bool sentence5 = false;
+  bool sentence6 = false;
+  bool sentence7 = false;
+  bool sentence8 = false;
+  bool sentence9 = false;
+  bool sentence10 = false;
+  bool sentence11 = false;
+  bool sentence12 = false;
+  bool sentence13 = false;
+  bool sentence14 = false;
+  bool sentence15 = false;
+  bool sentence16 = false;
+  bool sentence17 = false;
+  bool sentence18 = false;
+  bool sentence19 = false;
+  bool sentence20 = false;
+  bool sentence21 = false;
+
   // vars for pulling random case:
   Random random = new Random();
   int randomCase;
@@ -1487,6 +1509,7 @@ class _PatientCardState extends State<PatientCard>
                   style: TextStyle(fontSize: 18),
                 ));
             //---------NARRATIVE BOX--------------------------------------
+            var numSentences = snapshot.data.narratives.split('.').length;
 
             Widget narrativeBox = Container(
               padding: const EdgeInsets.only(bottom: 6, top: 6),
@@ -1503,7 +1526,490 @@ class _PatientCardState extends State<PatientCard>
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
-                  narrative
+                  numSentences >= 1 ? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[0] + ".",
+                          style: sentence1
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence1 = !sentence1,
+                          );
+                          if (!sentence1) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 2 ? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[1] + ".",
+                          style: sentence2
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence2 = !sentence2,
+                          );
+                          if (!sentence2) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                     numSentences >= 3? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[2] + ".",
+                          style: sentence3
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence3 = !sentence3,
+                          );
+                          if (!sentence3) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 4? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[3] + ".",
+                          style: sentence4
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence4 = !sentence4,
+                          );
+                          if (!sentence4) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 5? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[4] + ".",
+                          style: sentence5
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence5 = !sentence5,
+                          );
+                          if (!sentence5) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 6? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[5] + ".",
+                          style: sentence6
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence6 = !sentence6,
+                          );
+                          if (!sentence6) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 7? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[6] + ".",
+                          style: sentence7
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence7 = !sentence7,
+                          );
+                          if (!sentence7) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 8? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[7] + ".",
+                          style: sentence8
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence8 = !sentence8,
+                          );
+                          if (!sentence8) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 9? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[8] + ".",
+                          style: sentence9
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence9 = !sentence9,
+                          );
+                          if (!sentence9) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 10? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[9] + ".",
+                          style: sentence10
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence10 = !sentence10,
+                          );
+                          if (!sentence10) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 11? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[10] + ".",
+                          style: sentence11
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence11 = !sentence11,
+                          );
+                          if (!sentence11) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 12? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[11] + ".",
+                          style: sentence12
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence12 = !sentence12,
+                          );
+                          if (!sentence12) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 13? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[12] + ".",
+                          style: sentence13
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence13 = !sentence13,
+                          );
+                          if (!sentence13) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 14? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[13] + ".",
+                          style: sentence14
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence14 = !sentence14,
+                          );
+                          if (!sentence14) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                     numSentences >= 15? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[14] + ".",
+                          style: sentence15
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence15 = !sentence15,
+                          );
+                          if (!sentence15) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 16? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[15] + ".",
+                          style: sentence16
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence16 = !sentence16,
+                          );
+                          if (!sentence16) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 17? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[16] + ".",
+                          style: sentence17
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence17 = !sentence17,
+                          );
+                          if (!sentence17) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 18? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[17] + ".",
+                          style: sentence18
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence18 = !sentence18,
+                          );
+                          if (!sentence18) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 19? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[18] + ".",
+                          style: sentence19
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence19 = !sentence19,
+                          );
+                          if (!sentence19) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 20? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[19] + ".",
+                          style: sentence20
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence20 = !sentence20,
+                          );
+                          if (!sentence20) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                    numSentences >= 21? 
+                    TextButton(
+                        child: new Text(
+                          snapshot.data.narratives.split('.')[20] + ".",
+                          style: sentence21
+                              ? TextStyle(
+                                  color: Colors.black,
+                                  backgroundColor: Colors.yellow,
+                                  fontSize: 17.0,)
+                              : TextStyle(
+                                  fontSize: 17.0,
+                                  color: Colors.black,),
+                        ),
+                        onPressed: () {
+                          setState(
+                            () => sentence21 = !sentence21,
+                          );
+                          if (!sentence21) {
+                            summary.remove("Lactate - " + lactate + " mmol/L");
+                          } else {
+                            summary.add("Lactate - " + lactate + " mmol/L");
+                          }
+                        }) : Text(""),
+                  
                 ],
               ),
             );
