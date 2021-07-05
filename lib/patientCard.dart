@@ -2216,19 +2216,19 @@ class _PatientCardState extends State<PatientCard>
                                     children: <Widget>[
                                       if (summary.isNotEmpty)
                                         Text('Patient Narrative: ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                                       for (int i = 0; i < summary.length; i++)
                                         Text('${summary[i]}'),
                                       if (vitalSummary.isNotEmpty)
                                         Text('Vitals: ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                                       for (int i = 0;
                                           i < vitalSummary.length;
                                           i++)
                                         Text('${vitalSummary[i]}'),
                                       if (labsummary.isNotEmpty) 
                                         Text('Labs: ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
                                       for (int i = 0;
                                           i < labsummary.length;
                                           i++)
