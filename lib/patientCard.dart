@@ -34,8 +34,10 @@ List<String> vitalSummary = List<String>.filled(0, '', growable: true);
 // list of lab values user highlighted
 List<String> labsummary = List<String>.filled(0, '', growable: true);
 
-// TODO: REPLACE BOOLS BELOW WITH LOGIC
+// list of exam values user highlighted
+List<String> examSummary = List<String>.filled(0, '', growable: true);
 
+// TODO: REPLACE BOOLS BELOW WITH LOGIC
 
 class _PatientCardState extends State<PatientCard>
     with TickerProviderStateMixin {
@@ -174,6 +176,7 @@ class _PatientCardState extends State<PatientCard>
     summary.clear();
     vitalSummary.clear();
     labsummary.clear();
+    examSummary.clear();
     // pull Future item containing case data:
     futureChart = getPatientChart(url);
   }
@@ -240,7 +243,7 @@ class _PatientCardState extends State<PatientCard>
             ext = snapshot.data.examExtremeties;
             skin = snapshot.data.examSkin;
 
-// BEGIN WIDGET CREATION: 
+// BEGIN WIDGET CREATION:
 //=============================================================================
 
 //                    Vitals and Physical Exam tab
@@ -268,232 +271,237 @@ class _PatientCardState extends State<PatientCard>
                           // ),
                           Row(
                             children: <Widget>[
-                            Text(
-                            'Temperature -',
-                            style: TextStyle(
-                             
-                              fontSize: 18,
-                            ),
+                              Text(
+                                'Temperature -',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              TextButton(
+                                  child: new Text(
+                                    snapshot.data.temperature.toString() +
+                                        '\u2103',
+                                    style: pressedTemp
+                                        ? TextStyle(
+                                            color: Colors.black,
+                                            backgroundColor: Colors.yellow,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold)
+                                        : TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () => pressedTemp = !pressedTemp,
+                                    );
+                                    if (!pressedTemp) {
+                                      vitalSummary.remove("Temperature - " +
+                                          snapshot.data.temperature.toString() +
+                                          '\u2103');
+                                    } else {
+                                      vitalSummary.add("Temperature - " +
+                                          snapshot.data.temperature.toString() +
+                                          '\u2103');
+                                    }
+                                  }),
+                            ],
                           ),
-                          TextButton(
-                              child: new Text(
-                                snapshot.data.temperature.toString() + '\u2103',
-                                style: pressedTemp
-                                    ? TextStyle(
-                                        color: Colors.black,
-                                        backgroundColor: Colors.yellow,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)
-                                    : TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                setState(
-                                  () => pressedTemp = !pressedTemp,
-                                );
-                                if (!pressedTemp) {
-                                  vitalSummary.remove("Temperature - " +
-                                      snapshot.data.temperature.toString() +
-                                      '\u2103');
-                                } else {
-                                  vitalSummary.add("Temperature - " +
-                                      snapshot.data.temperature.toString() +
-                                      '\u2103');
-                                }
-                              }),
-                              ],
-                              ),
                           Row(
                             children: <Widget>[
-                          Text(
-                            'Blood Pressure -',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
+                              Text(
+                                'Blood Pressure -',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              TextButton(
+                                  child: new Text(
+                                    snapshot.data.bloodPressure.toString() +
+                                        ' mm Hg',
+                                    style: pressedBP
+                                        ? TextStyle(
+                                            color: Colors.black,
+                                            backgroundColor: Colors.yellow,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold)
+                                        : TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () => pressedBP = !pressedBP,
+                                    );
+                                    if (!pressedBP) {
+                                      vitalSummary.remove("Blood Pressure - " +
+                                          snapshot.data.bloodPressure
+                                              .toString() +
+                                          ' mm Hg');
+                                    } else {
+                                      vitalSummary.add("Blood Pressure - " +
+                                          snapshot.data.bloodPressure
+                                              .toString() +
+                                          ' mm Hg');
+                                    }
+                                  }),
+                            ],
                           ),
-                          TextButton(
-                              child: new Text(
-                                snapshot.data.bloodPressure.toString() +
-                                    ' mm Hg',
-                                style: pressedBP
-                                    ? TextStyle(
-                                        color: Colors.black,
-                                        backgroundColor: Colors.yellow,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)
-                                    : TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                setState(
-                                  () => pressedBP = !pressedBP,
-                                );
-                                if (!pressedBP) {
-                                  vitalSummary.remove("Blood Pressure - " +
-                                      snapshot.data.bloodPressure.toString() +
-                                      ' mm Hg');
-                                } else {
-                                  vitalSummary.add("Blood Pressure - " +
-                                      snapshot.data.bloodPressure.toString() +
-                                      ' mm Hg');
-                                }
-                              }),
-                              ],
-                              ),
-                              Row(
+                          Row(
                             children: <Widget>[
-                          Text(
-                            'Heart Rate -',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
+                              Text(
+                                'Heart Rate -',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              TextButton(
+                                  child: new Text(
+                                    snapshot.data.heartRate.toString() +
+                                        ' Beats/Min',
+                                    style: pressedHR
+                                        ? TextStyle(
+                                            color: Colors.black,
+                                            backgroundColor: Colors.yellow,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold)
+                                        : TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () => pressedHR = !pressedHR,
+                                    );
+                                    if (!pressedHR) {
+                                      vitalSummary.remove("Heart Rate - " +
+                                          snapshot.data.heartRate.toString() +
+                                          ' Beats/Min');
+                                    } else {
+                                      vitalSummary.add("Heart Rate - " +
+                                          snapshot.data.heartRate.toString() +
+                                          ' Beats/Min');
+                                    }
+                                  }),
+                            ],
                           ),
-                          TextButton(
-                              child: new Text(
-                                snapshot.data.heartRate.toString() +
-                                    ' Beats/Min',
-                                style: pressedHR
-                                    ? TextStyle(
-                                        color: Colors.black,
-                                        backgroundColor: Colors.yellow,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)
-                                    : TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                setState(
-                                  () => pressedHR = !pressedHR,
-                                );
-                                if (!pressedHR) {
-                                  vitalSummary.remove("Heart Rate - " +
-                                      snapshot.data.heartRate.toString() +
-                                      ' Beats/Min');
-                                } else {
-                                  vitalSummary.add("Heart Rate - " +
-                                      snapshot.data.heartRate.toString() +
-                                      ' Beats/Min');
-                                }
-                              }),
-                              ],
-                              ),
-                               Row(
+                          Row(
                             children: <Widget>[
-                          Text(
-                            'Respiratory Rate -',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
+                              Text(
+                                'Respiratory Rate -',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              TextButton(
+                                  child: new Text(
+                                    snapshot.data.respiratoryRate.toString() +
+                                        ' Breaths/Min',
+                                    style: pressedRR
+                                        ? TextStyle(
+                                            color: Colors.black,
+                                            backgroundColor: Colors.yellow,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold)
+                                        : TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () => pressedRR = !pressedRR,
+                                    );
+                                    if (!pressedRR) {
+                                      vitalSummary.remove(
+                                          "Respiratory Rate - " +
+                                              snapshot.data.respiratoryRate
+                                                  .toString() +
+                                              ' Breaths/Min');
+                                    } else {
+                                      vitalSummary.add("Respiratory Rate - " +
+                                          snapshot.data.respiratoryRate
+                                              .toString() +
+                                          ' Breaths/Min');
+                                    }
+                                  }),
+                            ],
                           ),
-                          TextButton(
-                              child: new Text(
-                                snapshot.data.respiratoryRate.toString() +
-                                    ' Breaths/Min',
-                                style: pressedRR
-                                    ? TextStyle(
-                                        color: Colors.black,
-                                        backgroundColor: Colors.yellow,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)
-                                    : TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                setState(
-                                  () => pressedRR = !pressedRR,
-                                );
-                                if (!pressedRR) {
-                                  vitalSummary.remove("Respiratory Rate - " +
-                                      snapshot.data.respiratoryRate.toString() +
-                                      ' Breaths/Min');
-                                } else {
-                                  vitalSummary.add("Respiratory Rate - " +
-                                      snapshot.data.respiratoryRate.toString() +
-                                      ' Breaths/Min');
-                                }
-                              }),
-                              ],
-                              ),
-                                Row(
+                          Row(
                             children: <Widget>[
-                          Text(
-                            'O\u2082 Saturation -',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
+                              Text(
+                                'O\u2082 Saturation -',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              TextButton(
+                                  child: new Text(
+                                    snapshot.data.oxygenSat,
+                                    style: pressedOS
+                                        ? TextStyle(
+                                            color: Colors.black,
+                                            backgroundColor: Colors.yellow,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold)
+                                        : TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () => pressedOS = !pressedOS,
+                                    );
+                                    if (!pressedOS) {
+                                      vitalSummary.remove(
+                                          'O\u2082 Saturation - ${snapshot.data.oxygenSat.toString()}');
+                                    } else {
+                                      vitalSummary.add(
+                                          'O\u2082 Saturation - ${snapshot.data.oxygenSat.toString()}');
+                                    }
+                                  }),
+                            ],
                           ),
-                          TextButton(
-                              child: new Text(
-                                snapshot.data.oxygenSat,
-                                style: pressedOS
-                                    ? TextStyle(
-                                        color: Colors.black,
-                                        backgroundColor: Colors.yellow,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)
-                                    : TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                setState(
-                                  () => pressedOS = !pressedOS,
-                                );
-                                if (!pressedOS) {
-                                  vitalSummary.remove(
-                                      'O\u2082 Saturation - ${snapshot.data.oxygenSat.toString()}');
-                                } else {
-                                  vitalSummary.add(
-                                      'O\u2082 Saturation - ${snapshot.data.oxygenSat.toString()}');
-                                }
-                              }),
-                              ],
-                              ),
-                                 Row(
+                          Row(
                             children: <Widget>[
-                          Text(
-                            'O\u2082 Received -',
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
+                              Text(
+                                'O\u2082 Received -',
+                                style: TextStyle(
+                                  fontSize: 18,
+                                ),
+                              ),
+                              TextButton(
+                                  child: new Text(
+                                    snapshot.data.oxygenAmount,
+                                    style: pressedO
+                                        ? TextStyle(
+                                            color: Colors.black,
+                                            backgroundColor: Colors.yellow,
+                                            fontSize: 20.0,
+                                            fontWeight: FontWeight.bold)
+                                        : TextStyle(
+                                            fontSize: 20.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold),
+                                  ),
+                                  onPressed: () {
+                                    setState(
+                                      () => pressedO = !pressedO,
+                                    );
+                                    if (!pressedO) {
+                                      vitalSummary.remove(
+                                          'O\u2082 Received - ${snapshot.data.oxygenAmount.toString()}');
+                                    } else {
+                                      vitalSummary.add(
+                                          'O\u2082 Received - ${snapshot.data.oxygenAmount.toString()}');
+                                    }
+                                  }),
+                            ],
                           ),
-                          TextButton(
-                              child: new Text(
-                                snapshot.data.oxygenAmount,
-                                style: pressedO
-                                    ? TextStyle(
-                                        color: Colors.black,
-                                        backgroundColor: Colors.yellow,
-                                        fontSize: 20.0,
-                                        fontWeight: FontWeight.bold)
-                                    : TextStyle(
-                                        fontSize: 20.0,
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.bold),
-                              ),
-                              onPressed: () {
-                                setState(
-                                  () => pressedO = !pressedO,
-                                );
-                                if (!pressedO) {
-                                  vitalSummary.remove(
-                                      'O\u2082 Received - ${snapshot.data.oxygenAmount.toString()}');
-                                } else {
-                                  vitalSummary.add(
-                                      'O\u2082 Received - ${snapshot.data.oxygenAmount.toString()}');
-                                }
-                              }),
-                              ],
-                              ),
                         ],
                       ),
                     ],
@@ -532,13 +540,13 @@ class _PatientCardState extends State<PatientCard>
             //--------------------------------------------------------------
             // Widget physical = Container(
             //   padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
-              // child: Text(
-              //   "Patient is " + snapshot.data.examGeneral,
-              //   style: TextStyle(
-              //       //fontWeight: FontWeight.bold,
-              //       fontSize: 15),
-              //   textAlign: TextAlign.center,
-              // )
+            // child: Text(
+            //   "Patient is " + snapshot.data.examGeneral,
+            //   style: TextStyle(
+            //       //fontWeight: FontWeight.bold,
+            //       fontSize: 15),
+            //   textAlign: TextAlign.center,
+            // )
             //);
 
             //        Button to "Conduct" Physical Exam
@@ -1930,6 +1938,17 @@ class _PatientCardState extends State<PatientCard>
                                           i < vitalSummary.length;
                                           i++)
                                         Text('${vitalSummary[i]}'),
+                                      if (examSummary.isNotEmpty)
+                                        Text(
+                                          'Physical Exam: ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
+                                      for (int i = 0;
+                                          i < examSummary.length;
+                                          i++)
+                                        Text('${examSummary[i]}'),
                                       if (labsummary.isNotEmpty)
                                         Text(
                                           'Labs: ',
@@ -1943,6 +1962,7 @@ class _PatientCardState extends State<PatientCard>
                                         Text('${labsummary[i]}'),
                                       if (labsummary.isEmpty &&
                                           summary.isEmpty &&
+                                          examSummary.isEmpty &&
                                           vitalSummary.isEmpty)
                                         Text('You did not highlight any data!'),
                                     ],
@@ -2342,6 +2362,7 @@ class _PatientCardState extends State<PatientCard>
         context,
         MaterialPageRoute(
             builder: (context) => Physical(
+                examSummary: examSummary,
                 patient: patient,
                 head: head,
                 neck: neck,
