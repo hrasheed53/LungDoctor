@@ -35,11 +35,7 @@ List<String> vitalSummary = List<String>.filled(0, '', growable: true);
 List<String> labsummary = List<String>.filled(0, '', growable: true);
 
 // TODO: REPLACE BOOLS BELOW WITH LOGIC
-// some patients have no provocating factors listed:
-bool provocatingFactors = true;
-// some patients only have one or two histories listed:
-bool history2 = true;
-bool history3 = true;
+
 
 class _PatientCardState extends State<PatientCard>
     with TickerProviderStateMixin {
@@ -2211,92 +2207,92 @@ class _PatientCardState extends State<PatientCard>
     );
   }
 
-  Column _TEMPOFFbuildButtonColumn(Color color, IconData icon, String label) {
-    return Column(
-      children: [
-        Container(
-          width: 62,
-          padding: EdgeInsets.only(top: 8, left: 4, right: 4, bottom: 8),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.blueGrey, width: 2),
-            borderRadius: BorderRadius.circular(8),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey[300].withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 4), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: color, size: 18),
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    label,
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
-                      color: color,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // Column _TEMPOFFbuildButtonColumn(Color color, IconData icon, String label) {
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         width: 62,
+  //         padding: EdgeInsets.only(top: 8, left: 4, right: 4, bottom: 8),
+  //         decoration: BoxDecoration(
+  //           border: Border.all(color: Colors.blueGrey, width: 2),
+  //           borderRadius: BorderRadius.circular(8),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.grey[300].withOpacity(0.5),
+  //               spreadRadius: 5,
+  //               blurRadius: 7,
+  //               offset: Offset(0, 4), // changes position of shadow
+  //             ),
+  //           ],
+  //         ),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             Icon(icon, color: color, size: 18),
+  //             Container(
+  //               margin: const EdgeInsets.only(top: 8),
+  //               child: Align(
+  //                 alignment: Alignment.center,
+  //                 child: Text(
+  //                   label,
+  //                   style: TextStyle(
+  //                     fontSize: 14,
+  //                     fontWeight: FontWeight.w400,
+  //                     color: color,
+  //                   ),
+  //                   textAlign: TextAlign.center,
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
-  Column _TEMPOFFbuildDiagnoseButtonColumn(
-      Color color, IconData icon, String label) {
-    return Column(
-      children: [
-        Container(
-          width: 100,
-          padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
-          decoration: BoxDecoration(
-            border: Border.all(color: Colors.black54, width: 2),
-            borderRadius: BorderRadius.circular(12),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey[300].withOpacity(0.5),
-                spreadRadius: 5,
-                blurRadius: 7,
-                offset: Offset(0, 4), // changes position of shadow
-              ),
-            ],
-          ),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(icon, color: color, size: 24),
-              Container(
-                margin: const EdgeInsets.only(top: 8),
-                child: Text(
-                  label,
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: color,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    );
-  }
+  // Column _TEMPOFFbuildDiagnoseButtonColumn(
+  //     Color color, IconData icon, String label) {
+  //   return Column(
+  //     children: [
+  //       Container(
+  //         width: 100,
+  //         padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
+  //         decoration: BoxDecoration(
+  //           border: Border.all(color: Colors.black54, width: 2),
+  //           borderRadius: BorderRadius.circular(12),
+  //           boxShadow: [
+  //             BoxShadow(
+  //               color: Colors.grey[300].withOpacity(0.5),
+  //               spreadRadius: 5,
+  //               blurRadius: 7,
+  //               offset: Offset(0, 4), // changes position of shadow
+  //             ),
+  //           ],
+  //         ),
+  //         child: Column(
+  //           mainAxisSize: MainAxisSize.min,
+  //           mainAxisAlignment: MainAxisAlignment.center,
+  //           children: [
+  //             Icon(icon, color: color, size: 24),
+  //             Container(
+  //               margin: const EdgeInsets.only(top: 8),
+  //               child: Text(
+  //                 label,
+  //                 style: TextStyle(
+  //                   fontSize: 18,
+  //                   fontWeight: FontWeight.w400,
+  //                   color: color,
+  //                 ),
+  //               ),
+  //             ),
+  //           ],
+  //         ),
+  //       ),
+  //     ],
+  //   );
+  // }
 
   Column _buildPhysicalExamButton(Color color, IconData icon, String label) {
     return Column(
