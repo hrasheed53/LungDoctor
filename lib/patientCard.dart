@@ -592,11 +592,13 @@ class _PatientCardState extends State<PatientCard>
                           //     fontSize: 25,
                           //   ),
                           // ),
-                          Text(
-                            'Temperature',
+                          Row(
+                            children: <Widget>[
+                            Text(
+                            'Temperature -',
                             style: TextStyle(
-                              //fontWeight: FontWeight.bold,
-                              fontSize: 15,
+                             
+                              fontSize: 18,
                             ),
                           ),
                           TextButton(
@@ -606,10 +608,10 @@ class _PatientCardState extends State<PatientCard>
                                     ? TextStyle(
                                         color: Colors.black,
                                         backgroundColor: Colors.yellow,
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.bold)
                                     : TextStyle(
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                               ),
@@ -627,10 +629,14 @@ class _PatientCardState extends State<PatientCard>
                                       '\u2103');
                                 }
                               }),
+                              ],
+                              ),
+                          Row(
+                            children: <Widget>[
                           Text(
-                            'Blood Pressure',
+                            'Blood Pressure -',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           TextButton(
@@ -641,10 +647,10 @@ class _PatientCardState extends State<PatientCard>
                                     ? TextStyle(
                                         color: Colors.black,
                                         backgroundColor: Colors.yellow,
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.bold)
                                     : TextStyle(
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                               ),
@@ -662,10 +668,14 @@ class _PatientCardState extends State<PatientCard>
                                       ' mm Hg');
                                 }
                               }),
+                              ],
+                              ),
+                              Row(
+                            children: <Widget>[
                           Text(
-                            'Heart Rate',
+                            'Heart Rate -',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           TextButton(
@@ -676,10 +686,10 @@ class _PatientCardState extends State<PatientCard>
                                     ? TextStyle(
                                         color: Colors.black,
                                         backgroundColor: Colors.yellow,
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.bold)
                                     : TextStyle(
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                               ),
@@ -697,10 +707,14 @@ class _PatientCardState extends State<PatientCard>
                                       ' Beats/Min');
                                 }
                               }),
+                              ],
+                              ),
+                               Row(
+                            children: <Widget>[
                           Text(
-                            'Respiratory Rate',
+                            'Respiratory Rate -',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           TextButton(
@@ -711,10 +725,10 @@ class _PatientCardState extends State<PatientCard>
                                     ? TextStyle(
                                         color: Colors.black,
                                         backgroundColor: Colors.yellow,
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.bold)
                                     : TextStyle(
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                               ),
@@ -732,10 +746,14 @@ class _PatientCardState extends State<PatientCard>
                                       ' Breaths/Min');
                                 }
                               }),
+                              ],
+                              ),
+                                Row(
+                            children: <Widget>[
                           Text(
-                            'O\u2082 Saturation',
+                            'O\u2082 Saturation -',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           TextButton(
@@ -745,10 +763,10 @@ class _PatientCardState extends State<PatientCard>
                                     ? TextStyle(
                                         color: Colors.black,
                                         backgroundColor: Colors.yellow,
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.bold)
                                     : TextStyle(
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                               ),
@@ -764,10 +782,14 @@ class _PatientCardState extends State<PatientCard>
                                       'O\u2082 Saturation - ${snapshot.data.oxygenSat.toString()}');
                                 }
                               }),
+                              ],
+                              ),
+                                 Row(
+                            children: <Widget>[
                           Text(
-                            'O\u2082 Received',
+                            'O\u2082 Received -',
                             style: TextStyle(
-                              fontSize: 15,
+                              fontSize: 18,
                             ),
                           ),
                           TextButton(
@@ -777,10 +799,10 @@ class _PatientCardState extends State<PatientCard>
                                     ? TextStyle(
                                         color: Colors.black,
                                         backgroundColor: Colors.yellow,
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         fontWeight: FontWeight.bold)
                                     : TextStyle(
-                                        fontSize: 25.0,
+                                        fontSize: 20.0,
                                         color: Colors.black,
                                         fontWeight: FontWeight.bold),
                               ),
@@ -796,6 +818,8 @@ class _PatientCardState extends State<PatientCard>
                                       'O\u2082 Received - ${snapshot.data.oxygenAmount.toString()}');
                                 }
                               }),
+                              ],
+                              ),
                         ],
                       ),
                     ],
@@ -810,7 +834,7 @@ class _PatientCardState extends State<PatientCard>
               padding: const EdgeInsets.only(bottom: 6, top: 6),
               margin: EdgeInsets.only(left: 10, right: 10),
               decoration: BoxDecoration(
-                color: Colors.red[50],
+                color: Colors.blue[50],
                 border: Border.all(color: Colors.black38, width: 1),
                 borderRadius: BorderRadius.circular(12),
               ),
@@ -832,8 +856,8 @@ class _PatientCardState extends State<PatientCard>
 
             //         General Results from the Physical Examination
             //--------------------------------------------------------------
-            Widget physical = Container(
-              padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
+            // Widget physical = Container(
+            //   padding: const EdgeInsets.only(left: 9, right: 9, bottom: 7),
               // child: Text(
               //   "Patient is " + snapshot.data.examGeneral,
               //   style: TextStyle(
@@ -841,11 +865,26 @@ class _PatientCardState extends State<PatientCard>
               //       fontSize: 15),
               //   textAlign: TextAlign.center,
               // )
-            );
+            //);
 
             //        Button to "Conduct" Physical Exam
             //------------------------------------------------------
-            Widget conductPhysical = Container(
+            // Widget conductPhysical = Container(
+            //   child: Column(children: [
+            //     GestureDetector(
+            //         onTap: () {
+            //           viewExamResults(context);
+            //         },
+            //         child: _buildPhysicalExamButton(
+            //             Theme.of(context).primaryColor,
+            //             Icons.person,
+            //             'Conduct Physical Exam')),
+            //   ]),
+            // );
+
+            //               Box with Physical Exam Button
+            //-----------------------------------------------------------
+            Widget physicalExam = Container(
               child: Column(children: [
                 GestureDetector(
                     onTap: () {
@@ -854,38 +893,35 @@ class _PatientCardState extends State<PatientCard>
                     child: _buildPhysicalExamButton(
                         Theme.of(context).primaryColor,
                         Icons.person,
-                        'Conduct Exam')),
+                        'Conduct Physical Exam')),
               ]),
             );
-
-            //               Box with Physical Exam Button
-            //-----------------------------------------------------------
-            Widget physicalExam = Container(
-              padding: const EdgeInsets.only(bottom: 6, top: 6),
-              margin: EdgeInsets.only(left: 10, right: 10),
-              decoration: BoxDecoration(
-                color: Colors.red[50],
-                border: Border.all(color: Colors.black38, width: 1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Physical Exam",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        decoration: TextDecoration.underline),
-                    textAlign: TextAlign.center,
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 6.0)),
-                  physical,
-                  Padding(padding: EdgeInsets.only(top: 6.0)),
-                  conductPhysical,
-                ],
-              ),
-            );
+            // Container(
+            //   padding: const EdgeInsets.only(bottom: 6, top: 6),
+            //   margin: EdgeInsets.only(left: 10, right: 10),
+            //   decoration: BoxDecoration(
+            //     color: Colors.red[50],
+            //     border: Border.all(color: Colors.black38, width: 1),
+            //     borderRadius: BorderRadius.circular(12),
+            //   ),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //     //   Text(
+            //     //     "Physical Exam",
+            //     //     style: TextStyle(
+            //     //         fontWeight: FontWeight.bold,
+            //     //         fontSize: 30,
+            //     //         decoration: TextDecoration.underline),
+            //     //     textAlign: TextAlign.center,
+            //     //   ),
+            //       // Padding(padding: EdgeInsets.only(top: 6.0)),
+            //       physical,
+            //       // Padding(padding: EdgeInsets.only(top: 6.0)),
+            //       conductPhysical,
+            //     ],
+            //   ),
+            // );
 
             //            Vitals and Physical Exam Tab
             //-----------------------------------------------------------
@@ -1250,7 +1286,8 @@ class _PatientCardState extends State<PatientCard>
                             () => pressedCrea = !pressedCrea,
                           );
                           if (!pressedCrea) {
-                            labsummary.remove("Creatinine - " + creat + " mg/dL");
+                            labsummary
+                                .remove("Creatinine - " + creat + " mg/dL");
                           } else {
                             labsummary.add("Creatinine - " + creat + " mg/dL");
                           }
@@ -1281,7 +1318,8 @@ class _PatientCardState extends State<PatientCard>
                             () => pressedGluc = !pressedGluc,
                           );
                           if (!pressedGluc) {
-                            labsummary.remove("Glucose - " + glucose + " mg/dL");
+                            labsummary
+                                .remove("Glucose - " + glucose + " mg/dL");
                           } else {
                             labsummary.add("Glucose - " + glucose + " mg/dL");
                           }
@@ -1394,7 +1432,8 @@ class _PatientCardState extends State<PatientCard>
                             labsummary
                                 .remove("ABG - pO\u2082 - " + abgpo + " mmHg");
                           } else {
-                            labsummary.add("ABG - pO\u2082 - " + abgpo + " mmHg");
+                            labsummary
+                                .add("ABG - pO\u2082 - " + abgpo + " mmHg");
                           }
                         }),
                     showNormalRanges
@@ -1466,7 +1505,8 @@ class _PatientCardState extends State<PatientCard>
                             () => pressedlac = !pressedlac,
                           );
                           if (!pressedlac) {
-                            labsummary.remove("Lactate - " + lactate + " mmol/L");
+                            labsummary
+                                .remove("Lactate - " + lactate + " mmol/L");
                           } else {
                             labsummary.add("Lactate - " + lactate + " mmol/L");
                           }
@@ -1546,12 +1586,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence1) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[0] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[0] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[0] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[0] + ".");
                             }
                           })
                       : Text(""),
@@ -1576,12 +1614,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence2) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[1] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[1] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[1] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[1] + ".");
                             }
                           })
                       : Text(""),
@@ -1606,12 +1642,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence3) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[2] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[2] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[2] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[2] + ".");
                             }
                           })
                       : Text(""),
@@ -1636,12 +1670,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence4) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[3] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[3] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[3] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[3] + ".");
                             }
                           })
                       : Text(""),
@@ -1666,12 +1698,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence5) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[4] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[4] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[4] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[4] + ".");
                             }
                           })
                       : Text(""),
@@ -1696,12 +1726,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence6) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[5] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[5] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[5] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[5] + ".");
                             }
                           })
                       : Text(""),
@@ -1726,12 +1754,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence7) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[6] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[6] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[6] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[6] + ".");
                             }
                           })
                       : Text(""),
@@ -1756,12 +1782,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence8) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[7] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[7] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[7] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[7] + ".");
                             }
                           })
                       : Text(""),
@@ -1786,12 +1810,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence9) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[8] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[8] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[8] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[8] + ".");
                             }
                           })
                       : Text(""),
@@ -1816,12 +1838,10 @@ class _PatientCardState extends State<PatientCard>
                             );
                             if (!sentence10) {
                               summary.remove(
-                                  snapshot.data.narratives.split('.')[9] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[9] + ".");
                             } else {
                               summary.add(
-                                  snapshot.data.narratives.split('.')[9] +
-                                  ".");
+                                  snapshot.data.narratives.split('.')[9] + ".");
                             }
                           })
                       : Text(""),
@@ -1847,11 +1867,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence11) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[10] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[10] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -1877,11 +1897,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence12) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[11] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[11] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -1907,11 +1927,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence13) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[12] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[12] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -1937,11 +1957,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence14) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[13] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[13] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -1967,11 +1987,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence15) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[14] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[14] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -1997,11 +2017,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence16) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[15] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[15] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -2027,11 +2047,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence17) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[16] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[16] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -2057,11 +2077,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence18) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[17] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[17] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -2087,11 +2107,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence19) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[18] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[18] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -2117,11 +2137,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence20) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[19] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[19] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -2147,11 +2167,11 @@ class _PatientCardState extends State<PatientCard>
                             if (!sentence21) {
                               summary.remove(
                                   snapshot.data.narratives.split('.')[20] +
-                                  ".");
+                                      ".");
                             } else {
                               summary.add(
                                   snapshot.data.narratives.split('.')[20] +
-                                  ".");
+                                      ".");
                             }
                           })
                       : Text(""),
@@ -2209,31 +2229,47 @@ class _PatientCardState extends State<PatientCard>
                             barrierDismissible: false,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Highlights',
-                    style: TextStyle(fontWeight: FontWeight.bold),),
+                                title: Text(
+                                  'Highlights',
+                                  style: TextStyle(fontWeight: FontWeight.bold),
+                                ),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
                                       if (summary.isNotEmpty)
-                                        Text('Patient Narrative: ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                                        Text(
+                                          'Patient Narrative: ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
                                       for (int i = 0; i < summary.length; i++)
                                         Text('${summary[i]}'),
                                       if (vitalSummary.isNotEmpty)
-                                        Text('Vitals: ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                                        Text(
+                                          'Vitals: ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
                                       for (int i = 0;
                                           i < vitalSummary.length;
                                           i++)
                                         Text('${vitalSummary[i]}'),
-                                      if (labsummary.isNotEmpty) 
-                                        Text('Labs: ',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),),
+                                      if (labsummary.isNotEmpty)
+                                        Text(
+                                          'Labs: ',
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16),
+                                        ),
                                       for (int i = 0;
                                           i < labsummary.length;
                                           i++)
                                         Text('${labsummary[i]}'),
-                                      if(labsummary.isEmpty && summary.isEmpty && vitalSummary.isEmpty)
+                                      if (labsummary.isEmpty &&
+                                          summary.isEmpty &&
+                                          vitalSummary.isEmpty)
                                         Text('You did not highlight any data!'),
                                     ],
                                   ),
