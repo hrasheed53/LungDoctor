@@ -1260,7 +1260,7 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("Glucose - " + glucose + " mg/dL");
                           }
                         }),
-                    showNormalRanges ? Text("                     <100 mg/dL",
+                    showNormalRanges ? Text("                     70-120 mg/dL",
                         style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Divider(
@@ -1406,7 +1406,7 @@ class _PatientCardState extends State<PatientCard>
                             summary.add("BNP - " + bnp + " mg/dL");
                           }
                         }),
-                    showNormalRanges ? Text("                              ???? mg/dL",
+                    showNormalRanges ? Text("                              <100 mg/dL",
                         style: TextStyle(fontSize: 18, color: Colors.grey)) : Text(""),
                   ]),
                   Row(children: <Widget>[
@@ -1460,44 +1460,7 @@ class _PatientCardState extends State<PatientCard>
 //=============================================================================
 //                       Narrative tab
 //=============================================================================
-            Widget getTextWidgets(List<String> strings)
-            {
-              var sentence = '';
-              List<Widget> list = new List<Widget>();
-              for(var i = 0; i < snapshot.data.narratives.length; i++){
-                if (snapshot.data.narratives[i] != '.') {
-                  sentence += snapshot.data.narratives[i];
-                }
-                else {
-                  list.add(
-                    TextButton(
-                        child: new Text(
-                          sentence,
-                          style: pressedPO
-                              ? TextStyle(
-                                  color: Colors.black,
-                                  backgroundColor: Colors.yellow,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold)
-                              : TextStyle(
-                                  fontSize: 18.0,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                        ),
-                        onPressed: () {
-                          setState(
-                            () => pressedPO = !pressedPO,
-                          );
-                          if (!pressedPO) {
-                            summary.remove("Patient narrative - " + sentence);
-                          } else {
-                            summary.add("Patient narrative - " + sentence);
-                          }
-                        }),
-                  );
-                }
-              }
-              return new Row(children: list);
+
             }
             //---------NARRATIVE TEXT--------------------------------------
             Widget narrative = Container(
@@ -1544,9 +1507,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence1 = !sentence1,
                           );
                           if (!sentence1) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[0] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[0] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 2 ? 
@@ -1567,9 +1530,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence2 = !sentence2,
                           );
                           if (!sentence2) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[1] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[1] + ".");
                           }
                         }) : Text(""),
                      numSentences >= 3? 
@@ -1590,9 +1553,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence3 = !sentence3,
                           );
                           if (!sentence3) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[2] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[2] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 4? 
@@ -1613,9 +1576,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence4 = !sentence4,
                           );
                           if (!sentence4) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[3] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[3] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 5? 
@@ -1636,9 +1599,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence5 = !sentence5,
                           );
                           if (!sentence5) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[4] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[4] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 6? 
@@ -1659,9 +1622,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence6 = !sentence6,
                           );
                           if (!sentence6) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[5] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[5] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 7? 
@@ -1682,9 +1645,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence7 = !sentence7,
                           );
                           if (!sentence7) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[6] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[6] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 8? 
@@ -1705,9 +1668,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence8 = !sentence8,
                           );
                           if (!sentence8) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[7] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[7] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 9? 
@@ -1728,9 +1691,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence9 = !sentence9,
                           );
                           if (!sentence9) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[8] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[8] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 10? 
@@ -1751,9 +1714,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence10 = !sentence10,
                           );
                           if (!sentence10) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[9] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[9] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 11? 
@@ -1774,9 +1737,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence11 = !sentence11,
                           );
                           if (!sentence11) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[10] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[10] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 12? 
@@ -1797,9 +1760,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence12 = !sentence12,
                           );
                           if (!sentence12) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[11] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[11] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 13? 
@@ -1820,9 +1783,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence13 = !sentence13,
                           );
                           if (!sentence13) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[12] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[12] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 14? 
@@ -1843,9 +1806,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence14 = !sentence14,
                           );
                           if (!sentence14) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[13] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[13] + ".");
                           }
                         }) : Text(""),
                      numSentences >= 15? 
@@ -1866,9 +1829,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence15 = !sentence15,
                           );
                           if (!sentence15) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[14] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[14] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 16? 
@@ -1889,9 +1852,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence16 = !sentence16,
                           );
                           if (!sentence16) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[15] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[15] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 17? 
@@ -1912,9 +1875,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence17 = !sentence17,
                           );
                           if (!sentence17) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[16] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[16] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 18? 
@@ -1935,9 +1898,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence18 = !sentence18,
                           );
                           if (!sentence18) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[17] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[17] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 19? 
@@ -1958,9 +1921,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence19 = !sentence19,
                           );
                           if (!sentence19) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[18] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[18] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 20? 
@@ -1981,9 +1944,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence20 = !sentence20,
                           );
                           if (!sentence20) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[19] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[19] + ".");
                           }
                         }) : Text(""),
                     numSentences >= 21? 
@@ -2004,9 +1967,9 @@ class _PatientCardState extends State<PatientCard>
                             () => sentence21 = !sentence21,
                           );
                           if (!sentence21) {
-                            summary.remove("Lactate - " + lactate + " mmol/L");
+                            summary.remove("Patient Narrative - " + snapshot.data.narratives.split('.')[20] + ".");
                           } else {
-                            summary.add("Lactate - " + lactate + " mmol/L");
+                            summary.add("Patient Narrative - " + snapshot.data.narratives.split('.')[20] + ".");
                           }
                         }) : Text(""),
                   
