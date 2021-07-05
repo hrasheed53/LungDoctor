@@ -2298,7 +2298,7 @@ class _PatientCardState extends State<PatientCard>
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.only(left: 20, right: 20, top: 6, bottom: 6),
+          padding: EdgeInsets.only(left: 36, right: 36, top: 30, bottom: 30),
           decoration: BoxDecoration(
             border: Border.all(color: Colors.black38, width: 1),
             borderRadius: BorderRadius.circular(12),
