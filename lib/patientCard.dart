@@ -1461,7 +1461,7 @@ class _PatientCardState extends State<PatientCard>
 //                       Narrative tab
 //=============================================================================
 
-            }
+            //}
             //---------NARRATIVE TEXT--------------------------------------
             Widget narrative = Container(
                 padding: const EdgeInsets.only(top: 6, left: 12, right: 12),
