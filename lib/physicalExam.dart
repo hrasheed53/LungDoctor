@@ -74,7 +74,7 @@ class _PhysicalState extends State<Physical> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Test Results'),
+        title: const Text('Exam'),
       ),
       body: ListView(
         children: [
