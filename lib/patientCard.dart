@@ -244,329 +244,329 @@ class _PatientCardState extends State<PatientCard>
             ext = snapshot.data.examExtremeties;
             skin = snapshot.data.examSkin;
 
-            // BEGIN WIDGET CREATION:
-            //---------------SYMPTOM ONSET-----------------------------------------
-            Widget onset = Container(
-              padding: const EdgeInsets.only(bottom: 6, top: 6),
-              margin: const EdgeInsets.only(left: 12, right: 12),
-              decoration: BoxDecoration(
-                color: Colors.red[50],
-                border: Border.all(color: Colors.black38, width: 1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Onset of Symptoms: ",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  Text(snapshot.data.symptomOnset,
-                      style: TextStyle(fontSize: 18)),
-                ],
-              ),
-            ); // onset of symptoms
+            // // BEGIN WIDGET CREATION:
+            // //---------------SYMPTOM ONSET-----------------------------------------
+            // Widget onset = Container(
+            //   padding: const EdgeInsets.only(bottom: 6, top: 6),
+            //   margin: const EdgeInsets.only(left: 12, right: 12),
+            //   decoration: BoxDecoration(
+            //     color: Colors.red[50],
+            //     border: Border.all(color: Colors.black38, width: 1),
+            //     borderRadius: BorderRadius.circular(12),
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "Onset of Symptoms: ",
+            //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            //       ),
+            //       Text(snapshot.data.symptomOnset,
+            //           style: TextStyle(fontSize: 18)),
+            //     ],
+            //   ),
+            // ); // onset of symptoms
 
-            // some patients do not have provocating factors listed:
-            bool _checkProvocating() {
-              if (snapshot.data.provocatingFactors == "") {
-                return false;
-              }
-              return true;
-            }
+            // // some patients do not have provocating factors listed:
+            // bool _checkProvocating() {
+            //   if (snapshot.data.provocatingFactors == "") {
+            //     return false;
+            //   }
+            //   return true;
+            // }
 
-            Widget _checkSymptoms() {
-              return Container(
-                child: Conditioned(
-                  cases: [
-                    Case(
-                      // no provocating factors listed:
-                      _checkProvocating() == false,
-                      builder: () => Container(
-                        padding:
-                            const EdgeInsets.only(top: 4, left: 9, right: 9),
-                        child: Text(snapshot.data.symptomDescription,
-                            style: TextStyle(fontSize: 16)),
-                      ),
-                    ),
-                    Case(
-                      // provocating factors are listed:
-                      _checkProvocating() == true,
-                      builder: () => Column(
-                        children: [
-                          Container(
-                            padding: const EdgeInsets.only(
-                                top: 4, left: 9, right: 9),
-                            child: Text(
-                                "Provocating factors: " +
-                                    snapshot.data.provocatingFactors,
-                                style: TextStyle(fontSize: 16)),
-                          ),
-                          Container(
-                            padding: const EdgeInsets.only(
-                                top: 4, left: 9, right: 9),
-                            child: Text(snapshot.data.symptomDescription,
-                                style: TextStyle(fontSize: 16)),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                  defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
-                ),
-              );
-            }
+            // Widget _checkSymptoms() {
+            //   return Container(
+            //     child: Conditioned(
+            //       cases: [
+            //         Case(
+            //           // no provocating factors listed:
+            //           _checkProvocating() == false,
+            //           builder: () => Container(
+            //             padding:
+            //                 const EdgeInsets.only(top: 4, left: 9, right: 9),
+            //             child: Text(snapshot.data.symptomDescription,
+            //                 style: TextStyle(fontSize: 16)),
+            //           ),
+            //         ),
+            //         Case(
+            //           // provocating factors are listed:
+            //           _checkProvocating() == true,
+            //           builder: () => Column(
+            //             children: [
+            //               Container(
+            //                 padding: const EdgeInsets.only(
+            //                     top: 4, left: 9, right: 9),
+            //                 child: Text(
+            //                     "Provocating factors: " +
+            //                         snapshot.data.provocatingFactors,
+            //                     style: TextStyle(fontSize: 16)),
+            //               ),
+            //               Container(
+            //                 padding: const EdgeInsets.only(
+            //                     top: 4, left: 9, right: 9),
+            //                 child: Text(snapshot.data.symptomDescription,
+            //                     style: TextStyle(fontSize: 16)),
+            //               ),
+            //             ],
+            //           ),
+            //         ),
+            //       ],
+            //       defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
+            //     ),
+            //   );
+            // }
 
             //--------------SYMPTOMS LIST BOX-----------------------------------------
-            Widget symptomsList = Container(
-              padding: const EdgeInsets.only(bottom: 6, top: 6),
-              decoration: BoxDecoration(
-                color: Colors.red[50],
-                border: Border.all(color: Colors.black38, width: 1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Symptoms",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                  _checkSymptoms(),
-                ],
-              ),
-            ); // symptoms list
+            // Widget symptomsList = Container(
+            //   padding: const EdgeInsets.only(bottom: 6, top: 6),
+            //   decoration: BoxDecoration(
+            //     color: Colors.red[50],
+            //     border: Border.all(color: Colors.black38, width: 1),
+            //     borderRadius: BorderRadius.circular(12),
+            //   ),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "Symptoms",
+            //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            //         textAlign: TextAlign.center,
+            //       ),
+            //       _checkSymptoms(),
+            //     ],
+            //   ),
+            // ); // symptoms list
 
-            //------------PATIENT'S HISTORY-----------------------------------------
-            // some patients don't have pastmedicalhistory2 field, check for that:
-            bool _history2() {
-              if (snapshot.data.pastMedHistory2 == "") {
-                return false;
-              }
-              return true;
-            }
+            // //------------PATIENT'S HISTORY-----------------------------------------
+            // // some patients don't have pastmedicalhistory2 field, check for that:
+            // bool _history2() {
+            //   if (snapshot.data.pastMedHistory2 == "") {
+            //     return false;
+            //   }
+            //   return true;
+            // }
 
-            // some patients don't have pastmedicalhistory3 field, check for that:
-            bool _history3() {
-              if (snapshot.data.pastMedHistory3 == "") {
-                return false;
-              }
-              return true;
-            }
+            // // some patients don't have pastmedicalhistory3 field, check for that:
+            // bool _history3() {
+            //   if (snapshot.data.pastMedHistory3 == "") {
+            //     return false;
+            //   }
+            //   return true;
+            // }
 
-            // build history widget based on
-            Widget _checkHistory() {
-              return Container(
-                child: Conditioned(
-                  cases: [
-                    Case(
-                      // if history2 exists, check if history3 exists:
-                      _history2() == true,
-                      builder: () => Conditioned(
-                        cases: [
-                          Case(
-                            // history3 exists, print all 3 histories
-                            _history3() == true,
-                            builder: () => Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 4, left: 9, right: 9),
-                                  child: Text(
-                                    "- " + snapshot.data.pastMedHistory1,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 4, left: 9, right: 9),
-                                  child: Text(
-                                    "- " + snapshot.data.pastMedHistory2,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 4, left: 9, right: 9),
-                                  child: Text(
-                                    "- " + snapshot.data.pastMedHistory3,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          Case(
-                            // history3 doesn't exist, print only history 1 and 2
-                            _history3() == false,
-                            builder: () => Column(
-                              children: [
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 4, left: 9, right: 9),
-                                  child: Text(
-                                    "- " + snapshot.data.pastMedHistory1,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      top: 4, left: 9, right: 9),
-                                  child: Text(
-                                    "- " + snapshot.data.pastMedHistory2,
-                                    style: TextStyle(fontSize: 16),
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ],
-                        defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
-                      ),
-                    ),
-                    Case(
-                      // if history2 doesn't exist, history3 doesn't either:
-                      _history2() == false,
-                      builder: () => Container(
-                        padding:
-                            const EdgeInsets.only(top: 4, left: 9, right: 9),
-                        child: Text(
-                          "- " + snapshot.data.pastMedHistory1,
-                          style: TextStyle(fontSize: 16),
-                        ),
-                      ),
-                    ),
-                  ],
-                  defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
-                ),
-              );
-            }
+            // // build history widget based on
+            // Widget _checkHistory() {
+            //   return Container(
+            //     child: Conditioned(
+            //       cases: [
+            //         Case(
+            //           // if history2 exists, check if history3 exists:
+            //           _history2() == true,
+            //           builder: () => Conditioned(
+            //             cases: [
+            //               Case(
+            //                 // history3 exists, print all 3 histories
+            //                 _history3() == true,
+            //                 builder: () => Column(
+            //                   children: [
+            //                     Container(
+            //                       padding: const EdgeInsets.only(
+            //                           top: 4, left: 9, right: 9),
+            //                       child: Text(
+            //                         "- " + snapshot.data.pastMedHistory1,
+            //                         style: TextStyle(fontSize: 16),
+            //                       ),
+            //                     ),
+            //                     Container(
+            //                       padding: const EdgeInsets.only(
+            //                           top: 4, left: 9, right: 9),
+            //                       child: Text(
+            //                         "- " + snapshot.data.pastMedHistory2,
+            //                         style: TextStyle(fontSize: 16),
+            //                       ),
+            //                     ),
+            //                     Container(
+            //                       padding: const EdgeInsets.only(
+            //                           top: 4, left: 9, right: 9),
+            //                       child: Text(
+            //                         "- " + snapshot.data.pastMedHistory3,
+            //                         style: TextStyle(fontSize: 16),
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //               Case(
+            //                 // history3 doesn't exist, print only history 1 and 2
+            //                 _history3() == false,
+            //                 builder: () => Column(
+            //                   children: [
+            //                     Container(
+            //                       padding: const EdgeInsets.only(
+            //                           top: 4, left: 9, right: 9),
+            //                       child: Text(
+            //                         "- " + snapshot.data.pastMedHistory1,
+            //                         style: TextStyle(fontSize: 16),
+            //                       ),
+            //                     ),
+            //                     Container(
+            //                       padding: const EdgeInsets.only(
+            //                           top: 4, left: 9, right: 9),
+            //                       child: Text(
+            //                         "- " + snapshot.data.pastMedHistory2,
+            //                         style: TextStyle(fontSize: 16),
+            //                       ),
+            //                     ),
+            //                   ],
+            //                 ),
+            //               ),
+            //             ],
+            //             defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
+            //           ),
+            //         ),
+            //         Case(
+            //           // if history2 doesn't exist, history3 doesn't either:
+            //           _history2() == false,
+            //           builder: () => Container(
+            //             padding:
+            //                 const EdgeInsets.only(top: 4, left: 9, right: 9),
+            //             child: Text(
+            //               "- " + snapshot.data.pastMedHistory1,
+            //               style: TextStyle(fontSize: 16),
+            //             ),
+            //           ),
+            //         ),
+            //       ],
+            //       defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
+            //     ),
+            //   );
+            // }
 
-            //------------HISTORY LIST BOX-----------------------------------------
-            Widget historyList = Container(
-              padding: const EdgeInsets.only(bottom: 6, top: 6),
-              decoration: BoxDecoration(
-                color: Colors.red[50],
-                border: Border.all(color: Colors.black38, width: 1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "History",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                    textAlign: TextAlign.center,
-                  ),
-                  _checkHistory(),
-                ],
-              ),
-            );
+            // //------------HISTORY LIST BOX-----------------------------------------
+            // Widget historyList = Container(
+            //   padding: const EdgeInsets.only(bottom: 6, top: 6),
+            //   decoration: BoxDecoration(
+            //     color: Colors.red[50],
+            //     border: Border.all(color: Colors.black38, width: 1),
+            //     borderRadius: BorderRadius.circular(12),
+            //   ),
+            //   child: Column(
+            //     mainAxisAlignment: MainAxisAlignment.center,
+            //     children: [
+            //       Text(
+            //         "History",
+            //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            //         textAlign: TextAlign.center,
+            //       ),
+            //       _checkHistory(),
+            //     ],
+            //   ),
+            // );
 
-            bool _checkSmoker() {
-              if (snapshot.data.tobaccoUse != "never") {
-                return true;
-              } else {
-                return false;
-              }
-            }
+            // bool _checkSmoker() {
+            //   if (snapshot.data.tobaccoUse != "never") {
+            //     return true;
+            //   } else {
+            //     return false;
+            //   }
+            // }
 
-            //------------TOBACCO USE -- CHECK BOXES-----------------------------------------
-            Widget _tobaccoBoxes() {
-              return Container(
-                  child: Conditioned(
-                cases: [
-                  Case(
-                    // IF SMOKER
-                    _checkSmoker() == true,
-                    builder: () => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.check_box),
-                            Text("Yes"),
-                          ],
-                        ),
-                        Padding(padding: EdgeInsets.only(right: 12.0)),
-                        Row(
-                          children: [
-                            Icon(Icons.check_box_outline_blank),
-                            Text("No"),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Case(
-                    // IF NON-SMOKER
-                    _checkSmoker() == false,
-                    builder: () => Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(Icons.check_box_outline_blank),
-                            Text("Yes"),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Icon(Icons.check_box),
-                            Text("No"),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-                defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
-              ));
-            }
+            // //------------TOBACCO USE -- CHECK BOXES-----------------------------------------
+            // Widget _tobaccoBoxes() {
+            //   return Container(
+            //       child: Conditioned(
+            //     cases: [
+            //       Case(
+            //         // IF SMOKER
+            //         _checkSmoker() == true,
+            //         builder: () => Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           children: [
+            //             Row(
+            //               children: [
+            //                 Icon(Icons.check_box),
+            //                 Text("Yes"),
+            //               ],
+            //             ),
+            //             Padding(padding: EdgeInsets.only(right: 12.0)),
+            //             Row(
+            //               children: [
+            //                 Icon(Icons.check_box_outline_blank),
+            //                 Text("No"),
+            //               ],
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //       Case(
+            //         // IF NON-SMOKER
+            //         _checkSmoker() == false,
+            //         builder: () => Row(
+            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //           children: [
+            //             Row(
+            //               children: [
+            //                 Icon(Icons.check_box_outline_blank),
+            //                 Text("Yes"),
+            //               ],
+            //             ),
+            //             Row(
+            //               children: [
+            //                 Icon(Icons.check_box),
+            //                 Text("No"),
+            //               ],
+            //             ),
+            //           ],
+            //         ),
+            //       ),
+            //     ],
+            //     defaultBuilder: () => Icon(Icons.wb_sunny_rounded),
+            //   ));
+            // }
 
-            //------------TOBACCO USE-----------------------------------------
-            Widget tobaccoUse = Container(
-              padding: const EdgeInsets.all(6.0),
-              decoration: BoxDecoration(
-                color: Colors.red[50],
-                border: Border.all(color: Colors.black38, width: 1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "Tobacco use?",
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
-                  ),
-                  _tobaccoBoxes(),
-                ],
-              ),
-            );
+            // //------------TOBACCO USE-----------------------------------------
+            // Widget tobaccoUse = Container(
+            //   padding: const EdgeInsets.all(6.0),
+            //   decoration: BoxDecoration(
+            //     color: Colors.red[50],
+            //     border: Border.all(color: Colors.black38, width: 1),
+            //     borderRadius: BorderRadius.circular(12),
+            //   ),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text(
+            //         "Tobacco use?",
+            //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
+            //       ),
+            //       _tobaccoBoxes(),
+            //     ],
+            //   ),
+            // );
 
-            //-----------TAB FOR SYMPTOMS, HISTORY, AND TOBACCO-----------------------------------------
-            Container(
-              margin: const EdgeInsets.only(left: 20.0, right: 20.0),
-              padding: const EdgeInsets.all(12),
-              child: ListView(
-                children: [
-                  onset,
-                  Padding(padding: EdgeInsets.only(top: 15.0)),
-                  Row(
-                    children: [Expanded(child: symptomsList)],
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 15.0)),
-                  Row(
-                    children: [Expanded(child: historyList)],
-                  ),
-                  Padding(padding: EdgeInsets.only(top: 15.0)),
-                  Row(
-                    children: [Expanded(child: tobaccoUse)],
-                  ),
-                ], //BOXES OF TAB
-              ),
-            );
+            // //-----------TAB FOR SYMPTOMS, HISTORY, AND TOBACCO-----------------------------------------
+            // Container(
+            //   margin: const EdgeInsets.only(left: 20.0, right: 20.0),
+            //   padding: const EdgeInsets.all(12),
+            //   child: ListView(
+            //     children: [
+            //       onset,
+            //       Padding(padding: EdgeInsets.only(top: 15.0)),
+            //       Row(
+            //         children: [Expanded(child: symptomsList)],
+            //       ),
+            //       Padding(padding: EdgeInsets.only(top: 15.0)),
+            //       Row(
+            //         children: [Expanded(child: historyList)],
+            //       ),
+            //       Padding(padding: EdgeInsets.only(top: 15.0)),
+            //       Row(
+            //         children: [Expanded(child: tobaccoUse)],
+            //       ),
+            //     ], //BOXES OF TAB
+            //   ),
+            // );
 //=============================================================================
 
 //                    Vitals and Physical Exam tab
