@@ -42,7 +42,7 @@ class _LeaderBoardState extends State<LeaderBoard> {
             writeScore(data.data['storePoints'].toInt());
             return Scaffold(
                 body: ListView(
-                    children: !isAuth //uses default/dummy values if auth fails
+                    children: !isAuth // uses default/dummy values if auth fails
                         ? [
                             ListTile(
                                 leading: Text('1'),
@@ -88,24 +88,13 @@ class _LeaderBoardState extends State<LeaderBoard> {
 
     Map m = item.value;
     print(m);
-    // for (int a = 0; a < m.length;++a){
-    //     LeaderboardEntry le;
-    //      le.name = key;
-    //      le.score = value;
-    //      leaderboardList.add(le);
-
-    //  }
-
-    //List<LeaderboardEntry> tmp = [];
     m.forEach((key, value) {
       print(key);
-      var le = LeaderboardEntry(key, value['score']);
-
-      leaderboardList.add(le);
+      var entry = LeaderboardEntry(key, value['score']);
+      leaderboardList.add(entry);
     });
     print(leaderboardList[0].name);
-    //sorts on scores
-    //print(leaderboardList[0].name);
+    // sorts on scores
     leaderboardList.sort((a, b) => b.score.compareTo(a.score));
     displayList.clear();
 
