@@ -618,11 +618,11 @@ class _PatientCardState extends State<PatientCard>
                                   () => pressedTemp = !pressedTemp,
                                 );
                                 if (!pressedTemp) {
-                                  vitalSummary.remove("(Temperature): " +
+                                  vitalSummary.remove("Temperature - " +
                                       snapshot.data.temperature.toString() +
                                       '\u2103');
                                 } else {
-                                  vitalSummary.add("(Temperature): " +
+                                  vitalSummary.add("Temperature - " +
                                       snapshot.data.temperature.toString() +
                                       '\u2103');
                                 }
@@ -653,11 +653,11 @@ class _PatientCardState extends State<PatientCard>
                                   () => pressedBP = !pressedBP,
                                 );
                                 if (!pressedBP) {
-                                  vitalSummary.remove("(Blood Pressure): " +
+                                  vitalSummary.remove("Blood Pressure - " +
                                       snapshot.data.bloodPressure.toString() +
                                       ' mm Hg');
                                 } else {
-                                  vitalSummary.add("(Blood Pressure): " +
+                                  vitalSummary.add("Blood Pressure - " +
                                       snapshot.data.bloodPressure.toString() +
                                       ' mm Hg');
                                 }
@@ -688,11 +688,11 @@ class _PatientCardState extends State<PatientCard>
                                   () => pressedHR = !pressedHR,
                                 );
                                 if (!pressedHR) {
-                                  vitalSummary.remove("(Heart Rate): " +
+                                  vitalSummary.remove("Heart Rate - " +
                                       snapshot.data.heartRate.toString() +
                                       ' Beats/Min');
                                 } else {
-                                  vitalSummary.add("(Heart Rate): " +
+                                  vitalSummary.add("Heart Rate - " +
                                       snapshot.data.heartRate.toString() +
                                       ' Beats/Min');
                                 }
@@ -723,11 +723,11 @@ class _PatientCardState extends State<PatientCard>
                                   () => pressedRR = !pressedRR,
                                 );
                                 if (!pressedRR) {
-                                  vitalSummary.remove("(Respiratory Rate): " +
+                                  vitalSummary.remove("Respiratory Rate - " +
                                       snapshot.data.respiratoryRate.toString() +
                                       ' Breaths/Min');
                                 } else {
-                                  vitalSummary.add("(Respiratory Rate): " +
+                                  vitalSummary.add("Respiratory Rate - " +
                                       snapshot.data.respiratoryRate.toString() +
                                       ' Breaths/Min');
                                 }
@@ -758,10 +758,10 @@ class _PatientCardState extends State<PatientCard>
                                 );
                                 if (!pressedOS) {
                                   vitalSummary.remove(
-                                      '(O\u2082 Saturation): ${snapshot.data.oxygenSat.toString()}');
+                                      'O\u2082 Saturation - ${snapshot.data.oxygenSat.toString()}');
                                 } else {
                                   vitalSummary.add(
-                                      '(O\u2082 Saturation): ${snapshot.data.oxygenSat.toString()}');
+                                      'O\u2082 Saturation - ${snapshot.data.oxygenSat.toString()}');
                                 }
                               }),
                           Text(
@@ -790,10 +790,10 @@ class _PatientCardState extends State<PatientCard>
                                 );
                                 if (!pressedO) {
                                   vitalSummary.remove(
-                                      '(O\u2082 Received): ${snapshot.data.oxygenAmount.toString()}');
+                                      'O\u2082 Received - ${snapshot.data.oxygenAmount.toString()}');
                                 } else {
                                   vitalSummary.add(
-                                      '(O\u2082 Received): ${snapshot.data.oxygenAmount.toString()}');
+                                      'O\u2082 Received - ${snapshot.data.oxygenAmount.toString()}');
                                 }
                               }),
                         ],
@@ -2209,22 +2209,26 @@ class _PatientCardState extends State<PatientCard>
                             barrierDismissible: false,
                             builder: (BuildContext context) {
                               return AlertDialog(
-                                title: Text('Highlights'),
+                                title: Text('Highlights',
+                    style: TextStyle(fontWeight: FontWeight.bold),),
                                 content: SingleChildScrollView(
                                   child: ListBody(
                                     children: <Widget>[
                                       if (summary.isNotEmpty)
-                                        Text('Patient Narrative- '),
+                                        Text('Patient Narrative: ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                                       for (int i = 0; i < summary.length; i++)
                                         Text('${summary[i]}'),
                                       if (vitalSummary.isNotEmpty)
-                                        Text('Vitals- '),
+                                        Text('Vitals: ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                                       for (int i = 0;
                                           i < vitalSummary.length;
                                           i++)
                                         Text('${vitalSummary[i]}'),
                                       if (labsummary.isNotEmpty) 
-                                        Text('Labs- '),
+                                        Text('Labs: ',
+                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
                                       for (int i = 0;
                                           i < labsummary.length;
                                           i++)
