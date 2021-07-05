@@ -593,7 +593,7 @@ class _PatientCardState extends State<PatientCard>
                           //   ),
                           // ),
                           Text(
-                            '(Temperature)',
+                            'Temperature',
                             style: TextStyle(
                               //fontWeight: FontWeight.bold,
                               fontSize: 15,
@@ -628,7 +628,7 @@ class _PatientCardState extends State<PatientCard>
                                 }
                               }),
                           Text(
-                            '(Blood Pressure)',
+                            'Blood Pressure',
                             style: TextStyle(
                               fontSize: 15,
                             ),
@@ -663,7 +663,7 @@ class _PatientCardState extends State<PatientCard>
                                 }
                               }),
                           Text(
-                            '(Heart Rate)',
+                            'Heart Rate',
                             style: TextStyle(
                               fontSize: 15,
                             ),
@@ -698,7 +698,7 @@ class _PatientCardState extends State<PatientCard>
                                 }
                               }),
                           Text(
-                            '(Respiratory Rate)',
+                            'Respiratory Rate',
                             style: TextStyle(
                               fontSize: 15,
                             ),
@@ -733,7 +733,7 @@ class _PatientCardState extends State<PatientCard>
                                 }
                               }),
                           Text(
-                            '(O\u2082 Saturation)',
+                            'O\u2082 Saturation',
                             style: TextStyle(
                               fontSize: 15,
                             ),
@@ -765,7 +765,7 @@ class _PatientCardState extends State<PatientCard>
                                 }
                               }),
                           Text(
-                            '(O\u2082 Received)',
+                            'O\u2082 Received',
                             style: TextStyle(
                               fontSize: 15,
                             ),
