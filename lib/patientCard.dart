@@ -1987,6 +1987,7 @@ class _PatientCardState extends State<PatientCard>
                     children: [
                       GestureDetector(
                         onTap: () {
+                          if (summary.isNotEmpty || vitalSummary.isNotEmpty || examSummary.isNotEmpty || labsummary.isNotEmpty) {
                           showDialog(
                             context: context,
                             barrierDismissible: false,
@@ -2067,6 +2068,11 @@ class _PatientCardState extends State<PatientCard>
                               );
                             },
                           );
+                          }
+                          else {
+                            Navigator.of(context).pop();
+                                      diagnoseBttn(context);
+                          }
                         },
                         child: _buildDiagnoseButtonColumn(
                             const Color(0xffe34646),
