@@ -1128,13 +1128,14 @@ class _PatientCardState extends State<PatientCard>
                           ),
                           onPressed: () {
                             setState(
-                              () => pressedhemo = !pressedhemo,
+                              () => pressedPCO = !pressedPCO,
                             );
-                            if (!pressedhemo) {
-                              labsummary
-                                  .remove("Hemoglobin - " + hemo + " g/dL");
+                            if (!pressedPCO) {
+                              labsummary.remove(
+                                  "ABG - pCO\u2082 - " + abgpo2 + " mmHg");
                             } else {
-                              labsummary.add("Hemoglobin - " + hemo + " g/dL");
+                              labsummary
+                                  .add("ABG - pCO\u2082 - " + abgpo2 + " mmHg");
                             }
                           }),
                       Container(
@@ -1987,91 +1988,95 @@ class _PatientCardState extends State<PatientCard>
                     children: [
                       GestureDetector(
                         onTap: () {
-                          if (summary.isNotEmpty || vitalSummary.isNotEmpty || examSummary.isNotEmpty || labsummary.isNotEmpty) {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text(
-                                  'Highlights',
-                                  style: TextStyle(fontWeight: FontWeight.bold),
-                                ),
-                                content: SingleChildScrollView(
-                                  child: ListBody(
-                                    children: <Widget>[
-                                      if (summary.isNotEmpty)
-                                        Text(
-                                          'Patient Narrative: ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                      for (int i = 0; i < summary.length; i++)
-                                        Text('${summary[i]}'),
-                                      if (vitalSummary.isNotEmpty)
-                                        Text(
-                                          'Vitals: ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                      for (int i = 0;
-                                          i < vitalSummary.length;
-                                          i++)
-                                        Text('${vitalSummary[i]}'),
-                                      if (examSummary.isNotEmpty)
-                                        Text(
-                                          'Physical Exam: ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                      for (int i = 0;
-                                          i < examSummary.length;
-                                          i++)
-                                        Text('${examSummary[i]}'),
-                                      if (labsummary.isNotEmpty)
-                                        Text(
-                                          'Labs: ',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 16),
-                                        ),
-                                      for (int i = 0;
-                                          i < labsummary.length;
-                                          i++)
-                                        Text('${labsummary[i]}'),
-                                      if (labsummary.isEmpty &&
-                                          summary.isEmpty &&
-                                          examSummary.isEmpty &&
-                                          vitalSummary.isEmpty)
-                                        Text('You did not highlight any data!'),
-                                    ],
+                          if (summary.isNotEmpty ||
+                              vitalSummary.isNotEmpty ||
+                              examSummary.isNotEmpty ||
+                              labsummary.isNotEmpty) {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (BuildContext context) {
+                                return AlertDialog(
+                                  title: Text(
+                                    'Highlights',
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
                                   ),
-                                ),
-                                actions: <Widget>[
-                                  TextButton(
-                                    child: Text('Back to chart'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                    },
+                                  content: SingleChildScrollView(
+                                    child: ListBody(
+                                      children: <Widget>[
+                                        if (summary.isNotEmpty)
+                                          Text(
+                                            'Patient Narrative: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                        for (int i = 0; i < summary.length; i++)
+                                          Text('${summary[i]}'),
+                                        if (vitalSummary.isNotEmpty)
+                                          Text(
+                                            'Vitals: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                        for (int i = 0;
+                                            i < vitalSummary.length;
+                                            i++)
+                                          Text('${vitalSummary[i]}'),
+                                        if (examSummary.isNotEmpty)
+                                          Text(
+                                            'Physical Exam: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                        for (int i = 0;
+                                            i < examSummary.length;
+                                            i++)
+                                          Text('${examSummary[i]}'),
+                                        if (labsummary.isNotEmpty)
+                                          Text(
+                                            'Labs: ',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16),
+                                          ),
+                                        for (int i = 0;
+                                            i < labsummary.length;
+                                            i++)
+                                          Text('${labsummary[i]}'),
+                                        if (labsummary.isEmpty &&
+                                            summary.isEmpty &&
+                                            examSummary.isEmpty &&
+                                            vitalSummary.isEmpty)
+                                          Text(
+                                              'You did not highlight any data!'),
+                                      ],
+                                    ),
                                   ),
-                                  TextButton(
-                                    child: Text('Let\'s diagnose!'),
-                                    onPressed: () {
-                                      Navigator.of(context).pop();
-                                      diagnoseBttn(context);
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
-                          }
-                          else {
+                                  actions: <Widget>[
+                                    TextButton(
+                                      child: Text('Back to chart'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                      },
+                                    ),
+                                    TextButton(
+                                      child: Text('Let\'s diagnose!'),
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        diagnoseBttn(context);
+                                      },
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          } else {
                             Navigator.of(context).pop();
-                                      diagnoseBttn(context);
+                            diagnoseBttn(context);
                           }
                         },
                         child: _buildDiagnoseButtonColumn(
