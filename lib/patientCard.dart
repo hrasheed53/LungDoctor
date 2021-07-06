@@ -8,7 +8,6 @@ import 'package:RESP2/gamePlay.dart';
 import 'package:flutter/rendering.dart';
 import 'diagnoseButton.dart';
 import 'xrayResults.dart';
-import 'package:condition/condition.dart';
 import 'dart:math';
 import 'package:photo_view/photo_view.dart';
 
@@ -1305,7 +1304,7 @@ class _PatientCardState extends State<PatientCard>
 
             //}
             //---------NARRATIVE TEXT--------------------------------------
-            Widget narrative = Container(
+            Container(
                 padding: const EdgeInsets.only(top: 6, left: 12, right: 12),
                 child: Text(
                   snapshot.data.narratives,
