@@ -107,6 +107,8 @@ class _PatientCardState extends State<PatientCard>
   Random random = new Random();
   int randomCase;
   String url;
+  // keeps track so when widget rebuilds tab view index doesn't reset to 0
+  int currentTabIndex = 0;
 
   int caseID;
   // data to be passed on to diagnoseButton:
@@ -174,7 +176,7 @@ class _PatientCardState extends State<PatientCard>
   void initState() {
     super.initState();
 
-    tabController = new TabController(vsync: this, length: 4);
+    //tabController = new TabController(vsync: this, length: 4);
     // choose a random case ID to pull from:
     randomCase = random.nextInt(19);
     url = baseURL + availableCaseIDs[randomCase].toString();
@@ -203,7 +205,8 @@ class _PatientCardState extends State<PatientCard>
     //instead of repeatedly calling futurebuilder in every
     //widget that requires data from the API, which is slow.
     //(FutureBuilder required since pulling from the API is asynchronous)
-    tabController = new TabController(vsync: this, length: 4);
+    tabController = new TabController(
+        vsync: this, length: 4, initialIndex: currentTabIndex);
     return Container(
       child: new FutureBuilder<PatientChart>(
         future: futureChart,
@@ -532,17 +535,7 @@ class _PatientCardState extends State<PatientCard>
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Vitals",
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 30,
-                        decoration: TextDecoration.underline),
-                    textAlign: TextAlign.center,
-                  ),
-                  vitals,
-                ],
+                children: [vitals],
               ),
             );
 
@@ -625,7 +618,6 @@ class _PatientCardState extends State<PatientCard>
                   Row(
                     children: [Expanded(child: vitalsList)],
                   ),
-                  // onset,
                   Padding(padding: EdgeInsets.only(top: 12.0)),
                   Row(
                     children: [Expanded(child: physicalExam)],
@@ -658,7 +650,7 @@ class _PatientCardState extends State<PatientCard>
                       padding: EdgeInsets.only(left: 8.0, bottom: 8.0),
                       child: Row(
                         children: <Widget>[
-                          Text("CBC",
+                          Text("Complete Blood Count",
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.bold)),
                         ],
@@ -1976,6 +1968,8 @@ class _PatientCardState extends State<PatientCard>
                             //_buildButtonColumn(Colors.grey, Icons.wb_sunny, 'BACK')
                           }
                           tabController.animateTo(pagenum);
+                          // keeps tab controller from resetting to index 0
+                          currentTabIndex = pagenum;
                         },
                         child:
                             _buildButtonColumn(color, Icons.wb_sunny, 'BACK'),
@@ -2092,12 +2086,13 @@ class _PatientCardState extends State<PatientCard>
                     children: [
                       GestureDetector(
                           onTap: () {
-                            // viewTestResults(context);
                             int pagenum = (tabController.index + 1) % 4;
                             if (pagenum == 0) {
                               pagenum = 3;
                             }
                             tabController.animateTo(pagenum);
+                            // keeps tab controller from resetting to index 0
+                            currentTabIndex = pagenum;
                           },
                           child: _buildButtonColumn(
                               color, Icons.folder_shared, 'NEXT')),
@@ -2125,6 +2120,10 @@ class _PatientCardState extends State<PatientCard>
                 ),
                 centerTitle: true,
                 bottom: TabBar(
+                  onTap: (int tab) {
+                    // keeps tab controller from resetting to index 0
+                    currentTabIndex = tab;
+                  },
                   controller: tabController,
                   tabs: [
                     Tab(

@@ -6,8 +6,6 @@ import 'instructions.dart';
 import 'signIn.dart';
 import 'main.dart';
 
-//import 'navBar.dart';
-
 class FrontPage extends StatefulWidget {
   FrontPage({Key key}) : super(key: key);
   @override
