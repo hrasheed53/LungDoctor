@@ -1322,9 +1322,11 @@ class _PatientCardState extends State<PatientCard>
                     textAlign: TextAlign.center,
                   ),
                   numSentences >= 1
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[0] + ".",
+                            " 1. " + snapshot.data.narratives.split('.')[0] + ".",
+                            textAlign: TextAlign.left,
                             style: sentence1
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1347,12 +1349,14 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[0] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 2
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[1] + ".",
+                            " 2." + snapshot.data.narratives.split('.')[1] + ".",
+                            textAlign: TextAlign.left,
                             style: sentence2
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1375,12 +1379,14 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[1] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 3
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[2] + ".",
+                            " 3." + snapshot.data.narratives.split('.')[2] + ".",
+                            textAlign: TextAlign.left,
                             style: sentence3
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1403,12 +1409,14 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[2] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 4
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[3] + ".",
+                            " 4." + snapshot.data.narratives.split('.')[3] + ".",
+                            textAlign: TextAlign.left,
                             style: sentence4
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1431,12 +1439,14 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[3] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 5
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[4] + ".",
+                            " 5." +snapshot.data.narratives.split('.')[4] + ".",
+                            textAlign: TextAlign.left,
                             style: sentence5
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1459,12 +1469,13 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[4] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 6
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[5] + ".",
+                            " 6." +snapshot.data.narratives.split('.')[5] + ".",
                             style: sentence6
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1487,12 +1498,13 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[5] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 7
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[6] + ".",
+                            " 7." +snapshot.data.narratives.split('.')[6] + ".",
                             style: sentence7
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1515,12 +1527,13 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[6] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 8
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[7] + ".",
+                            " 8." + snapshot.data.narratives.split('.')[7] + ".",
                             style: sentence8
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1543,12 +1556,13 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[7] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 9
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[8] + ".",
+                            " 9." +snapshot.data.narratives.split('.')[8] + ".",
                             style: sentence9
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1571,12 +1585,13 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[8] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 10
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[9] + ".",
+                            " 10." +snapshot.data.narratives.split('.')[9] + ".",
                             style: sentence10
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1599,12 +1614,13 @@ class _PatientCardState extends State<PatientCard>
                               summary.add(
                                   snapshot.data.narratives.split('.')[9] + ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 11
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[10] + ".",
+                            " 11." + snapshot.data.narratives.split('.')[10] + ".",
                             style: sentence11
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1629,12 +1645,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[10] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 12
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[11] + ".",
+                            " 12." +snapshot.data.narratives.split('.')[11] + ".",
                             style: sentence12
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1659,12 +1676,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[11] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 13
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[12] + ".",
+                            " 13." +snapshot.data.narratives.split('.')[12] + ".",
                             style: sentence13
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1689,12 +1707,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[12] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 14
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[13] + ".",
+                            " 14." +snapshot.data.narratives.split('.')[13] + ".",
                             style: sentence14
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1719,12 +1738,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[13] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 15
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[14] + ".",
+                            " 15." +snapshot.data.narratives.split('.')[14] + ".",
                             style: sentence15
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1749,12 +1769,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[14] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 16
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[15] + ".",
+                            " 16." +snapshot.data.narratives.split('.')[15] + ".",
                             style: sentence16
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1779,12 +1800,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[15] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 17
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[16] + ".",
+                            " 17." +snapshot.data.narratives.split('.')[16] + ".",
                             style: sentence17
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1809,12 +1831,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[16] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 18
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[17] + ".",
+                            " 18." + snapshot.data.narratives.split('.')[17] + ".",
                             style: sentence18
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1839,12 +1862,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[17] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 19
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[18] + ".",
+                            " 19." +snapshot.data.narratives.split('.')[18] + ".",
                             style: sentence19
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1869,12 +1893,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[18] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 20
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[19] + ".",
+                            " 20." + snapshot.data.narratives.split('.')[19] + ".",
                             style: sentence20
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1899,12 +1924,13 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[19] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                   numSentences >= 21
-                      ? TextButton(
+                      ? Align(alignment: Alignment.centerLeft,
+                  child: Container(child: TextButton(
                           child: new Text(
-                            snapshot.data.narratives.split('.')[20] + ".",
+                            " 21." +snapshot.data.narratives.split('.')[20] + ".",
                             style: sentence21
                                 ? TextStyle(
                                     color: Colors.black,
@@ -1929,7 +1955,7 @@ class _PatientCardState extends State<PatientCard>
                                   snapshot.data.narratives.split('.')[20] +
                                       ".");
                             }
-                          })
+                          }),),)
                       : Text(""),
                 ],
               ),
@@ -2447,7 +2473,7 @@ class _PatientCardState extends State<PatientCard>
         context,
         MaterialPageRoute(
             builder: (context) => Physical(
-                examSummary: examSummary,
+                //examSummary: examSummary,
                 patient: patient,
                 head: head,
                 neck: neck,
