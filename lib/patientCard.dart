@@ -1321,7 +1321,7 @@ class _PatientCardState extends State<PatientCard>
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),
                     textAlign: TextAlign.center,
                   ),
-                  numSentences >= 1
+                  numSentences-1 >= 1
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1351,7 +1351,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 2
+                  numSentences -1>= 2
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1381,7 +1381,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 3
+                  numSentences-1 >= 3
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1411,7 +1411,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 4
+                  numSentences-1 >= 4
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1441,7 +1441,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 5
+                  numSentences-1 >= 5
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1471,7 +1471,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 6
+                  numSentences -1>= 6
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1500,7 +1500,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 7
+                  numSentences -1>= 7
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1529,7 +1529,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 8
+                  numSentences-1 >= 8
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1558,7 +1558,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 9
+                  numSentences -1>= 9
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1587,7 +1587,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 10
+                  numSentences-1 >= 10
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1616,7 +1616,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 11
+                  numSentences-1 >= 11
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1647,7 +1647,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 12
+                  numSentences-1 >= 12
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1678,7 +1678,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 13
+                  numSentences -1 >= 13
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1709,7 +1709,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 14
+                  numSentences -1 >= 14
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1740,7 +1740,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 15
+                  numSentences - 1 >= 15
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1771,7 +1771,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 16
+                  numSentences-1 >= 16
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1802,7 +1802,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 17
+                  numSentences-1 >= 17
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1833,7 +1833,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 18
+                  numSentences-1 >= 18
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1864,7 +1864,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 19
+                  numSentences-1 >= 19
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1895,7 +1895,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 20
+                  numSentences-1 >= 20
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
@@ -1926,7 +1926,7 @@ class _PatientCardState extends State<PatientCard>
                             }
                           }),),)
                       : Text(""),
-                  numSentences >= 21
+                  numSentences-1 >= 21
                       ? Align(alignment: Alignment.centerLeft,
                   child: Container(child: TextButton(
                           child: new Text(
