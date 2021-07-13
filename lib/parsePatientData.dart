@@ -161,7 +161,7 @@ class PatientChart {
 Future<PatientChart> getPatientChart(url) async {
   final response = await http.get(url);
   if (response.statusCode == 200) {
-    print(PatientChart.fromJson(jsonDecode(response.body)).age);
+    print(PatientChart.fromJson(jsonDecode(response.body)).narratives);
     return PatientChart.fromJson(jsonDecode(response.body));
   } else {
     throw Exception('Failed to load patient data');
