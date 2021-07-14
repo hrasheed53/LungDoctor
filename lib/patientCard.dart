@@ -1298,42 +1298,7 @@ class _PatientCardState extends State<PatientCard>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // first sentence bolded as a summary of patient
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: Container(
-                      child: TextButton(
-                          child: new Text(
-                            '${snapshot.data.narratives.split('.')[0].trim()}.',
-                            textAlign: TextAlign.left,
-                            style: highlighted[0]
-                                ? TextStyle(
-                                    color: Colors.black,
-                                    backgroundColor: Colors.yellow,
-                                    fontSize: 17.0,
-                                    fontWeight: FontWeight.bold,
-                                  )
-                                : TextStyle(
-                                    fontSize: 17.0,
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                          ),
-                          onPressed: () {
-                            setState(
-                              () => highlighted[0] = !highlighted[0],
-                            );
-                            if (!highlighted[0]) {
-                              summary.remove(
-                                  '${snapshot.data.narratives.split('.')[0].trim()}.');
-                            } else {
-                              summary.add(
-                                  '${snapshot.data.narratives.split('.')[0].trim()}.');
-                            }
-                          }),
-                    ),
-                  ),
-                  for (int i = 1; i < numSentences; i++)
+                  for (int i = 0; i < numSentences; i++)
                     // don't print trailing whitespace
                     if (snapshot.data.narratives
                         .split('.')[i]
@@ -1347,15 +1312,29 @@ class _PatientCardState extends State<PatientCard>
                                 '${snapshot.data.narratives.split('.')[i].trim()}.',
                                 textAlign: TextAlign.left,
                                 style: highlighted[i]
-                                    ? TextStyle(
-                                        color: Colors.black,
-                                        backgroundColor: Colors.yellow,
-                                        fontSize: 17.0,
-                                      )
-                                    : TextStyle(
-                                        fontSize: 17.0,
-                                        color: Colors.black,
-                                      ),
+                                    // bold only first sentence (summary/intro)
+                                    ? i == 0
+                                        ? TextStyle(
+                                            color: Colors.black,
+                                            backgroundColor: Colors.yellow,
+                                            fontSize: 17.0,
+                                            fontWeight: FontWeight.bold,
+                                          )
+                                        : TextStyle(
+                                            color: Colors.black,
+                                            backgroundColor: Colors.yellow,
+                                            fontSize: 17.0,
+                                          )
+                                    : i == 0
+                                        ? TextStyle(
+                                            fontSize: 17.0,
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.bold,
+                                          )
+                                        : TextStyle(
+                                            fontSize: 17.0,
+                                            color: Colors.black,
+                                          ),
                               ),
                               onPressed: () {
                                 setState(
