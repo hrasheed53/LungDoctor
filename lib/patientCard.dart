@@ -47,6 +47,11 @@ TextStyle highlightStyle(bool pressed) {
           fontSize: 17.0, color: Colors.black, fontWeight: FontWeight.bold);
 }
 
+// keeps track sentences highlighted in patient narrative
+// chose 25 because no cases have more than 25 sentences in narrative,
+// can't put list in widget because rebuilds/resets
+List<bool> highlighted = List<bool>.filled(25, false, growable: true);
+
 class _PatientCardState extends State<PatientCard>
     with TickerProviderStateMixin {
   Future<PatientChart> futureChart;
@@ -80,28 +85,6 @@ class _PatientCardState extends State<PatientCard>
   TabController tabController;
 
   bool showNormalRanges = false;
-
-  bool sentence1 = false;
-  bool sentence2 = false;
-  bool sentence3 = false;
-  bool sentence4 = false;
-  bool sentence5 = false;
-  bool sentence6 = false;
-  bool sentence7 = false;
-  bool sentence8 = false;
-  bool sentence9 = false;
-  bool sentence10 = false;
-  bool sentence11 = false;
-  bool sentence12 = false;
-  bool sentence13 = false;
-  bool sentence14 = false;
-  bool sentence15 = false;
-  bool sentence16 = false;
-  bool sentence17 = false;
-  bool sentence18 = false;
-  bool sentence19 = false;
-  bool sentence20 = false;
-  bool sentence21 = false;
 
   // vars for pulling random case:
   Random random = new Random();
@@ -176,7 +159,6 @@ class _PatientCardState extends State<PatientCard>
   void initState() {
     super.initState();
 
-    //tabController = new TabController(vsync: this, length: 4);
     // choose a random case ID to pull from:
     randomCase = random.nextInt(19);
     url = baseURL + availableCaseIDs[randomCase].toString();
@@ -1316,788 +1298,81 @@ class _PatientCardState extends State<PatientCard>
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  numSentences - 1 >= 1
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 1. " +
-                                      snapshot.data.narratives.split('.')[0] +
-                                      ".",
-                                  textAlign: TextAlign.left,
-                                  style: sentence1
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence1 = !sentence1,
-                                  );
-                                  if (!sentence1) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[0] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[0] +
-                                            ".");
-                                  }
-                                }),
+                  // first sentence bolded as a summary of patient
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Container(
+                      child: TextButton(
+                          child: new Text(
+                            '${snapshot.data.narratives.split('.')[0].trim()}.',
+                            textAlign: TextAlign.left,
+                            style: highlighted[0]
+                                ? TextStyle(
+                                    color: Colors.black,
+                                    backgroundColor: Colors.yellow,
+                                    fontSize: 17.0,
+                                    fontWeight: FontWeight.bold,
+                                  )
+                                : TextStyle(
+                                    fontSize: 17.0,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                           ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 2
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 2." +
-                                      snapshot.data.narratives.split('.')[1] +
-                                      ".",
-                                  textAlign: TextAlign.left,
-                                  style: sentence2
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence2 = !sentence2,
-                                  );
-                                  if (!sentence2) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[1] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[1] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 3
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 3." +
-                                      snapshot.data.narratives.split('.')[2] +
-                                      ".",
-                                  textAlign: TextAlign.left,
-                                  style: sentence3
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence3 = !sentence3,
-                                  );
-                                  if (!sentence3) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[2] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[2] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 4
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 4." +
-                                      snapshot.data.narratives.split('.')[3] +
-                                      ".",
-                                  textAlign: TextAlign.left,
-                                  style: sentence4
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence4 = !sentence4,
-                                  );
-                                  if (!sentence4) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[3] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[3] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 5
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 5." +
-                                      snapshot.data.narratives.split('.')[4] +
-                                      ".",
-                                  textAlign: TextAlign.left,
-                                  style: sentence5
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence5 = !sentence5,
-                                  );
-                                  if (!sentence5) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[4] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[4] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 6
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 6." +
-                                      snapshot.data.narratives.split('.')[5] +
-                                      ".",
-                                  style: sentence6
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence6 = !sentence6,
-                                  );
-                                  if (!sentence6) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[5] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[5] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 7
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 7." +
-                                      snapshot.data.narratives.split('.')[6] +
-                                      ".",
-                                  style: sentence7
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence7 = !sentence7,
-                                  );
-                                  if (!sentence7) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[6] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[6] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 8
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 8." +
-                                      snapshot.data.narratives.split('.')[7] +
-                                      ".",
-                                  style: sentence8
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence8 = !sentence8,
-                                  );
-                                  if (!sentence8) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[7] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[7] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 9
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 9." +
-                                      snapshot.data.narratives.split('.')[8] +
-                                      ".",
-                                  style: sentence9
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence9 = !sentence9,
-                                  );
-                                  if (!sentence9) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[8] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[8] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 10
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 10." +
-                                      snapshot.data.narratives.split('.')[9] +
-                                      ".",
-                                  style: sentence10
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence10 = !sentence10,
-                                  );
-                                  if (!sentence10) {
-                                    summary.remove(
-                                        snapshot.data.narratives.split('.')[9] +
-                                            ".");
-                                  } else {
-                                    summary.add(
-                                        snapshot.data.narratives.split('.')[9] +
-                                            ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 11
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 11." +
-                                      snapshot.data.narratives.split('.')[10] +
-                                      ".",
-                                  style: sentence11
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence11 = !sentence11,
-                                  );
-                                  if (!sentence11) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[10] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[10] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 12
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 12." +
-                                      snapshot.data.narratives.split('.')[11] +
-                                      ".",
-                                  style: sentence12
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence12 = !sentence12,
-                                  );
-                                  if (!sentence12) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[11] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[11] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 13
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 13." +
-                                      snapshot.data.narratives.split('.')[12] +
-                                      ".",
-                                  style: sentence13
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence13 = !sentence13,
-                                  );
-                                  if (!sentence13) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[12] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[12] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 14
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 14." +
-                                      snapshot.data.narratives.split('.')[13] +
-                                      ".",
-                                  style: sentence14
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence14 = !sentence14,
-                                  );
-                                  if (!sentence14) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[13] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[13] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 15
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 15." +
-                                      snapshot.data.narratives.split('.')[14] +
-                                      ".",
-                                  style: sentence15
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence15 = !sentence15,
-                                  );
-                                  if (!sentence15) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[14] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[14] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 16
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 16." +
-                                      snapshot.data.narratives.split('.')[15] +
-                                      ".",
-                                  style: sentence16
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence16 = !sentence16,
-                                  );
-                                  if (!sentence16) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[15] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[15] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 17
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 17." +
-                                      snapshot.data.narratives.split('.')[16] +
-                                      ".",
-                                  style: sentence17
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence17 = !sentence17,
-                                  );
-                                  if (!sentence17) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[16] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[16] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 18
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 18." +
-                                      snapshot.data.narratives.split('.')[17] +
-                                      ".",
-                                  style: sentence18
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence18 = !sentence18,
-                                  );
-                                  if (!sentence18) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[17] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[17] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 19
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 19." +
-                                      snapshot.data.narratives.split('.')[18] +
-                                      ".",
-                                  style: sentence19
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence19 = !sentence19,
-                                  );
-                                  if (!sentence19) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[18] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[18] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 20
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 20." +
-                                      snapshot.data.narratives.split('.')[19] +
-                                      ".",
-                                  style: sentence20
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence20 = !sentence20,
-                                  );
-                                  if (!sentence20) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[19] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[19] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
-                  numSentences - 1 >= 21
-                      ? Align(
-                          alignment: Alignment.centerLeft,
-                          child: Container(
-                            child: TextButton(
-                                child: new Text(
-                                  " 21." +
-                                      snapshot.data.narratives.split('.')[20] +
-                                      ".",
-                                  style: sentence21
-                                      ? TextStyle(
-                                          color: Colors.black,
-                                          backgroundColor: Colors.yellow,
-                                          fontSize: 17.0,
-                                        )
-                                      : TextStyle(
-                                          fontSize: 17.0,
-                                          color: Colors.black,
-                                        ),
-                                ),
-                                onPressed: () {
-                                  setState(
-                                    () => sentence21 = !sentence21,
-                                  );
-                                  if (!sentence21) {
-                                    summary.remove(snapshot.data.narratives
-                                            .split('.')[20] +
-                                        ".");
-                                  } else {
-                                    summary.add(snapshot.data.narratives
-                                            .split('.')[20] +
-                                        ".");
-                                  }
-                                }),
-                          ),
-                        )
-                      : Text(""),
+                          onPressed: () {
+                            setState(
+                              () => highlighted[0] = !highlighted[0],
+                            );
+                            if (!highlighted[0]) {
+                              summary.remove(
+                                  '${snapshot.data.narratives.split('.')[0].trim()}.');
+                            } else {
+                              summary.add(
+                                  '${snapshot.data.narratives.split('.')[0].trim()}.');
+                            }
+                          }),
+                    ),
+                  ),
+                  for (int i = 1; i < numSentences; i++)
+                    // don't print trailing whitespace
+                    if (snapshot.data.narratives
+                        .split('.')[i]
+                        .trim()
+                        .isNotEmpty)
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Container(
+                          child: TextButton(
+                              child: new Text(
+                                '${snapshot.data.narratives.split('.')[i].trim()}.',
+                                textAlign: TextAlign.left,
+                                style: highlighted[i]
+                                    ? TextStyle(
+                                        color: Colors.black,
+                                        backgroundColor: Colors.yellow,
+                                        fontSize: 17.0,
+                                      )
+                                    : TextStyle(
+                                        fontSize: 17.0,
+                                        color: Colors.black,
+                                      ),
+                              ),
+                              onPressed: () {
+                                setState(
+                                  () {
+                                    highlighted[i] = !highlighted[i];
+                                  },
+                                );
+                                if (!highlighted[i]) {
+                                  summary.remove(
+                                      '${snapshot.data.narratives.split('.')[i].trim()}.');
+                                } else {
+                                  summary.add(
+                                      '${snapshot.data.narratives.split('.')[i].trim()}.');
+                                }
+                              }),
+                        ),
+                      ),
                 ],
               ),
             );
