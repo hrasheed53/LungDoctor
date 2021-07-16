@@ -63,9 +63,9 @@ class _DiagnoseState extends State<Diagnose> {
     Widget draggableButton = Draggable<String>(
       data: ans,
       child: _buildDiagnoseButton(
-          const Color(0xffe34646), Icons.local_pharmacy, 'SWIPE ME TO DIAGNOSE'),
+          const Color(0xffe34646), Icons.local_pharmacy, 'Swipe Me To Diagnose'),
       feedback: _buildDiagnoseButton(
-          const Color(0xffe34646), Icons.local_pharmacy, 'SWIPE ME TO DIAGNOSE'),
+          const Color(0xffe34646), Icons.local_pharmacy, 'Swipe Me To Diagnose'),
       childWhenDragging: Container(
         width: 110,
         height: 100,
