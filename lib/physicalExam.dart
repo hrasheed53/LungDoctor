@@ -89,6 +89,7 @@ class _PhysicalState extends State<Physical> {
             subtitle: TextButton(
                 child: new Text(
                   patient,
+                  textAlign: TextAlign.left,
                   style: pressGeneral
                       ? TextStyle(
                           backgroundColor: Colors.yellow,
@@ -129,6 +130,7 @@ class _PhysicalState extends State<Physical> {
             subtitle: TextButton(
                 child: new Text(
                   head,
+                  textAlign: TextAlign.left,
                   style: presshead
                       ? TextStyle(
                           backgroundColor: Colors.yellow,
@@ -168,6 +170,7 @@ class _PhysicalState extends State<Physical> {
             subtitle: TextButton(
                 child: new Text(
                   neck,
+                  textAlign: TextAlign.left,
                   style: pressneck
                       ? TextStyle(
                           backgroundColor: Colors.yellow,
@@ -207,6 +210,7 @@ class _PhysicalState extends State<Physical> {
             subtitle: TextButton(
                 child: new Text(
                   heart,
+                  textAlign: TextAlign.left,
                   style: pressheart
                       ? TextStyle(
                           backgroundColor: Colors.yellow,
@@ -246,6 +250,7 @@ class _PhysicalState extends State<Physical> {
             subtitle: TextButton(
                 child: new Text(
                   lungs,
+                  textAlign: TextAlign.left,
                   style: presslungs
                       ? TextStyle(
                           backgroundColor: Colors.yellow,
@@ -285,6 +290,7 @@ class _PhysicalState extends State<Physical> {
             subtitle: TextButton(
                 child: new Text(
                   ab,
+                  textAlign: TextAlign.left,
                   style: pressab
                       ? TextStyle(
                           backgroundColor: Colors.yellow,
@@ -324,6 +330,7 @@ class _PhysicalState extends State<Physical> {
             subtitle: TextButton(
                 child: new Text(
                   ext,
+                  textAlign: TextAlign.left,
                   style: pressext
                       ? TextStyle(
                           backgroundColor: Colors.yellow,
@@ -363,6 +370,7 @@ class _PhysicalState extends State<Physical> {
             subtitle: TextButton(
                 child: new Text(
                   skin,
+                  textAlign: TextAlign.left,
                   style: pressskin
                       ? TextStyle(
                           backgroundColor: Colors.yellow,

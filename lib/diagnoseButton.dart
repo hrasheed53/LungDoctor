@@ -1,6 +1,7 @@
 import 'package:RESP2/userData.dart';
 import 'package:flutter/material.dart';
 import 'package:RESP2/patientcard.dart';
+import 'package:RESP2/presentation/my_flutter_app_icons.dart';
 import 'dart:math';
 import 'package:audioplayers/audio_cache.dart';
 
@@ -62,12 +63,12 @@ class _DiagnoseState extends State<Diagnose> {
     Widget draggableButton = Draggable<String>(
       data: ans,
       child: _buildDiagnoseButton(
-          const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
+          const Color(0xffe34646), Icons.local_pharmacy, 'SWIPE ME TO DIAGNOSE'),
       feedback: _buildDiagnoseButton(
-          const Color(0xffe34646), Icons.local_pharmacy, 'DIAGNOSE'),
+          const Color(0xffe34646), Icons.local_pharmacy, 'SWIPE ME TO DIAGNOSE'),
       childWhenDragging: Container(
         width: 110,
-        height: 80,
+        height: 100,
         padding: EdgeInsets.all(12),
         decoration: BoxDecoration(
           border: Border.all(color: Colors.black54, width: 2),
@@ -88,7 +89,7 @@ class _DiagnoseState extends State<Diagnose> {
     //==============================================================================
     //               Build target for button:
     //==============================================================================
-    Widget _targetBox(String disease) {
+    Widget _targetBox(IconData icon, String disease) {
       return new FutureBuilder(
           future: settings(),
           builder:
@@ -97,7 +98,7 @@ class _DiagnoseState extends State<Diagnose> {
               child: DragTarget<String>(
                 builder: (context, List<String> incoming, List rejected) {
                   return _buildButton(
-                      const Color(0xff2398f7), Icons.local_pharmacy, disease);
+                      const Color(0xff2398f7), icon, disease);
                 },
                 //onWillAccept: (data) => data == disease,
                 onAccept: (data) {
@@ -546,7 +547,7 @@ class _DiagnoseState extends State<Diagnose> {
     //==============================================================================
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Diagnose'),
+        title: const Text('Diagnosis?'),
       ),
       body: Container(
         decoration: BoxDecoration(
@@ -574,9 +575,9 @@ class _DiagnoseState extends State<Diagnose> {
               // droppable widgets here
               children: [
 //              Container(width: 100, height: 80),
-                _targetBox("CHF"),
-                _targetBox("COPD"),
-                _targetBox("PNEUMONIA"),
+                _targetBox(MyFlutterApp.heart, "CHF"),
+                _targetBox(MyFlutterApp.copd, "COPD"),
+                _targetBox(MyFlutterApp.pneumonia, "PNEUMONIA"),
               ],
             )
           ],
@@ -594,6 +595,7 @@ class _DiagnoseState extends State<Diagnose> {
         children: [
           Container(
             width: 110,
+            height: 100,
             padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black54, width: 2),
@@ -616,8 +618,8 @@ class _DiagnoseState extends State<Diagnose> {
                   child: Text(
                     label,
                     style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w400,
+                      fontSize: 15,
+                      fontWeight: FontWeight.bold,
                       color: color,
                     ),
                   ),
@@ -636,6 +638,7 @@ class _DiagnoseState extends State<Diagnose> {
         children: [
           Container(
             width: 110,
+            //height: 80,
             padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black54, width: 2),
@@ -657,8 +660,9 @@ class _DiagnoseState extends State<Diagnose> {
                   margin: const EdgeInsets.only(top: 8),
                   child: Text(
                     label,
+                    textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.bold,
                       color: color,
                     ),
