@@ -25,7 +25,7 @@ class _XraysState extends State<Xrays> {
         title: const Text('Xray Results'),
       ),
       body: Center(
-        child: FlatButton(
+        child: TextButton(
           onPressed: () {
             Navigator.pop(context);
           },

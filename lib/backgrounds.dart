@@ -161,7 +161,7 @@ void _popupDialog(BuildContext context) {
             scale: 4.5,
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
                 onPressed: () {
                   setCustomization("background", newImage);
                   if (soundOn == 1) {
@@ -180,7 +180,7 @@ void _popupDialog(BuildContext context) {
                       MaterialPageRoute(builder: (context) => Instr(i: 3)));
                 },
                 child: Text('OK')),
-            FlatButton(
+            TextButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text('CANCEL')),
           ],

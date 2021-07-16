@@ -160,7 +160,7 @@ void _popupDialog(BuildContext context) {
             scale: .5,
           ),
           actions: <Widget>[
-            FlatButton(
+            TextButton(
                 onPressed: () {
                   setCustomization("pet", newImage);
                   if (soundOn == 1) {
@@ -179,7 +179,7 @@ void _popupDialog(BuildContext context) {
                       MaterialPageRoute(builder: (context) => Instr(i: 3)));
                 },
                 child: Text('ok')),
-            FlatButton(
+            TextButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: Text("cancel")),
           ],
