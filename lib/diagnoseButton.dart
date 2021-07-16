@@ -179,7 +179,7 @@ class _DiagnoseState extends State<Diagnose> {
                                                   child: ListBody(
                                                     children: <Widget>[
                                                       Text(
-                                                          'CORRECT - scroll to see reasoning'),
+                                                          'CORRECT the answer is ' + ans + ' - scroll to see reasoning'),
                                                       Stack(children: <Widget>[
                                                         if (data.hasData)
                                                           if (data.data[
@@ -314,7 +314,7 @@ class _DiagnoseState extends State<Diagnose> {
                                                 Image.asset(
                                                   'assets/images/alien_incorrect.png',
                                                   fit: BoxFit.cover,
-                                                  scale: 4.5,
+                                                  scale: 3,
                                                 ),
                                                 Padding(
                                                     padding: EdgeInsets.only(
