@@ -612,7 +612,7 @@ class _DiagnoseState extends State<Diagnose> {
               mainAxisSize: MainAxisSize.min,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, color: color, size: 26),
+                Icon(icon, color: color, size: 30),
                 Container(
                   margin: const EdgeInsets.only(top: 8),
                   child: Text(
