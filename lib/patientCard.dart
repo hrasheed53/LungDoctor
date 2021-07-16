@@ -167,6 +167,7 @@ class _PatientCardState extends State<PatientCard>
     vitalSummary.clear();
     labsummary.clear();
     examSummary.clear();
+    highlighted = List<bool>.filled(25, false, growable: true);
     // pull Future item containing case data:
     futureChart = getPatientChart(url);
   }
