@@ -387,7 +387,7 @@ class _DiagnoseState extends State<Diagnose> {
                                       child: ListBody(
                                         children: <Widget>[
                                           Text(
-                                              'CORRECT - scroll to see reasoning'),
+                                              'CORRECT the answer is ' + widget.answer + ' - scroll to see reasoning'),
                                           Stack(children: <Widget>[
                                             if (data.hasData)
                                               if (data.data['labCoatColor'] ==
