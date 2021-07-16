@@ -502,7 +502,7 @@ class _DiagnoseState extends State<Diagnose> {
                                     Stack(children: <Widget>[
                                     Image.asset(
                                       'assets/images/alien_incorrect.png',
-                                      //fit: BoxFit.fitHeight,
+                                      fit: BoxFit.cover,
                                       scale: 4.5,
                                     ),
                                     ]),
