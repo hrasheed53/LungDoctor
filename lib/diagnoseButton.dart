@@ -62,10 +62,10 @@ class _DiagnoseState extends State<Diagnose> {
     //==============================================================================
     Widget draggableButton = Draggable<String>(
       data: ans,
-      child: _buildDiagnoseButton(
-          const Color(0xffe34646), Icons.local_pharmacy, 'SWIPE ME TO DIAGNOSE'),
-      feedback: _buildDiagnoseButton(
-          const Color(0xffe34646), Icons.local_pharmacy, 'SWIPE ME TO DIAGNOSE'),
+      child: _buildDiagnoseButton(const Color(0xffe34646), Icons.local_pharmacy,
+          'Swipe Me To Diagnose'),
+      feedback: _buildDiagnoseButton(const Color(0xffe34646),
+          Icons.local_pharmacy, 'Swipe Me To Diagnose'),
       childWhenDragging: Container(
         width: 110,
         height: 100,
@@ -97,8 +97,7 @@ class _DiagnoseState extends State<Diagnose> {
             return Material(
               child: DragTarget<String>(
                 builder: (context, List<String> incoming, List rejected) {
-                  return _buildButton(
-                      const Color(0xff2398f7), icon, disease);
+                  return _buildButton(const Color(0xff2398f7), icon, disease);
                 },
                 //onWillAccept: (data) => data == disease,
                 onAccept: (data) {
@@ -178,8 +177,9 @@ class _DiagnoseState extends State<Diagnose> {
                                                 content: SingleChildScrollView(
                                                   child: ListBody(
                                                     children: <Widget>[
-                                                      Text(
-                                                          'CORRECT the answer is ' + widget.answer + ' - scroll to see reasoning'),
+                                                      Text('CORRECT the answer is ' +
+                                                          widget.answer +
+                                                          ' - scroll to see reasoning'),
                                                       Stack(children: <Widget>[
                                                         if (data.hasData)
                                                           if (data.data[
@@ -311,11 +311,13 @@ class _DiagnoseState extends State<Diagnose> {
                                               children: <Widget>[
                                                 Text(
                                                     'INCORRECT - scroll to see reasoning'),
-                                                Image.asset(
-                                                  'assets/images/alien_incorrect.png',
-                                                  //fit: BoxFit.cover,
-                                                  scale: 2,
-                                                ),
+                                                Stack(children: <Widget>[
+                                                  Image.asset(
+                                                    'assets/images/alien_incorrect.png',
+                                                    fit: BoxFit.cover,
+                                                    scale: 4.5,
+                                                  ),
+                                                ]),
                                                 Padding(
                                                     padding: EdgeInsets.only(
                                                         top: 6)),
@@ -386,8 +388,9 @@ class _DiagnoseState extends State<Diagnose> {
                                     content: SingleChildScrollView(
                                       child: ListBody(
                                         children: <Widget>[
-                                          Text(
-                                              'CORRECT - scroll to see reasoning'),
+                                          Text('CORRECT the answer is ' +
+                                              widget.answer +
+                                              ' - scroll to see reasoning'),
                                           Stack(children: <Widget>[
                                             if (data.hasData)
                                               if (data.data['labCoatColor'] ==
@@ -497,11 +500,13 @@ class _DiagnoseState extends State<Diagnose> {
                                 child: ListBody(
                                   children: <Widget>[
                                     Text('INCORRECT - scroll to see reasoning'),
-                                    Image.asset(
-                                      'assets/images/alien_incorrect.png',
-                                      fit: BoxFit.cover,
-                                      scale: 4.5,
-                                    ),
+                                    Stack(children: <Widget>[
+                                      Image.asset(
+                                        'assets/images/alien_incorrect.png',
+                                        fit: BoxFit.cover,
+                                        scale: 4.5,
+                                      ),
+                                    ]),
                                     Padding(padding: EdgeInsets.only(top: 6)),
                                     Text(
                                         "Correct answer was " +
