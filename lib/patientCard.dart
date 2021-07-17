@@ -173,6 +173,14 @@ class _PatientCardState extends State<PatientCard>
     vitalSummary.clear();
     labsummary.clear();
     examSummary.clear();
+    pressGeneral = false;
+    presshead = false;
+    pressneck = false;
+    pressheart = false;
+    presslungs = false;
+    pressab = false;
+    pressext = false;
+    pressskin = false;
     highlighted = List<bool>.filled(25, false, growable: true);
     // pull Future item containing case data:
     futureChart = getPatientChart(url);
