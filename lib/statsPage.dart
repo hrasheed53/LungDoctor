@@ -48,6 +48,9 @@ class _StatsPageState extends State<StatsPage> {
                   title: Text("Accuracy"),
                   subtitle: Text(accuracy.toString() + "%")),
               ListTile(
+                  title: Text("Accuracy2Test"),
+                  subtitle: Text(data.data['accuracy'].toString() + "%")),
+              ListTile(
                   title: Text("Most Misdiagnosed"),
                   subtitle: Text(diseases[data.data['mostMisdiagnosed']])),
               ListTile(

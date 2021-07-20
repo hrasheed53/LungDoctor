@@ -31,7 +31,7 @@ class _InstrState extends State<Instr> {
     new StatsPage()
   ];
   final _appbarWords = [
-    //HEADERS FOR THE PAGES IN NAVBAR
+    // HEADERS FOR THE PAGES IN NAVBAR
     Text('Welcome!'),
     Text('Leaderboard'),
     Text('Settings'),
@@ -51,7 +51,7 @@ class _InstrState extends State<Instr> {
   @override
   @override
   Widget build(BuildContext context) {
-    //hacky but whatever
+    // hacky but whatever
     if (widget.i != 0) {
       _selectedIndex = widget.i;
       widget.i = 0;

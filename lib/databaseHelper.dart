@@ -7,6 +7,8 @@ class DatabaseHelper {
   // this is the email of whoever is logged in
   static String currentEmail;
 
+  static int databaseVersion = 1;
+
   /* This syntax allows user to believe they are creating an instance of class 
   when in reality they are just accessing the persistent database object */
   static DatabaseHelper _instance;
@@ -31,12 +33,22 @@ class DatabaseHelper {
     return _database;
   }
 
+  onUpgrade(Database db, int oldVersion, int newVersion) async {
+    // Database version is updated, alter the table
+
+    // add conditionals as new versions are needed,
+    // version 2 adds the accuracy column
+    if (oldVersion == 1 && newVersion == 2) {
+      await db.execute("ALTER TABLE user_data ADD accuracy REAL");
+    }
+  }
+
   // Opens database.
   _initDatabase() async {
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, 'user_data.db');
     print(path);
-    Database db = await openDatabase(path, version: 1,
+    Database db = await openDatabase(path, version: databaseVersion,
         onCreate: (Database myDB, int version) async {
       // Using + to make sqlite command more readable.
       await myDB.execute('CREATE TABLE user_data(' +
@@ -53,6 +65,7 @@ class DatabaseHelper {
           'longestStreak INTEGER DEFAULT 0, ' +
           'currentStreak INTEGER DEFAULT 0, ' +
           'storePoints INTEGER DEFAULT 1500, ' +
+          'accuracy INTEGER DEFAULT 0, ' +
           'background TEXT, ' +
           'hatAccessory TEXT, ' +
           'headband TEXT, ' +
@@ -83,6 +96,7 @@ class DatabaseHelper {
       "longestStreak": 0,
       "currentStreak": 0,
       "storePoints": 1500,
+      "accuracy": 0,
       "background": "none",
       "hatAccessory": "none",
       "headband": "none",
@@ -104,7 +118,7 @@ class DatabaseHelper {
     currentEmail = email;
 
     List<Map> list = await db.rawQuery('SELECT * from user_data');
-    print(list);
+    print("all user data $list");
 
     return;
   }
@@ -129,6 +143,17 @@ class DatabaseHelper {
         where: 'email = ?',
         whereArgs: [currentEmail]);
     return attemptedVar.first["numAttempted"];
+  }
+
+  Future<int> get accuracy async {
+    Database db = await database;
+    List<Map> accuracyVar = await db.query("user_data",
+        columns: [
+          "accuracy",
+        ],
+        where: 'email = ?',
+        whereArgs: [currentEmail]);
+    return accuracyVar.first["accuracy"];
   }
 
   Future<int> get misdiagnosed async {
@@ -282,6 +307,7 @@ class DatabaseHelper {
       'longestStreak': await longestStreak,
       'currentStreak': await currentStreak,
       'storePoints': await storePoints,
+      'accuracy': await accuracy,
     };
   }
 
@@ -349,9 +375,9 @@ class DatabaseHelper {
   }
 
   Future<void> updateStats(
-      String diagnosis, String difficulty, bool correct) async {
+      String diagnosis, String difficulty, bool isCorrect) async {
     Database db = await database;
-    if (correct) {
+    if (isCorrect) {
       await db.rawUpdate(
           "UPDATE user_data SET numCorrect = numCorrect + 1, " +
               "numAttempted = numAttempted + 1, " +
@@ -419,6 +445,15 @@ class DatabaseHelper {
             [currentEmail]);
       }
     }
+
+    double accuracyUpdate = 0;
+    if (await attempted != 0) {
+      accuracyUpdate = await correct / await attempted;
+    }
+    print(accuracyUpdate);
+    await db.rawUpdate("UPDATE user_data SET accuracy = ? WHERE email = ?",
+        [accuracyUpdate, currentEmail]);
+
     var updated = await db.rawQuery('SELECT * FROM user_data');
     print(updated);
   }

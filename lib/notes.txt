@@ -1,0 +1,3 @@
+- databaseHelper does not currently have a good method of adding new columns to the database,
+    previous method was to erase it and start over
+    https://github.com/tekartik/sqflite/blob/master/sqflite/doc/migration_example.md

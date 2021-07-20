@@ -14,7 +14,7 @@ final GoogleSignIn googleSignIn = GoogleSignIn();
 String name;
 String email;
 String imageUrl;
-//defines base url to which case no. can be appended:
+// defines base url to which case no. can be appended:
 String baseCaseUrl =
     'https://diagnostic-gamification-api.herokuapp.com/v1/cases/';
 
@@ -27,10 +27,10 @@ Future<String> signInWithGoogle() async {
       await googleSignInAccount.authentication;
 
   final FirebaseApp app = await Firebase.initializeApp(
-      //name: 'db',
+      // name: 'db',
       options: Platform.isIOS
           ? FirebaseOptions(
-              //ios stuff
+              // ios stuff
               appId: '1:710337551246:ios:f1db02542500a9ea2a22df',
               apiKey: 'AIzaSyA1NYKuXCNd_6zq8YbctrA-uiHbNYwjrM4',
               projectId: 'flutter-firebase-plugins',

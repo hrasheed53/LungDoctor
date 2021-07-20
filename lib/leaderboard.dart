@@ -6,6 +6,10 @@ List<LeaderboardEntry> leaderboardList = [];
 
 List<ListTile> displayList = [];
 
+/* all current categories of the leaderboard, naming has one-to-one 
+  correspondence to user database naming */
+List<String> categories = ['storePoints', 'accuracy'];
+
 class LeaderboardEntry {
   LeaderboardEntry fromEntry(String n, int s) {
     name = n;
@@ -34,13 +38,31 @@ class LeaderBoard extends StatefulWidget {
 class _LeaderBoardState extends State<LeaderBoard> {
   @override
   Widget build(BuildContext context) {
-    readScores();
     return new FutureBuilder(
         future: getStatistics(),
         builder: (BuildContext context, AsyncSnapshot<Map<String, int>> data) {
           if (data.hasData) {
-            writeScore(data.data['storePoints'].toInt());
-            return Scaffold(
+            for (int i = 0; i < categories.length; i++) {
+              readScores(categories[i]);
+              writeScore(data.data['storePoints'].toInt(), 'score');
+            }
+            return DefaultTabController(
+              length: 2,
+              child: Scaffold(
+                  bottomNavigationBar: TabBar(
+                    labelColor: Colors.blueAccent,
+                    unselectedLabelColor: Colors.blueGrey,
+                    tabs: [
+                      Tab(text: 'Store Points'),
+                      Tab(text: 'Accuracy'),
+                    ],
+                  ),
+                  body: TabBarView(children: [
+                    new ListView(children: displayList),
+                    Icon(Icons.directions_transit),
+                  ])),
+            );
+            /*return Scaffold(
                 body: ListView(
                     children: !isAuth // uses default/dummy values if auth fails
                         ? [
@@ -65,32 +87,37 @@ class _LeaderBoardState extends State<LeaderBoard> {
                                 title: Text("User 5"),
                                 subtitle: Text("55555")),
                           ]
-                        : displayList));
+                        : displayList));*/
           } else {
             return CircularProgressIndicator();
           }
         });
   }
 
-  Future writeScore(int score) async {
+  /* score is the user's value (accuracy percentage, store points, etc.)
+   * type is the category (score for store points, accuracy, etc.)
+  */
+  Future writeScore(int value, String type) async {
     if (!isAuth) return;
-    // ignore: await_only_futures
+    // probably best to add some check here in the future to make sure database
+    // keys don't get created willy nilly
     await leaderboardRef
         .child(user.displayName.replaceAll('.', ''))
-        .update({'score': score});
+        .update({type: value});
   }
 
-  Future readScores() async {
+  /* reads score from database based on category passed in
+  */
+  Future readScores(String type) async {
     if (!isAuth) return;
-    var item =
-        await leaderboardRef.orderByChild('score').limitToFirst(10).once();
+    var item = await leaderboardRef.orderByChild(type).limitToFirst(10).once();
     leaderboardList.clear();
 
     Map m = item.value;
     print(m);
     m.forEach((key, value) {
       print(key);
-      var entry = LeaderboardEntry(key, value['score']);
+      var entry = LeaderboardEntry(key, value[type]);
       leaderboardList.add(entry);
     });
     print(leaderboardList[0].name);

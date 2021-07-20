@@ -20,23 +20,23 @@ class PatientCard extends StatefulWidget {
 
 // Contains all the logic for the patient card user interface. Now with comment
 // headers for easier understanding.
-  // for physical exam:
-  String patient;
-  String head;
-  String neck;
-  String heart;
-  String lungs;
-  String ab;
-  String ext;
-  String skin;
-  bool pressGeneral = false;
-  bool presshead = false;
-  bool pressneck = false;
-  bool pressheart = false;
-  bool presslungs = false;
-  bool pressab = false;
-  bool pressext = false;
-  bool pressskin = false;
+// for physical exam:
+String patient;
+String head;
+String neck;
+String heart;
+String lungs;
+String ab;
+String ext;
+String skin;
+bool pressGeneral = false;
+bool presshead = false;
+bool pressneck = false;
+bool pressheart = false;
+bool presslungs = false;
+bool pressab = false;
+bool pressext = false;
+bool pressskin = false;
 String baseURL = 'https://diagnostic-gamification-api.herokuapp.com/v1/cases/';
 
 // list of patient narrative values user highlighted
@@ -133,7 +133,6 @@ class _PatientCardState extends State<PatientCard>
   String abgpo;
   String abgpo2;
   String lactate;
-
 
   // For Beta, provided 19 available cases with non-sequential case IDs
   // (had to hardcode the IDs)
@@ -1871,12 +1870,13 @@ class _PatientCardState extends State<PatientCard>
 //----------------------------------------------------------------------
 //                      NAVIGATOR  FUNCTIONS
 //----------------------------------------------------------------------
+  // THIS FN CURRENTLY DEPRACATED, PHYSICAL EXAM NO LONGER IN SEPARATE DART FILE
   Future viewExamResults(context) async {
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (context) => Physical(
-                //examSummary: examSummary,
+                // examSummary: examSummary,
                 patient: patient,
                 head: head,
                 neck: neck,
@@ -1938,7 +1938,6 @@ class _PatientCardState extends State<PatientCard>
 class Physical extends StatefulWidget {
   Physical({
     Key key,
-    this.examSummary2,
     this.patient,
     this.head,
     this.neck,
@@ -1949,16 +1948,14 @@ class Physical extends StatefulWidget {
     this.skin,
   }) : super(key: key);
 
-  List<String> examSummary2;
-  String patient;
-  String head;
-  String neck;
-  String heart;
-  String lungs;
-  String ab;
-  String ext;
-  String skin;
-
+  final String patient;
+  final String head;
+  final String neck;
+  final String heart;
+  final String lungs;
+  final String ab;
+  final String ext;
+  final String skin;
 
   @override
   _PhysicalState createState() => _PhysicalState();
@@ -1967,37 +1964,43 @@ class Physical extends StatefulWidget {
 class _PhysicalState extends State<Physical> {
   @override
   Widget build(BuildContext context) {
-    //highlight stuff
-
-
     String patient = widget.patient;
+
+    // so field does not show up as blank if no information in db
     String head = widget.head;
     if (widget.head == "") {
-      widget.head = "No Info";
+      head = "No Info";
     }
+
     String heart = widget.heart;
-    if (widget.neck == "") {
-      widget.neck = "No Info";
+    if (widget.heart == "") {
+      heart = "No Info";
     }
+
     String neck = widget.neck;
-    if (widget.lungs == "") {
-      widget.lungs = "No Info";
+    if (widget.neck == "") {
+      neck = "No Info";
     }
+
     String lungs = widget.lungs;
-    if (widget.ab == "") {
-      widget.ab = "No Info";
+    if (widget.lungs == "") {
+      lungs = "No Info";
     }
+
     String ab = widget.ab;
-    if (widget.ext == "") {
-      widget.ext = "No Info";
+    if (widget.ab == "") {
+      ab = "No Info";
     }
+
     String ext = widget.ext;
-    if (widget.skin == "") {
-      widget.skin = "No Info";
+    if (widget.ext == "") {
+      ext = "No Info";
     }
+
     String skin = widget.skin;
-
-
+    if (widget.skin == "") {
+      skin = "No Info";
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -2332,4 +2335,3 @@ class _PhysicalState extends State<Physical> {
     );
   }
 }
-

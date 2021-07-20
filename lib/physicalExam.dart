@@ -1,3 +1,8 @@
+/* THIS PAGE IS CURRENTLY DEPRECATED */
+/* As the highlighting functionality was difficult to get working with the code 
+    in a separate Dart file, the physicalExam logic has been moved to the 
+    patientCard.dart file. */
+
 import 'package:flutter/material.dart';
 
 class Physical extends StatefulWidget {
@@ -14,16 +19,15 @@ class Physical extends StatefulWidget {
     this.skin,
   }) : super(key: key);
 
-  List<String> examSummary;
-  String patient;
-  String head;
-  String neck;
-  String heart;
-  String lungs;
-  String ab;
-  String ext;
-  String skin;
-
+  final List<String> examSummary;
+  final String patient;
+  final String head;
+  final String neck;
+  final String heart;
+  final String lungs;
+  final String ab;
+  final String ext;
+  final String skin;
 
   @override
   _PhysicalState createState() => _PhysicalState();
@@ -44,33 +48,42 @@ class _PhysicalState extends State<Physical> {
     List<String> examSummary = widget.examSummary;
 
     String patient = widget.patient;
+
+    // so field does not show up as blank if no information in db
     String head = widget.head;
     if (widget.head == "") {
-      widget.head = "No Info";
+      head = "No Info";
     }
+
     String heart = widget.heart;
-    if (widget.neck == "") {
-      widget.neck = "No Info";
+    if (widget.heart == "") {
+      heart = "No Info";
     }
+
     String neck = widget.neck;
-    if (widget.lungs == "") {
-      widget.lungs = "No Info";
+    if (widget.neck == "") {
+      neck = "No Info";
     }
+
     String lungs = widget.lungs;
-    if (widget.ab == "") {
-      widget.ab = "No Info";
+    if (widget.lungs == "") {
+      lungs = "No Info";
     }
+
     String ab = widget.ab;
-    if (widget.ext == "") {
-      widget.ext = "No Info";
+    if (widget.ab == "") {
+      ab = "No Info";
     }
+
     String ext = widget.ext;
-    if (widget.skin == "") {
-      widget.skin = "No Info";
+    if (widget.ext == "") {
+      ext = "No Info";
     }
+
     String skin = widget.skin;
-
-
+    if (widget.skin == "") {
+      skin = "No Info";
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -405,4 +418,3 @@ class _PhysicalState extends State<Physical> {
     );
   }
 }
-
