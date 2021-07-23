@@ -96,7 +96,7 @@ class DatabaseHelper {
       "longestStreak": 0,
       "currentStreak": 0,
       "storePoints": 1500,
-      "accuracy": 0,
+      //"accuracy": 0,
       "background": "none",
       "hatAccessory": "none",
       "headband": "none",
@@ -307,7 +307,7 @@ class DatabaseHelper {
       'longestStreak': await longestStreak,
       'currentStreak': await currentStreak,
       'storePoints': await storePoints,
-      'accuracy': await accuracy,
+      //'accuracy': await accuracy,
     };
   }
 
@@ -446,13 +446,13 @@ class DatabaseHelper {
       }
     }
 
-    double accuracyUpdate = 0;
-    if (await attempted != 0) {
-      accuracyUpdate = await correct / await attempted;
-    }
-    print(accuracyUpdate);
-    await db.rawUpdate("UPDATE user_data SET accuracy = ? WHERE email = ?",
-        [accuracyUpdate, currentEmail]);
+    // double accuracyUpdate = 0;
+    // if (await attempted != 0) {
+    //   accuracyUpdate = await correct / await attempted;
+    // }
+    // print(accuracyUpdate);
+    // await db.rawUpdate("UPDATE user_data SET accuracy = ? WHERE email = ?",
+      //  [accuracyUpdate, currentEmail]);
 
     var updated = await db.rawQuery('SELECT * FROM user_data');
     print(updated);
