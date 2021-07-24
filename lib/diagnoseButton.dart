@@ -63,7 +63,7 @@ class _DiagnoseState extends State<Diagnose> {
     Widget draggableButton = Draggable<String>(
       data: ans,
       child: _buildDiagnoseButton(const Color(0xffe34646), Icons.local_pharmacy,
-          'Swipe Me To Diagnose'),
+          'Drag Me To Diagnose'),
       feedback: _buildDiagnoseButton(const Color(0xffe34646),
           Icons.local_pharmacy, 'Swipe Me To Diagnose'),
       childWhenDragging: Container(
@@ -178,8 +178,7 @@ class _DiagnoseState extends State<Diagnose> {
                                                   child: ListBody(
                                                     children: <Widget>[
                                                       Text('CORRECT the answer is ' +
-                                                          widget.answer +
-                                                          ' - scroll to see reasoning'),
+                                                          widget.answer),
                                                       Stack(children: <Widget>[
                                                         if (data.hasData)
                                                           if (data.data[
@@ -310,7 +309,7 @@ class _DiagnoseState extends State<Diagnose> {
                                             child: ListBody(
                                               children: <Widget>[
                                                 Text(
-                                                    'INCORRECT - scroll to see reasoning'),
+                                                    'INCORRECT'),
                                                 Stack(children: <Widget>[
                                                   Image.asset(
                                                     'assets/images/alien_incorrect.png',
@@ -389,8 +388,7 @@ class _DiagnoseState extends State<Diagnose> {
                                       child: ListBody(
                                         children: <Widget>[
                                           Text('CORRECT the answer is ' +
-                                              widget.answer +
-                                              ' - scroll to see reasoning'),
+                                              widget.answer),
                                           Stack(children: <Widget>[
                                             if (data.hasData)
                                               if (data.data['labCoatColor'] ==
@@ -499,7 +497,7 @@ class _DiagnoseState extends State<Diagnose> {
                               content: SingleChildScrollView(
                                 child: ListBody(
                                   children: <Widget>[
-                                    Text('INCORRECT - scroll to see reasoning'),
+                                    Text('INCORRECT'),
                                     Stack(children: <Widget>[
                                       Image.asset(
                                         'assets/images/alien_incorrect.png',
@@ -557,7 +555,7 @@ class _DiagnoseState extends State<Diagnose> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/images/beginningGameBG.jpg"),
+            image: AssetImage("assets/images/alien.png"),
             fit: BoxFit.cover,
             colorFilter: new ColorFilter.mode(
                 Colors.black.withOpacity(0.5), BlendMode.darken),
@@ -567,11 +565,31 @@ class _DiagnoseState extends State<Diagnose> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              crossAxisAlignment: CrossAxisAlignment.start,
               // draggable widgets here
-              children: [
+              children: <Widget> [
+                //SizedBox(height: MediaQuery.of(context).size.height / 4),
                 draggableButton,
+                // SizedBox(height: MediaQuery.of(context).size.height / 8),
+                // Container(
+                //   padding: const EdgeInsets.only(bottom: 6, top: 6, left: 6, right: 6),
+                //   margin: EdgeInsets.only(left: 20, right: 20),
+                //   height:  MediaQuery.of(context).size.height / 8,
+                //   width: MediaQuery.of(context).size.width / 2,
+                //   decoration: BoxDecoration(
+                //     color: Colors.blue[50],
+                //     border: Border.all(color: Colors.black, width: 3),
+                //     borderRadius: BorderRadius.circular(12),
+                //   ),
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     children: [Text("Drag the red box to your answer to see if you are correct! Good Luck!",
+                //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))],
+                //   ),
+                // ),
+          
+                
               ],
             ),
             Column(
@@ -603,13 +621,14 @@ class _DiagnoseState extends State<Diagnose> {
             height: 100,
             padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
             decoration: BoxDecoration(
+              color:   Color(0x000E3311).withOpacity(0.7),
               border: Border.all(color: Colors.black54, width: 2),
               boxShadow: [
                 BoxShadow(
                   color: Colors.grey[300].withOpacity(0.5),
                   spreadRadius: 5,
-                  blurRadius: 7,
-                  offset: Offset(0, 3), // changes position of shadow
+                  blurRadius: 1,
+                  offset: Offset(0, 3),
                 ),
               ],
             ),
