@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:RESP2/userData.dart';
 
-int accuracy;
-
 class StatsPage extends StatefulWidget {
   StatsPage({Key key, this.title}) : super(key: key);
 
@@ -24,15 +22,8 @@ class _StatsPageState extends State<StatsPage> {
   Widget build(BuildContext context) {
     return new FutureBuilder(
         future: getStatistics(),
-        builder: (BuildContext context, AsyncSnapshot<Map<String, int>> data) {
+        builder: (BuildContext context, AsyncSnapshot<Map<String, num>> data) {
           if (data.hasData) {
-            if (data.data['numAttempted'] == 0) {
-              accuracy = 0;
-            } else {
-              accuracy =
-                  ((data.data['numCorrect'] / data.data['numAttempted']) * 100)
-                      .round();
-            }
             return Scaffold(
                 body: (ListView(children: [
               ListTile(
@@ -46,9 +37,6 @@ class _StatsPageState extends State<StatsPage> {
                   subtitle: Text(data.data['longestStreak'].toString())),
               ListTile(
                   title: Text("Accuracy"),
-                  subtitle: Text(accuracy.toString() + "%")),
-              ListTile(
-                  title: Text("Accuracy2Test"),
                   subtitle: Text(data.data['accuracy'].toString() + "%")),
               ListTile(
                   title: Text("Most Misdiagnosed"),

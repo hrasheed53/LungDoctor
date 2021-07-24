@@ -1,13 +1,25 @@
 import 'dart:async';
-
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
+
+// IMPORTANT: Other parts of the app should interact with the SQLITE DB through
+// the functions found in userData.dart.
 
 class DatabaseHelper {
   // this is the email of whoever is logged in
   static String currentEmail;
 
-  static int databaseVersion = 1;
+  // update as database needs to be upgraded
+  static const int DATABASE_VERSION = 2;
+
+  // add more list items as database updates are added
+  static const migrationScripts = [
+    // UPDATE 0 - NOTHING, CREATION OF DB IS FIRST CREATION
+    // Put empty item here to allow indices to work correctly in _onUpgrade.
+    '',
+    // UPDATE 1 - ACCURACY WAS ADDED
+    'ALTER TABLE user_data ADD COLUMN accuracy INTEGER DEFAULT 0',
+  ];
 
   /* This syntax allows user to believe they are creating an instance of class 
   when in reality they are just accessing the persistent database object */
@@ -33,50 +45,77 @@ class DatabaseHelper {
     return _database;
   }
 
-  onUpgrade(Database db, int oldVersion, int newVersion) async {
-    // Database version is updated, alter the table
+  _onCreate(Database myDB, int version) async {
+    // Using + to make sqlite command more readable.
+    // Make sure to update onCreate as database is updated, new users will
+    // have whatever version of the database is created here.
+    await myDB.execute('CREATE TABLE user_data(' +
+        'email TEXT PRIMARY KEY, ' +
+        'userName TEXT, ' +
+        'numCorrect INTEGER DEFAULT 0, ' +
+        'numAttempted INTEGER DEFAULT 0, ' +
+        'numCHFMissed INTEGER DEFAULT 0, ' +
+        'numCOPDMissed INTEGER DEFAULT 0, ' +
+        'numPneumMissed INTEGER DEFAULT 0, ' +
+        'numCHFCorrect INTEGER DEFAULT 0, ' +
+        'numCOPDCorrect INTEGER DEFAULT 0, ' +
+        'numPneumCorrect INTEGER DEFAULT 0, ' +
+        'longestStreak INTEGER DEFAULT 0, ' +
+        'currentStreak INTEGER DEFAULT 0, ' +
+        'storePoints INTEGER DEFAULT 1500, ' +
+        'accuracy INTEGER DEFAULT 0, ' +
+        'background TEXT, ' +
+        'hatAccessory TEXT, ' +
+        'headband TEXT, ' +
+        'labCoatColor TEXT, ' +
+        'mask TEXT, ' +
+        'pet TEXT, ' +
+        'stethoscope TEXT, ' +
+        'soundOn INTEGER DEFAULT 1, ' +
+        'sabotageOn INTEGER DEFAULT 1, ' +
+        'UNIQUE(email))');
+  }
 
-    // add conditionals as new versions are needed,
-    // version 2 adds the accuracy column
-    if (oldVersion == 1 && newVersion == 2) {
-      await db.execute("ALTER TABLE user_data ADD accuracy REAL");
+  _onUpgrade(Database myDB, int oldVersion, int newVersion) async {
+    print('Upgrading Database');
+    switch (oldVersion) {
+      case 1:
+        {
+          assert(newVersion == 2);
+          // upgrading from version 1 to version 2
+          // because list is zero indexed but versions are not, subtract one
+          try {
+            await myDB.execute(migrationScripts[newVersion - 1]);
+          } catch (e) {
+            print('Column already exists: $e');
+          }
+          setAccuracy(myDB);
+        }
+        break;
+      default:
+        {
+          print('This migration is not supported. Please make necessary ' +
+              'changes to codebase.');
+        }
     }
+  }
+
+  _onDowngrade(Database myDB, int oldVersion, int newVersion) async {
+    // can be customized for development/testing purposes
   }
 
   // Opens database.
   _initDatabase() async {
     var databasePath = await getDatabasesPath();
     String path = join(databasePath, 'user_data.db');
-    print(path);
-    Database db = await openDatabase(path, version: databaseVersion,
-        onCreate: (Database myDB, int version) async {
-      // Using + to make sqlite command more readable.
-      await myDB.execute('CREATE TABLE user_data(' +
-          'email TEXT PRIMARY KEY, ' +
-          'userName TEXT, ' +
-          'numCorrect INTEGER DEFAULT 0, ' +
-          'numAttempted INTEGER DEFAULT 0, ' +
-          'numCHFMissed INTEGER DEFAULT 0, ' +
-          'numCOPDMissed INTEGER DEFAULT 0, ' +
-          'numPneumMissed INTEGER DEFAULT 0, ' +
-          'numCHFCorrect INTEGER DEFAULT 0, ' +
-          'numCOPDCorrect INTEGER DEFAULT 0, ' +
-          'numPneumCorrect INTEGER DEFAULT 0, ' +
-          'longestStreak INTEGER DEFAULT 0, ' +
-          'currentStreak INTEGER DEFAULT 0, ' +
-          'storePoints INTEGER DEFAULT 1500, ' +
-          'accuracy INTEGER DEFAULT 0, ' +
-          'background TEXT, ' +
-          'hatAccessory TEXT, ' +
-          'headband TEXT, ' +
-          'labCoatColor TEXT, ' +
-          'mask TEXT, ' +
-          'pet TEXT, ' +
-          'stethoscope TEXT, ' +
-          'soundOn INTEGER DEFAULT 1, ' +
-          'sabotageOn INTEGER DEFAULT 1, ' +
-          'UNIQUE(email))');
-    });
+    print("database path $path");
+    Database db = await openDatabase(
+      path,
+      version: DATABASE_VERSION,
+      onCreate: _onCreate,
+      onUpgrade: _onUpgrade,
+      onDowngrade: _onDowngrade,
+    );
     return db;
   }
 
@@ -96,7 +135,7 @@ class DatabaseHelper {
       "longestStreak": 0,
       "currentStreak": 0,
       "storePoints": 1500,
-      //"accuracy": 0,
+      "accuracy": 0,
       "background": "none",
       "hatAccessory": "none",
       "headband": "none",
@@ -156,6 +195,17 @@ class DatabaseHelper {
     return accuracyVar.first["accuracy"];
   }
 
+  Future<void> setAccuracy(var myDatabase) async {
+    int accuracyUpdate = 0;
+    if (await attempted != 0) {
+      accuracyUpdate = ((await correct / await attempted) * 100).round();
+    }
+    print(accuracyUpdate);
+    await myDatabase.rawUpdate(
+        "UPDATE user_data SET accuracy = ? WHERE email = ?",
+        [accuracyUpdate, currentEmail]);
+  }
+
   Future<int> get misdiagnosed async {
     Database db = await database;
     List<Map> missedVals = await db.query("user_data",
@@ -171,7 +221,6 @@ class DatabaseHelper {
       missedVals.first["numCOPDMissed"],
       missedVals.first["numPneumMissed"],
     ];
-    print(missedVals);
     // Get index of highest miss count value.
     int maxIndex = 0;
     if (missed[1] >= missed[0]) {
@@ -202,7 +251,6 @@ class DatabaseHelper {
       correctVals.first["numCOPDCorrect"],
       correctVals.first["numPneumCorrect"],
     ];
-    print(correctVals);
     // Get index of highest correct count value.
     int maxIndex = 0;
     if (corrects[1] >= corrects[0]) {
@@ -298,7 +346,8 @@ class DatabaseHelper {
     return storePoints.first["storePoints"];
   }
 
-  Future<Map<String, int>> getStats() async {
+  // num can handle doubles and ints for scalability in future
+  Future<Map<String, num>> getStats() async {
     return {
       'numCorrect': await correct,
       'numAttempted': await attempted,
@@ -307,7 +356,7 @@ class DatabaseHelper {
       'longestStreak': await longestStreak,
       'currentStreak': await currentStreak,
       'storePoints': await storePoints,
-      //'accuracy': await accuracy,
+      'accuracy': await accuracy,
     };
   }
 
@@ -370,7 +419,6 @@ class DatabaseHelper {
         ],
         where: 'email = ?',
         whereArgs: [currentEmail]);
-    print(customizations.first);
     return customizations.first;
   }
 
@@ -446,15 +494,9 @@ class DatabaseHelper {
       }
     }
 
-    // double accuracyUpdate = 0;
-    // if (await attempted != 0) {
-    //   accuracyUpdate = await correct / await attempted;
-    // }
-    // print(accuracyUpdate);
-    // await db.rawUpdate("UPDATE user_data SET accuracy = ? WHERE email = ?",
-      //  [accuracyUpdate, currentEmail]);
+    setAccuracy(db);
 
     var updated = await db.rawQuery('SELECT * FROM user_data');
-    print(updated);
+    print("updated user data $updated");
   }
 }

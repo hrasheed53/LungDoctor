@@ -2,13 +2,15 @@ import 'package:flutter/material.dart';
 import 'signIn.dart';
 import 'package:RESP2/userData.dart';
 
-List<LeaderboardEntry> leaderboardList = [];
+// maps category to list of leaderboard entries for that category
+Map<String, List<LeaderboardEntry>> leaderboardMap = {};
 
-List<ListTile> displayList = [];
+// maps category to list of people to be displayed for that category
+Map<String, List<ListTile>> displayList = {};
 
-/* all current categories of the leaderboard, naming has one-to-one 
-  correspondence to user database naming */
-List<String> categories = ['storePoints', 'accuracy'];
+// all current categories of the leaderboard, naming has one-to-one
+// correspondence to user database naming
+List<String> categories = ['storePoints', 'accuracy', 'longestStreak'];
 
 class LeaderboardEntry {
   LeaderboardEntry fromEntry(String n, int s) {
@@ -40,54 +42,31 @@ class _LeaderBoardState extends State<LeaderBoard> {
   Widget build(BuildContext context) {
     return new FutureBuilder(
         future: getStatistics(),
-        builder: (BuildContext context, AsyncSnapshot<Map<String, int>> data) {
+        builder: (BuildContext context, AsyncSnapshot<Map<String, num>> data) {
           if (data.hasData) {
             for (int i = 0; i < categories.length; i++) {
               readScores(categories[i]);
-              writeScore(data.data['storePoints'].toInt(), 'score');
+              writeScore(data.data[categories[i]].toInt(), categories[i]);
             }
             return DefaultTabController(
-              length: 2,
-              child: Scaffold(
+                // update length when you add category
+                length: 3,
+                child: Scaffold(
                   bottomNavigationBar: TabBar(
                     labelColor: Colors.blueAccent,
                     unselectedLabelColor: Colors.blueGrey,
                     tabs: [
+                      // must add Tab item here when you add category
                       Tab(text: 'Store Points'),
                       Tab(text: 'Accuracy'),
+                      Tab(text: 'Streak'),
                     ],
                   ),
                   body: TabBarView(children: [
-                    new ListView(children: displayList),
-                    Icon(Icons.directions_transit),
-                  ])),
-            );
-            /*return Scaffold(
-                body: ListView(
-                    children: !isAuth // uses default/dummy values if auth fails
-                        ? [
-                            ListTile(
-                                leading: Text('1'),
-                                title: Text("User 1"),
-                                subtitle: Text("99999")),
-                            ListTile(
-                                leading: Text('2'),
-                                title: Text("User 2"),
-                                subtitle: Text("88888")),
-                            ListTile(
-                                leading: Text('3'),
-                                title: Text("User 3"),
-                                subtitle: Text("77777")),
-                            ListTile(
-                                leading: Text('4'),
-                                title: Text("User 4"),
-                                subtitle: Text("66666")),
-                            ListTile(
-                                leading: Text('5'),
-                                title: Text("User 5"),
-                                subtitle: Text("55555")),
-                          ]
-                        : displayList));*/
+                    for (int i = 0; i < categories.length; i++)
+                      new ListView(children: displayList[categories[i]])
+                  ]),
+                ));
           } else {
             return CircularProgressIndicator();
           }
@@ -110,28 +89,38 @@ class _LeaderBoardState extends State<LeaderBoard> {
   */
   Future readScores(String type) async {
     if (!isAuth) return;
-    var item = await leaderboardRef.orderByChild(type).limitToFirst(10).once();
-    leaderboardList.clear();
 
-    Map m = item.value;
-    print(m);
+    // only display top 10
+    var topTen =
+        await leaderboardRef.orderByChild(type).limitToFirst(10).once();
+    // avoid error, calling clear on null
+    if (leaderboardMap[type] != null) leaderboardMap[type].clear();
+
+    // initialize to avoid null errors
+    leaderboardMap[type] = [];
+    displayList[type] = [];
+
+    // value is all scores, key is name
+    Map m = topTen.value;
     m.forEach((key, value) {
-      print(key);
+      // don't allow null values to persist, will mess up sorting later
+      if (value[type] == null) {
+        value[type] = 0;
+      }
       var entry = LeaderboardEntry(key, value[type]);
-      leaderboardList.add(entry);
+      leaderboardMap[type].add(entry);
     });
-    print(leaderboardList[0].name);
-    // sorts on scores
-    leaderboardList.sort((a, b) => b.score.compareTo(a.score));
-    displayList.clear();
 
-    for (var i = 0; i < leaderboardList.length; i++) {
-      print(leaderboardList[i].name);
-      print(leaderboardList[i].score.toString());
-      displayList.add(ListTile(
+    // sorts on scores
+    leaderboardMap[type].sort((a, b) => b.score.compareTo(a.score));
+    // avoid error, calling clear on null
+    if (displayList[type] != null) displayList[type].clear();
+
+    for (var i = 0; i < leaderboardMap[type].length; i++) {
+      displayList[type].add(ListTile(
           leading: Text((i + 1).toString()),
-          title: Text(leaderboardList[i].name),
-          subtitle: Text(leaderboardList[i].score.toString())));
+          title: Text(leaderboardMap[type][i].name),
+          subtitle: Text(leaderboardMap[type][i].score.toString())));
     }
   }
 }

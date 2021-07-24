@@ -1,13 +1,14 @@
 import 'package:RESP2/databaseHelper.dart';
 
-// Interfaces with database.
+// Interfaces with database. Other parts of the app should interact with the
+// SQLITE DB through the methods contained in this file.
 
 void createUser(String name, String email) async {
   final db = DatabaseHelper();
   await db.createUser(name, email);
 }
 
-Future<Map<String, int>> getStatistics() {
+Future<Map<String, num>> getStatistics() {
   final db = DatabaseHelper();
   /* for most correct and incorrect diagnosed:
   0 - CHF
