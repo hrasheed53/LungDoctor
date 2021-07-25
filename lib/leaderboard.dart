@@ -104,11 +104,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
     Map m = topTen.value;
     m.forEach((key, value) {
       // don't allow null values to persist, will mess up sorting later
-      if (value[type] == null) {
-        value[type] = 0;
+      if (value[type] != null) {
+        var entry = LeaderboardEntry(key, value[type]);
+        leaderboardMap[type].add(entry);
       }
-      var entry = LeaderboardEntry(key, value[type]);
-      leaderboardMap[type].add(entry);
     });
 
     // sorts on scores
@@ -120,7 +119,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
       displayList[type].add(ListTile(
           leading: Text((i + 1).toString()),
           title: Text(leaderboardMap[type][i].name),
-          subtitle: Text(leaderboardMap[type][i].score.toString())));
+          subtitle: type == 'accuracy'
+              // append a % if it's accuracy percentage
+              ? Text('${leaderboardMap[type][i].score.toString()}%')
+              : Text(leaderboardMap[type][i].score.toString())));
     }
   }
 }

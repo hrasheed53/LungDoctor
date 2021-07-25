@@ -62,8 +62,8 @@ class _DiagnoseState extends State<Diagnose> {
     //==============================================================================
     Widget draggableButton = Draggable<String>(
       data: ans,
-      child: _buildDiagnoseButton(const Color(0xffe34646), Icons.local_pharmacy,
-          'Drag Me To Diagnose'),
+      child: _buildDiagnoseButton(
+          const Color(0xffe34646), Icons.local_pharmacy, 'Drag Me To Diagnose'),
       feedback: _buildDiagnoseButton(const Color(0xffe34646),
           Icons.local_pharmacy, 'Swipe Me To Diagnose'),
       childWhenDragging: Container(
@@ -177,8 +177,7 @@ class _DiagnoseState extends State<Diagnose> {
                                                 content: SingleChildScrollView(
                                                   child: ListBody(
                                                     children: <Widget>[
-                                                      Text('CORRECT the answer is ' +
-                                                          widget.answer),
+                                                      Text('CORRECT!'),
                                                       Stack(children: <Widget>[
                                                         if (data.hasData)
                                                           if (data.data[
@@ -264,10 +263,16 @@ class _DiagnoseState extends State<Diagnose> {
                                                             scale: 4.5,
                                                           )
                                                       ]),
+                                                      Text(
+                                                          "Correct answer was ${widget.answer}.",
+                                                          style: TextStyle(
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .bold)),
                                                       Padding(
                                                           padding:
                                                               EdgeInsets.only(
-                                                                  top: 6)),
+                                                                  top: 5)),
                                                       Text(expertAdvice),
                                                     ],
                                                   ),
@@ -308,8 +313,7 @@ class _DiagnoseState extends State<Diagnose> {
                                           content: SingleChildScrollView(
                                             child: ListBody(
                                               children: <Widget>[
-                                                Text(
-                                                    'INCORRECT'),
+                                                Text('INCORRECT'),
                                                 Stack(children: <Widget>[
                                                   Image.asset(
                                                     'assets/images/alien_incorrect.png',
@@ -317,19 +321,14 @@ class _DiagnoseState extends State<Diagnose> {
                                                     scale: 4.5,
                                                   ),
                                                 ]),
-                                                Padding(
-                                                    padding: EdgeInsets.only(
-                                                        top: 6)),
                                                 Text(
-                                                    "Correct answer was " +
-                                                        widget.answer +
-                                                        ": ",
+                                                    "Correct answer was ${widget.answer}.",
                                                     style: TextStyle(
                                                         fontWeight:
                                                             FontWeight.bold)),
                                                 Padding(
                                                     padding: EdgeInsets.only(
-                                                        top: 6)),
+                                                        top: 5)),
                                                 Text(expertAdvice),
                                               ],
                                             ),
@@ -387,8 +386,7 @@ class _DiagnoseState extends State<Diagnose> {
                                     content: SingleChildScrollView(
                                       child: ListBody(
                                         children: <Widget>[
-                                          Text('CORRECT the answer is ' +
-                                              widget.answer),
+                                          Text('CORRECT!'),
                                           Stack(children: <Widget>[
                                             if (data.hasData)
                                               if (data.data['labCoatColor'] ==
@@ -458,8 +456,12 @@ class _DiagnoseState extends State<Diagnose> {
                                                 scale: 4.5,
                                               )
                                           ]),
+                                          Text(
+                                              "Correct answer is ${widget.answer}.",
+                                              style: TextStyle(
+                                                  fontWeight: FontWeight.bold)),
                                           Padding(
-                                              padding: EdgeInsets.only(top: 6)),
+                                              padding: EdgeInsets.only(top: 5)),
                                           Text(expertAdvice),
                                         ],
                                       ),
@@ -505,14 +507,10 @@ class _DiagnoseState extends State<Diagnose> {
                                         scale: 4.5,
                                       ),
                                     ]),
-                                    Padding(padding: EdgeInsets.only(top: 6)),
-                                    Text(
-                                        "Correct answer was " +
-                                            widget.answer +
-                                            ": ",
+                                    Text("Correct answer was ${widget.answer}.",
                                         style: TextStyle(
                                             fontWeight: FontWeight.bold)),
-                                    Padding(padding: EdgeInsets.only(top: 6)),
+                                    Padding(padding: EdgeInsets.only(top: 5)),
                                     Text(expertAdvice),
                                   ],
                                 ),
@@ -568,8 +566,8 @@ class _DiagnoseState extends State<Diagnose> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               crossAxisAlignment: CrossAxisAlignment.start,
               // draggable widgets here
-              children: <Widget> [
-                //SizedBox(height: MediaQuery.of(context).size.height / 4),
+              children: <Widget>[
+                // SizedBox(height: MediaQuery.of(context).size.height / 4),
                 draggableButton,
                 // SizedBox(height: MediaQuery.of(context).size.height / 8),
                 // Container(
@@ -588,8 +586,6 @@ class _DiagnoseState extends State<Diagnose> {
                 //     style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold))],
                 //   ),
                 // ),
-          
-                
               ],
             ),
             Column(
@@ -621,7 +617,7 @@ class _DiagnoseState extends State<Diagnose> {
             height: 100,
             padding: EdgeInsets.only(top: 12, bottom: 12, left: 4, right: 4),
             decoration: BoxDecoration(
-              color:   Color(0x000E3311).withOpacity(0.7),
+              color: Color(0x000E3311).withOpacity(0.7),
               border: Border.all(color: Colors.black54, width: 2),
               boxShadow: [
                 BoxShadow(
