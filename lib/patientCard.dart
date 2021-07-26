@@ -262,7 +262,7 @@ class _PatientCardState extends State<PatientCard>
               children: [
                 Container(
                   padding: const EdgeInsets.only(
-                      bottom: 8, top: 8, left: 8, right: 2),
+                      bottom: 8, top: 8, left: 1, right: 1),
                   child: Row(
                     children: [
                       Column(
