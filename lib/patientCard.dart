@@ -1614,7 +1614,7 @@ class _PatientCardState extends State<PatientCard>
                 ),
               ),
               body: TabBarView(
-                physics: NeverScrollableScrollPhysics(),
+                //physics: NeverScrollableScrollPhysics(),
                 controller: tabController,
                 children: [
                   narrativeTab,
