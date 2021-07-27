@@ -54,23 +54,23 @@ class _PetsState extends State<Pets> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      buttonHelper("Option 1", "pet_1.png"),
-                      buttonHelper("Option 2", "pet_2.png"),
-                      buttonHelper("Option 3", "pet_3.png"),
+                      buttonHelper("Pet 1", "pet_1.png"),
+                      buttonHelper("Pet 2", "pet_2.png"),
+                      buttonHelper("Pet 3", "pet_3.png"),
                     ],
                   ),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        buttonHelper("Option 4", "pet_4.png"),
-                        buttonHelper("Option 5", "pet_5.png"),
-                        buttonHelper("Option 6", "pet_6.png"),
+                        buttonHelper("Pet 4", "pet_4.png"),
+                        buttonHelper("Pet 5", "pet_5.png"),
+                        buttonHelper("Pet 6", "pet_6.png"),
                       ]),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-                        buttonHelper("Option 7", "pet_7.png"),
-                        buttonHelper("Option 8", "pet_8.png"),
+                        buttonHelper("Pet 7", "pet_7.png"),
+                        buttonHelper("Pet 8", "pet_8.png"),
                       ]),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
