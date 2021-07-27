@@ -1,9 +1,14 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:RESP2/userData.dart';
+import 'package:flutter/material.dart';
 
 //DEF:
 //puts all the patient data from the api into a json file then a map
-
+  int Easy = 1;
+  int Medium = 1;
+  int Hard = 1;
+  String Difficulty;
 class PatientChart {
   var id;
   var age;
@@ -15,7 +20,7 @@ class PatientChart {
   var pastMedHistory2;
   var bloodABGpco2;
   var bloodABGph;
-  var bloodABGpo2;
+  var bloodABGpo2; 
   var bloodBNP;
   var bloodBUN;
   var bloodBicarbonate;
@@ -53,6 +58,9 @@ class PatientChart {
   var symptomOnset;
   var temperature;
   var tobaccoUse;
+  dynamic easy;
+  dynamic medium;
+  dynamic hard;
 
   PatientChart(
       {this.id,
@@ -102,10 +110,27 @@ class PatientChart {
       this.symptomDescription,
       this.symptomOnset,
       this.temperature,
-      this.tobaccoUse});
+      this.tobaccoUse,
+      this.easy,
+      this.medium,
+      this.hard});
 
-  factory PatientChart.fromJson(Map<String, dynamic> json) {
+  factory PatientChart.fromJson(Map<String, dynamic> json, Future<Map<String, int>> data) {
+    future: settings();
+    builder: (BuildContext context, AsyncSnapshot<Map<String, int>> data) {
+      print("FJNSRNEJ");
+      if (data.hasData) {
+          Easy = data.data["easySetting"];
+          Medium = data.data["mediumSetting"];
+          Hard = data.data["hardSetting"];
+          print("HARD- " + data.data["hardSetting"].toString());
+      }
+    };
+    print("ERTOGE");
     return PatientChart(
+      easy: Easy,
+      medium: Medium,
+      hard: Hard,
       id: json['_id'],
       age: json['Age'],
       gender: json['Gender'],
@@ -161,8 +186,8 @@ class PatientChart {
 Future<PatientChart> getPatientChart(url) async {
   final response = await http.get(url);
   if (response.statusCode == 200) {
-    print(PatientChart.fromJson(jsonDecode(response.body)).narratives);
-    return PatientChart.fromJson(jsonDecode(response.body));
+    print(PatientChart.fromJson(jsonDecode(response.body), settings()).narratives);
+    return PatientChart.fromJson(jsonDecode(response.body), settings());
   } else {
     throw Exception('Failed to load patient data');
   }

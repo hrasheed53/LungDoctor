@@ -144,7 +144,7 @@ class _SettingsState extends State<Settings> {
                   SwitchListTile(
                     activeColor: Colors.blue[300],
                     contentPadding: const EdgeInsets.all(5.0),
-                    value: isSwitched3,
+                    value: isEasy,
                     title: Text('Easy Level Cases'),
                     onChanged: (value) {
                       setState(() {
@@ -159,7 +159,7 @@ class _SettingsState extends State<Settings> {
                   SwitchListTile(
                     activeColor: Colors.blue[300],
                     contentPadding: const EdgeInsets.all(5.0),
-                    value: isSwitched3,
+                    value: isMed,
                     title: Text('Medium Level Cases'),
                     onChanged: (value) {
                       setState(() {
@@ -174,7 +174,7 @@ class _SettingsState extends State<Settings> {
                   SwitchListTile(
                     activeColor: Colors.blue[300],
                     contentPadding: const EdgeInsets.all(5.0),
-                    value: isSwitched3,
+                    value: isHard,
                     title: Text('Hard Level Cases'),
                     onChanged: (value) {
                       setState(() {

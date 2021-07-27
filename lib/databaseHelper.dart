@@ -349,23 +349,23 @@ class DatabaseHelper {
 
   Future<int> get easy async {
     Database db = await database;
-    List<Map> sabotageVar = await db.query("user_data",
+    List<Map> easyVar = await db.query("user_data",
         columns: ["easyOn"], where: 'email = ?', whereArgs: [currentEmail]);
-    return sabotageVar.first["easyOn"];
+    return easyVar.first["easyOn"];
   }
 
   Future<int> get medium async {
     Database db = await database;
-    List<Map> sabotageVar = await db.query("user_data",
+    List<Map> mediumVar = await db.query("user_data",
         columns: ["mediumOn"], where: 'email = ?', whereArgs: [currentEmail]);
-    return sabotageVar.first["mediumOn"];
+    return mediumVar.first["mediumOn"];
   }
 
   Future<int> get hard async {
     Database db = await database;
-    List<Map> sabotageVar = await db.query("user_data",
+    List<Map> hardVar = await db.query("user_data",
         columns: ["hardOn"], where: 'email = ?', whereArgs: [currentEmail]);
-    return sabotageVar.first["hardOn"];
+    return hardVar.first["hardOn"];
   }
 
   Future<void> setSound(int isSoundOn) async {
@@ -384,21 +384,21 @@ class DatabaseHelper {
 
   Future<void> setEasy(int isEasyOn) async {
     Database db = await database;
-    await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
+    await db.rawUpdate("UPDATE user_data SET easyOn = ? WHERE email = ?",
         [isEasyOn, currentEmail]);
     return;
   }
 
   Future<void> setMedium(int isMediumOn) async {
     Database db = await database;
-    await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
+    await db.rawUpdate("UPDATE user_data SET mediumOn = ? WHERE email = ?",
         [isMediumOn, currentEmail]);
     return;
   }
 
   Future<void> setHard(int isHardOn) async {
     Database db = await database;
-    await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
+    await db.rawUpdate("UPDATE user_data SET hardOn = ? WHERE email = ?",
         [isHardOn, currentEmail]);
     return;
   }

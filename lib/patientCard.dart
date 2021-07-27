@@ -215,6 +215,8 @@ class _PatientCardState extends State<PatientCard>
             expertAdvice = snapshot.data.expertComments;
             diagnosis = snapshot.data.diagnosis;
             difficultyLevel = snapshot.data.difficulty;
+            print("HERE");
+            print("LEVEL: " + snapshot.data.hard.toString());
             // order tests
             wbc = snapshot.data.bloodWBC.toString();
             hemo = snapshot.data.bloodHemoglobin.toString();
@@ -1938,6 +1940,16 @@ class _PatientCardState extends State<PatientCard>
             answer: diagnosis,
             rH: redHerring,
             eA: expertAdvice),
+      ),
+    );
+  }
+    Future navigateToGame(context) async {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => PatientCard(
+          patientsLeft: remaining + 1,
+        ),
       ),
     );
   }
