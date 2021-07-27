@@ -64,7 +64,10 @@ class _LeaderBoardState extends State<LeaderBoard> {
                   ),
                   body: TabBarView(children: [
                     for (int i = 0; i < categories.length; i++)
-                      new ListView(children: displayList[categories[i]])
+                      if (displayList != null && displayList.isNotEmpty)
+                        new ListView(children: displayList[categories[i]])
+                      else
+                        Text('')
                   ]),
                 ));
           } else {
