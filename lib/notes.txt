@@ -1,7 +1,7 @@
 - For new versions of the database, need to update _onCreate and userMap with 
     the new column(s), add the upgrade script to the migrationScript list, 
-    and add a case to _onUpgrade. All these modifications are made in 
-    databaseHelper.
+    and add a case to _onUpgrade. Finally, increment DATABASE_VERSION. All 
+    these modifications are made in databaseHelper.
 
 - For adding categories to the leaderboard, see notes in leaderboard.dart, but 
     also need to add category to the Firebase Console Realtime Database Rules 

@@ -18,7 +18,12 @@ class DatabaseHelper {
     // Put empty item here to allow indices to work correctly in _onUpgrade.
     '',
     // UPDATE 1 - ACCURACY WAS ADDED
-    'ALTER TABLE user_data ADD COLUMN accuracy INTEGER DEFAULT 0',
+    'ALTER TABLE user_data ADD COLUMN accuracy INTEGER DEFAULT 0;',
+
+    // UPDATE 2  - CASE DIFFICULTY TOGGLES ADDED
+    'ALTER TABLE user_data ADD COLUMN easyOn INTEGER DEFAULT 1; ' +
+        'ALTER TABLE user_data ADD COLUMN mediumOn INTEGER DEFAULT 1; ' +
+        'ALTER TABLE user_data ADD COLUMN hardOn INTEGER DEFAULT 1;',
   ];
 
   /* This syntax allows user to believe they are creating an instance of class 
@@ -98,7 +103,7 @@ class DatabaseHelper {
       case 2:
         {
           assert(newVersion == 3);
-          // upgrading from version 1 to version 2
+          // upgrading from version 2 to version 3
           // because list is zero indexed but versions are not, subtract one
           try {
             await myDB.execute(migrationScripts[newVersion - 1]);
@@ -131,6 +136,7 @@ class DatabaseHelper {
       onUpgrade: _onUpgrade,
       onDowngrade: _onDowngrade,
     );
+    print("Current version of db: $DATABASE_VERSION");
     return db;
   }
 
@@ -163,7 +169,6 @@ class DatabaseHelper {
       "easyOn": 1,
       "mediumOn": 1,
       "hardOn": 1,
-
     };
 
     Database db = await database;
@@ -339,21 +344,21 @@ class DatabaseHelper {
     return sabotageVar.first["sabotageOn"];
   }
 
-    Future<int> get easy async {
+  Future<int> get easy async {
     Database db = await database;
     List<Map> sabotageVar = await db.query("user_data",
         columns: ["easyOn"], where: 'email = ?', whereArgs: [currentEmail]);
     return sabotageVar.first["easyOn"];
   }
 
-    Future<int> get medium async {
+  Future<int> get medium async {
     Database db = await database;
     List<Map> sabotageVar = await db.query("user_data",
         columns: ["mediumOn"], where: 'email = ?', whereArgs: [currentEmail]);
     return sabotageVar.first["mediumOn"];
   }
 
-    Future<int> get hard async {
+  Future<int> get hard async {
     Database db = await database;
     List<Map> sabotageVar = await db.query("user_data",
         columns: ["hardOn"], where: 'email = ?', whereArgs: [currentEmail]);
@@ -387,6 +392,7 @@ class DatabaseHelper {
         [isMediumOn, currentEmail]);
     return;
   }
+
   Future<void> setHard(int isHardOn) async {
     Database db = await database;
     await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
