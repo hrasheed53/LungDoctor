@@ -20,10 +20,9 @@ class DatabaseHelper {
     // UPDATE 1 - ACCURACY WAS ADDED
     'ALTER TABLE user_data ADD COLUMN accuracy INTEGER DEFAULT 0;',
 
-    // UPDATE 2  - CASE DIFFICULTY TOGGLES ADDED
-    'ALTER TABLE user_data ADD COLUMN easyOn INTEGER DEFAULT 1; ' +
-        'ALTER TABLE user_data ADD COLUMN mediumOn INTEGER DEFAULT 1; ' +
-        'ALTER TABLE user_data ADD COLUMN hardOn INTEGER DEFAULT 1;',
+    // UPDATE 2  - CASE DIFFICULTY TOGGLES ADDED (SEE OTHER COLS IN _ONUPGRADE)
+    // execute can only handle 1 statement at a time so could not chain them
+    'ALTER TABLE user_data ADD COLUMN easyOn INTEGER DEFAULT 1;',
   ];
 
   /* This syntax allows user to believe they are creating an instance of class 
@@ -107,6 +106,10 @@ class DatabaseHelper {
           // because list is zero indexed but versions are not, subtract one
           try {
             await myDB.execute(migrationScripts[newVersion - 1]);
+            await myDB.execute(
+                'ALTER TABLE user_data ADD COLUMN mediumOn INTEGER DEFAULT 1;');
+            await myDB.execute(
+                'ALTER TABLE user_data ADD COLUMN hardOn INTEGER DEFAULT 1;');
           } catch (e) {
             print('Column already exists: $e');
           }
