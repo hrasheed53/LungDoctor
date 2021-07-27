@@ -71,3 +71,18 @@ void setSabotageSetting(int isSabotageOn) {
   final db = DatabaseHelper();
   db.setSabotage(isSabotageOn);
 }
+
+void setEasySetting(int isEasyOn) {
+    final db = DatabaseHelper();
+  db.setSabotage(isEasyOn);
+}
+
+void setMediumSetting(int isMediumOn) {
+    final db = DatabaseHelper();
+  db.setSabotage(isMediumOn);
+}
+
+void setHardSetting(int isHardOn) {
+    final db = DatabaseHelper();
+  db.setSabotage(isHardOn);
+}

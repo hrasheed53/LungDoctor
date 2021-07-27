@@ -16,6 +16,9 @@ class _SettingsState extends State<Settings> {
   bool isSab;
   bool isSound;
   bool isSwitched3 = false;
+  bool isEasy;
+  bool isMed;
+  bool isHard;
   String name = '';
   @override
   Widget build(BuildContext context) {
@@ -32,6 +35,21 @@ class _SettingsState extends State<Settings> {
               isSab = false;
             } else if (data.data["sabotageSetting"] == 1) {
               isSab = true;
+            }
+            if (data.data["easySetting"] == 0) {
+              isEasy = false;
+            } else if (data.data["easySetting"] == 1) {
+              isEasy = true;
+            }
+            if (data.data["mediumSetting"] == 0) {
+              isMed = false;
+            } else if (data.data["mediumSetting"] == 1) {
+              isMed = true;
+            }
+            if (data.data["hardSetting"] == 0) {
+              isHard = false;
+            } else if (data.data["hardSetting"] == 1) {
+              isHard = true;
             }
           } else {
             return Scaffold(
@@ -119,6 +137,51 @@ class _SettingsState extends State<Settings> {
                           setSoundSetting(0);
                         } else {
                           setSoundSetting(1);
+                        }
+                      });
+                    },
+                  ),
+                  SwitchListTile(
+                    activeColor: Colors.blue[300],
+                    contentPadding: const EdgeInsets.all(5.0),
+                    value: isSwitched3,
+                    title: Text('Easy Level Cases'),
+                    onChanged: (value) {
+                      setState(() {
+                        if (isEasy) {
+                          setEasySetting(0);
+                        } else {
+                          setEasySetting(1);
+                        }
+                      });
+                    },
+                  ),
+                  SwitchListTile(
+                    activeColor: Colors.blue[300],
+                    contentPadding: const EdgeInsets.all(5.0),
+                    value: isSwitched3,
+                    title: Text('Medium Level Cases'),
+                    onChanged: (value) {
+                      setState(() {
+                        if (isMed) {
+                          setMediumSetting(0);
+                        } else {
+                          setMediumSetting(1);
+                        }
+                      });
+                    },
+                  ),
+                  SwitchListTile(
+                    activeColor: Colors.blue[300],
+                    contentPadding: const EdgeInsets.all(5.0),
+                    value: isSwitched3,
+                    title: Text('Hard Level Cases'),
+                    onChanged: (value) {
+                      setState(() {
+                        if (isHard) {
+                          setHardSetting(0);
+                        } else {
+                          setHardSetting(1);
                         }
                       });
                     },

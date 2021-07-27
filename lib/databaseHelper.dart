@@ -10,7 +10,7 @@ class DatabaseHelper {
   static String currentEmail;
 
   // update as database needs to be upgraded
-  static const int DATABASE_VERSION = 2;
+  static const int DATABASE_VERSION = 3;
 
   // add more list items as database updates are added
   static const migrationScripts = [
@@ -73,6 +73,9 @@ class DatabaseHelper {
         'stethoscope TEXT, ' +
         'soundOn INTEGER DEFAULT 1, ' +
         'sabotageOn INTEGER DEFAULT 1, ' +
+        'easyOn INTEGER DEFAULT 1, ' +
+        'mediumOn INTEGER DEFAULT 1, ' +
+        'hardOn INTEGER DEFAULT 1, ' +
         'UNIQUE(email))');
   }
 
@@ -90,6 +93,18 @@ class DatabaseHelper {
             print('Column already exists: $e');
           }
           setAccuracy(myDB);
+        }
+        break;
+      case 2:
+        {
+          assert(newVersion == 3);
+          // upgrading from version 1 to version 2
+          // because list is zero indexed but versions are not, subtract one
+          try {
+            await myDB.execute(migrationScripts[newVersion - 1]);
+          } catch (e) {
+            print('Column already exists: $e');
+          }
         }
         break;
       default:
@@ -145,6 +160,10 @@ class DatabaseHelper {
       "stethoscope": "none",
       "soundOn": 1,
       "sabotageOn": 1,
+      "easyOn": 1,
+      "mediumOn": 1,
+      "hardOn": 1,
+
     };
 
     Database db = await database;
@@ -320,6 +339,27 @@ class DatabaseHelper {
     return sabotageVar.first["sabotageOn"];
   }
 
+    Future<int> get easy async {
+    Database db = await database;
+    List<Map> sabotageVar = await db.query("user_data",
+        columns: ["easyOn"], where: 'email = ?', whereArgs: [currentEmail]);
+    return sabotageVar.first["easyOn"];
+  }
+
+    Future<int> get medium async {
+    Database db = await database;
+    List<Map> sabotageVar = await db.query("user_data",
+        columns: ["mediumOn"], where: 'email = ?', whereArgs: [currentEmail]);
+    return sabotageVar.first["mediumOn"];
+  }
+
+    Future<int> get hard async {
+    Database db = await database;
+    List<Map> sabotageVar = await db.query("user_data",
+        columns: ["hardOn"], where: 'email = ?', whereArgs: [currentEmail]);
+    return sabotageVar.first["hardOn"];
+  }
+
   Future<void> setSound(int isSoundOn) async {
     Database db = await database;
     await db.rawUpdate("UPDATE user_data SET soundOn = ? WHERE email = ?",
@@ -331,6 +371,26 @@ class DatabaseHelper {
     Database db = await database;
     await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
         [isSabotageOn, currentEmail]);
+    return;
+  }
+
+  Future<void> setEasy(int isEasyOn) async {
+    Database db = await database;
+    await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
+        [isEasyOn, currentEmail]);
+    return;
+  }
+
+  Future<void> setMedium(int isMediumOn) async {
+    Database db = await database;
+    await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
+        [isMediumOn, currentEmail]);
+    return;
+  }
+  Future<void> setHard(int isHardOn) async {
+    Database db = await database;
+    await db.rawUpdate("UPDATE user_data SET sabotageOn = ? WHERE email = ?",
+        [isHardOn, currentEmail]);
     return;
   }
 
@@ -364,6 +424,9 @@ class DatabaseHelper {
     return {
       'soundSetting': await sound,
       'sabotageSetting': await sabotage,
+      'easySetting': await easy,
+      'mediumSetting': await medium,
+      'hardSetting': await hard,
     };
   }
 
