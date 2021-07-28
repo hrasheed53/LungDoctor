@@ -64,8 +64,8 @@ class _DiagnoseState extends State<Diagnose> {
       data: ans,
       child: _buildDiagnoseButton(
           const Color(0xffe34646), Icons.local_pharmacy, 'Drag Me To Diagnose'),
-      feedback: _buildDiagnoseButton(const Color(0xffe34646),
-          Icons.local_pharmacy, 'Swipe Me To Diagnose'),
+      feedback: _buildDiagnoseButton(
+          const Color(0xffe34646), Icons.local_pharmacy, 'Drag Me To Diagnose'),
       childWhenDragging: Container(
         width: 110,
         height: 100,
